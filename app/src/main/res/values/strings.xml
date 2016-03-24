@@ -1,0 +1,10 @@
+<resources>
+    <string name="login_first_page_name">SIGN UP</string>
+    <string name="login_second_page_name">LOG IN</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login_label">LOG IN</string>
+    <string name="sing_up_label">SING IN</string>
+    <string name="referral_member_email_label">Referral Member Email (optional)</string>
+</resources>

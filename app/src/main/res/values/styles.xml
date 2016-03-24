@@ -1,0 +1,140 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="titleTextColor">@color/textColorPrimaryInverse</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="editTextStyle">@style/EditTextStyle</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/textColorSecondary</item>
+        <item name="colorControlNormal">@color/textColorSecondary</item>
+        <!--<item name="toolbarStyle">@style/BToolbar</item>-->
+
+    </style>
+
+
+    <style name="BToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <!--<item name="titleTextAppearance">@style/ToolbarTextAppearance</item>-->
+
+    </style>
+
+    <!--<style name="ToolbarTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">-->
+    <!--<item name="android:textSize">@dimen/abc_text_size_title_material_toolbar</item>-->
+    <!--<item name="android:textColor">@color/textColorPrimaryInverse</item>-->
+    <!--</style>-->
+
+    <style name="TTT" parent="TextAppearance.AppCompat.Button">
+        <item name="titleTextColor">@color/primary_dark</item>
+    </style>
+
+
+
+
+
+
+
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <!--<item name="backgroundTint">@color/textColorSecondaryInverse</item>-->
+        <!--<item name="textColorSecondary">@color/colorAccent</item>-->
+        <!--<item name="backgroundTint">@color/textColorSecondary</item>-->
+        <!--<item name="background">@android:color/holo_red_dark</item>-->
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="AppTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/textColorPrimaryInverse</item>
+        <item name="tabSelectedTextColor">@color/textColorPrimaryInverse</item>
+        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabTextAppearance">@style/AppTabLayoutTextAppearance</item>
+    </style>
+
+    <style name="AppTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/textColorSecondaryInverse</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ElevationCompatTheme">
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- You can change the parent around to whatever you normally use -->
+    <style name="DebugColors" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- System colors -->
+        <item name="android:windowBackground">@color/__debugWindowBackground</item>
+
+        <item name="android:colorPressedHighlight">#FF4400</item>
+        <item name="android:colorLongPressedHighlight">#FF0044</item>
+        <item name="android:colorFocusedHighlight">#44FF00</item>
+        <item name="android:colorActivatedHighlight">#00FF44</item>
+        <item name="android:colorMultiSelectHighlight">#4400FF</item>
+
+        <item name="android:colorForeground">#440000</item>
+        <item name="android:colorForegroundInverse">#004400</item>
+        <item name="android:colorBackground">#444400</item>
+        <item name="android:colorBackgroundCacheHint">#440044</item>
+
+        <item name="android:textColorPrimary">#FFFF00</item>
+        <item name="android:textColorSecondary">#FF00FF</item>
+        <item name="android:textColorTertiary">#00FFFF</item>
+
+        <item name="android:textColorPrimaryInverse">#CCCC00</item>
+        <item name="android:textColorSecondaryInverse">#CC00CC</item>
+        <item name="android:textColorTertiaryInverse">#00CCCC</item>
+
+        <item name="android:textColorPrimaryDisableOnly">#FFCC00</item>
+        <item name="android:textColorPrimaryInverseDisableOnly">#FF00CC</item>
+
+        <item name="android:textColorPrimaryNoDisable">#CCFF00</item>
+        <item name="android:textColorSecondaryNoDisable">#00FFCC</item>
+
+        <item name="android:textColorPrimaryInverseNoDisable">#CC00FF</item>
+        <item name="android:textColorSecondaryInverseNoDisable">#00CCFF</item>
+
+        <item name="android:textColorHint">#FF8800</item>
+        <item name="android:textColorHintInverse">#FF0088</item>
+
+        <item name="android:textColorHighlight">#88FF00</item>
+        <item name="android:textColorHighlightInverse">#00FF88</item>
+
+        <item name="android:textColorLink">#8800FF</item>
+        <item name="android:textColorLinkInverse">#0088FF</item>
+
+        <item name="android:textColorAlertDialogListItem">#444444</item>
+
+        <!-- Color palette (via app-compat) -->
+        <item name="colorPrimary">#FF0000</item>
+        <item name="colorPrimaryDark">#00FF00</item>
+        <item name="colorAccent">#0000FF</item>
+
+        <item name="colorControlNormal">#CC0000</item>
+        <item name="colorControlActivated">#00CC00</item>
+        <item name="colorControlHighlight">#0000CC</item>
+
+        <item name="colorButtonNormal">#880000</item>
+        <item name="colorSwitchThumbNormal">#008800</item>
+
+        <!-- Random other things found in app-compat -->
+        <item name="actionMenuTextColor">#440000</item>
+        <item name="editTextColor">#004400</item>
+        <item name="textColorSearchUrl">#000044</item>
+
+    </style>
+
+    <!-- Also needed, since windowBackground is a reference, not a color -->
+    <color name="__debugWindowBackground">#888888</color>
+</resources>
+
