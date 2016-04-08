@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.cashback.Login.SignInFragment">
+    tools:context=".ui.login.SignInFragment">
 
     <ScrollView
         android:id="@+id/scrollView"

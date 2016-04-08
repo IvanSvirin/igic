@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="?attr/colorPrimary"
+    android:paddingBottom="@dimen/padding_standard"
+    android:paddingLeft="@dimen/padding_standard"
+    android:paddingRight="@dimen/padding_standard"
+    android:paddingTop="38dp">
+
+    <TextView
+        android:id="@+id/total_cashback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/app_name"
+        android:textAppearance="@style/AppTheme.TextAppearance"
+        android:textColor="@color/white"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/currency_cashback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/format_donation_amount"
+        android:textAppearance="@style/AppTheme.TextAppearance"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/user_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/user_email"
+        android:layout_marginBottom="@dimen/padding_min"
+        android:text="@string/space"
+        android:textAppearance="@style/AppTheme.TextAppearance"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/user_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/space"
+        android:textAppearance="@style/AppTheme.TextAppearance"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

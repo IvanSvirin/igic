@@ -4,4 +4,12 @@
     <color name="textColorSecondary">#50000000</color>
     <color name="textColorPrimaryInverse">@android:color/white</color>
     <color name="textColorSecondaryInverse">#78ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="primaryNight">#6e6e6e</color>
+    <color name="primaryDark">#b2b2b2</color>
+    <color name="black">#0c0708</color>
+    <color name="red_feedback">#c30000</color>
+    <color name="primaryLight">#e4e4ed</color>
+
+
 </resources>

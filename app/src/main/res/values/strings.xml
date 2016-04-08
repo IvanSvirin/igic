@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="login_first_page_name">SIGN UP</string>
     <string name="login_second_page_name">LOG IN</string>
     <string name="email_hint">Email</string>
@@ -7,4 +7,14 @@
     <string name="login_label">LOG IN</string>
     <string name="sing_up_label">SING IN</string>
     <string name="referral_member_email_label">Referral Member Email (optional)</string>
+    <string name="format_donation_amount"><xliff:g id="value">%1$s</xliff:g></string>
+    <string name="item_features">Featured</string>
+    <string name="item_all_stores">All Stores</string>
+    <string name="item_categories">Categories</string>
+    <string name="item_tell_a_friend">Tell a Friend</string>
+    <string name="space">wait...</string>
+    <string name="tab_hot_deals">hot deals</string>
+    <string name="tab_favorites">favorites</string>
+    <string name="tab_extra">extra</string>
+
 </resources>
