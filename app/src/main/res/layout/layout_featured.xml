@@ -60,7 +60,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.softomate.android.cashback.app.ui.components.FixedNestedScrollView
+    <com.cashback.ui.components.FixedNestedScrollView
         android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -74,13 +74,13 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <com.softomate.android.cashback.app.ui.components.WrapContentHeightViewPager
+            <com.cashback.ui.components.WrapContentHeightViewPager
                 android:id="@+id/tab_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
         </LinearLayout>
 
-    </com.softomate.android.cashback.app.ui.components.FixedNestedScrollView>
+    </com.cashback.ui.components.FixedNestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

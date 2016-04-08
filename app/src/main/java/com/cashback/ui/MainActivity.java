@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+import com.cashback.ui.featured.FeaturedFragment;
 import com.facebook.appevents.AppEventsLogger;
 
 import bolts.AppLinks;
@@ -174,8 +176,30 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
         @Override
-        public boolean onNavigationItemSelected(MenuItem item) {
-            return false;
+        public boolean onNavigationItemSelected(final MenuItem item) {
+            item.setChecked(true);
+            int selectedItem = item.getItemId();
+
+            if (selectedItem == currentItemId) {
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            } else {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (item.getItemId()) {
+                            case (R.id.item_featured):
+                                currentItemId = FRAGMENT_FEATURED;
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.content_frame, new FeaturedFragment(), FeaturedFragment.TAG_FEATURED_FRAGMENT)
+                                        .commit();
+                                break;
+                        }
+                    }
+                }, DRAWER_CLOSE_DELAY_MS);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
         }
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_weight="1">
 
-    <com.softomate.android.cashback.app.ui.components.NestedListView
+    <com.cashback.ui.components.NestedListView
         android:id="@+id/common_list"
         android:layout_height="wrap_content"
         style="@style/AppTheme.ListView"

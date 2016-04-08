@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.softomate.android.cashback.app.ui.components.NestedGridView
+    <com.cashback.ui.components.NestedGridView
         android:id="@+id/common_list"
         style="@style/AppTheme.GridView"
         android:layout_height="wrap_content"
