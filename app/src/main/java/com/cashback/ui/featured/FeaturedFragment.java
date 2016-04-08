@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashback.R;
+import com.cashback.ui.MainActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.cashback.ui.components.WrapContentHeightViewPager;
 import com.daimajia.slider.library.SliderLayout;
@@ -39,6 +40,14 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         View view = inflater.inflate(R.layout.layout_featuredd, container, false);
         fragmentUi = new FragmentUi(this, view);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        getLoaderManager().initLoader(MainActivity.IMAGE_LOADER, null, this);
+        Toolbar toolbar = fragmentUi.getToolbar();
+        ((MainActivity) getActivity()).setAssociateToolbar(toolbar);
     }
 
     @Override
@@ -87,6 +96,10 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
 
         private void initImageSlider() {
 
+        }
+
+        private Toolbar getToolbar() {
+            return toolbar;
         }
     }
 

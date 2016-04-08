@@ -11,7 +11,9 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -97,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onPause() {
         super.onPause();
-        AppEventsLogger.deactivateApp(this);
+//        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
     public void onStop() {
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -127,6 +129,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (drawerUi.isBackPressed()) {
             super.onBackPressed();
         }
+    }
+
+    public void setAssociateToolbar(Toolbar toolbar) {
+        drawerUi.associateToolbarDrawer(toolbar);
     }
 
     class DrawerUi implements NavigationView.OnNavigationItemSelectedListener{
@@ -180,6 +186,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     return R.id.item_account;
             }
             return 0;
+        }
+
+        public void associateToolbarDrawer(Toolbar toolbar) {
+            ((AppCompatActivity) activity).setSupportActionBar(toolbar);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
         }
 
         @Override
