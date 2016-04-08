@@ -122,6 +122,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // TODO: 4/7/2016
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawerUi.isBackPressed()) {
+            super.onBackPressed();
+        }
+    }
+
     class DrawerUi implements NavigationView.OnNavigationItemSelectedListener{
         private static final long DRAWER_CLOSE_DELAY_MS = 200;
         private MainActivity activity;
@@ -200,6 +207,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             }
+        }
+
+        private boolean isBackPressed() {
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+                return false;
+            }
+            return true;
         }
     }
 }
