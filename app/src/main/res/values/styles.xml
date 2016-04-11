@@ -28,6 +28,12 @@
         <item name="android:background">@color/red_feedback</item>
     </style>
 
+    <style name="AppThemeOverlay.ToolbarPrimary" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/primary</item>
+    </style>
+
     <style name="AppTheme.Root">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>

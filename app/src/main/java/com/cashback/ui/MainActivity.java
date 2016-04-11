@@ -214,6 +214,30 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                                         .replace(R.id.content_frame, new FeaturedFragment(), FeaturedFragment.TAG_FEATURED_FRAGMENT)
                                         .commit();
                                 break;
+                            case (R.id.item_all_stores):
+                                currentItemId = FRAGMENT_ALL_STORES;
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.content_frame, new AllStoresFragment(), AllStoresFragment.TAG_ALL_STORES_FRAGMENT)
+                                        .commit();
+                                break;
+                            case (R.id.item_categories):
+                                currentItemId = FRAGMENT_CATEGORIES;
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.content_frame, new CategoriesFragment(), CategoriesFragment.TAG_CATEGORIES_FRAGMENT)
+                                        .commit();
+                                break;
+                            case (R.id.item_tell_a_friend):
+                                currentItemId = FRAGMENT_TELL_A_FRIEND;
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.content_frame, new TellAFriendFragment(), TellAFriendFragment.TAG_TELL_A_FRIEND_FRAGMENT)
+                                        .commit();
+                                break;
+                            case (R.id.item_account):
+                                currentItemId = FRAGMENT_ACCOUNT;
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.content_frame, new TellAFriendFragment(), TellAFriendFragment.TAG_TELL_A_FRIEND_FRAGMENT)
+                                        .commit();
+                                break;
                         }
                     }
                 }, DRAWER_CLOSE_DELAY_MS);

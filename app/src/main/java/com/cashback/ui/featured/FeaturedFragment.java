@@ -10,8 +10,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -26,6 +32,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/7/2016.
@@ -33,6 +40,12 @@ import butterknife.ButterKnife;
 public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final String TAG_FEATURED_FRAGMENT = "I_featured_fragment";
     private FragmentUi fragmentUi;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
@@ -51,6 +64,13 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getActivity().setTitle(R.string.title_featured_fragment);
+//        EventBus.getDefault().register(this);
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return null;
     }
@@ -63,6 +83,31 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.options_menu_search, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView search = (SearchView) MenuItemCompat.getActionView(item);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (TextUtils.isEmpty(query)) {
+                } else {
+
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                } else {
+                }
+                return false;
+            }
+        });
     }
 
     public class FragmentUi {
@@ -95,7 +140,10 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         }
 
         private void initImageSlider() {
+        }
 
+        public void unbind() {
+            ButterKnife.unbind(this);
         }
 
         private Toolbar getToolbar() {

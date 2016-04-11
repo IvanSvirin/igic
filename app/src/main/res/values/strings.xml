@@ -18,5 +18,10 @@
     <string name="tab_extra">extra</string>
     <string name="drawer_close">Navigation drawer close</string>
     <string name="drawer_open">Navigation drawer open</string>
+    <string name="title_featured_fragment">Featured</string>
+    <string name="title_all_stores_fragment">All Stores</string>
+    <string name="action_search">Search</string>
+    <string name="title_categories_fragment">Categories</string>
+    <string name="title_tell_a_friend_fragment">Tell a Friend</string>
 
 </resources>
