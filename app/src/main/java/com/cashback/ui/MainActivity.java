@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         private void init(Bundle savedInstanceState) {
             Menu menu = navigator.getMenu();
             if (!Utilities.isLoggedIn(activity)) {
-                menu.findItem(R.id.item_account).setVisible(false);
+                menu.findItem(R.id.item_account).setVisible(true);  // "true" is only for testing
             }
             if (savedInstanceState != null) {
                 currentItemId = savedInstanceState.getInt(SELECTED_ITEM_ID);
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                             case (R.id.item_account):
                                 currentItemId = FRAGMENT_ACCOUNT;
                                 fragmentManager.beginTransaction()
-                                        .replace(R.id.content_frame, new TellAFriendFragment(), TellAFriendFragment.TAG_TELL_A_FRIEND_FRAGMENT)
+                                        .replace(R.id.content_frame, new AccountFragment(), AccountFragment.TAG_ACCOUNT_FRAGMENT)
                                         .commit();
                                 break;
                         }

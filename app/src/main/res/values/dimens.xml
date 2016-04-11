@@ -23,4 +23,10 @@
     <dimen name="content_padding_min">0dp</dimen>
     <dimen name="content_padding_max">0dp</dimen>
 
+    <dimen name="padding_small">8dp</dimen>
+
+    <dimen name="divider_padding">3dp</dimen>
+    <dimen name="frame_height">60dp</dimen>
+
+
 </resources>

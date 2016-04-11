@@ -3,4 +3,12 @@
     <string name="notification_title">iConsumer Notification</string>
     <string name="gcm_senderId">11111111</string>
     <string name="item_account">My iConsumer</string>
+    <string name="title_cash_pending">Cash Pending</string>
+    <string name="title_payments">Payments</string>
+    <string name="join_date">You Joined:</string>
+    <string name="cash_back_alerts">Cash Back Alerts</string>
+    <string name="title_cash_back_activity">CASH BACK ACTIVITY</string>
+    <string name="next_payment_date">Next Payment</string>
+    <string name="payments_alerts">iConsumer Payments Alerts</string>
+
 </resources>

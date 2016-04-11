@@ -23,5 +23,11 @@
     <string name="action_search">Search</string>
     <string name="title_categories_fragment">Categories</string>
     <string name="title_tell_a_friend_fragment">Tell a Friend</string>
+    <string name="rate_the_app">Rate the App</string>
+    <string name="logout">Log Out</string>
+    <string name="trending_deals_alerts">Trending Deals Alerts</string>
+    <string name="shopping_trips">Shopping Trips</string>
+    <string name="your_order_history">Your Order History</string>
+    <string name="title_notification_settings">NOTIFICATION SETTINGS</string>
 
 </resources>

@@ -92,6 +92,27 @@
         <item name="android:stretchMode">columnWidth</item>
     </style>
 
+    <style name="AppTheme.ScrollView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:paddingEnd">@dimen/content_padding_max</item>
+        <item name="android:paddingRight">@dimen/content_padding_max</item>
+        <item name="android:paddingStart">@dimen/content_padding_max</item>
+        <item name="android:paddingLeft">@dimen/content_padding_max</item>
+        <item name="android:fillViewport">true</item>
+        <item name="android:scrollbarStyle">outsideInset</item>
+    </style>
+
+    <style name="AppTheme.TextAppearance.Thin">
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AppTheme.SwitchCompat">
+        <item name="colorControlActivated">@android:color/holo_green_dark</item>
+        <item name="colorSwitchThumbNormal">@android:color/holo_red_light</item>
+    </style>
 
     <style name="BToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
 
