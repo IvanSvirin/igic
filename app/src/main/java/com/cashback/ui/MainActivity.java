@@ -20,14 +20,13 @@ import android.view.MenuItem;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+import com.cashback.ui.account.AccountFragment;
 import com.cashback.ui.featured.FeaturedFragment;
-import com.facebook.appevents.AppEventsLogger;
 
 import bolts.AppLinks;
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/6/2016.

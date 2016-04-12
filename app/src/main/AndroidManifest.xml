@@ -59,6 +59,9 @@
         </service>
 
         <activity android:name=".ui.LaunchActivity" />
+        <activity android:name=".ui.account.HelpActivity" />
+        <activity android:name=".ui.account.ShoppingTripsActivity" />
+        <activity android:name=".ui.account.YourOrderHistoryActivity" />
 
         <activity
             android:name=".ui.MainActivity">

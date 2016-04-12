@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     style="@style/AppTheme.Root">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar_layout"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:theme="@style/AppThemeOverlay.ToolbarPrimary" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <ScrollView
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         style="@style/AppTheme.ScrollView">
 
         <LinearLayout
@@ -135,7 +127,8 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/shoppingTripsFrame">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -152,7 +145,8 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/yourOrderHistoryFrame">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -200,7 +194,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
+                        android:layout_gravity="left|top"
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/trending_deals_alerts"
@@ -210,11 +204,22 @@
                         android:id="@+id/trending_deals_alerts_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|center_vertical"
+                        android:layout_gravity="right|top"
                         android:checked="false"
                         app:showText="false"
                         android:theme="@style/AppTheme.SwitchCompat"
                         app:theme="@style/AppTheme.SwitchCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/notifications_trending_deals_alerts"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
+                        android:textColor="@color/primaryDark"
+                        android:layout_gravity="left|bottom" />
                 </FrameLayout>
 
 
@@ -226,7 +231,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
+                        android:layout_gravity="left|top"
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/cash_back_alerts"
@@ -236,11 +241,23 @@
                         android:id="@+id/cash_back_alerts_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|center_vertical"
+                        android:layout_gravity="right|top"
                         android:checked="false"
                         app:showText="false"
                         android:theme="@style/AppTheme.SwitchCompat"
                         app:theme="@style/AppTheme.SwitchCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/notifications_cash_back_alerts"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
+                        android:textColor="@color/primaryDark"
+                        android:layout_gravity="left|bottom"
+                        android:id="@+id/textView" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -251,7 +268,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
+                        android:layout_gravity="left|top"
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/payments_alerts"
@@ -261,14 +278,74 @@
                         android:id="@+id/payments_alerts_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end|center_vertical"
+                        android:layout_gravity="right|top"
                         android:checked="false"
                         app:showText="false"
                         android:theme="@style/AppTheme.SwitchCompat"
                         app:theme="@style/AppTheme.SwitchCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/notifications_payments_alerts"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
+                        android:textColor="@color/primaryDark"
+                        android:layout_gravity="left|bottom"
+                        android:id="@+id/textView2" />
                 </FrameLayout>
             </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/frame_height"
+                android:layout_gravity="center_vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:paddingStart="@dimen/padding_small"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:text="@string/title_about"
+                    android:textAppearance="@style/AppTheme.TextAppearance"
+                    android:textColor="@color/primary" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/frame_height"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/helpFrame">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_small"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:text="@string/help"
+                    android:textAppearance="@style/AppTheme.TextAppearance"
+                    android:layout_gravity="top" />
+            </FrameLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:theme="@style/AppThemeOverlay.ToolbarPrimary" />
+
+    </android.support.design.widget.AppBarLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

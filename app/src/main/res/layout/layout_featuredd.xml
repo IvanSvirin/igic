@@ -34,7 +34,7 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:gravity="center"
-                    android:tint="@color/primary_dark"
+                    android:tint="@color/primaryDark"
                     android:visibility="invisible"
                     app:layout_collapseMode="parallax" />
 

@@ -22,6 +22,6 @@
         android:id="@+id/categories_list"
         android:layout_height="wrap_content"
         style="@style/AppTheme.ListView"
-        tools:listItem="@layout/item_store_list" />
+        tools:listItem="@layout/item_category_list" />
 
 </android.support.design.widget.CoordinatorLayout>

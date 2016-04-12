@@ -3,5 +3,7 @@
     <string name="notification_title">iGive Notification</string>
     <string name="gcm_senderId">11111111</string>
     <string name="item_account">My iGive</string>
+    <string name="how_to_use">How to Use iGive</string>
+    <string name="where_is_mine">Where\'s My Donation</string>
 
 </resources>

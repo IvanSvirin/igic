@@ -2,6 +2,8 @@ package com.cashback;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
@@ -32,4 +34,14 @@ public class Utilities {
         editor.putBoolean("sentTokenToServer", state);
         editor.apply();
     }
+
+    public static boolean isActiveConnection(Context context) {
+        ConnectivityManager mng = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo net = mng.getActiveNetworkInfo();
+        if (net != null && net.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
+
 }
