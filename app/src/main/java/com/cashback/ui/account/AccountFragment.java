@@ -112,10 +112,14 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
             return toolbar;
         }
 
-        @OnClick({R.id.shoppingTripsFrame, R.id.yourOrderHistoryFrame, R.id.helpFrame})
+        @OnClick({R.id.paymentsFrame, R.id.shoppingTripsFrame, R.id.yourOrderHistoryFrame, R.id.helpFrame})
         public void onClicks(View view) {
             Intent intent;
             switch (view.getId()) {
+                case R.id.paymentsFrame:
+                    intent = new Intent(context, PaymentsActivity.class);
+                    startActivity(intent);
+                    break;
                 case R.id.shoppingTripsFrame:
                     intent = new Intent(context, ShoppingTripsActivity.class);
                     startActivity(intent);

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    android:paddingEnd="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/storeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center_vertical"
+        android:maxLines="2"
+        android:textAppearance="@style/AppTheme.TextAppearance"
+        android:layout_alignBaseline="@+id/monthDay"
+        android:layout_alignBottom="@+id/monthDay"
+        android:layout_toRightOf="@+id/monthDay"
+        android:layout_toEndOf="@+id/monthDay"
+        android:layout_marginLeft="62dp"
+        android:layout_marginStart="62dp"
+        android:text="Name" />
+
+    <TextView
+        android:id="@+id/storeCommission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:singleLine="true"
+        android:textAppearance="@style/AppTheme.TextAppearance"
+        android:text="@string/format_donation_amount"
+        android:textColor="@color/red"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/monthDay"
+        android:text="Exp."
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="left|center_vertical" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/orderTitle"
+        android:text="@string/order_title"
+        android:layout_gravity="left|center_vertical"
+        android:layout_below="@+id/storeName"
+        android:layout_alignLeft="@+id/storeName"
+        android:layout_alignStart="@+id/storeName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/orderNumber"
+        android:text="Exp."
+        android:layout_gravity="left|center_vertical"
+        android:layout_alignBottom="@+id/orderTitle"
+        android:layout_toRightOf="@+id/orderTitle"
+        android:layout_toEndOf="@+id/orderTitle" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:singleLine="true"
+        android:text="@string/format_donation_amount"
+        android:layout_below="@+id/monthDay"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pendingStockTitle"
+        android:text="@string/pending_stock_title"
+        android:layout_gravity="left|center_vertical"
+        android:layout_below="@+id/orderTitle"
+        android:layout_alignLeft="@+id/orderTitle"
+        android:layout_alignStart="@+id/orderTitle"
+        android:textColor="@color/primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pendingStockValue"
+        android:layout_gravity="left|center_vertical"
+        android:textColor="@color/primary"
+        android:layout_alignBottom="@+id/pendingStockTitle"
+        android:layout_toRightOf="@+id/pendingStockTitle"
+        android:layout_toEndOf="@+id/pendingStockTitle" />
+
+</RelativeLayout>

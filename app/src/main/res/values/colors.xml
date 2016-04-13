@@ -11,5 +11,8 @@
     <color name="red_feedback">#c30000</color>
     <color name="primaryLight">#e4e4ed</color>
     <color name="red">#e30009</color>
+    <color name="fill_circle_indicator">#9f000000</color>
+    <color name="stroke_circle_indicator">#000000</color>
+
 
 </resources>

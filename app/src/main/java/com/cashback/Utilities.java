@@ -44,4 +44,16 @@ public class Utilities {
         return false;
     }
 
+    public static boolean isShowTour(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getBoolean(context.getString(R.string.pref_show_tour_key), true);
+    }
+
+    public static void setShowTour(Context context, final boolean toShow) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(context.getString(R.string.pref_show_tour_key), toShow);
+        editor.apply();
+    }
+
 }

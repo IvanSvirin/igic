@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/frame_height"
+        android:layout_gravity="center_vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:paddingStart="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_small"
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:textColor="@color/primary"
+            android:id="@+id/monthYear" />
+    </FrameLayout>
+
+    <com.cashback.ui.components.NestedListView
+        android:id="@+id/your_order_history_list"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.ListView"
+        tools:listItem="@layout/item_your_order_history_nested_list">
+    </com.cashback.ui.components.NestedListView>
+</LinearLayout>

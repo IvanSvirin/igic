@@ -60,6 +60,8 @@
 
         <activity android:name=".ui.LaunchActivity" />
         <activity android:name=".ui.account.HelpActivity" />
+        <activity android:name=".ui.account.TourActivity"/>
+        <activity android:name=".ui.account.PaymentsActivity"/>
         <activity android:name=".ui.account.ShoppingTripsActivity" />
         <activity android:name=".ui.account.YourOrderHistoryActivity" />
 

@@ -88,7 +88,8 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/paymentsFrame">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -342,10 +343,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
-            app:layout_scrollFlags="scroll|enterAlways"
+            app:layout_scrollFlags="enterAlways"
             android:theme="@style/AppThemeOverlay.ToolbarPrimary" />
-
     </android.support.design.widget.AppBarLayout>
-
-
 </android.support.design.widget.CoordinatorLayout>

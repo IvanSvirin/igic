@@ -1,6 +1,7 @@
 package com.cashback.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,9 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashback.R;
+import com.cashback.ui.account.HelpActivity;
+import com.cashback.ui.account.ShoppingTripsActivity;
+import com.cashback.ui.account.YourOrderHistoryActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by I.Svirin on 4/11/2016.
@@ -33,7 +38,7 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_categories, container, false);
+        View view = inflater.inflate(R.layout.layout_categoriess, container, false);
         fragmentUi = new FragmentUi(this, view);
         return view;
     }
@@ -84,6 +89,17 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
 
         private Toolbar getToolbar() {
             return toolbar;
+        }
+
+        @OnClick({R.id.allStoresFrame})
+        public void onClicks(View view) {
+            switch (view.getId()) {
+                case R.id.allStoresFrame:
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content_frame, new AllStoresFragment(), AllStoresFragment.TAG_ALL_STORES_FRAGMENT)
+                            .commit();
+                    break;
+            }
         }
     }
 }

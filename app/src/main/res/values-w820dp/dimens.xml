@@ -6,5 +6,7 @@
     <dimen name="content_padding">128dp</dimen>
     <dimen name="content_padding_top">72dp</dimen>
     <dimen name="content_padding_max">146dp</dimen>
+    <dimen name="activity_horizontal_padding">20dp</dimen>
+    <dimen name="activity_vertical_padding">20dp</dimen>
 
 </resources>
