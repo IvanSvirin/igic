@@ -19,6 +19,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
+        android:name="android.support.multidex.MultiDexApplication"
         android:theme="@style/AppTheme">
 
         <!-- App Indexing -->
@@ -62,6 +63,7 @@
         <activity android:name=".ui.account.HelpActivity" />
         <activity android:name=".ui.account.TourActivity"/>
         <activity android:name=".ui.account.PaymentsActivity"/>
+        <activity android:name=".ui.CategoryActivity"/>
         <activity android:name=".ui.account.ShoppingTripsActivity" />
         <activity android:name=".ui.account.YourOrderHistoryActivity" />
 
@@ -87,5 +89,4 @@
             <!--</intent-filter>-->
         </activity>
     </application>
-
 </manifest>

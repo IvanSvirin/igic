@@ -50,5 +50,7 @@
     <string name="shopping_trips_small">Shopping trips:</string>
     <string name="pending_stock_title">Payment stock:</string>
     <string name="pref_show_tour_key" translatable="false">showTourKey</string>
+    <string name="all_results">All Results for</string>
+
 
 </resources>

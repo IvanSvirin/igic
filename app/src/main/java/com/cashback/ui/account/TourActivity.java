@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.cashback.R;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -23,7 +24,12 @@ public class TourActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tour);
+        setContentView(R.layout.layout_tour);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(R.string.how_it_works);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         ButterKnife.bind(this);
 

@@ -20,7 +20,6 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
-import com.facebook.login.LoginManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
