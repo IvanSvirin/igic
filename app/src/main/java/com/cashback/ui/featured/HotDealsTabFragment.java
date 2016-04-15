@@ -25,13 +25,11 @@ import com.cashback.ui.web.BrowserActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/7/2016.
  */
 public class HotDealsTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
-
     private FragmentUi fragmentUi;
 
     @Nullable
@@ -48,7 +46,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getLoaderManager().initLoader(MainActivity.FEATURED_LOADER, null, this);
+        getLoaderManager().initLoader(MainActivity.HOT_DEALS_LOADER, null, this);
     }
 
     @Override

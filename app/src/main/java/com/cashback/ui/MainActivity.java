@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
@@ -43,17 +44,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     /* LOADERS */
     public static final int ACCOUNT_LOADER = 0;
-    public static final int CATEGORY_LOADER = 1;
-    public static final int ALL_STORES_LOADER = 2;
-    public static final int STORES_IN_CATEGORY_LOADER = 3;
-//    public static final int DEPLOYED_ABOUT_STORE = 4;
-//    public static final int SALE_LOADER = 5;
-    public static final int FAVORITE_LOADER = 6;
-//    public static final int TYPE_LOADER = 7;
-//    public static final int STORES_BY_SALE_CATEGORIES_LOADER = 8;
-    public static final int FAVORITE_STORES_LOADER = 9;
-    public static final int FEATURED_LOADER = 10;
-//    public static final int IMAGE_LOADER = 11;
+    public static final int HOT_DEALS_LOADER = 1;
+    public static final int FAVORITE_LOADER = 2;
+    public static final int EXTRA_LOADER = 3;
+    public static final int STORES_SEARCH_LOADER = 4;
+    public static final int PRODUCTS_SEARCH_LOADER = 5;
+    public static final int COUPONS_SEARCH_LOADER = 6;
 
     private DrawerUi drawerUi;
     private int currentItemId = 0;

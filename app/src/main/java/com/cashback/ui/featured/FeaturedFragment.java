@@ -1,6 +1,7 @@
 package com.cashback.ui.featured;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 
 import com.cashback.R;
 import com.cashback.ui.MainActivity;
+import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.cashback.ui.components.WrapContentHeightViewPager;
 import com.daimajia.slider.library.SliderLayout;
@@ -93,9 +95,10 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(getContext(), AllResultsActivity.class);
+                startActivity(intent);
                 if (TextUtils.isEmpty(query)) {
                 } else {
-
                 }
                 return false;
             }
@@ -115,13 +118,13 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         @Bind(R.id.tab_header)
         TabLayout tabLayout;
         @Bind(R.id.nested_scroll)
-        FixedNestedScrollView uNestedScroll;
+        FixedNestedScrollView nestedScrollView;
         @Bind(R.id.tab_content)
         WrapContentHeightViewPager tabViewPager;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
         @Bind(R.id.img_carousel)
-        SliderLayout uImgSlider;
+        SliderLayout sliderLayout;
 
         public FragmentUi(FeaturedFragment fragment, View view) {
             this.context = fragment.getContext();

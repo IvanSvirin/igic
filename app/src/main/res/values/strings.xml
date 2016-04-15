@@ -51,6 +51,10 @@
     <string name="pending_stock_title">Payment stock:</string>
     <string name="pref_show_tour_key" translatable="false">showTourKey</string>
     <string name="all_results">All Results for</string>
+    <string name="tab_stores">stores</string>
+    <string name="tab_products">products</string>
+    <string name="tab_coupons">coupons</string>
+    <string name="your_price_title">Your price:</string>
 
 
 </resources>
