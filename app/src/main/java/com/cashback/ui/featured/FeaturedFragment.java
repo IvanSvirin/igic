@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashback.R;
+import com.cashback.rest.RestUtilities;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
@@ -34,7 +35,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/7/2016.
@@ -47,6 +47,8 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_ACCOUNT);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_HOT_DEALS);
     }
 
     @Nullable
