@@ -7,6 +7,12 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by I.Svirin on 4/5/2016.
  */
@@ -56,4 +62,27 @@ public class Utilities {
         editor.apply();
     }
 
+    public static String convertIsoToNecessaryTime(Context context, String expire) {
+        if (expire != null && !expire.equals("")) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
+            Date date = null;
+            try {
+                date = sdf.parse(expire);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (date != null) {
+                Calendar expireCalendar = Calendar.getInstance();
+                expireCalendar.setTime(date);
+                Calendar borderExpiryCalendar = Calendar.getInstance(Locale.CANADA);
+                borderExpiryCalendar.add(Calendar.MONTH, 6);
+                if (expireCalendar.before(borderExpiryCalendar)) {
+                    String presentString = expireCalendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.CANADA);
+                    presentString += " " + expireCalendar.get(Calendar.DAY_OF_MONTH);
+                    return context.getString(R.string.prefix_expire) + presentString;
+                }
+            }
+        }
+        return null;
+    }
 }

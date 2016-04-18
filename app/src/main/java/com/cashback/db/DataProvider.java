@@ -21,8 +21,10 @@ public class DataProvider extends ContentProvider {
     private static final int MERCHANTS = 100;
     private static final int MERCHANT_BY_ID = 101;
     private static final int MERCHANTS_BY_IDS = 102;
-    private static final int FAVORITE_MERCHANTS = 200;
-    private static final int EXTRA_MERCHANTS =300;
+    private static final int COUPONS = 200;
+    private static final int COUPON_BY_ID = 201;
+    private static final int FAVORITE_MERCHANTS = 300;
+    private static final int EXTRA_MERCHANTS =400;
 
 
     private String LOG_TAG = "sql_log";
@@ -34,6 +36,8 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "merchants", MERCHANTS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "merchants/#", MERCHANT_BY_ID);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "merchants/*", MERCHANTS_BY_IDS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "coupons", COUPONS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "coupons/#", COUPON_BY_ID);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "favorite_merchants", FAVORITE_MERCHANTS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "extra_merchants", EXTRA_MERCHANTS);
     }
@@ -74,7 +78,17 @@ public class DataProvider extends ContentProvider {
                 }
                 cursor = db.query(true, DataContract.Merchants.TABLE_NAME, projection, common_selection, null, null, null, sortOrder, null);
                 break;
-
+            case COUPONS:
+                if (TextUtils.isEmpty(sortOrder))
+                    sortOrder = DataContract.Coupons.COLUMN_VENDOR_ID + " COLLATE NOCASE ASC";
+                cursor = db.query(DataContract.Coupons.TABLE_NAME, projection, selection, null, null, null, sortOrder);
+                return cursor;
+            case COUPON_BY_ID:
+                common_selection = DataContract.Coupons.COLUMN_VENDOR_ID + " = " + uri.getLastPathSegment();
+                if (!TextUtils.isEmpty(selection))
+                    common_selection = selection + " AND " + common_selection;
+                cursor = db.query(DataContract.Coupons.TABLE_NAME, projection, common_selection, null, null, null, null);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -94,6 +108,14 @@ public class DataProvider extends ContentProvider {
                 rowID = db.insertWithOnConflict(DataContract.Merchants.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
                     resultUri = ContentUris.withAppendedId(DataContract.URI_MERCHANTS, rowID);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            case COUPONS:
+                rowID = db.insertWithOnConflict(DataContract.Coupons.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (rowID > 0) {
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_COUPONS, rowID);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
@@ -126,6 +148,21 @@ public class DataProvider extends ContentProvider {
                     db.endTransaction();
                 }
                 break;
+            case COUPONS:
+                db.beginTransaction();
+                try {
+                    delete(uri, null, null);
+                    for (ContentValues val : values) {
+                        insert(uri, val);
+                        countInsert++;
+                    }
+                    db.setTransactionSuccessful();
+                } catch (SQLException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
+                break;
         }
         context.getContentResolver().notifyChange(uri, null);
         return countInsert;
@@ -140,6 +177,9 @@ public class DataProvider extends ContentProvider {
         switch (match) {
             case MERCHANTS:
                 affectedRowsCount = db.delete(DataContract.Merchants.TABLE_NAME, null, null);
+                break;
+            case COUPONS:
+                affectedRowsCount = db.delete(DataContract.Coupons.TABLE_NAME, null, null);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -164,6 +204,10 @@ public class DataProvider extends ContentProvider {
                 return DataContract.Merchants.CONTENT_ITEM_TYPE;
             case MERCHANTS_BY_IDS:
                 return DataContract.Merchants.CONTENT_ITEM_TYPE;
+            case COUPONS:
+                return DataContract.Coupons.CONTENT_TYPE;
+            case COUPON_BY_ID:
+                return DataContract.Coupons.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
 

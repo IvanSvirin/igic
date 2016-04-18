@@ -5,16 +5,18 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.cashback.Utilities;
+import com.cashback.rest.request.CouponsRequest;
+import com.cashback.rest.request.MerchantsRequest;
 
 /**
  * Created by ivansv on 16.04.2016.
  */
 public class RestUtilities {
     public final static String TOKEN_ACCOUNT = "token_account";
-    public final static String TOKEN_HOT_DEALS = "token_hot_deals";
+    public final static String TOKEN_COUPONS = "token_coupons";
 
     private final static long ACCOUNT_UPDATE_INTERVAL = 30000; // 30 sec * 1000
-    private final static long HOT_DEALS_UPDATE_INTERVAL = 3600000; // 1h
+    private final static long COUPONS_UPDATE_INTERVAL = 3600000; // 1h
 
     public static void syncDistantData(Context context, String token) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
@@ -29,9 +31,9 @@ public class RestUtilities {
                     }
                 }
                 break;
-            case TOKEN_HOT_DEALS:
-                if (differenceTime >= HOT_DEALS_UPDATE_INTERVAL) {
-//                    new HotDealsRequest(context).fetchData();
+            case TOKEN_COUPONS:
+                if (differenceTime >= COUPONS_UPDATE_INTERVAL) {
+                    new CouponsRequest(context).fetchData();
                 }
                 break;
         }

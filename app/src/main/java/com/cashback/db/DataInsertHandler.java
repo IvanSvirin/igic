@@ -7,7 +7,7 @@ import android.net.Uri;
 
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.AccountEvent;
-import com.cashback.rest.event.HotDealsEvent;
+import com.cashback.rest.event.MerchantsEvent;
 
 import de.greenrobot.event.EventBus;
 
@@ -18,7 +18,8 @@ public class DataInsertHandler extends BulkAsyncQueryHandler {
     public static boolean IS_FILLING_MERCHANT_TABLE = false;
 
     public final static int ACCOUNT_TOKEN = 100;
-    public final static int HOT_DEALS_TOKEN = 200;
+    public final static int MERCHANTS_TOKEN = 200;
+    public final static int COUPONS_TOKEN = 300;
 
     private Context context;
 
@@ -57,9 +58,9 @@ public class DataInsertHandler extends BulkAsyncQueryHandler {
     protected void onBulkInsertComplete(int token, Object cookie, int result) {
         super.onBulkInsertComplete(token, cookie, result);
         switch (token) {
-            case HOT_DEALS_TOKEN:
-                RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_HOT_DEALS);
-                EventBus.getDefault().post(new HotDealsEvent(true, null));
+            case COUPONS_TOKEN:
+                RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_COUPONS);
+                EventBus.getDefault().post(new MerchantsEvent(true, null));
                 break;
         }
     }

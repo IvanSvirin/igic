@@ -10,8 +10,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -24,6 +26,7 @@ import android.view.ViewGroup;
 
 import com.cashback.R;
 import com.cashback.rest.RestUtilities;
+import com.cashback.rest.event.ImageEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
@@ -35,6 +38,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/7/2016.
@@ -48,7 +52,7 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 //        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_ACCOUNT);
-        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_HOT_DEALS);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_COUPONS);
     }
 
     @Nullable
@@ -71,22 +75,54 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     public void onStart() {
         super.onStart();
         getActivity().setTitle(R.string.title_featured_fragment);
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        fragmentUi.bindImgSlider();
+    }
+
+    @Override
+    public void onStop() {
+//        fragmentUi.unbindImgSlider();
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentUi.unbind();
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+        CursorLoader loader = null;
+//        if (id == MainActivity.IMAGE_LOADER) {
+//            loader = new CursorLoader(getActivity());
+//            loader.setUri(DataContract.URI_IMAGES);
+//        }
+        return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
+        if (loader.getId() == MainActivity.IMAGE_LOADER) {
+//            fragmentUi.changeImageSlider(data);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+//        fragmentUi.changeImageSlider(null);
+    }
 
+    public void onEvent(ImageEvent event) {
+        if (event.isSuccess) {
+            getLoaderManager().restartLoader(MainActivity.IMAGE_LOADER, null, this);
+        }
     }
 
     @Override
@@ -116,6 +152,9 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     public class FragmentUi {
+        private final int DURATION_SLIDER_TRANSITION = 250;
+        private final long DURATION_DISPLAY_SLIDER = 3500;
+
         private Context context;
         @Bind(R.id.tab_header)
         TabLayout tabLayout;
@@ -132,7 +171,7 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
             setupTabsView(fragment.getChildFragmentManager());
-            initImageSlider();
+//            initImageSlider();
         }
 
         private void setupTabsView(FragmentManager mng) {
@@ -145,6 +184,23 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         }
 
         private void initImageSlider() {
+            sliderLayout.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
+            sliderLayout.setSliderTransformDuration(DURATION_SLIDER_TRANSITION, new LinearOutSlowInInterpolator());
+            sliderLayout.setDuration(DURATION_DISPLAY_SLIDER);
+            sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
+        }
+
+        private void changeImageSlider(Cursor cursor) {
+        }
+
+        private void bindImgSlider() {
+            if (sliderLayout != null)
+                sliderLayout.startAutoCycle();
+        }
+
+        private void unbindImgSlider() {
+            if (sliderLayout != null)
+                sliderLayout.stopAutoCycle();
         }
 
         public void unbind() {
@@ -157,8 +213,8 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private class TabsPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> aFragmentList = new ArrayList<>();
-        private final List<String> aTitleList = new ArrayList<>();
+        private final List<Fragment> fragmentList = new ArrayList<>();
+        private final List<String> titleList = new ArrayList<>();
 
         public TabsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -166,22 +222,22 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
 
         @Override
         public Fragment getItem(int position) {
-            return aFragmentList.get(position);
+            return fragmentList.get(position);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return aTitleList.get(position);
+            return titleList.get(position);
         }
 
         @Override
         public int getCount() {
-            return aFragmentList.size();
+            return fragmentList.size();
         }
 
         public void addTab(Fragment fragment, String title) {
-            aFragmentList.add(fragment);
-            aTitleList.add(title);
+            fragmentList.add(fragment);
+            titleList.add(title);
         }
     }
 }

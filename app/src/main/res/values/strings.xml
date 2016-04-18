@@ -55,6 +55,7 @@
     <string name="tab_products">products</string>
     <string name="tab_coupons">coupons</string>
     <string name="your_price_title">Your price:</string>
+    <string name="prefix_expire">Exp.</string>
 
 
 </resources>

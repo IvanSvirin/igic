@@ -20,6 +20,7 @@ import android.view.MenuItem;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+import com.cashback.rest.event.AccountEvent;
 import com.cashback.ui.account.AccountFragment;
 import com.cashback.ui.featured.FeaturedFragment;
 
@@ -27,6 +28,7 @@ import bolts.AppLinks;
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/6/2016.
@@ -43,12 +45,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     /* LOADERS */
     public static final int ACCOUNT_LOADER = 0;
-    public static final int HOT_DEALS_LOADER = 1;
+    public static final int COUPONS_LOADER = 1;
     public static final int FAVORITE_LOADER = 2;
     public static final int EXTRA_LOADER = 3;
     public static final int STORES_SEARCH_LOADER = 4;
     public static final int PRODUCTS_SEARCH_LOADER = 5;
     public static final int COUPONS_SEARCH_LOADER = 6;
+    public static final int IMAGE_LOADER = 7;
 
     private DrawerUi drawerUi;
     private int currentItemId = 0;
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onStart() {
         super.onStart();
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -98,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onStop() {
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -116,6 +119,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         // TODO: 4/7/2016
+    }
+
+    public void onEvent(AccountEvent event) {
+        if (event.isSuccess) {
+            getSupportLoaderManager().restartLoader(ACCOUNT_LOADER, null, this);
+        }
     }
 
     @Override
