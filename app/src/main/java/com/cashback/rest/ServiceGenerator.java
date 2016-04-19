@@ -34,7 +34,9 @@ public abstract class ServiceGenerator<S> {
     public final static String REQUEST_STATUS_SERVER_ERROR = "server_error";
     public final static String REQUEST_STATUS_UNKNOWN = "unknown";
 
-    public static final String API_PRODUCTION_URL = "http://www.tm.iconsumer.com";
+    // TODO: 4/19/2016 TEST - will be deleted
+    public static final String API_PRODUCTION_URL = "http://www.greatcanadianrebates.ca";
+//    public static final String API_PRODUCTION_URL = "http://www.tm.iconsumer.com";
 
     protected Class<S> serviceClass;
     protected Gson gson;

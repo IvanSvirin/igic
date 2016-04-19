@@ -107,18 +107,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        // TODO: 4/7/2016  
         return null;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // TODO: 4/7/2016
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        // TODO: 4/7/2016
     }
 
     public void onEvent(AccountEvent event) {

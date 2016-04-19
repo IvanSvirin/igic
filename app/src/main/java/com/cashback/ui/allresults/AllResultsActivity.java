@@ -108,9 +108,9 @@ public class AllResultsActivity extends AppCompatActivity implements LoaderManag
 
     private void setupTabsView(FragmentManager mng) {
         TabsPagerAdapter tabsAdapter = new TabsPagerAdapter(mng);
-        tabsAdapter.addTab(new HotDealsTabFragment(), getString(R.string.tab_stores).toUpperCase());
-        tabsAdapter.addTab(new FavoritesTabFragment(), getString(R.string.tab_products).toUpperCase());
-        tabsAdapter.addTab(new ExtraTabFragment(), getString(R.string.tab_coupons).toUpperCase());
+        tabsAdapter.addTab(new StoresTabFragment(), getString(R.string.tab_stores).toUpperCase());
+        tabsAdapter.addTab(new ProductsTabFragment(), getString(R.string.tab_products).toUpperCase());
+        tabsAdapter.addTab(new CouponsTabFragment(), getString(R.string.tab_coupons).toUpperCase());
         tabViewPager.setAdapter(tabsAdapter);
         tabLayout.setupWithViewPager(tabViewPager);
     }

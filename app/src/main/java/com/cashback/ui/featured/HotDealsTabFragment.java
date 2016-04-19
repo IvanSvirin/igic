@@ -23,8 +23,10 @@ import android.widget.TextView;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
+import com.cashback.rest.event.CouponsEvent;
 import com.cashback.rest.event.MerchantsEvent;
 import com.cashback.ui.MainActivity;
+import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
@@ -95,7 +97,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         fragmentUi.featuredAdapter.changeCursor(null);
     }
 
-    public void onEvent(MerchantsEvent event) {
+    public void onEvent(CouponsEvent event) {
         if (event.isSuccess) {
             getLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
         }
@@ -140,8 +142,19 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Cursor cursor = featuredAdapter.getCursor();
                     cursor.moveToPosition(position);
-//                    String desc = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION));
-//                    showDescriptionDialg(desc);
+                    Intent intent = new Intent(context, StoreActivity.class);
+                    // TODO: 4/19/2016 TEST - will be deleted
+                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION)));
+                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_EXPIRE)));
+                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
+                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_LOGO)));
+                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
+//                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS)));
+//                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE)));
+//                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
+//                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
+//                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                    context.startActivity(intent);
                 }
             };
             if (isGridLayout) {
@@ -186,13 +199,20 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
-            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
-            String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
-            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
-            String expire = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
-            expire = Utilities.convertIsoToNecessaryTime(context, expire);
-            String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
+            // TODO: 4/19/2016 TEST - will be deleted
+            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_ID));
+            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_LOGO));
+            String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION));
+            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG));
+            String expire = context.getString(R.string.prefix_expire) + cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_EXPIRE));
+            String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_CODE));
+
+//            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
+//            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
+//            String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
+//            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
+//            String expire = context.getString(R.string.prefix_expire) + cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
+//            String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
             if (GRID_TYPE_FLAG) {
                 GridViewHolder holder = (GridViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
