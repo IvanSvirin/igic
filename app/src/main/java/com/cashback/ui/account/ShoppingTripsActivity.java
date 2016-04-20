@@ -6,6 +6,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.cashback.R;
 
@@ -23,6 +24,14 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setTitle(R.string.shopping_trips);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

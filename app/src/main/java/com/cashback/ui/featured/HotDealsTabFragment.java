@@ -24,9 +24,9 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
-import com.cashback.rest.event.MerchantsEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
+import com.cashback.ui.StoreListActivity;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
@@ -142,13 +142,16 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Cursor cursor = featuredAdapter.getCursor();
                     cursor.moveToPosition(position);
+                    // TODO: 4/19/2016 TEST - will be deleted
                     Intent intent = new Intent(context, StoreActivity.class);
+//                    Intent intent = new Intent(context, StoreListActivity.class);
                     // TODO: 4/19/2016 TEST - will be deleted
                     intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION)));
                     intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_EXPIRE)));
                     intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
                     intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_LOGO)));
                     intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
+//                    intent.putExtra("vendor_id", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
 //                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS)));
 //                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE)));
 //                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
@@ -186,7 +189,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            View convertView = LayoutInflater.from(context).inflate(R.layout.item_store_list_big_cardd, parent, false);
+            View convertView = LayoutInflater.from(context).inflate(R.layout.item_store_list_big_card_hot_deal, parent, false);
             if (GRID_TYPE_FLAG) {
                 GridViewHolder holder = new GridViewHolder(convertView);
                 convertView.setTag(holder);

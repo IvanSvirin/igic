@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static final int PRODUCTS_SEARCH_LOADER = 5;
     public static final int COUPONS_SEARCH_LOADER = 6;
     public static final int IMAGE_LOADER = 7;
+    public static final int MERCHANT_COUPONS_LOADER = 8;
 
     private DrawerUi drawerUi;
     private int currentItemId = 0;
@@ -157,7 +158,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         private void init(Bundle savedInstanceState) {
             Menu menu = navigator.getMenu();
             if (!Utilities.isLoggedIn(activity)) {
-                menu.findItem(R.id.item_account).setVisible(true);  // "true" is only for testing
+                // TODO: 4/20/2016  "true" is only for testing
+                menu.findItem(R.id.item_account).setVisible(true);
             }
             if (savedInstanceState != null) {
                 currentItemId = savedInstanceState.getInt(SELECTED_ITEM_ID);

@@ -1,5 +1,6 @@
 package com.cashback.ui.allresults;
 
+import android.support.v7.app.ActionBar;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.cashback.R;
+import com.cashback.db.DataInsertHandler;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.cashback.ui.components.WrapContentHeightViewPager;
 import com.cashback.ui.featured.ExtraTabFragment;
@@ -54,7 +56,8 @@ public class AllResultsActivity extends AppCompatActivity implements LoaderManag
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         setTitle(R.string.all_results);
 
         setupTabsView(getSupportFragmentManager());
@@ -104,6 +107,14 @@ public class AllResultsActivity extends AppCompatActivity implements LoaderManag
             }
         });
         return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setupTabsView(FragmentManager mng) {

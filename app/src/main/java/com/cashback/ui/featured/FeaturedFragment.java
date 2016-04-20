@@ -52,6 +52,7 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 //        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_ACCOUNT);
+//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_MERCHANTS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_COUPONS);
     }
 

@@ -56,6 +56,8 @@
     <string name="tab_coupons">coupons</string>
     <string name="your_price_title">Your price:</string>
     <string name="prefix_expire">Exp.</string>
-
+    <string name="add_to_favorite">Add to favorites</string>
+    <string name="known_exceptions">KNOWN EXCEPTIONS</string>
+    <string name="store_description">STORE DESCRIPTION</string>
 
 </resources>

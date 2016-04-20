@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.cashback.R;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -42,6 +43,13 @@ public class TourActivity extends AppCompatActivity {
         indicator.setViewPager(viewPager);
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public static class TourFragmentPagerAdapter extends FragmentPagerAdapter {
         public TourFragmentPagerAdapter(FragmentManager fm) {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AutofitRecyclerView">
+        <attr name="layoutAutoManager" format="enum">
+            <enum name="linearLayout" value="0" />
+            <enum name="gridLayout" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

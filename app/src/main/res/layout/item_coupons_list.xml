@@ -1,0 +1,90 @@
+<RelativeLayout
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_below="@+id/relativeLayout"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.widget.CardView
+        style="@style/AppTheme.CardView"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_gravity="center"
+        android:layout_height="150dp"
+        android:layout_width="320dp">
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:paddingBottom="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_standard"
+            android:paddingLeft="@dimen/padding_standard"
+            android:paddingRight="@dimen/padding_standard"
+            android:paddingStart="@dimen/padding_standard"
+            android:paddingTop="@dimen/padding_small">
+
+            <TextView
+                android:gravity="center_vertical|start"
+                android:id="@+id/restrictions"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/btnShopNow"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/btnShopNow"
+                android:layout_toStartOf="@+id/btnShopNow"
+                android:layout_width="match_parent"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:singleLine="false"
+                android:text="@null"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:textColor="@color/textColorPrimary" />
+
+            <TextView
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:id="@+id/btnShopNow"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="end|top"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/btn_shop_now"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:textColor="@color/primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/restrictions"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:text="@string/sales_clearance" />
+
+            <TextView
+                android:id="@+id/expireDate"
+                android:layout_alignBottom="@+id/shareButton"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Exp." />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/shareButton"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@android:drawable/ic_menu_share" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
