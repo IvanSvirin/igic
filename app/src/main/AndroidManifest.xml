@@ -70,7 +70,7 @@
         <activity android:name=".ui.account.PaymentsActivity"/>
         <activity android:name=".ui.CategoryActivity"/>
         <activity android:name=".ui.StoreActivity"/>
-        <activity android:name=".ui.StoreListActivity"/>
+        <activity android:name=".ui.web.BrowserActivity"/>
         <activity android:name=".ui.allresults.AllResultsActivity"/>
         <activity android:name=".ui.account.ShoppingTripsActivity" />
         <activity android:name=".ui.account.YourOrderHistoryActivity" />

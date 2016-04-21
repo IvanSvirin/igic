@@ -59,7 +59,7 @@ public class BulkAsyncQueryHandler extends Handler {
                     Cursor cursor;
                     try {
                         cursor = resolver.query(args.uri, args.projection, args.selection, args.selectionArgs, args.orderBy);
-                        // Calling getCount() causes the cursor window to be filled,
+                        // Calling getCount() causes the c window to be filled,
                         // which will make the first access on the main thread a lot
                         // faster.
                         if (cursor != null) {
@@ -269,7 +269,7 @@ public class BulkAsyncQueryHandler extends Handler {
      * @param token  the token to identify the query, passed in from
      *               {@link #startQuery}.
      * @param cookie the cookie object passed in from {@link #startQuery}.
-     * @param cursor The cursor holding the results from the query.
+     * @param cursor The c holding the results from the query.
      */
     protected void onQueryComplete(int token, Object cookie, Cursor cursor) {
     }

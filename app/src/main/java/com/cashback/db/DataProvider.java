@@ -88,7 +88,7 @@ public class DataProvider extends ContentProvider {
                 cursor = db.query(DataContract.OfferEntry.TABLE_NAME, projection, null, null, null, null, sortOrder);
 //                if (TextUtils.isEmpty(sortOrder))
 //                    sortOrder = DataContract.Coupons.COLUMN_VENDOR_ID + " COLLATE NOCASE ASC";
-//                cursor = db.query(DataContract.Coupons.TABLE_NAME, projection, selection, null, null, null, sortOrder);
+//                c = db.query(DataContract.Coupons.TABLE_NAME, projection, selection, null, null, null, sortOrder);
                 return cursor;
             case COUPON_BY_ID:
                 common_selection = DataContract.Coupons.COLUMN_VENDOR_ID + " = " + uri.getLastPathSegment();

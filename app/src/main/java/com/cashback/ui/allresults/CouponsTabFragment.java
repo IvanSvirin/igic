@@ -121,7 +121,7 @@ public class CouponsTabFragment extends Fragment implements LoaderManager.Loader
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Cursor cursor = featuredAdapter.getCursor();
                     cursor.moveToPosition(position);
-//                    String desc = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION));
+//                    String desc = c.getString(c.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION));
 //                    showDescriptionDialg(desc);
                 }
             };
