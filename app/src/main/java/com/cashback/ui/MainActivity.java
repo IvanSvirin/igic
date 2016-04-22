@@ -17,12 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.ui.account.AccountFragment;
 import com.cashback.ui.featured.FeaturedFragment;
+import com.squareup.picasso.Picasso;
 
 import bolts.AppLinks;
 import butterknife.Bind;
@@ -33,7 +36,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by I.Svirin on 4/6/2016.
  */
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private final String SELECTED_ITEM_ID = "SELECTED_ITEM_ID";
     private final String CONTENT_KEY = "IAM_CONTENT";
     /* MAIN FRAGMENTS */
@@ -132,11 +135,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(SELECTED_ITEM_ID, currentItemId);
+        if (fragmentManager != null) {
+            fragmentManager.putFragment(outState, CONTENT_KEY, drawerUi.getCurrentContent());
+        }
+    }
+
     public void setAssociateToolbar(Toolbar toolbar) {
         drawerUi.associateToolbarDrawer(toolbar);
     }
 
-    class DrawerUi implements NavigationView.OnNavigationItemSelectedListener{
+    class DrawerUi implements NavigationView.OnNavigationItemSelectedListener {
         private static final long DRAWER_CLOSE_DELAY_MS = 200;
         private MainActivity activity;
         private Fragment lastFragment;
@@ -254,6 +266,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 return false;
             }
             return true;
+        }
+
+        private Fragment getCurrentContent() {
+            return fragmentManager.findFragmentById(R.id.content_frame);
         }
     }
 }

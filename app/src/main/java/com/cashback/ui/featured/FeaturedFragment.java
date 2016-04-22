@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashback.R;
+import com.cashback.Utilities;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.ImageEvent;
 import com.cashback.ui.MainActivity;
@@ -32,6 +33,8 @@ import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.cashback.ui.components.WrapContentHeightViewPager;
 import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,12 +85,13 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onResume() {
         super.onResume();
-//        fragmentUi.bindImgSlider();
+        fragmentUi.changeImageSlider();
+        fragmentUi.bindImgSlider();
     }
 
     @Override
     public void onStop() {
-//        fragmentUi.unbindImgSlider();
+        fragmentUi.unbindImgSlider();
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
@@ -172,7 +176,7 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
             setupTabsView(fragment.getChildFragmentManager());
-//            initImageSlider();
+            initImageSlider();
         }
 
         private void setupTabsView(FragmentManager mng) {
@@ -191,7 +195,64 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
             sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
         }
 
-        private void changeImageSlider(Cursor cursor) {
+        private void changeImageSlider() {
+            if (sliderLayout != null) {
+                sliderLayout.stopAutoCycle();
+                sliderLayout.removeAllSliders();
+                sliderLayout.setVisibility(View.INVISIBLE);
+            }
+            DefaultSliderView itemSlider;
+
+            itemSlider = new DefaultSliderView(context);
+            itemSlider.errorDisappear(true);
+            itemSlider.image(R.drawable.discover);
+            itemSlider.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    if (Utilities.isLoggedIn(context)) {
+                    }
+                }
+            });
+            sliderLayout.addSlider(itemSlider);
+
+            itemSlider = new DefaultSliderView(context);
+            itemSlider.errorDisappear(true);
+            itemSlider.image(R.drawable.great);
+            itemSlider.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    if (Utilities.isLoggedIn(context)) {
+                    }
+                }
+            });
+            sliderLayout.addSlider(itemSlider);
+
+            itemSlider = new DefaultSliderView(context);
+            itemSlider.errorDisappear(true);
+            itemSlider.image(R.drawable.save);
+            itemSlider.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    if (Utilities.isLoggedIn(context)) {
+                    }
+                }
+            });
+            sliderLayout.addSlider(itemSlider);
+
+            itemSlider = new DefaultSliderView(context);
+            itemSlider.errorDisappear(true);
+            itemSlider.image(R.drawable.travel);
+            itemSlider.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                @Override
+                public void onSliderClick(BaseSliderView slider) {
+                    if (Utilities.isLoggedIn(context)) {
+                    }
+                }
+            });
+            sliderLayout.addSlider(itemSlider);
+
+            sliderLayout.startAutoCycle();
+            sliderLayout.setVisibility(View.VISIBLE);
         }
 
         private void bindImgSlider() {
@@ -212,6 +273,7 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
             return toolbar;
         }
     }
+
 
     private class TabsPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> fragmentList = new ArrayList<>();
@@ -242,3 +304,4 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         }
     }
 }
+

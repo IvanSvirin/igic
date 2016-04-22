@@ -132,6 +132,9 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                     } else {
                         // TODO: 4/19/2016 TEST - will be deleted
                         Intent intent = new Intent(context, BrowserActivity.class);
+                        Cursor cursor = featuredAdapter.getCursor();
+                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
+                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
 //                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);

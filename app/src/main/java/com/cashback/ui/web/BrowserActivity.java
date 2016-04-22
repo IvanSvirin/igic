@@ -5,17 +5,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.cashback.R;
 
@@ -27,28 +33,15 @@ import butterknife.OnClick;
  * Created by I.Svirin on 4/12/2016.
  */
 public class BrowserActivity extends AppCompatActivity {
-    public static final String FLAG_MERCHANT_ID = "entrance_id";
-    public static final String FLAG_SALE_ID = "sale_id";
-    public static final String FLAG_EVENT_TYPE = "event_type";
-
-    public static final int EVENT_TYPE_STORE = 1;
-    public static final int EVENT_TYPE_SALE = 2;
-
     private ActivityUi ui;
-    private int id;
-    private int saleId;
-    private int eventType;
+    private MenuItem menuItem;
+    private  Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         setContentView(R.layout.layout_browser);
-
-        Intent intent = getIntent();
-        id = intent.getIntExtra(FLAG_MERCHANT_ID, -1);
-        saleId = intent.getIntExtra(FLAG_SALE_ID, -1);
-        eventType = intent.getIntExtra(FLAG_EVENT_TYPE, 0);
 
         ui = new ActivityUi(this);
         ui.setNavigationButtonState();
@@ -58,11 +51,20 @@ public class BrowserActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.info_menu, menu);
+        menuItem = menu.findItem(R.id.action_info);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int itemId = item.getItemId();
         if (itemId == android.R.id.home) {
             finish();
             return true;
+        } else if (itemId == R.id.action_info) {
+            showDescriptionDialog("");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -131,7 +133,11 @@ public class BrowserActivity extends AppCompatActivity {
             if (bar != null) {
                 bar.setDisplayHomeAsUpEnabled(true);
                 bar.setDefaultDisplayHomeAsUpEnabled(true);
-//                bar.setLogo(R.drawable.ic_logomin_white);
+                // TODO: 4/19/2016 TEST - will be deleted
+                intent = getIntent();
+                bar.setTitle("STORE");
+                bar.setSubtitle(intent.getStringExtra("vendor_commission"));
+                loadContent("https://www.iconsumer.com/");
             }
         }
 
@@ -202,4 +208,29 @@ public class BrowserActivity extends AppCompatActivity {
         }
     }
 
+    private void showDescriptionDialog(String message) {
+        InfoDialog dialog = InfoDialog.newInstance(message);
+        dialog.setCancelable(true);
+        dialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+        dialog.show(getSupportFragmentManager(), "TAG_DIALOG");
+    }
+
+    public static class InfoDialog extends DialogFragment {
+
+        private static String description;
+
+        static InfoDialog newInstance(String message) {
+            description = message;
+            return new InfoDialog();
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View v = inflater.inflate(R.layout.view_dialog, container, false);
+            TextView tv = (TextView) v.findViewById(R.id.description);
+            tv.setText(description);
+            return v;
+        }
+    }
 }
