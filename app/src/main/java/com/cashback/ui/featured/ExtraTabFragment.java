@@ -27,7 +27,6 @@ import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
-import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.squareup.picasso.Picasso;
 
@@ -134,6 +133,9 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                     } else {
                         // TODO: 4/19/2016 TEST - will be deleted
                         Intent intent = new Intent(context, BrowserActivity.class);
+                        Cursor cursor = featuredAdapter.getCursor();
+                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
+                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
 //                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);

@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -35,7 +36,6 @@ import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.ui.components.AutofitRecyclerView;
-import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.squareup.picasso.Picasso;
 
@@ -244,6 +244,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     } else {
                         // TODO: 4/19/2016 TEST - will be deleted
                         Intent intent = new Intent(context, BrowserActivity.class);
+                        intent.putExtra("vendor_commission", commission);
 //                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
@@ -266,6 +267,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     } else {
                         // TODO: 4/19/2016 TEST - will be deleted
                         Intent intent = new Intent(context, BrowserActivity.class);
+                        intent.putExtra("vendor_commission", commission);
 //                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
@@ -302,6 +304,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             Palette.Builder pb = new Palette.Builder(bitmap);
             Palette palette = pb.generate();
             Palette.Swatch swatch = palette.getVibrantSwatch();
+            @ColorInt
             int color = swatch != null ? swatch.getRgb() : -7292864;
             appBarLayout.setBackgroundColor(color);
         }
@@ -345,6 +348,13 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             holder.vhRestrictions.setText(restrictions.trim());
             holder.vhRestrictions.setText(restrictions);
             holder.vhExpireDate.setText(expire);
+
+            holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onSaleClick(couponId);
+                }
+            });
         }
 
         @Override
