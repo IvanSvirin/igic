@@ -2,6 +2,7 @@ package com.cashback.ui.featured;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -85,13 +86,17 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onResume() {
         super.onResume();
-        fragmentUi.changeImageSlider();
-        fragmentUi.bindImgSlider();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            fragmentUi.changeImageSlider();
+            fragmentUi.bindImgSlider();
+        }
     }
 
     @Override
     public void onStop() {
-        fragmentUi.unbindImgSlider();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            fragmentUi.unbindImgSlider();
+        }
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
@@ -169,14 +174,18 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         WrapContentHeightViewPager tabViewPager;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
-        @Bind(R.id.img_carousel)
+        //        @Bind(R.id.img_carousel)
+//        SliderLayout sliderLayout;
         SliderLayout sliderLayout;
 
         public FragmentUi(FeaturedFragment fragment, View view) {
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
             setupTabsView(fragment.getChildFragmentManager());
-            initImageSlider();
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                sliderLayout = (SliderLayout) view.findViewById(R.id.img_carousel);
+                initImageSlider();
+            }
         }
 
         private void setupTabsView(FragmentManager mng) {

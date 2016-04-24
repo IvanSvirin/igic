@@ -41,12 +41,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/iconsumerDebug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/iconsumerDebug/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/iconsumerDebug/rs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/iconsumer/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/iconsumer/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/iconsumer/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/iconsumer/debug" isTestSource="true" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/iconsumer/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/iconsumer/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIconsumerDebug/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIconsumerDebug/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIconsumerDebug/assets" type="java-test-resource" />
@@ -54,6 +48,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/testIconsumerDebug/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIconsumerDebug/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIconsumerDebug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/iconsumer/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/iconsumer/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/iconsumer/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/iconsumer/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/iconsumer/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/iconsumer/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/res-iConsumer" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/iconsumer/resources" type="java-resource" />
