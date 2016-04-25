@@ -7,6 +7,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +25,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cashback.R;
@@ -35,7 +40,7 @@ import butterknife.OnClick;
 public class BrowserActivity extends AppCompatActivity {
     private ActivityUi ui;
     private MenuItem menuItem;
-    private  Intent intent;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,20 +85,24 @@ public class BrowserActivity extends AppCompatActivity {
         private boolean FIT_SCALE;
         private Context context;
         private ActionBar bar;
+        private String logo;
 
         @Bind(R.id.toolbar)
         Toolbar toolbar;
+        @Bind(R.id.progress_bar)
+        ContentLoadingProgressBar progressBar;
+        @Bind(R.id.browser_web_view)
+        WebView webView;
         @Bind(R.id.back_btn)
         ImageButton btnBack;
         @Bind(R.id.forward_btn)
         ImageButton btnForward;
         @Bind(R.id.refresh_btn)
         ImageButton btnRefresh;
-        @Bind(R.id.progress_bar)
-        ContentLoadingProgressBar progressBar;
-        @Bind(R.id.browser_web_view)
-        WebView webView;
-        private String logo;
+        @Bind(R.id.navigation_panel)
+        LinearLayout navigationPanel;
+//        @Bind(R.id.pager)
+//        ViewPager pager;
 
         @OnClick(R.id.forward_btn)
         public void onForward() {
@@ -112,6 +121,9 @@ public class BrowserActivity extends AppCompatActivity {
 
         @OnClick(R.id.scale_btn)
         public void onScale() {
+//            navigationPanel.setVisibility(View.INVISIBLE);
+//            ViewPager pager=(ViewPager)findViewById(R.id.pager);
+//            pager.setAdapter(new BrowserPagerAdapter(getSupportFragmentManager()));
             if (!FIT_SCALE) {
                 FIT_SCALE = true;
                 webView.setInitialScale(1);
@@ -205,6 +217,20 @@ public class BrowserActivity extends AppCompatActivity {
         public void onPageFinished(WebView view, String url) {
             ui.progressBar.setVisibility(View.GONE);
             ui.setNavigationButtonState();
+        }
+    }
+
+    public class BrowserPagerAdapter extends FragmentPagerAdapter {
+        public BrowserPagerAdapter(FragmentManager mgr) {
+            super(mgr);
+        }
+        @Override
+        public int getCount() {
+            return(10);
+        }
+        @Override
+        public Fragment getItem(int position) {
+            return(PageFragment.newInstance(position));
         }
     }
 

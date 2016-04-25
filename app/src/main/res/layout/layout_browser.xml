@@ -59,7 +59,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/navigation_panel"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:id="@+id/relativeLayout2">
 
         <android.support.v4.widget.ContentLoadingProgressBar
             android:id="@+id/progress_bar"
@@ -80,4 +81,39 @@
             android:foreground="?android:windowContentOverlay" />
 
     </RelativeLayout>
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="bottom"
+        sothree:panelHeight="68dp"
+        sothree:shadowHeight="4dp"
+        sothree:overlay="true"
+        sothree:fadeColor="@android:color/holo_blue_light">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Синий кот. Приучен к лотку. Ласковый. Мурлыкает как трактор Беларусь."
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:gravity="center|top">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Выдвижная панель"
+                android:textSize="16sp" />
+
+
+
+        </LinearLayout>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </RelativeLayout>
