@@ -26,6 +26,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cashback.R;
@@ -46,7 +47,7 @@ public class BrowserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        setContentView(R.layout.layout_browser);
+        setContentView(R.layout.layout_browser_test);
 
         ui = new ActivityUi(this);
         ui.setNavigationButtonState();
@@ -99,10 +100,14 @@ public class BrowserActivity extends AppCompatActivity {
         ImageButton btnForward;
         @Bind(R.id.refresh_btn)
         ImageButton btnRefresh;
+        @Bind(R.id.dealsButton)
+        TextView dealsButton;
+        @Bind(R.id.expandButton)
+        ImageButton expandButton;
         @Bind(R.id.navigation_panel)
         LinearLayout navigationPanel;
-//        @Bind(R.id.pager)
-//        ViewPager pager;
+        @Bind(R.id.pager)
+        RelativeLayout pager;
 
         @OnClick(R.id.forward_btn)
         public void onForward() {
@@ -119,10 +124,10 @@ public class BrowserActivity extends AppCompatActivity {
             webView.reload();
         }
 
-        @OnClick(R.id.scale_btn)
-        public void onScale() {
-//            navigationPanel.setVisibility(View.INVISIBLE);
-//            ViewPager pager=(ViewPager)findViewById(R.id.pager);
+        @OnClick(R.id.dealsButton)
+        public void onShowDeals() {
+            navigationPanel.setVisibility(View.INVISIBLE);
+            pager.setVisibility(View.VISIBLE);
 //            pager.setAdapter(new BrowserPagerAdapter(getSupportFragmentManager()));
             if (!FIT_SCALE) {
                 FIT_SCALE = true;
@@ -133,10 +138,18 @@ public class BrowserActivity extends AppCompatActivity {
             }
         }
 
+        @OnClick(R.id.expandButton)
+        public void onClosePager() {
+            navigationPanel.setVisibility(View.VISIBLE);
+            pager.setVisibility(View.INVISIBLE);
+        }
+
         public ActivityUi(BrowserActivity browserActivity) {
             context = browserActivity;
             ButterKnife.bind(this, browserActivity);
             initToolbar(browserActivity);
+            navigationPanel.setVisibility(View.VISIBLE);
+            pager.setVisibility(View.INVISIBLE);
         }
 
         private void initToolbar(Activity activity) {
@@ -224,13 +237,15 @@ public class BrowserActivity extends AppCompatActivity {
         public BrowserPagerAdapter(FragmentManager mgr) {
             super(mgr);
         }
+
         @Override
         public int getCount() {
-            return(10);
+            return (10);
         }
+
         @Override
         public Fragment getItem(int position) {
-            return(PageFragment.newInstance(position));
+            return (PageFragment.newInstance(position));
         }
     }
 

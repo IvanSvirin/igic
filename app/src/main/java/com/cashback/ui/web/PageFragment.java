@@ -9,11 +9,14 @@ import android.widget.TextView;
 
 import com.cashback.R;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by I.Svirin on 4/25/2016.
  */
 public class PageFragment extends Fragment {
-    private int pageNumber;
+    public static int pageNumber;
 
     public static PageFragment newInstance(int page) {
         PageFragment fragment = new PageFragment();
@@ -32,9 +35,9 @@ public class PageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View result;
-        result = inflater.inflate(R.layout.layout_browser_page, container, false);
-        TextView pageHeader = (TextView) result.findViewById(R.id.displayText);
-        pageHeader.setText("Фрагмент " + String.valueOf(pageNumber + 1));
+        result = inflater.inflate(R.layout.layout_browser_pagee, container, false);
+        TextView pageNum = (TextView) result.findViewById(R.id.pageNumber);
+        pageNum.setText("Фрагмент " + String.valueOf(pageNumber + 1));
         return result;
     }
 }

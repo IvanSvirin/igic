@@ -73,5 +73,4 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.google.android.gms:play-services-auth:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
-    compile 'com.sothree.slidinguppanel:library:2.0.4'
 }
