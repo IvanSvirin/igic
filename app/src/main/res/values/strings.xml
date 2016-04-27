@@ -42,6 +42,7 @@
     <string name="privacy_security">Privacy &#38; Security</string>
     <string name="terms_conditions">Terms &#38; Conditions</string>
     <string name="btn_shop_now">SHOP NOW</string>
+    <string name="btn_copy_code">COPY CODE</string>
     <string name="sales_clearance">SALES/CLEARANCE</string>
     <string name="alert_about_connection">It is necessary an active connection for data update.</string>
     <string name="date_title">Date:</string>

@@ -3,18 +3,22 @@ package com.cashback.ui.web;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,15 +34,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cashback.R;
+import com.cashback.db.DataContract;
+import com.cashback.rest.event.CouponsEvent;
+import com.cashback.ui.MainActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/12/2016.
  */
-public class BrowserActivity extends AppCompatActivity {
+public class BrowserActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private ActivityUi ui;
     private MenuItem menuItem;
     private Intent intent;
@@ -47,13 +55,34 @@ public class BrowserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        setContentView(R.layout.layout_browser_test);
+        setContentView(R.layout.layout_browser);
 
         ui = new ActivityUi(this);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.browser_web_view, new ActivationFragment())
+                .commit();
         ui.setNavigationButtonState();
         ui.webView.setWebChromeClient(new MyWebChromeClient());
         ui.webView.setWebViewClient(new MyWebViewClient());
         ui.setWebSettings(false);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        getSupportLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     @Override
@@ -81,12 +110,38 @@ public class BrowserActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
     }
 
-    class ActivityUi {
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        CursorLoader loader = null;
+        if (id == MainActivity.COUPONS_LOADER) {
+            loader = new CursorLoader(this);
+            loader.setUri(DataContract.URI_COUPONS);
+        }
+        return loader;
+    }
 
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        ui.cursorPagerAdapter.changeCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        ui.cursorPagerAdapter.changeCursor(null);
+    }
+
+    public void onEvent(CouponsEvent event) {
+        if (event.isSuccess) {
+            getSupportLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
+        }
+    }
+
+    class ActivityUi {
         private boolean FIT_SCALE;
         private Context context;
         private ActionBar bar;
         private String logo;
+        CursorPagerAdapter cursorPagerAdapter;
 
         @Bind(R.id.toolbar)
         Toolbar toolbar;
@@ -102,12 +157,26 @@ public class BrowserActivity extends AppCompatActivity {
         ImageButton btnRefresh;
         @Bind(R.id.dealsButton)
         TextView dealsButton;
-        @Bind(R.id.expandButton)
-        ImageButton expandButton;
         @Bind(R.id.navigation_panel)
         LinearLayout navigationPanel;
         @Bind(R.id.pager)
-        RelativeLayout pager;
+        ViewPager pager;
+        @Bind(R.id.pagerNavigator)
+        RelativeLayout pagerNavigator;
+        @Bind(R.id.forwardButton)
+        ImageButton forwardButton;
+        @Bind(R.id.backButton)
+        ImageButton backButton;
+        @Bind(R.id.lastPageButton)
+        ImageButton lastPageButton;
+        @Bind(R.id.firstPageButton)
+        ImageButton firstPageButton;
+        @Bind(R.id.pageNumber)
+        TextView pageNumber;
+        @Bind(R.id.collapseLayout)
+        LinearLayout collapseLayout;
+        @Bind(R.id.collapseButton)
+        ImageButton collapseButton;
 
         @OnClick(R.id.forward_btn)
         public void onForward() {
@@ -126,9 +195,10 @@ public class BrowserActivity extends AppCompatActivity {
 
         @OnClick(R.id.dealsButton)
         public void onShowDeals() {
+            pager.setAdapter(cursorPagerAdapter);
+            collapseLayout.setVisibility(View.VISIBLE);
+            pagerNavigator.setVisibility(View.VISIBLE);
             navigationPanel.setVisibility(View.INVISIBLE);
-            pager.setVisibility(View.VISIBLE);
-//            pager.setAdapter(new BrowserPagerAdapter(getSupportFragmentManager()));
             if (!FIT_SCALE) {
                 FIT_SCALE = true;
                 webView.setInitialScale(1);
@@ -138,18 +208,40 @@ public class BrowserActivity extends AppCompatActivity {
             }
         }
 
-        @OnClick(R.id.expandButton)
-        public void onClosePager() {
+        @OnClick(R.id.forwardButton)
+        public void onNext() {
+            pager.setCurrentItem(pager.getCurrentItem() + 1);
+        }
+
+        @OnClick(R.id.backButton)
+        public void onPrev() {
+            pager.setCurrentItem(pager.getCurrentItem() - 1);
+        }
+        @OnClick(R.id.lastPageButton)
+        public void onLast() {
+            pager.setCurrentItem(pager.getBottom());
+        }
+        @OnClick(R.id.firstPageButton)
+        public void onFirst() {
+            pager.setCurrentItem(0);
+        }
+
+        @OnClick(R.id.collapseButton)
+        public void onCollapse() {
+            collapseLayout.setVisibility(View.INVISIBLE);
+            pagerNavigator.setVisibility(View.INVISIBLE);
             navigationPanel.setVisibility(View.VISIBLE);
-            pager.setVisibility(View.INVISIBLE);
+            pager.setAdapter(null);
         }
 
         public ActivityUi(BrowserActivity browserActivity) {
             context = browserActivity;
             ButterKnife.bind(this, browserActivity);
             initToolbar(browserActivity);
-            navigationPanel.setVisibility(View.VISIBLE);
-            pager.setVisibility(View.INVISIBLE);
+            cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),
+                    new String[]{DataContract.OfferEntry.COLUMN_DESCRIPTION, DataContract.OfferEntry.COLUMN_EXPIRE, DataContract.OfferEntry.COLUMN_CODE}, null);
+            pagerNavigator.setVisibility(View.INVISIBLE);
+            collapseLayout.setVisibility(View.INVISIBLE);
         }
 
         private void initToolbar(Activity activity) {
@@ -233,19 +325,92 @@ public class BrowserActivity extends AppCompatActivity {
         }
     }
 
-    public class BrowserPagerAdapter extends FragmentPagerAdapter {
-        public BrowserPagerAdapter(FragmentManager mgr) {
-            super(mgr);
+    public class CursorPagerAdapter extends FragmentStatePagerAdapter {
+        private final String[] projection;
+        private Cursor cursor;
+        protected boolean dataValid;
+        protected int rowIDColumn;
+        protected SparseIntArray itemPositions;
+
+        public CursorPagerAdapter(FragmentManager fm, String[] projection, Cursor cursor) {
+            super(fm);
+            this.projection = projection;
+            this.cursor = cursor;
+            this.dataValid = cursor != null;
+            this.rowIDColumn = dataValid ? cursor.getColumnIndexOrThrow("_id") : -1;
+        }
+
+        @Override
+        public PageFragment getItem(int position) {
+            if (cursor == null) // shouldn't happen
+                return null;
+
+            cursor.moveToPosition(position);
+            PageFragment frag;
+            try {
+                frag = PageFragment.newInstance();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            Bundle args = new Bundle();
+            for (int i = 0; i < projection.length; ++i) {
+                args.putString(projection[i], cursor.getString(cursor.getColumnIndex(projection[i])));
+            }
+            frag.setArguments(args);
+            ui.pageNumber.setText(String.valueOf(ui.pager.getCurrentItem() + 1) + " of " + String.valueOf(getCount()));
+            return frag;
         }
 
         @Override
         public int getCount() {
-            return (10);
+            if (cursor == null)
+                return 0;
+            else
+                return cursor.getCount();
         }
 
-        @Override
-        public Fragment getItem(int position) {
-            return (PageFragment.newInstance(position));
+        public Cursor getCursor() {
+            return cursor;
+        }
+
+        public void changeCursor(Cursor cursor) {
+            Cursor old = swapCursor(cursor);
+            if (old != null) {
+                old.close();
+            }
+        }
+
+        public Cursor swapCursor(Cursor newCursor) {
+            if (newCursor == cursor) {
+                return null;
+            }
+            Cursor oldCursor = cursor;
+            cursor = newCursor;
+            if (newCursor != null) {
+                rowIDColumn = newCursor.getColumnIndexOrThrow("_id");
+                dataValid = true;
+            } else {
+                rowIDColumn = -1;
+                dataValid = false;
+            }
+            setItemPositions();
+            notifyDataSetChanged();
+            return oldCursor;
+        }
+
+        public void setItemPositions() {
+            itemPositions = null;
+
+            if (dataValid) {
+                int count = cursor.getCount();
+                itemPositions = new SparseIntArray(count);
+                cursor.moveToPosition(-1);
+                while (cursor.moveToNext()) {
+                    int rowId = cursor.getInt(rowIDColumn);
+                    int cursorPos = cursor.getPosition();
+                    itemPositions.append(rowId, cursorPos);
+                }
+            }
         }
     }
 
