@@ -63,7 +63,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        setContentView(R.layout.layout_storeee);
+        setContentView(R.layout.layout_store);
         handler = new Handler();
 
         Intent intent = getIntent();
@@ -331,7 +331,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 
         @Override
         public CursorCouponsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_merchant_coupons, parent, false);
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coupons_list, parent, false);
             return new CursorCouponsAdapter.ViewHolder(itemView);
         }
 

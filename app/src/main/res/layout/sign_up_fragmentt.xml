@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.login.SignUpFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/abc_action_bar_default_height_material"
+        android:elevation="8dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/abc_dialog_padding_top_material"
+            android:paddingLeft="@dimen/abc_dialog_padding_material"
+            android:paddingRight="@dimen/abc_dialog_padding_material"
+            android:paddingTop="@dimen/abc_dialog_padding_top_material">
+
+            <EditText
+                android:id="@+id/email_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:hint="@string/email_hint"
+                android:inputType="textEmailAddress"
+                android:nextFocusDown="@+id/password_edittext" />
+
+            <EditText
+                android:id="@+id/password_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:hint="@string/password_hint"
+                android:inputType="textPassword"
+                android:nextFocusUp="@+id/email_edittext" />
+
+            <EditText
+                android:id="@+id/referring_email_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:hint="@string/referral_member_email_label"
+                android:inputType="textEmailAddress"
+                android:nextFocusUp="@+id/password_edittext" />
+
+            <Button
+                android:id="@+id/nativeSingUpButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="?android:attr/listPreferredItemHeight"
+                android:text="@string/login_first_page_name" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/facebookSingUpButton"
+                    android:background="@drawable/facebook_btn_default_normal_holo_light"
+                    android:text="@string/login_first_page_name"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/googleSingUpButton"
+                    android:background="@drawable/common_signin_btn_text_normal_dark"
+                    android:text="@string/login_first_page_name"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

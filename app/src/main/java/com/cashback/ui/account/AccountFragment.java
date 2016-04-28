@@ -3,6 +3,7 @@ package com.cashback.ui.account;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cashback.R;
 import com.cashback.Utilities;
@@ -86,8 +88,21 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_rate_the_app:
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                //Try Google play
+//                intent.setData(Uri.parse("market://details?id=[Id]"));
+//                if (!MyStartActivity(intent)) {
+//                    //Market (Google play) app seems not installed, let's try to open a webbrowser
+//                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?[Id]"));
+//                    if (!MyStartActivity(intent)) {
+//                        //Well if this also fails, we have run out of options, inform the user.
+//                        Toast.makeText(getActivity(), "Could not open Android market, please install the market app.", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
                 break;
             case R.id.action_logout:
+                // TODO: 4/19/2016 TEST - will be deleted
+                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

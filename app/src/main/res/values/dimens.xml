@@ -20,7 +20,7 @@
     <dimen name="toolbar_elevation">3dp</dimen>
 
     <!--drawer-->
-    <dimen name="navigation_width">250dp</dimen>
+    <dimen name="navigation_width">300dp</dimen>
 
     <dimen name="content_padding">0dp</dimen>
     <dimen name="content_padding_top">0dp</dimen>

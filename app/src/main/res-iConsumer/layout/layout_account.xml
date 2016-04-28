@@ -69,7 +69,8 @@
                         android:paddingStart="0dp"
                         android:paddingLeft="0dp"
                         android:text="@string/format_donation_amount"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -110,7 +111,8 @@
                         android:paddingStart="0dp"
                         android:paddingLeft="0dp"
                         android:text="@string/format_donation_amount"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
 
                     <TextView
                         android:layout_width="match_parent"

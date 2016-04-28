@@ -26,19 +26,17 @@
             <TextView
                 android:gravity="center_vertical|start"
                 android:id="@+id/restrictions"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@+id/btnShopNow"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/btnShopNow"
-                android:layout_toStartOf="@+id/btnShopNow"
                 android:layout_width="match_parent"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:singleLine="false"
                 android:text="@null"
                 android:textAppearance="@style/AppTheme.TextAppearance"
-                android:textColor="@color/textColorPrimary" />
+                android:textColor="@color/textColorPrimary"
+                android:layout_below="@+id/btnShopNow"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:clickable="true"

@@ -20,8 +20,8 @@
 
     <com.cashback.ui.components.NestedListView
         android:id="@+id/all_stores_list"
-        android:layout_height="wrap_content"
         style="@style/AppTheme.ListView"
+        android:layout_height="wrap_content"
         tools:listItem="@layout/item_store_list" />
 
 </android.support.design.widget.CoordinatorLayout>

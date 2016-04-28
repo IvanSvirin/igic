@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/user_email"
         android:layout_marginBottom="@dimen/padding_min"
-        android:text="@string/space"
+        android:text="Sandy Clinton"
         android:textAppearance="@style/AppTheme.TextAppearance"
         android:textColor="@color/white" />
 
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/space"
+        android:text="clinton@whitehouse.com"
         android:textAppearance="@style/AppTheme.TextAppearance"
         android:textColor="@color/white" />
 

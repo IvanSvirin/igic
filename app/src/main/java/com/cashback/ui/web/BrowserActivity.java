@@ -58,9 +58,6 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
         setContentView(R.layout.layout_browser);
 
         ui = new ActivityUi(this);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.browser_web_view, new ActivationFragment())
-                .commit();
         ui.setNavigationButtonState();
         ui.webView.setWebChromeClient(new MyWebChromeClient());
         ui.webView.setWebViewClient(new MyWebViewClient());

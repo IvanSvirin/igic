@@ -47,7 +47,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by I.Svirin on 4/7/2016.
  */
-public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class FeaturedFragment extends Fragment {
     public static final String TAG_FEATURED_FRAGMENT = "I_featured_fragment";
     private FragmentUi fragmentUi;
 
@@ -63,7 +63,7 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_featuredd, container, false);
+        View view = inflater.inflate(R.layout.layout_featured, container, false);
         fragmentUi = new FragmentUi(this, view);
         return view;
     }
@@ -71,7 +71,6 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        getLoaderManager().initLoader(MainActivity.IMAGE_LOADER, null, this);
         Toolbar toolbar = fragmentUi.getToolbar();
         ((MainActivity) getActivity()).setAssociateToolbar(toolbar);
     }
@@ -80,24 +79,17 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     public void onStart() {
         super.onStart();
         getActivity().setTitle(R.string.title_featured_fragment);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            fragmentUi.changeImageSlider();
-            fragmentUi.bindImgSlider();
-        }
     }
 
     @Override
     public void onStop() {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            fragmentUi.unbindImgSlider();
-        }
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -105,34 +97,6 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     public void onDestroyView() {
         super.onDestroyView();
         fragmentUi.unbind();
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        CursorLoader loader = null;
-//        if (id == MainActivity.IMAGE_LOADER) {
-//            loader = new CursorLoader(getActivity());
-//            loader.setUri(DataContract.URI_IMAGES);
-//        }
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (loader.getId() == MainActivity.IMAGE_LOADER) {
-//            fragmentUi.changeImageSlider(data);
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-//        fragmentUi.changeImageSlider(null);
-    }
-
-    public void onEvent(ImageEvent event) {
-        if (event.isSuccess) {
-            getLoaderManager().restartLoader(MainActivity.IMAGE_LOADER, null, this);
-        }
     }
 
     @Override
@@ -162,9 +126,6 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     public class FragmentUi {
-        private final int DURATION_SLIDER_TRANSITION = 250;
-        private final long DURATION_DISPLAY_SLIDER = 3500;
-
         private Context context;
         @Bind(R.id.tab_header)
         TabLayout tabLayout;
@@ -174,18 +135,11 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
         WrapContentHeightViewPager tabViewPager;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
-        //        @Bind(R.id.img_carousel)
-//        SliderLayout sliderLayout;
-        SliderLayout sliderLayout;
 
         public FragmentUi(FeaturedFragment fragment, View view) {
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
             setupTabsView(fragment.getChildFragmentManager());
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                sliderLayout = (SliderLayout) view.findViewById(R.id.img_carousel);
-                initImageSlider();
-            }
         }
 
         private void setupTabsView(FragmentManager mng) {
@@ -197,82 +151,6 @@ public class FeaturedFragment extends Fragment implements LoaderManager.LoaderCa
             tabLayout.setupWithViewPager(tabViewPager);
         }
 
-        private void initImageSlider() {
-            sliderLayout.setPresetTransformer(SliderLayout.Transformer.ZoomOutSlide);
-            sliderLayout.setSliderTransformDuration(DURATION_SLIDER_TRANSITION, new LinearOutSlowInInterpolator());
-            sliderLayout.setDuration(DURATION_DISPLAY_SLIDER);
-            sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
-        }
-
-        private void changeImageSlider() {
-            if (sliderLayout != null) {
-                sliderLayout.stopAutoCycle();
-                sliderLayout.removeAllSliders();
-                sliderLayout.setVisibility(View.INVISIBLE);
-            }
-            DefaultSliderView itemSlider;
-
-            itemSlider = new DefaultSliderView(context);
-            itemSlider.errorDisappear(true);
-            itemSlider.image(R.drawable.discover);
-            itemSlider.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                @Override
-                public void onSliderClick(BaseSliderView slider) {
-                    if (Utilities.isLoggedIn(context)) {
-                    }
-                }
-            });
-            sliderLayout.addSlider(itemSlider);
-
-            itemSlider = new DefaultSliderView(context);
-            itemSlider.errorDisappear(true);
-            itemSlider.image(R.drawable.great);
-            itemSlider.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                @Override
-                public void onSliderClick(BaseSliderView slider) {
-                    if (Utilities.isLoggedIn(context)) {
-                    }
-                }
-            });
-            sliderLayout.addSlider(itemSlider);
-
-            itemSlider = new DefaultSliderView(context);
-            itemSlider.errorDisappear(true);
-            itemSlider.image(R.drawable.save);
-            itemSlider.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                @Override
-                public void onSliderClick(BaseSliderView slider) {
-                    if (Utilities.isLoggedIn(context)) {
-                    }
-                }
-            });
-            sliderLayout.addSlider(itemSlider);
-
-            itemSlider = new DefaultSliderView(context);
-            itemSlider.errorDisappear(true);
-            itemSlider.image(R.drawable.travel);
-            itemSlider.setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                @Override
-                public void onSliderClick(BaseSliderView slider) {
-                    if (Utilities.isLoggedIn(context)) {
-                    }
-                }
-            });
-            sliderLayout.addSlider(itemSlider);
-
-            sliderLayout.startAutoCycle();
-            sliderLayout.setVisibility(View.VISIBLE);
-        }
-
-        private void bindImgSlider() {
-            if (sliderLayout != null)
-                sliderLayout.startAutoCycle();
-        }
-
-        private void unbindImgSlider() {
-            if (sliderLayout != null)
-                sliderLayout.stopAutoCycle();
-        }
 
         public void unbind() {
             ButterKnife.unbind(this);
