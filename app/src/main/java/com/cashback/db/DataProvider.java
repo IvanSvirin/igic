@@ -26,6 +26,8 @@ public class DataProvider extends ContentProvider {
     private static final int FAVORITE_MERCHANTS = 300;
     private static final int EXTRA_MERCHANTS =400;
 
+    private static final int CATEGORIES =500;
+
 
     private String LOG_TAG = "sql_log";
     private DbHelper dbHelper;
@@ -42,6 +44,8 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "coupons/#", COUPON_BY_ID);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "favorite_merchants", FAVORITE_MERCHANTS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "extra_merchants", EXTRA_MERCHANTS);
+
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "categories", CATEGORIES);
     }
 
     @Override
@@ -96,6 +100,12 @@ public class DataProvider extends ContentProvider {
                     common_selection = selection + " AND " + common_selection;
                 cursor = db.query(DataContract.Coupons.TABLE_NAME, projection, common_selection, null, null, null, null);
                 break;
+            case CATEGORIES:
+                if (TextUtils.isEmpty(sortOrder)) {
+                    sortOrder = DataContract.Categories._ID + " COLLATE NOCASE ASC";
+                }
+                cursor = db.query(DataContract.Categories.TABLE_NAME, projection, null, null, null, null, sortOrder);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -128,6 +138,15 @@ public class DataProvider extends ContentProvider {
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
+                break;
+            case CATEGORIES:
+                rowID = db.insertWithOnConflict(DataContract.Categories.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (rowID > 0) {
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_CATEGORIES, rowID);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -172,6 +191,21 @@ public class DataProvider extends ContentProvider {
                     db.endTransaction();
                 }
                 break;
+            case CATEGORIES:
+                db.beginTransaction();
+                try {
+                    delete(uri, null, null);
+                    for (ContentValues val : values) {
+                        insert(uri, val);
+                        countInsert++;
+                    }
+                    db.setTransactionSuccessful();
+                } catch (SQLException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
+                break;
         }
         context.getContentResolver().notifyChange(uri, null);
         return countInsert;
@@ -191,6 +225,9 @@ public class DataProvider extends ContentProvider {
                 // TODO: 4/19/2016 TEST - will be deleted
                 affectedRowsCount = db.delete(DataContract.OfferEntry.TABLE_NAME, null, null);
 //                affectedRowsCount = db.delete(DataContract.Coupons.TABLE_NAME, null, null);
+                break;
+            case CATEGORIES:
+                affectedRowsCount = db.delete(DataContract.Categories.TABLE_NAME, null, null);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -219,6 +256,8 @@ public class DataProvider extends ContentProvider {
                 return DataContract.Coupons.CONTENT_TYPE;
             case COUPON_BY_ID:
                 return DataContract.Coupons.CONTENT_ITEM_TYPE;
+            case CATEGORIES:
+                return DataContract.Coupons.CONTENT_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
 

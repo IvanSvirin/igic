@@ -59,4 +59,12 @@ public class AuxiliaryDataDbHelper {
 //                    DataContract.Coupons.COLUMN_VENDOR_COMMISSION + REAL_TYPE + DELIMITER +
 //                    " )";
 //    public final String SQL_DELETE_COUPONS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Coupons.TABLE_NAME;
+
+    public final String SQL_CREATE_CATEGORIES_TABLE =
+            "CREATE TABLE " + DataContract.Categories.TABLE_NAME + "(" +
+                    DataContract.Categories._ID + PRIMARY_TYPE +
+                    DataContract.Categories.COLUMN_CATEGORY_ID + INT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.Categories.COLUMN_NAME + TEXT_TYPE + DELIMITER +
+                    " )";
+    public final String SQL_DELETE_CATEGORIES_TABLE = "DROP TABLE IF EXISTS " + DataContract.Categories.TABLE_NAME;
 }

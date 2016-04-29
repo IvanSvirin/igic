@@ -7,6 +7,7 @@ import android.net.Uri;
 
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.AccountEvent;
+import com.cashback.rest.event.CategoriesEvent;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.rest.event.MerchantsEvent;
 
@@ -21,6 +22,8 @@ public class DataInsertHandler extends BulkAsyncQueryHandler {
     public final static int ACCOUNT_TOKEN = 100;
     public final static int MERCHANTS_TOKEN = 200;
     public final static int COUPONS_TOKEN = 300;
+    public static final int CATEGORY_TOKEN = 400;
+
 
     private Context context;
 
@@ -62,6 +65,10 @@ public class DataInsertHandler extends BulkAsyncQueryHandler {
             case COUPONS_TOKEN:
                 RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_COUPONS);
                 EventBus.getDefault().post(new CouponsEvent(true, null));
+                break;
+            case CATEGORY_TOKEN:
+                RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_CATEGORIES);
+                EventBus.getDefault().post(new CategoriesEvent(true, null));
                 break;
         }
     }

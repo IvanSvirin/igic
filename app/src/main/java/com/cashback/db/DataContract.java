@@ -19,7 +19,8 @@ public class DataContract {
     public final static Uri URI_FAVORITES = Uri.withAppendedPath(BASE_CONTENT_URI, "favorites");
     public final static Uri URI_EXTRAS = Uri.withAppendedPath(BASE_CONTENT_URI, "extras");
 
-    public final static Uri URI_IMAGES = Uri.withAppendedPath(BASE_CONTENT_URI, "images");
+    public final static Uri URI_CATEGORIES = Uri.withAppendedPath(BASE_CONTENT_URI, "categories");
+
 
 
 
@@ -73,4 +74,14 @@ public class DataContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "offer_coupons";
     }
 
+    public static class Categories implements BaseColumns {
+        public static final String TABLE_NAME = "categories";
+        public static final String COLUMN_CATEGORY_ID = "category_id";
+        public static final String COLUMN_NAME = "name";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "categories";
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "categories";
+    }
 }

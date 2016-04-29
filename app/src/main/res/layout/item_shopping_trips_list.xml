@@ -22,7 +22,7 @@ android:layout_height="match_parent">
 </FrameLayout>
 
 <com.cashback.ui.components.NestedListView
-    android:id="@+id/shopping_trips_list"
+    android:id="@+id/payments_list"
     android:layout_height="wrap_content"
     style="@style/AppTheme.ListView"
     tools:listItem="@layout/item_shopping_trips_nested_list">

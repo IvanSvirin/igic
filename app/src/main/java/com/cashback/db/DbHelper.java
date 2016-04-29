@@ -27,6 +27,7 @@ public class DbHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(innerHelper.SQL_CREATE_MERCHANTS_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_COUPONS_TABLE);
+        db.execSQL(innerHelper.SQL_CREATE_CATEGORIES_TABLE);
     }
 
     @Override
@@ -34,6 +35,7 @@ public class DbHelper extends SQLiteOpenHelper{
         // This is normal upgrade policy for db that only cache the online data
         db.execSQL(innerHelper.SQL_DELETE_MERCHANTS_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_COUPONS_TABLE);
+        db.execSQL(innerHelper.SQL_DELETE_CATEGORIES_TABLE);
         onCreate(db);
     }
 }

@@ -1,5 +1,6 @@
 package com.cashback.ui.account;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.cashback.R;
-import com.cashback.Utilities;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
 
@@ -88,17 +88,17 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_rate_the_app:
-//                Intent intent = new Intent(Intent.ACTION_VIEW);
-//                //Try Google play
-//                intent.setData(Uri.parse("market://details?id=[Id]"));
-//                if (!MyStartActivity(intent)) {
-//                    //Market (Google play) app seems not installed, let's try to open a webbrowser
-//                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?[Id]"));
-//                    if (!MyStartActivity(intent)) {
-//                        //Well if this also fails, we have run out of options, inform the user.
-//                        Toast.makeText(getActivity(), "Could not open Android market, please install the market app.", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                //Try Google play
+                intent.setData(Uri.parse("market://details?id=[Id]"));
+                if (!StartRateAppActivity(intent)) {
+                    //Market (Google play) app seems not installed, let's try to open a webbrowser
+                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?[Id]"));
+                    if (!StartRateAppActivity(intent)) {
+                        //Well if this also fails, we have run out of options, inform the user.
+                        Toast.makeText(getActivity(), "Could not open Android market, please install the market app.", Toast.LENGTH_SHORT).show();
+                    }
+                }
                 break;
             case R.id.action_logout:
                 // TODO: 4/19/2016 TEST - will be deleted
@@ -106,6 +106,15 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean StartRateAppActivity(Intent intent) {
+        try {
+            startActivity(intent);
+            return true;
+        } catch (ActivityNotFoundException e) {
+            return false;
+        }
     }
 
     public class FragmentUi {
