@@ -186,11 +186,13 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         @Override
         public void bindView(View view, Context context, final Cursor cursor) {
             ViewHolder holder = (ViewHolder) view.getTag();
+
             // TODO: 4/19/2016 TEST - will be deleted
-//            final String name = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
             final String name = "Store name";
-//            final String name = cursor.getString(cursor.getColumnIndex(DataContract.Categories.COLUMN_NAME));
+            final String commission = "5.0 %";
+
             holder.storeName.setText(name);
+            holder.storeCommission.setText(commission);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -210,6 +212,8 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         public static class ViewHolder {
             @Bind(R.id.storeName)
             TextView storeName;
+            @Bind(R.id.storeCommission)
+            TextView storeCommission;
 
             public ViewHolder(View convertView) {
                 ButterKnife.bind(this, convertView);

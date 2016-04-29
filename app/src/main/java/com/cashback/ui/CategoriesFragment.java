@@ -187,7 +187,6 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
         public void bindView(View view, Context context, final Cursor cursor) {
             ViewHolder holder = (ViewHolder) view.getTag();
             // TODO: 4/19/2016 TEST - will be deleted
-//            final String name = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
             final String name = "Category name";
 //            final String name = cursor.getString(cursor.getColumnIndex(DataContract.Categories.COLUMN_NAME));
             holder.categoryName.setText(name);

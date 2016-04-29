@@ -64,7 +64,7 @@ public class AuxiliaryDataDbHelper {
             "CREATE TABLE " + DataContract.Categories.TABLE_NAME + "(" +
                     DataContract.Categories._ID + PRIMARY_TYPE +
                     DataContract.Categories.COLUMN_CATEGORY_ID + INT_TYPE + " UNIQUE" + DELIMITER +
-                    DataContract.Categories.COLUMN_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.Categories.COLUMN_NAME + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_CATEGORIES_TABLE = "DROP TABLE IF EXISTS " + DataContract.Categories.TABLE_NAME;
 }
