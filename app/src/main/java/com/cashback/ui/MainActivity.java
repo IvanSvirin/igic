@@ -17,15 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.ui.account.AccountFragment;
 import com.cashback.ui.featured.FeaturedFragment;
-import com.squareup.picasso.Picasso;
 
 import bolts.AppLinks;
 import butterknife.Bind;
@@ -56,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static final int COUPONS_SEARCH_LOADER = 6;
     public static final int MERCHANT_COUPONS_LOADER = 7;
     public static final int CATEGORIES_LOADER = 8;
+    public static final int MERCHANTS_LOADER = 9;
 
     private DrawerUi drawerUi;
     private int currentItemId = 0;

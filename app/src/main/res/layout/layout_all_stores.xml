@@ -18,31 +18,7 @@
             android:orientation="vertical"
             android:padding="@dimen/padding_standard">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@android:drawable/divider_horizontal_bright"
-            android:dividerPadding="@dimen/divider_padding"
-            android:orientation="vertical"
-            android:showDividers="end">
 
-            <FrameLayout
-                android:id="@+id/allStoresFrame"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/frame_height"
-                android:layout_gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/allStores"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_vertical"
-                    android:paddingLeft="@dimen/padding_small"
-                    android:paddingStart="@dimen/padding_small"
-                    android:text="@string/title_all_stores_fragment"
-                    android:textAppearance="@style/AppTheme.TextAppearance" />
-            </FrameLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
