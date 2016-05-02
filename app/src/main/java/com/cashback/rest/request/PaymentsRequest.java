@@ -9,6 +9,7 @@ import com.cashback.model.ErrorResponse;
 import com.cashback.model.Payment;
 import com.cashback.model.WarningResponse;
 import com.cashback.rest.ErrorRestException;
+import com.cashback.rest.IAccount;
 import com.cashback.rest.ServiceGenerator;
 import com.cashback.rest.WarningRestException;
 import com.cashback.rest.adapter.PaymentsDeserializer;

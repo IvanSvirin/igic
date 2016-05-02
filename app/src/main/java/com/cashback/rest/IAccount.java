@@ -1,4 +1,4 @@
-package com.cashback.rest.request;
+package com.cashback.rest;
 
 import com.cashback.model.Payment;
 
