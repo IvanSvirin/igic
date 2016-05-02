@@ -7,12 +7,6 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
 /**
  * Created by I.Svirin on 4/5/2016.
  */
@@ -60,5 +54,35 @@ public class Utilities {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(context.getString(R.string.pref_show_tour_key), toShow);
         editor.apply();
+    }
+
+    public static String getMonth(String s) {
+        switch (s) {
+            case "01":
+                return "Jan";
+            case "02":
+                return "Feb";
+            case "03":
+                return "Mar";
+            case "04":
+                return "Apr";
+            case "05":
+                return "May";
+            case "06":
+                return "Jun";
+            case "07":
+                return "Jul";
+            case "08":
+                return "Aug";
+            case "09":
+                return "Sep";
+            case "10":
+                return "Oct";
+            case "11":
+                return "Nov";
+            case "12":
+                return "Dec";
+        }
+        return "";
     }
 }

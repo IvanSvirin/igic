@@ -67,4 +67,13 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Categories.COLUMN_NAME + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_CATEGORIES_TABLE = "DROP TABLE IF EXISTS " + DataContract.Categories.TABLE_NAME;
+
+    public final String SQL_CREATE_PAYMENTS_TABLE =
+            "CREATE TABLE " + DataContract.Payments.TABLE_NAME + "(" +
+                    DataContract.Payments._ID + PRIMARY_TYPE +
+                    DataContract.Payments.COLUMN_PAYMENT_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.Payments.COLUMN_PAYMENT_AMOUNT + REAL_TYPE + DELIMITER +
+                    DataContract.Payments.COLUMN_PAYMENT_ACCOUNT + TEXT_TYPE +
+                    " )";
+    public final String SQL_DELETE_PAYMENTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Categories.TABLE_NAME;
 }

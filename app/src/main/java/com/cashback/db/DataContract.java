@@ -20,6 +20,7 @@ public class DataContract {
     public final static Uri URI_EXTRAS = Uri.withAppendedPath(BASE_CONTENT_URI, "extras");
 
     public final static Uri URI_CATEGORIES = Uri.withAppendedPath(BASE_CONTENT_URI, "categories");
+    public final static Uri URI_PAYMENTS = Uri.withAppendedPath(BASE_CONTENT_URI, "payments");
 
 
 
@@ -83,5 +84,17 @@ public class DataContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "categories";
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "categories";
+    }
+
+    public static class Payments implements BaseColumns {
+        public static final String TABLE_NAME = "payments";
+        public static final String COLUMN_PAYMENT_DATE = "payment_date";
+        public static final String COLUMN_PAYMENT_AMOUNT = "payment_amount";
+        public static final String COLUMN_PAYMENT_ACCOUNT = "payment_account";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "payments";
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "payments";
     }
 }

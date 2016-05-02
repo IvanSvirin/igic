@@ -1,38 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/sortDivider"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/frame_height"
-        android:layout_gravity="center_vertical" >
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/padding_standard"
+        android:layout_marginLeft="46dp"
+        android:layout_marginRight="@dimen/padding_standard"
+        android:layout_marginStart="46dp"
+        android:background="@android:color/transparent" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp">
 
         <TextView
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/monthDay"
+            android:layout_alignBottom="@+id/monthDay"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginLeft="62dp"
+            android:layout_marginStart="62dp"
+            android:layout_toEndOf="@+id/monthDay"
+            android:layout_toRightOf="@+id/monthDay"
+            android:maxLines="2"
+            android:textAppearance="@style/AppTheme.TextAppearance" />
+
+        <TextView
+            android:id="@+id/payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/monthDay"
+            android:layout_alignEnd="@+id/yearPaymentsSum"
+            android:layout_alignRight="@+id/yearPaymentsSum"
+            android:layout_gravity="end|center_vertical"
+            android:singleLine="true"
+            android:text="@string/format_donation_amount"
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/monthDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:text="Exp."
+            android:layout_below="@+id/year"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
-            android:paddingStart="@dimen/padding_small"
+            android:focusable="false"
             android:paddingLeft="@dimen/padding_small"
+            android:paddingStart="@dimen/padding_small"
             android:textAppearance="@style/AppTheme.TextAppearance"
             android:textColor="@color/primary"
-            android:id="@+id/year" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
+            android:id="@+id/yearPaymentsSum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/format_donation_amount"
+            android:layout_gravity="right|center_vertical"
             android:textColor="@color/primary"
-            android:id="@+id/yearPaymentsSum"
-            android:layout_gravity="right|center_vertical" />
-    </FrameLayout>
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
-    <com.cashback.ui.components.NestedListView
-        android:id="@+id/shopping_trips_list"
-        android:layout_height="wrap_content"
-        style="@style/AppTheme.ListView"
-        tools:listItem="@layout/item_payments_nested_list">
-    </com.cashback.ui.components.NestedListView>
+    </RelativeLayout>
 </LinearLayout>

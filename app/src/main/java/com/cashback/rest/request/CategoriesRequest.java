@@ -7,16 +7,13 @@ import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.Category;
 import com.cashback.model.ErrorResponse;
-import com.cashback.model.Merchant;
 import com.cashback.model.WarningResponse;
 import com.cashback.rest.ErrorRestException;
 import com.cashback.rest.IMerchants;
 import com.cashback.rest.ServiceGenerator;
 import com.cashback.rest.WarningRestException;
 import com.cashback.rest.adapter.CategoriesDeserializer;
-import com.cashback.rest.adapter.MerchantsDeserializer;
 import com.cashback.rest.event.CategoriesEvent;
-import com.cashback.rest.event.MerchantsEvent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -73,7 +70,7 @@ public class CategoriesRequest extends ServiceGenerator<IMerchants> {
                         listCategoriesValues.add(values);
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                    handler.startBulkInsert(DataInsertHandler.CATEGORY_TOKEN, false, DataContract.URI_CATEGORIES, listCategoriesValues.toArray(new ContentValues[listCategoriesValues.size()]));
+                    handler.startBulkInsert(DataInsertHandler.CATEGORIES_TOKEN, false, DataContract.URI_CATEGORIES, listCategoriesValues.toArray(new ContentValues[listCategoriesValues.size()]));
                 } else {
                     int statusCode = response.code();
                     String answer = "Code " + statusCode + " . ";

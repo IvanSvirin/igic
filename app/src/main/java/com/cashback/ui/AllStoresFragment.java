@@ -133,8 +133,9 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         for (int i = 0; i < 20; i++) {
             values = new ContentValues();
             values.put(DataContract.Merchants.COLUMN_VENDOR_ID, String.valueOf(new Random().nextInt(1000)));
-            char ch = (char) (new Random().nextInt(26) + 64);
-            values.put(DataContract.Merchants.COLUMN_NAME, ch + "Store");
+            char ch1 = (char) (new Random().nextInt(26) + 65);
+            char ch2 = (char) (new Random().nextInt(26) + 97);
+            values.put(DataContract.Merchants.COLUMN_NAME, String.valueOf(ch1) + String.valueOf(ch2) + "Store");
             values.put(DataContract.Merchants.COLUMN_COMMISSION, "5.0 %");
             listMerchantsValues.add(values);
         }
@@ -230,7 +231,7 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
                     Intent intent = new Intent(parent.getContext(), StoreActivity.class);
                     intent.putExtra(StoreActivity.STORE_ID, merchantId);
                     intent.putExtra(StoreActivity.STORE_NAME, merchantName);
-                    startActivity(intent);
+//                    startActivity(intent);
                     // }
                 }
             });
