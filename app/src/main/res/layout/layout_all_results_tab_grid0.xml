@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:columnWidth="320dp"
         android:verticalSpacing="10dp"
-        tools:listItem="@layout/item_store_list_small_card" />
+        tools:listItem="@layout/item_store_list_small_card_all_results" />
 
     <Space
         android:id="@+id/checking_element"

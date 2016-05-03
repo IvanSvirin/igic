@@ -8,23 +8,31 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+import com.cashback.db.DataContract;
+import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.MainActivity;
+import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
-import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.squareup.picasso.Picasso;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/15/2016.
@@ -46,18 +54,20 @@ public class StoresTabFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getLoaderManager().initLoader(MainActivity.STORES_SEARCH_LOADER, null, this);
+        // TODO: 4/19/2016 TEST - will be deleted
+        getLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
+//        getLoaderManager().initLoader(MainActivity.STORES_SEARCH_LOADER, null, this);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -69,17 +79,30 @@ public class StoresTabFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+        // TODO: 4/19/2016 TEST - will be deleted
+        CursorLoader loader = null;
+        if (id == MainActivity.COUPONS_LOADER) {
+            loader = new CursorLoader(getActivity());
+            loader.setUri(DataContract.URI_COUPONS);
+        }
+        return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
+        fragmentUi.featuredAdapter.changeCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        fragmentUi.featuredAdapter.changeCursor(null);
+    }
 
+    // TODO: 4/19/2016 TEST - will be deleted
+    public void onEvent(CouponsEvent event) {
+        if (event.isSuccess) {
+            getLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
+        }
     }
 
     public class FragmentUi {
@@ -110,7 +133,12 @@ public class StoresTabFragment extends Fragment implements LoaderManager.LoaderC
 //                        intent.putExtra(BrowserActivity.FLAG_EVENT_TYPE, BrowserActivity.EVENT_TYPE_SALE);
                         context.startActivity(intent);
                     } else {
-                        Intent intent = new Intent(context, LoginActivity.class);
+                        // TODO: 4/19/2016 TEST - will be deleted
+                        Intent intent = new Intent(context, BrowserActivity.class);
+                        Cursor cursor = featuredAdapter.getCursor();
+                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
+                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
+//                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
                     }
@@ -121,8 +149,15 @@ public class StoresTabFragment extends Fragment implements LoaderManager.LoaderC
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Cursor cursor = featuredAdapter.getCursor();
                     cursor.moveToPosition(position);
-//                    String desc = c.getString(c.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION));
-//                    showDescriptionDialg(desc);
+                    Intent intent = new Intent(context, StoreActivity.class);
+                    // TODO: 4/19/2016 TEST - will be deleted
+                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION)));
+                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_EXPIRE)));
+                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
+                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_LOGO)));
+                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
+//                    intent.putExtra("vendor_id", c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                    context.startActivity(intent);
                 }
             };
             if (isGridLayout) {
@@ -133,6 +168,7 @@ public class StoresTabFragment extends Fragment implements LoaderManager.LoaderC
                 nestedListView.setAdapter(featuredAdapter);
             }
         }
+
         public void unbind() {
             ButterKnife.unbind(this);
         }
@@ -148,17 +184,49 @@ public class StoresTabFragment extends Fragment implements LoaderManager.LoaderC
             super(context, c, flags);
             GRID_TYPE_FLAG = gridType;
             this.context = context;
-//            picasso = Picasso.with(context);
+            picasso = Picasso.with(context);
         }
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            return null;
+            View convertView = LayoutInflater.from(context).inflate(R.layout.item_store_list_small_card_all_results, parent, false);
+            if (GRID_TYPE_FLAG) {
+                GridViewHolder holder = new GridViewHolder(convertView);
+                convertView.setTag(holder);
+            } else {
+                ViewHolder holder = new ViewHolder(convertView);
+                convertView.setTag(holder);
+            }
+            return convertView;
         }
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-
+            // TODO: 4/19/2016 TEST - will be deleted
+            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_ID));
+            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_LOGO));
+            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG));
+            if (GRID_TYPE_FLAG) {
+                GridViewHolder holder = (GridViewHolder) view.getTag();
+                picasso.load(logoUrl).into(holder.vhStoreLogo);
+                holder.vhCashBack.setText(cashBack);
+                holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onSaleClickListener.onSaleClick(couponId);
+                    }
+                });
+            } else {
+                ViewHolder holder = (ViewHolder) view.getTag();
+                picasso.load(logoUrl).into(holder.vhStoreLogo);
+                holder.vhCashBack.setText(cashBack);
+                holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onSaleClickListener.onSaleClick(couponId);
+                    }
+                });
+            }
         }
 
         public void setOnSaleClickListener(OnSaleClickListener listener) {
@@ -167,6 +235,40 @@ public class StoresTabFragment extends Fragment implements LoaderManager.LoaderC
 
         public interface OnSaleClickListener {
             void onSaleClick(int saleId);
+        }
+
+        public static class ViewHolder {
+            @Bind(R.id.storeLogo)
+            ImageView vhStoreLogo;
+            @Bind(R.id.cashBack)
+            TextView vhCashBack;
+            @Bind(R.id.btnShopNow)
+            TextView vhBtnShopNow;
+            @Bind(R.id.shareButton)
+            AppCompatImageView vhShareButton;
+            @Bind(R.id.favorite)
+            ImageView vhFavorite;
+
+            public ViewHolder(View convertView) {
+                ButterKnife.bind(this, convertView);
+            }
+        }
+
+        public static class GridViewHolder {
+            @Bind(R.id.storeLogo)
+            ImageView vhStoreLogo;
+            @Bind(R.id.cashBack)
+            TextView vhCashBack;
+            @Bind(R.id.btnShopNow)
+            TextView vhBtnShopNow;
+            @Bind(R.id.shareButton)
+            AppCompatImageView vhShareButton;
+            @Bind(R.id.favorite)
+            ImageView vhFavorite;
+
+            public GridViewHolder(View convertView) {
+                ButterKnife.bind(this, convertView);
+            }
         }
     }
 }

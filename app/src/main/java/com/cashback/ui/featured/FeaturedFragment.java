@@ -2,19 +2,13 @@ package com.cashback.ui.featured;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -26,23 +20,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashback.R;
-import com.cashback.Utilities;
 import com.cashback.rest.RestUtilities;
-import com.cashback.rest.event.ImageEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.cashback.ui.components.WrapContentHeightViewPager;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/7/2016.
@@ -150,7 +138,6 @@ public class FeaturedFragment extends Fragment {
             tabViewPager.setAdapter(tabsAdapter);
             tabLayout.setupWithViewPager(tabViewPager);
         }
-
 
         public void unbind() {
             ButterKnife.unbind(this);

@@ -1,6 +1,5 @@
 package com.cashback.ui.allresults;
 
-import android.support.v7.app.ActionBar;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -19,17 +19,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.cashback.R;
-import com.cashback.db.DataInsertHandler;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.cashback.ui.components.WrapContentHeightViewPager;
-import com.cashback.ui.featured.ExtraTabFragment;
-import com.cashback.ui.featured.FavoritesTabFragment;
-import com.cashback.ui.featured.HotDealsTabFragment;
-import com.daimajia.slider.library.SliderLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -75,12 +69,10 @@ public class AllResultsActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
     }
 
     @Override
@@ -127,8 +119,8 @@ public class AllResultsActivity extends AppCompatActivity implements LoaderManag
     }
 
     private class TabsPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> aFragmentList = new ArrayList<>();
-        private final List<String> aTitleList = new ArrayList<>();
+        private final List<Fragment> fragmentList = new ArrayList<>();
+        private final List<String> titleList = new ArrayList<>();
 
         public TabsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -136,22 +128,22 @@ public class AllResultsActivity extends AppCompatActivity implements LoaderManag
 
         @Override
         public Fragment getItem(int position) {
-            return aFragmentList.get(position);
+            return fragmentList.get(position);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return aTitleList.get(position);
+            return titleList.get(position);
         }
 
         @Override
         public int getCount() {
-            return aFragmentList.size();
+            return fragmentList.size();
         }
 
         public void addTab(Fragment fragment, String title) {
-            aFragmentList.add(fragment);
-            aTitleList.add(title);
+            fragmentList.add(fragment);
+            titleList.add(title);
         }
     }
 }
