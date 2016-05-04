@@ -23,9 +23,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
-import com.cashback.rest.event.PaymentsEvent;
 import com.cashback.rest.event.ShoppingTripsEvent;
-import com.cashback.rest.request.ShoppingTripsRequest;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.components.NestedListView;
 
@@ -123,10 +121,10 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
             String sMonth = month > 9 ? String.valueOf(month) : "0" + String.valueOf(month);
             int day = new Random().nextInt(30) + 1;
             String sDay = day > 9 ? String.valueOf(day) : "0" + String.valueOf(day);
-            int hour = new Random().nextInt(23);
-            String sHour = day > 9 ? String.valueOf(hour) : "0" + String.valueOf(hour);
-            int min = new Random().nextInt(59);
-            String sMin = day > 9 ? String.valueOf(min) : "0" + String.valueOf(min);
+            int hour = new Random().nextInt(24);
+            String sHour = hour > 9 ? String.valueOf(hour) : "0" + String.valueOf(hour);
+            int min = new Random().nextInt(60);
+            String sMin = min > 9 ? String.valueOf(min) : "0" + String.valueOf(min);
             values.put(DataContract.ShoppingTrips.COLUMN_TRIP_DATE, "201" + String.valueOf((new Random().nextInt(6)) + "-" + sMonth + "-" + sDay + "-" + sHour + "-" + sMin));
             values.put(DataContract.ShoppingTrips.COLUMN_CONFIRMATION_NUMBER, new Random().nextInt(100000));
             values.put(DataContract.ShoppingTrips.COLUMN_VENDOR_NAME, "Vendor" + i);
@@ -267,10 +265,12 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
             if (sections.containsKey(position)) {
                 String sort = sections.get(position);
                 holder.monthYear.setText(Utilities.getFullMonth(sort.substring(5, 7)) + " " + sort.substring(0, 4));
+                holder.monthYear.setPadding(0, 0, 0, 20);
                 if (position > 0)
                     holder.sortDivider.setBackgroundResource(R.color.primary);
             } else {
                 holder.monthYear.setText("");
+                holder.monthYear.setHeight(1);
                 holder.sortDivider.setBackgroundResource(android.R.color.transparent);
             }
             String date = cursor.getString(cursor.getColumnIndex(DataContract.ShoppingTrips.COLUMN_TRIP_DATE));
@@ -282,7 +282,13 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
             holder.shoppingTripsNumber.setText(" " + number.trim());
             String dateValue = date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
             holder.dateValue.setText(" " + dateValue + " ");
-            String timeValueu = date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
+            String hour = date.substring(11, 13);
+            Integer hourInt = Integer.parseInt(hour.substring(0, 1)) * 10 + Integer.parseInt(hour.substring(1, 2));
+            String half = null;
+            half = hourInt > 11 ? "PM" : "AM";
+            String min = date.substring(14, 16);
+            String timeValue = hourInt > 12 ? String.valueOf(hourInt - 12) + ":" + min + half : String.valueOf(hourInt) + ":" + min + half;
+            holder.timeValue.setText(" " + timeValue);
         }
 
         protected boolean isOpenCursor() {
