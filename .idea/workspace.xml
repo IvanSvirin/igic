@@ -50,17 +50,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FavoritesTabFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cashback/ui/featured/FavoritesTabFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StoresTabFragment.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StoresTabFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/StoresTabFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
@@ -76,30 +66,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AllResultsActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AllResultsActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/AllResultsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="100" column="17" selection-start-line="100" selection-start-column="17" selection-end-line="100" selection-end-column="17" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="e#3482#3512#0" expanded="true" />
                 <element signature="e#3583#3615#0" expanded="true" />
                 <element signature="e#3685#3716#0" expanded="true" />
                 <element signature="e#4194#4195#0" expanded="true" />
                 <element signature="e#4251#4252#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FeaturedFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cashback/ui/featured/FeaturedFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-              <folding>
-                <element signature="e#5380#5381#0" expanded="true" />
-                <element signature="e#5437#5438#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -4259,7 +4236,13 @@
       <option name="project" value="LOCAL" />
       <updated>1462296281712</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="StoresTabFragment">
+      <created>1462321454640</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1462321454640</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -4738,24 +4721,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/AllResultsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="100" column="17" selection-start-line="100" selection-start-column="17" selection-end-line="100" selection-end-column="17" />
-          <folding>
-            <element signature="e#3482#3512#0" expanded="true" />
-            <element signature="e#3583#3615#0" expanded="true" />
-            <element signature="e#3685#3716#0" expanded="true" />
-            <element signature="e#4194#4195#0" expanded="true" />
-            <element signature="e#4251#4252#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cashback/ui/featured/FeaturedFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#5380#5381#0" expanded="true" />
             <element signature="e#5437#5438#0" expanded="true" />
@@ -4781,6 +4750,20 @@
             <element signature="e#9457#9458#0" expanded="true" />
             <element signature="e#11167#11168#0" expanded="true" />
             <element signature="e#11234#11235#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/AllResultsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#3482#3512#0" expanded="true" />
+            <element signature="e#3583#3615#0" expanded="true" />
+            <element signature="e#3685#3716#0" expanded="true" />
+            <element signature="e#4194#4195#0" expanded="true" />
+            <element signature="e#4251#4252#0" expanded="true" />
           </folding>
         </state>
       </provider>
