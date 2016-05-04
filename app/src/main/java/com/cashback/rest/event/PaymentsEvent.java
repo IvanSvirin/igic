@@ -12,4 +12,5 @@ public class PaymentsEvent {
     public PaymentsEvent(boolean isSuccess, @Nullable String message) {
         this.isSuccess = isSuccess;
         this.message = message;
-    }}
+    }
+}

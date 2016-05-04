@@ -29,6 +29,7 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(innerHelper.SQL_CREATE_COUPONS_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_CATEGORIES_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_PAYMENTS_TABLE);
+        db.execSQL(innerHelper.SQL_CREATE_SHOPPING_TRIPS_TABLE);
     }
 
     @Override
@@ -38,6 +39,7 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(innerHelper.SQL_DELETE_COUPONS_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_CATEGORIES_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_PAYMENTS_TABLE);
+        db.execSQL(innerHelper.SQL_DELETE_SHOPPING_TRIPS_TABLE);
         onCreate(db);
     }
 }

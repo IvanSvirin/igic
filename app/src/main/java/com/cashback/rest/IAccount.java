@@ -1,6 +1,7 @@
 package com.cashback.rest;
 
 import com.cashback.model.Payment;
+import com.cashback.model.Trip;
 
 import java.util.List;
 
@@ -14,4 +15,7 @@ public interface IAccount {
 
     @GET("/api/v1/account/history/payment/")
     Call<List<Payment>> getPayments();
+
+    @GET("/api/v1/account/history/trip/")
+    Call<List<Trip>> getShoppingTrips();
 }

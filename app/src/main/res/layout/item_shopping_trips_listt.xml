@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/sortDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/padding_standard"
+        android:layout_marginLeft="46dp"
+        android:layout_marginRight="@dimen/padding_standard"
+        android:layout_marginStart="46dp"
+        android:background="@android:color/transparent" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp">
+
+
+        <TextView
+            android:id="@+id/monthDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="Exp." />
+
+        <TextView
+            android:id="@+id/vendorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="46dp"
+            android:layout_marginStart="46dp"
+            android:text="New Text"
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:layout_below="@+id/monthYear"
+            android:layout_toRightOf="@+id/monthDay"
+            android:layout_toEndOf="@+id/monthYear" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/vendorName"
+            android:layout_alignStart="@+id/vendorName"
+            android:layout_below="@+id/vendorName"
+            android:text="@string/shopping_trips_small" />
+
+        <TextView
+            android:id="@+id/dateTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_alignStart="@+id/textView4"
+            android:layout_below="@+id/textView4"
+            android:text="@string/date_title" />
+
+        <TextView
+            android:id="@+id/dateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/dateTitle"
+            android:layout_toEndOf="@+id/dateTitle"
+            android:layout_toRightOf="@+id/dateTitle"
+            android:text="New Text" />
+
+        <TextView
+            android:id="@+id/timeTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/dateValue"
+            android:layout_toEndOf="@+id/dateValue"
+            android:layout_toRightOf="@+id/dateValue"
+            android:text="@string/time_title" />
+
+        <TextView
+            android:id="@+id/timeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/timeTitle"
+            android:layout_toEndOf="@+id/timeTitle"
+            android:layout_toRightOf="@+id/timeTitle"
+            android:text="New Text" />
+
+        <TextView
+            android:id="@+id/shoppingTripsNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/timeTitle"
+            android:layout_toEndOf="@+id/textView4"
+            android:layout_toRightOf="@+id/textView4"
+            android:text="New Text" />
+
+        <TextView
+            android:id="@+id/monthYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="start|center_vertical"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingStart="@dimen/padding_small"
+            android:text="month"
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:textColor="@color/primary" />
+    </RelativeLayout>
+</LinearLayout>

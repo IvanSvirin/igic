@@ -21,6 +21,7 @@ public class DataContract {
 
     public final static Uri URI_CATEGORIES = Uri.withAppendedPath(BASE_CONTENT_URI, "categories");
     public final static Uri URI_PAYMENTS = Uri.withAppendedPath(BASE_CONTENT_URI, "payments");
+    public final static Uri URI_SHOPPING_TRIPS = Uri.withAppendedPath(BASE_CONTENT_URI, "shopping_trips");
 
 
 
@@ -96,5 +97,19 @@ public class DataContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "payments";
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "payments";
+    }
+
+    public static class ShoppingTrips implements BaseColumns {
+        public static final String TABLE_NAME = "shopping_trips";
+        public static final String COLUMN_VENDOR_ID = "vendor_id";
+        public static final String COLUMN_CONFIRMATION_NUMBER = "confirmation_number";
+        public static final String COLUMN_TRIP_DATE = "trip_date";
+        public static final String COLUMN_VENDOR_NAME = "vendor_name";
+        public static final String COLUMN_VENDOR_LOGO_URL = "vendor_logo_url";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "shopping_trips";
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "shopping_trips";
     }
 }

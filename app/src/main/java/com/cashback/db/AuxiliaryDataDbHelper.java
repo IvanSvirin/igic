@@ -75,5 +75,16 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Payments.COLUMN_PAYMENT_AMOUNT + REAL_TYPE + DELIMITER +
                     DataContract.Payments.COLUMN_PAYMENT_ACCOUNT + TEXT_TYPE +
                     " )";
-    public final String SQL_DELETE_PAYMENTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Categories.TABLE_NAME;
+    public final String SQL_DELETE_PAYMENTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Payments.TABLE_NAME;
+
+    public final String SQL_CREATE_SHOPPING_TRIPS_TABLE =
+            "CREATE TABLE " + DataContract.ShoppingTrips.TABLE_NAME + "(" +
+                    DataContract.ShoppingTrips._ID + PRIMARY_TYPE +
+                    DataContract.ShoppingTrips.COLUMN_VENDOR_ID + INT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.ShoppingTrips.COLUMN_CONFIRMATION_NUMBER + INT_TYPE + DELIMITER +
+                    DataContract.ShoppingTrips.COLUMN_TRIP_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.ShoppingTrips.COLUMN_VENDOR_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.ShoppingTrips.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE +
+                    " )";
+    public final String SQL_DELETE_SHOPPING_TRIPS_TABLE = "DROP TABLE IF EXISTS " + DataContract.ShoppingTrips.TABLE_NAME;
 }

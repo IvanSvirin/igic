@@ -148,7 +148,6 @@ public class FeaturedFragment extends Fragment {
         }
     }
 
-
     private class TabsPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> fragmentList = new ArrayList<>();
         private final List<String> titleList = new ArrayList<>();

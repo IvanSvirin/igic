@@ -1,5 +1,6 @@
 package com.cashback.ui.allresults;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -17,10 +18,14 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.cashback.R;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.cashback.ui.components.WrapContentHeightViewPager;
+import com.cashback.ui.featured.ExtraTabFragment;
+import com.cashback.ui.featured.FavoritesTabFragment;
+import com.cashback.ui.featured.HotDealsTabFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,29 +37,13 @@ import butterknife.ButterKnife;
  * Created by I.Svirin on 4/14/2016.
  */
 public class AllResultsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    private TabsPagerAdapter tabsPagerAdapter;
-    @Bind(R.id.tab_header)
-    TabLayout tabLayout;
-    @Bind(R.id.nested_scroll)
-    FixedNestedScrollView nestedScrollView;
-    @Bind(R.id.tab_content)
-    WrapContentHeightViewPager tabViewPager;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    private UiActivity uiActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_all_results);
-
-        ButterKnife.bind(this);
-
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        setTitle(R.string.all_results);
-
-        setupTabsView(getSupportFragmentManager());
+        uiActivity = new UiActivity(this);
     }
 
     @Override
@@ -109,13 +98,40 @@ public class AllResultsActivity extends AppCompatActivity implements LoaderManag
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupTabsView(FragmentManager mng) {
-        TabsPagerAdapter tabsAdapter = new TabsPagerAdapter(mng);
-        tabsAdapter.addTab(new StoresTabFragment(), getString(R.string.tab_stores).toUpperCase());
-        tabsAdapter.addTab(new ProductsTabFragment(), getString(R.string.tab_products).toUpperCase());
-        tabsAdapter.addTab(new CouponsTabFragment(), getString(R.string.tab_coupons).toUpperCase());
-        tabViewPager.setAdapter(tabsAdapter);
-        tabLayout.setupWithViewPager(tabViewPager);
+    public class UiActivity {
+        private Context context;
+        private TabsPagerAdapter tabsPagerAdapter;
+        @Bind(R.id.tab_header)
+        TabLayout tabLayout;
+        @Bind(R.id.nested_scroll)
+        FixedNestedScrollView nestedScrollView;
+        @Bind(R.id.tab_content)
+        WrapContentHeightViewPager tabViewPager;
+        @Bind(R.id.toolbar)
+        Toolbar toolbar;
+
+        public UiActivity(AllResultsActivity activity) {
+            this.context = activity;
+            ButterKnife.bind(this, activity);
+            setupTabsView(getSupportFragmentManager());
+
+            setSupportActionBar(toolbar);
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            setTitle(R.string.all_results);
+        }
+
+        private void setupTabsView(FragmentManager mng) {
+            TabsPagerAdapter tabsAdapter = new TabsPagerAdapter(mng);
+            tabsAdapter.addTab(new HotDealsTabFragment(), getString(R.string.tab_stores).toUpperCase());
+            tabsAdapter.addTab(new FavoritesTabFragment(), getString(R.string.tab_products).toUpperCase());
+            tabsAdapter.addTab(new ExtraTabFragment(), getString(R.string.tab_coupons).toUpperCase());
+//            tabsAdapter.addTab(new StoresTabFragment(), getString(R.string.tab_stores).toUpperCase());
+//            tabsAdapter.addTab(new ProductsTabFragment(), getString(R.string.tab_products).toUpperCase());
+//            tabsAdapter.addTab(new CouponsTabFragment(), getString(R.string.tab_coupons).toUpperCase());
+            tabViewPager.setAdapter(tabsAdapter);
+            tabLayout.setupWithViewPager(tabViewPager);
+        }
     }
 
     private class TabsPagerAdapter extends FragmentPagerAdapter {

@@ -45,10 +45,10 @@
     <string name="btn_copy_code">COPY CODE</string>
     <string name="sales_clearance">SALES/CLEARANCE</string>
     <string name="alert_about_connection">It is necessary an active connection for data update.</string>
-    <string name="date_title">Date:</string>
-    <string name="time_title">Time:</string>
+    <string name="date_title">Date: </string>
+    <string name="time_title">Time: </string>
     <string name="order_title">Order:</string>
-    <string name="shopping_trips_small">Shopping trips:</string>
+    <string name="shopping_trips_small">Shopping trips: </string>
     <string name="pending_stock_title">Payment stock:</string>
     <string name="pref_show_tour_key" translatable="false">showTourKey</string>
     <string name="all_results">All Results for</string>
