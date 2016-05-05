@@ -24,6 +24,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
+import com.cashback.ui.CategoryActivity;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
@@ -140,6 +141,15 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                     }
                 }
             });
+            featuredAdapter.setOnShareClickListener(new FeaturedAdapter.OnShareClickListener() {
+                @Override
+                public void onShareClick(int shareId) {
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("text/plain");
+                    share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
+                    startActivity(Intent.createChooser(share, "Share Text"));
+                }
+            });
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -174,6 +184,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         private final boolean GRID_TYPE_FLAG;
         private Context context;
         private OnSaleClickListener onSaleClickListener;
+        private OnShareClickListener onShareClickListener;
         private Picasso picasso;
 
         public FeaturedAdapter(Context context, Cursor c, int flags, boolean gridType) {
@@ -213,7 +224,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
 //            String expire = context.getString(R.string.prefix_expire) + c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
 //            String couponCode = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
             if (GRID_TYPE_FLAG) {
-                GridViewHolder holder = (GridViewHolder) view.getTag();
+                final GridViewHolder holder = (GridViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
                 holder.vhRestrictions.setText(restrictions.trim());
                 holder.vhCashBack.setText(cashBack);
@@ -223,6 +234,12 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                     @Override
                     public void onClick(View v) {
                         onSaleClickListener.onSaleClick(couponId);
+                    }
+                });
+                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onShareClickListener.onShareClick(couponId);
                     }
                 });
             } else {
@@ -238,6 +255,12 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                         onSaleClickListener.onSaleClick(couponId);
                     }
                 });
+                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onShareClickListener.onShareClick(couponId);
+                    }
+                });
             }
         }
 
@@ -247,6 +270,14 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
 
         public interface OnSaleClickListener {
             void onSaleClick(int saleId);
+        }
+
+        public void setOnShareClickListener(OnShareClickListener listener) {
+            onShareClickListener = listener;
+        }
+
+        public interface OnShareClickListener {
+            void onShareClick(int shareId);
         }
 
         public static class ViewHolder {

@@ -144,6 +144,15 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                     }
                 }
             });
+            featuredAdapter.setOnShareClickListener(new FeaturedAdapter.OnShareClickListener() {
+                @Override
+                public void onShareClick(int shareId) {
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("text/plain");
+                    share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
+                    startActivity(Intent.createChooser(share, "Share Text"));
+                }
+            });
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -179,6 +188,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
         private final boolean GRID_TYPE_FLAG;
         private Context context;
         private OnSaleClickListener onSaleClickListener;
+        private OnShareClickListener onShareClickListener;
         private Picasso picasso;
 
         public FeaturedAdapter(Context context, Cursor c, int flags, boolean gridType) {
@@ -217,6 +227,12 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                         onSaleClickListener.onSaleClick(couponId);
                     }
                 });
+                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onShareClickListener.onShareClick(couponId);
+                    }
+                });
             } else {
                 ViewHolder holder = (ViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
@@ -225,6 +241,12 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                     @Override
                     public void onClick(View v) {
                         onSaleClickListener.onSaleClick(couponId);
+                    }
+                });
+                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onShareClickListener.onShareClick(couponId);
                     }
                 });
             }
@@ -236,6 +258,14 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
 
         public interface OnSaleClickListener {
             void onSaleClick(int saleId);
+        }
+
+        public void setOnShareClickListener(OnShareClickListener listener) {
+            onShareClickListener = listener;
+        }
+
+        public interface OnShareClickListener {
+            void onShareClick(int shareId);
         }
 
         public static class ViewHolder {

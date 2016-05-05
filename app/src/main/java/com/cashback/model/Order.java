@@ -20,8 +20,11 @@ public class Order {
     private String vendorName;
     @Expose
     private String vendorLogoUrl;
+    // TODO: 5/5/2016 may be it must be float?????
     @Expose
     private int sharedStockAmount;  //only for iConsumer
+    @Expose
+    private float cashBack; // added myself
 
     public Order(long vendorId, float purchaseTotal, int confirmationNumber, String orderDate, String postedDate, String vendorName, String vendorLogoUrl, int sharedStockAmount) {
         this.vendorId = vendorId;
@@ -32,6 +35,7 @@ public class Order {
         this.vendorName = vendorName;
         this.vendorLogoUrl = vendorLogoUrl;
         this.sharedStockAmount = sharedStockAmount;
+        this.cashBack = cashBack;
     }
 
     public long getVendorId() {
@@ -96,5 +100,13 @@ public class Order {
 
     public void setSharedStockAmount(int sharedStockAmount) {
         this.sharedStockAmount = sharedStockAmount;
+    }
+
+    public float getCashBack() {
+        return cashBack;
+    }
+
+    public void setCashBack(float cashBack) {
+        this.cashBack = cashBack;
     }
 }

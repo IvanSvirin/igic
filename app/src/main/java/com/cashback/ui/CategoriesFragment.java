@@ -1,6 +1,7 @@
 package com.cashback.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,8 @@ import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.CategoriesEvent;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.components.NestedListView;
+
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -138,10 +141,9 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
             adapter.setOnCategoryClickListener(new CategoriesAdapter.OnCategoryClickListener() {
                 @Override
                 public void onCategoryClick(String categoryName) {
-                    // TODO: 4/19/2016 TEST - will be deleted
-                    getActivity().getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content_frame, new AllStoresFragment(), AllStoresFragment.TAG_ALL_STORES_FRAGMENT)
-                            .commit();
+                    Intent intent = new Intent(getContext(), CategoryActivity.class);
+                    intent.putExtra("category_name", categoryName);
+                    startActivity(intent);
                 }
             });
             categoriesList.setAdapter(adapter);
@@ -187,7 +189,7 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
         public void bindView(View view, Context context, final Cursor cursor) {
             ViewHolder holder = (ViewHolder) view.getTag();
             // TODO: 4/19/2016 TEST - will be deleted
-            final String name = "Category name";
+            final String name = "Category" + String.valueOf(new Random().nextInt(20));
 //            final String name = cursor.getString(cursor.getColumnIndex(DataContract.Categories.COLUMN_NAME));
             holder.categoryName.setText(name);
             view.setOnClickListener(new View.OnClickListener() {

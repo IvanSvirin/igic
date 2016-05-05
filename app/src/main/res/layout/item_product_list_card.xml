@@ -9,18 +9,20 @@
 
     <android.support.v7.widget.CardView
         style="@style/AppTheme.CardView"
-        android:layout_gravity="center"
         android:layout_width="320dp"
         android:layout_height="210dp"
+        android:layout_gravity="center"
         android:foreground="?android:attr/selectableItemBackground">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="8dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp">
+            android:paddingBottom="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_standard"
+            android:paddingLeft="@dimen/padding_standard"
+            android:paddingRight="@dimen/padding_standard"
+            android:paddingStart="@dimen/padding_standard"
+            android:paddingTop="@dimen/padding_small">
 
             <ImageView
                 android:id="@+id/storeLogo"
@@ -40,19 +42,22 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:ellipsize="end"
                 android:layout_gravity="start"
-                android:text="@null"
-                android:singleLine="true"
-                android:textAppearance="@style/AppTheme.TextAppearance"
-                android:textColor="@color/red"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/btnShopNow" />
+                android:layout_toLeftOf="@+id/btnShopNow"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@null"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:textColor="@color/red" />
 
             <TextView
                 android:id="@+id/btnShopNow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:layout_gravity="end|top"
                 android:clickable="true"
                 android:focusableInTouchMode="true"
@@ -61,112 +66,110 @@
                 android:textAppearance="@style/AppTheme.TextAppearance"
                 android:textColor="@color/primary"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:textStyle="bold" />
 
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/shareButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/shareButton"
-                android:src="@android:drawable/ic_menu_share"
                 android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:src="@android:drawable/ic_menu_share" />
 
-            <Space
+            <View
+                android:id="@+id/space"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/primaryDark"
-                android:layout_below="@+id/storeLogo"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:id="@+id/space" />
+                android:layout_below="@+id/storeLogo"
+                android:background="@android:color/darker_gray" />
 
-            <Space
+            <View
+                android:id="@+id/space2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/primaryDark"
-                android:id="@+id/space2"
                 android:layout_above="@+id/shareButton"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:background="@android:color/darker_gray" />
 
             <ImageView
                 android:id="@+id/productImage"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/space"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
                 android:gravity="start"
                 android:paddingTop="5dp"
                 android:scaleType="fitCenter"
-                android:layout_below="@+id/space"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:src="@android:drawable/sym_def_app_icon" />
 
             <TextView
                 android:id="@+id/productName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/space"
+                android:layout_toEndOf="@+id/productImage"
+                android:layout_toRightOf="@+id/productImage"
                 android:gravity="center_vertical|start"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:singleLine="true"
-                android:text="@null"
+                android:text="Very good product"
                 android:textAppearance="@style/AppTheme.TextAppearance"
-                android:textColor="@color/primaryDark"
-                android:layout_below="@+id/space"
-                android:layout_toRightOf="@+id/productImage"
-                android:layout_toEndOf="@+id/productImage" />
+                android:textColor="@color/textColorPrimary" />
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:singleLine="true"
-                android:text="@string/format_donation_amount"
                 android:layout_below="@+id/productName"
+                android:layout_gravity="end|center_vertical"
+                android:layout_toEndOf="@+id/productImage"
                 android:layout_toRightOf="@+id/productImage"
-                android:layout_toEndOf="@+id/productImage" />
+                android:singleLine="true"
+                android:text="$112.00 ($2.00)" />
 
-            <Space
+            <View
+                android:id="@+id/space3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/primaryDark"
-                android:id="@+id/space3"
-                android:layout_below="@+id/price"
                 android:layout_alignLeft="@+id/price"
-                android:layout_alignStart="@+id/price" />
+                android:layout_alignStart="@+id/price"
+                android:layout_below="@+id/price"
+                android:background="@android:color/darker_gray" />
 
             <TextView
                 android:id="@+id/yourPriceTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:layout_gravity="start"
-                android:text="@string/your_price_title"
-                android:singleLine="true"
-                android:textAppearance="@style/AppTheme.TextAppearance"
-                android:textColor="@color/red"
-                android:layout_below="@+id/space3"
                 android:layout_alignLeft="@+id/space3"
-                android:layout_alignStart="@+id/space3" />
+                android:layout_alignStart="@+id/space3"
+                android:layout_below="@+id/space3"
+                android:layout_gravity="start"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/your_price_title"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:textColor="@color/red" />
 
             <TextView
                 android:id="@+id/yourPriceValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:singleLine="true"
-                android:textAppearance="@style/AppTheme.TextAppearance"
-                android:text="@string/format_donation_amount"
-                android:textColor="@color/red"
                 android:layout_alignBottom="@+id/yourPriceTitle"
+                android:layout_gravity="end|center_vertical"
+                android:layout_toEndOf="@+id/yourPriceTitle"
                 android:layout_toRightOf="@+id/yourPriceTitle"
-                android:layout_toEndOf="@+id/yourPriceTitle" />
+                android:singleLine="true"
+                android:text="  $110.00"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:textColor="@color/red" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

@@ -44,7 +44,7 @@ public class CouponsTabFragment extends Fragment implements LoaderManager.Loader
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_all_results_tab_grid2, container, false);
+        View view = inflater.inflate(R.layout.layout_featured_tab2, container, false);  // layout_all_results_tab_grid2 doesn't work
         fragmentUi = new FragmentUi(this, view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
@@ -145,6 +145,15 @@ public class CouponsTabFragment extends Fragment implements LoaderManager.Loader
                     }
                 }
             });
+            featuredAdapter.setOnShareClickListener(new FeaturedAdapter.OnShareClickListener() {
+                @Override
+                public void onShareClick(int shareId) {
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("text/plain");
+                    share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
+                    startActivity(Intent.createChooser(share, "Share Text"));
+                }
+            });
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -178,6 +187,7 @@ public class CouponsTabFragment extends Fragment implements LoaderManager.Loader
         private final boolean GRID_TYPE_FLAG;
         private Context context;
         private OnSaleClickListener onSaleClickListener;
+        private OnShareClickListener onShareClickListener;
         private Picasso picasso;
 
         public FeaturedAdapter(Context context, Cursor c, int flags, boolean gridType) {
@@ -229,6 +239,12 @@ public class CouponsTabFragment extends Fragment implements LoaderManager.Loader
                         onSaleClickListener.onSaleClick(couponId);
                     }
                 });
+                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onShareClickListener.onShareClick(couponId);
+                    }
+                });
             } else {
                 ViewHolder holder = (ViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
@@ -242,6 +258,12 @@ public class CouponsTabFragment extends Fragment implements LoaderManager.Loader
                         onSaleClickListener.onSaleClick(couponId);
                     }
                 });
+                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onShareClickListener.onShareClick(couponId);
+                    }
+                });
             }
         }
 
@@ -251,6 +273,14 @@ public class CouponsTabFragment extends Fragment implements LoaderManager.Loader
 
         public interface OnSaleClickListener {
             void onSaleClick(int saleId);
+        }
+
+        public void setOnShareClickListener(OnShareClickListener listener) {
+            onShareClickListener = listener;
+        }
+
+        public interface OnShareClickListener {
+            void onShareClick(int shareId);
         }
 
         public static class ViewHolder {

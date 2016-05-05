@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/sortDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/padding_standard"
+        android:layout_marginLeft="46dp"
+        android:layout_marginRight="@dimen/padding_standard"
+        android:layout_marginStart="46dp"
+        android:background="@android:color/transparent" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/storeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/monthDay"
+            android:layout_alignBottom="@+id/monthDay"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginLeft="62dp"
+            android:layout_marginStart="62dp"
+            android:layout_toEndOf="@+id/monthDay"
+            android:layout_toRightOf="@+id/monthDay"
+            android:maxLines="2"
+            android:text="Name"
+            android:textAppearance="@style/AppTheme.TextAppearance" />
+
+        <TextView
+            android:id="@+id/storeCommission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/total"
+            android:layout_alignRight="@+id/total"
+            android:layout_below="@+id/monthYear"
+            android:layout_gravity="end|center_vertical"
+            android:singleLine="true"
+            android:text="@string/format_donation_amount"
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:id="@+id/monthDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/storeCommission"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="left|center_vertical"
+            android:text="Exp." />
+
+        <TextView
+            android:id="@+id/orderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/storeName"
+            android:layout_alignStart="@+id/storeName"
+            android:layout_below="@+id/storeName"
+            android:layout_gravity="left|center_vertical"
+            android:text="@string/order_title" />
+
+        <TextView
+            android:id="@+id/orderNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/orderTitle"
+            android:layout_gravity="left|center_vertical"
+            android:layout_toEndOf="@+id/orderTitle"
+            android:layout_toRightOf="@+id/orderTitle"
+            android:text="Exp." />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/monthDay"
+            android:layout_gravity="end|center_vertical"
+            android:singleLine="true"
+            android:text="@string/format_donation_amount" />
+
+        <TextView
+            android:id="@+id/pendingStockTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/orderTitle"
+            android:layout_alignStart="@+id/orderTitle"
+            android:layout_below="@+id/orderTitle"
+            android:layout_gravity="left|center_vertical"
+            android:text="@string/pending_stock_title"
+            android:textColor="@color/primary" />
+
+        <TextView
+            android:id="@+id/pendingStockValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/pendingStockTitle"
+            android:layout_gravity="left|center_vertical"
+            android:layout_toEndOf="@+id/pendingStockTitle"
+            android:layout_toRightOf="@+id/pendingStockTitle"
+            android:textColor="@color/primary" />
+
+        <TextView
+            android:id="@+id/monthYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="start|center_vertical"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingStart="@dimen/padding_small"
+            android:text="month"
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:textColor="@color/primary" />
+
+    </RelativeLayout>
+</LinearLayout>

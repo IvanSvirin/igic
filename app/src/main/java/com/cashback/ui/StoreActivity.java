@@ -251,6 +251,16 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     }
                 }
             });
+            adapter.setOnShareClickListener(new CursorCouponsAdapter.OnShareClickListener() {
+                @Override
+                public void onShareClick(int shareId) {
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("text/plain");
+                    share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
+                    startActivity(Intent.createChooser(share, "Share Text"));
+                }
+            });
+
             couponsList.setAdapter(adapter);
         }
 
@@ -319,6 +329,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 
     public static class CursorCouponsAdapter extends RecyclerView.Adapter<CursorCouponsAdapter.ViewHolder> {
         private OnSaleClickListener listener;
+        private OnShareClickListener onShareClickListener;
         private Context context;
         protected Cursor c;
         protected boolean dataValid;
@@ -353,6 +364,12 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 @Override
                 public void onClick(View v) {
                     listener.onSaleClick(couponId);
+                }
+            });
+            holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onShareClickListener.onShareClick(couponId);
                 }
             });
         }
@@ -418,6 +435,14 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 super(itemView);
                 ButterKnife.bind(this, itemView);
             }
+        }
+
+        public void setOnShareClickListener(OnShareClickListener listener) {
+            onShareClickListener = listener;
+        }
+
+        public interface OnShareClickListener {
+            void onShareClick(int shareId);
         }
 
         public void setOnSaleClickListener(OnSaleClickListener listener) {

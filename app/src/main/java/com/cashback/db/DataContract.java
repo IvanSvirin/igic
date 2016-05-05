@@ -15,16 +15,14 @@ public class DataContract {
     public final static Uri URI_MERCHANTS = Uri.withAppendedPath(BASE_CONTENT_URI, "merchants");
     // TODO: 4/19/2016 TEST - will be deleted
     public final static Uri URI_COUPONS = Uri.withAppendedPath(BASE_CONTENT_URI, "offer_coupons");
-//    public final static Uri URI_COUPONS = Uri.withAppendedPath(BASE_CONTENT_URI, "coupons");
+    //    public final static Uri URI_COUPONS = Uri.withAppendedPath(BASE_CONTENT_URI, "coupons");
     public final static Uri URI_FAVORITES = Uri.withAppendedPath(BASE_CONTENT_URI, "favorites");
     public final static Uri URI_EXTRAS = Uri.withAppendedPath(BASE_CONTENT_URI, "extras");
 
     public final static Uri URI_CATEGORIES = Uri.withAppendedPath(BASE_CONTENT_URI, "categories");
     public final static Uri URI_PAYMENTS = Uri.withAppendedPath(BASE_CONTENT_URI, "payments");
     public final static Uri URI_SHOPPING_TRIPS = Uri.withAppendedPath(BASE_CONTENT_URI, "shopping_trips");
-
-
-
+    public static final Uri URI_ORDERS = Uri.withAppendedPath(BASE_CONTENT_URI, "orders");
 
 
     public static class Merchants implements BaseColumns {
@@ -61,6 +59,7 @@ public class DataContract {
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "coupons";
     }
+
     // TODO: 4/19/2016 TEST - will be deleted
     public static class OfferEntry implements BaseColumns {
         public static final String TABLE_NAME = "offer_coupons";
@@ -111,5 +110,23 @@ public class DataContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "shopping_trips";
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "shopping_trips";
+    }
+
+    public static class Orders implements BaseColumns {
+        public static final String TABLE_NAME = "orders";
+        public static final String COLUMN_VENDOR_ID = "vendor_id";
+        public static final String COLUMN_PURCHASE_TOTAL = "purchase_total";
+        public static final String COLUMN_CONFIRMATION_NUMBER = "confirmation_number";
+        public static final String COLUMN_ORDER_DATE = "order_date";
+        public static final String COLUMN_POSTED_DATE = "posted_date";
+        public static final String COLUMN_VENDOR_NAME = "vendor_name";
+        public static final String COLUMN_VENDOR_LOGO_URL = "vendor_logo_url";
+        public static final String COLUMN_SHARED_STOCK_AMOUNT = "shared_stock_amount";
+        public static final String COLUMN_CASH_BACK = "cash_back";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "orders";
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "orders";
     }
 }

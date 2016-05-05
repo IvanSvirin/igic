@@ -1,5 +1,6 @@
 package com.cashback.rest;
 
+import com.cashback.model.Order;
 import com.cashback.model.Payment;
 import com.cashback.model.Trip;
 
@@ -18,4 +19,7 @@ public interface IAccount {
 
     @GET("/api/v1/account/history/trip/")
     Call<List<Trip>> getShoppingTrips();
+
+    @GET("/api/v1/account/history/order/")
+    Call<List<Order>> getOrders();
 }

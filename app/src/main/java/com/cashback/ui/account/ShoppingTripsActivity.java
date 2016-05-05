@@ -285,7 +285,7 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
             String hour = date.substring(11, 13);
             Integer hourInt = Integer.parseInt(hour.substring(0, 1)) * 10 + Integer.parseInt(hour.substring(1, 2));
             String half = null;
-            half = hourInt > 11 ? "PM" : "AM";
+            half = hourInt > 11 ? " PM" : " AM";
             String min = date.substring(14, 16);
             String timeValue = hourInt > 12 ? String.valueOf(hourInt - 12) + ":" + min + half : String.valueOf(hourInt) + ":" + min + half;
             holder.timeValue.setText(" " + timeValue);
