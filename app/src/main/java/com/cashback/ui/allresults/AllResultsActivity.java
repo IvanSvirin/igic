@@ -1,6 +1,7 @@
 package com.cashback.ui.allresults;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -72,6 +73,8 @@ public class AllResultsActivity extends AppCompatActivity implements LoaderManag
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                finish();
+                startActivity(new Intent(AllResultsActivity.this, AllResultsActivity.class));
                 if (TextUtils.isEmpty(query)) {
                 } else {
                 }

@@ -6,11 +6,24 @@
     android:layout_height="wrap_content"
     android:layout_weight="1">
 
-    <com.cashback.ui.components.NestedListView
+    <!--<com.cashback.ui.components.NestedListView-->
+        <!--android:id="@+id/common_list"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--style="@style/AppTheme.ListView"-->
+        <!--tools:listItem="@layout/item_store_list" />-->
+    <com.cashback.ui.components.NestedGridView
         android:id="@+id/common_list"
+        style="@style/AppTheme.GridView"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.ListView"
-        tools:listItem="@layout/item_store_list" />
+        android:columnWidth="320dp"
+        android:verticalSpacing="10dp"
+        tools:listItem="@layout/item_store_list_big_card" />
+
+    <Space
+        android:id="@+id/checking_element"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+
 
 </FrameLayout>
 

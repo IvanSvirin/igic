@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.account.HelpActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        style="@style/AppTheme.ScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_padding_top"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_standard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:drawable/divider_horizontal_bright"
+                android:dividerPadding="@dimen/divider_padding"
+                android:orientation="vertical"
+                android:showDividers="end">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/title_getting_started"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/howItWorksFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/howItWorks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/how_it_works"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:drawable/divider_horizontal_bright"
+                android:dividerPadding="@dimen/divider_padding"
+                android:orientation="vertical"
+                android:showDividers="end">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/title_contact_us"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/sendAppFeedbackFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/sendAppFeedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/send_app_feedback"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:drawable/divider_horizontal_bright"
+                android:dividerPadding="@dimen/divider_padding"
+                android:orientation="vertical"
+                android:showDividers="end">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/title_faq"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/paymentQuestionsFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/paymentQuestions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/payment_questions"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/howToUseFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/howToUse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/how_to_use"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/whereIsMineFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/whereIsMine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/where_is_mine"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:drawable/divider_horizontal_bright"
+                android:dividerPadding="@dimen/divider_padding"
+                android:orientation="vertical"
+                android:showDividers="end">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/title_legal"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/privacySecurityFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/privacySecurity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/privacy_security"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/termsConditionsFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/termsConditions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/terms_conditions"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:paddingTop="@dimen/appbar_padding_top">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:elevation="4dp"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

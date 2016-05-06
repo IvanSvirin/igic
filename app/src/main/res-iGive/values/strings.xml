@@ -5,5 +5,17 @@
     <string name="item_account">My iGive</string>
     <string name="how_to_use">How to Use iGive</string>
     <string name="where_is_mine">Where\'s My Donation</string>
+    <string name="title_donation_activity">DONATION ACTIVITY</string>
+    <string name="next_check_amount">Next Check Amount</string>
+    <string name="pending_amount">Pending Amount</string>
+    <string name="total_paid">Total Paid</string>
+    <string name="total_raised">Total Raised</string>
+    <string name="by_all_supporters">by All supporters</string>
+    <string name="member_settings">Member Settings</string>
+    <string name="donation_alerts">Donation Alerts</string>
+    <string name="order_number">Order Number:</string>
+    <string name="purchase_amount">Purchase Amount:</string>
+    <string name="notifications_donation_alerts">Notification when you give Donation</string>
+
 
 </resources>

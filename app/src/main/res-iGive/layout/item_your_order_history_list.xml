@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/sortDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/padding_standard"
+        android:layout_marginLeft="46dp"
+        android:layout_marginRight="@dimen/padding_standard"
+        android:layout_marginStart="46dp"
+        android:background="@android:color/transparent" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/storeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:maxLines="2"
+            android:text="Name"
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:layout_below="@+id/monthYear"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/storeCommission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:singleLine="true"
+            android:text="@string/format_donation_amount"
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:layout_below="@+id/monthYear"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/monthDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:text="@string/date"
+            android:layout_below="@+id/storeName"
+            android:layout_alignLeft="@+id/storeName"
+            android:layout_alignStart="@+id/storeName" />
+
+        <TextView
+            android:id="@+id/orderNumberValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/orderTitle"
+            android:layout_gravity="left|center_vertical"
+            android:layout_toEndOf="@+id/orderTitle"
+            android:layout_toRightOf="@+id/orderTitle" />
+
+        <TextView
+            android:id="@+id/purchaseAmountValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:singleLine="true"
+            android:text="@string/format_donation_amount"
+            android:layout_below="@+id/orderNumberValue"
+            android:layout_toRightOf="@+id/pendingStockTitle"
+            android:layout_toEndOf="@+id/pendingStockTitle" />
+
+        <TextView
+            android:id="@+id/pendingStockTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/orderTitle"
+            android:layout_alignStart="@+id/orderTitle"
+            android:layout_below="@+id/orderTitle"
+            android:layout_gravity="left|center_vertical"
+            android:text="@string/purchase_amount" />
+
+        <TextView
+            android:id="@+id/monthYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="start|center_vertical"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingStart="@dimen/padding_small"
+            android:text="month"
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:textColor="@color/primary" />
+
+        <TextView
+            android:id="@+id/orderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/order_number"
+            android:layout_below="@+id/monthDay"
+            android:layout_alignLeft="@+id/monthDay"
+            android:layout_alignStart="@+id/monthDay" />
+
+        <TextView
+            android:id="@+id/dateValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:singleLine="true"
+            android:layout_above="@+id/orderNumberValue"
+            android:layout_toRightOf="@+id/monthDay"
+            android:layout_toEndOf="@+id/monthDay" />
+
+    </RelativeLayout>
+
+</LinearLayout>

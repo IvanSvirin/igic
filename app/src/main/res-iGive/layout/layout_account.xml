@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/AppTheme.Root">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        style="@style/AppTheme.ScrollView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/content_padding_top"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_standard">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:drawable/divider_horizontal_bright"
+                android:dividerPadding="@dimen/divider_padding"
+                android:orientation="vertical"
+                android:showDividers="end">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/title_donation_activity"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:id="@+id/nextCheckAmountFrame" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/next_check_amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:id="@+id/nextCheckAmountTitle" />
+
+                    <TextView
+                        android:id="@+id/nextCheckAmountValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:paddingEnd="@dimen/padding_small"
+                        android:paddingRight="@dimen/padding_small"
+                        android:paddingStart="0dp"
+                        android:paddingLeft="0dp"
+                        android:text="@string/format_donation_amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:id="@+id/pendingAmountFrame" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/pending_amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:id="@+id/pendingAmountTitle" />
+
+                    <TextView
+                        android:id="@+id/pendingAmountValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:paddingEnd="@dimen/padding_small"
+                        android:paddingRight="@dimen/padding_small"
+                        android:paddingStart="0dp"
+                        android:paddingLeft="0dp"
+                        android:text="@string/format_donation_amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/totalPaidFrame">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|top"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/total_paid"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:id="@+id/totalPaidTitile" />
+
+                    <TextView
+                        android:id="@+id/totalPaidValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|top"
+                        android:paddingEnd="@dimen/padding_small"
+                        android:paddingRight="@dimen/padding_small"
+                        android:paddingStart="0dp"
+                        android:paddingLeft="0dp"
+                        android:text="@string/format_donation_amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:gravity="center_vertical|start"
+                        android:text="2/11/2016"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
+                        android:textColor="@color/primaryDark"
+                        android:layout_gravity="left|bottom"
+                        android:id="@+id/totalPaidDate" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/totalRaisedFrame">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|top"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/total_raised"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:id="@+id/totalRaisedTitle" />
+
+                    <TextView
+                        android:id="@+id/totalRaisedValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|top"
+                        android:paddingEnd="@dimen/padding_small"
+                        android:paddingRight="@dimen/padding_small"
+                        android:paddingStart="0dp"
+                        android:paddingLeft="0dp"
+                        android:text="@string/format_donation_amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/by_all_supporters"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
+                        android:textColor="@color/primaryDark"
+                        android:layout_gravity="left|bottom" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/shoppingTripsFrame">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/shopping_trips"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:id="@+id/shoppingTrips" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/yourOrderHistoryFrame">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/your_order_history"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:id="@+id/yourOrderHistory" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/memberSettingsFrame" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/member_settings"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:id="@+id/memberSettingsTitle" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:drawable/divider_horizontal_bright"
+                android:dividerPadding="@dimen/divider_padding"
+                android:orientation="vertical"
+                android:showDividers="end|beginning">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/title_notification_settings"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|top"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/trending_deals_alerts"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/trending_deals_alerts_switcher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|top"
+                        android:checked="false"
+                        app:showText="false"
+                        android:theme="@style/AppTheme.SwitchCompat"
+                        app:theme="@style/AppTheme.SwitchCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/notifications_trending_deals_alerts"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
+                        android:textColor="@color/primaryDark"
+                        android:layout_gravity="left|bottom" />
+                </FrameLayout>
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|top"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/donation_alerts"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/donation_alerts_switcher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|top"
+                        android:checked="false"
+                        app:showText="false"
+                        android:theme="@style/AppTheme.SwitchCompat"
+                        app:theme="@style/AppTheme.SwitchCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/notifications_donation_alerts"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
+                        android:textColor="@color/primaryDark"
+                        android:layout_gravity="left|bottom"
+                        android:id="@+id/textView" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/frame_height"
+                android:layout_gravity="center_vertical" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:paddingStart="@dimen/padding_small"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:text="@string/title_about"
+                    android:textAppearance="@style/AppTheme.TextAppearance"
+                    android:textColor="@color/primary" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/frame_height"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/helpFrame">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_small"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:text="@string/help"
+                    android:textAppearance="@style/AppTheme.TextAppearance"
+                    android:layout_gravity="top" />
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            app:layout_scrollFlags="enterAlways"
+            android:theme="@style/AppThemeOverlay.ToolbarPrimary" />
+    </android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>

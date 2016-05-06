@@ -8,10 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +19,7 @@ import android.view.ViewGroup;
 import com.cashback.R;
 import com.cashback.rest.RestUtilities;
 import com.cashback.ui.MainActivity;
-import com.cashback.ui.allresults.AllResultsActivity;
+import com.cashback.ui.allresults.SearchActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.cashback.ui.components.WrapContentHeightViewPager;
 
@@ -89,28 +86,19 @@ public class FeaturedFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.options_menu_search, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView search = (SearchView) MenuItemCompat.getActionView(item);
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Intent intent = new Intent(getContext(), AllResultsActivity.class);
-                startActivity(intent);
-                if (TextUtils.isEmpty(query)) {
-                } else {
-                }
-                return false;
-            }
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_call_search, menu);
+    }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
-                } else {
-                }
-                return false;
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public class FragmentUi {

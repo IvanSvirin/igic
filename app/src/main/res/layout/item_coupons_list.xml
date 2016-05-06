@@ -10,7 +10,7 @@
         style="@style/AppTheme.CardView"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_gravity="center"
-        android:layout_height="wrap_content"
+        android:layout_height="210dp"
         android:layout_width="320dp">
 
         <RelativeLayout

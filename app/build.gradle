@@ -38,6 +38,8 @@ android {
     sourceSets {
         igive.res.srcDirs = ['src/main/res', 'src/main/res-iGive']
         iconsumer.res.srcDirs = ['src/main/res', 'src/main/res-iConsumer']
+        igive.java.srcDirs = ['src/main/java', 'src/main/java-iGive']
+        iconsumer.java.srcDirs = ['src/main/java', 'src/main/java-iConsumer']
     }
 }
 repositories {

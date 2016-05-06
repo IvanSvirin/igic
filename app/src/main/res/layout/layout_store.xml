@@ -113,8 +113,6 @@
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
 
-
-
     <include
         android:id="@+id/coupons_list"
         layout="@layout/coupons_view" />
