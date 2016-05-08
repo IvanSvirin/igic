@@ -63,7 +63,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        setContentView(R.layout.layout_store);
+        setContentView(R.layout.layout_store_test);
         handler = new Handler();
 
         Intent intent = getIntent();
@@ -201,6 +201,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         AutofitRecyclerView couponsList;
         @Bind(R.id.storeLogo)
         ImageView storeLogo;
+        @Bind(R.id.storeName)
+        TextView storeName;
         @Bind(R.id.buttonShop)
         TextView buttonShop;
         @Bind(R.id.info)
@@ -317,6 +319,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             @ColorInt
             int color = swatch != null ? swatch.getRgb() : -7292864;
             appBarLayout.setBackgroundColor(color);
+            storeName.setBackgroundColor(1157627903);
         }
 
         private void showDescriptionDialog(String message) {
