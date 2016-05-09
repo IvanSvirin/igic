@@ -41,4 +41,6 @@
 
     <dimen name="height_web_navigation_panel">48dp</dimen>
 
+    <dimen name="appbar_elevation">4dp</dimen>
+
 </resources>

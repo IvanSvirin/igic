@@ -65,5 +65,6 @@
     <string name="request_password_reset">Request Password Reset</string>
     <string name="input_help_text">You earn cash back and shares of stock in iConsumer with each purchase you make.</string>
     <string name="date">Date:</string>
+    <string name="store_summary">Store Summary</string>
 
 </resources>
