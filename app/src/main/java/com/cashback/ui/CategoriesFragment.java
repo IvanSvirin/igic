@@ -10,7 +10,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
-import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +18,6 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.db.DataContract;
-import com.cashback.model.Category;
-import com.cashback.rest.RestUtilities;
-import com.cashback.rest.event.CategoriesEvent;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.components.NestedListView;
 
