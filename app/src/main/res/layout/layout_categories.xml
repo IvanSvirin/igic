@@ -12,27 +12,13 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <com.cashback.ui.components.NestedListView
+            android:id="@+id/categories_list"
+            style="@style/AppTheme.ListView"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/content_padding_top"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_standard">
+            tools:listItem="@layout/item_category_list" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/content_padding_top"
-                android:orientation="vertical">
-
-                <com.cashback.ui.components.NestedListView
-                    android:id="@+id/categories_list"
-                    style="@style/AppTheme.ListView"
-                    android:layout_height="wrap_content"
-                    tools:listItem="@layout/item_category_list" />
-
-            </LinearLayout>
-        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.AppBarLayout
@@ -48,31 +34,31 @@
             android:theme="@style/AppThemeOverlay.ToolbarPrimary"
             app:layout_scrollFlags="enterAlways" />
 
-        <LinearLayout
+
+        <FrameLayout
+            android:id="@+id/allStoresFrame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@android:drawable/divider_horizontal_bright"
-            android:dividerPadding="@dimen/divider_padding"
-            android:orientation="vertical"
-            android:showDividers="end">
+            android:layout_height="@dimen/frame_height"
+            android:layout_gravity="center_vertical"
+            android:background="@color/textColorPrimaryInverse">
 
-            <FrameLayout
-                android:id="@+id/allStoresFrame"
+            <TextView
+                android:id="@+id/allStores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:paddingStart="40dp"
+                android:text="@string/title_all_stores_fragment"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:paddingLeft="40dp" />
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/frame_height"
-                android:layout_gravity="center_vertical"
-                android:background="@color/textColorPrimaryInverse">
-
-                <TextView
-                    android:id="@+id/allStores"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_vertical"
-                    android:paddingLeft="@dimen/padding_small"
-                    android:paddingStart="@dimen/padding_small"
-                    android:text="@string/title_all_stores_fragment"
-                    android:textAppearance="@style/AppTheme.TextAppearance" />
-            </FrameLayout>
-        </LinearLayout>
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="40dp"
+                android:background="#33000000"
+                android:layout_marginRight="10dp" />
+        </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

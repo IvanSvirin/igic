@@ -24,7 +24,6 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
-import com.cashback.ui.CategoryActivity;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;

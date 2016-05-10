@@ -27,7 +27,6 @@ import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
-import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.squareup.picasso.Picasso;
 

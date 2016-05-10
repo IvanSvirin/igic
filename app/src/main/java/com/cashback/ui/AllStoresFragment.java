@@ -347,7 +347,7 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
                 String sort = sections.get(position);
                 holder.sortColumn.setText(sort);
                 if (position > 0)
-                    holder.sortDivider.setBackgroundResource(R.color.primary);
+                    holder.sortDivider.setBackgroundResource(R.color.primaryLight);
             } else {
                 holder.sortColumn.setText("");
                 holder.sortDivider.setBackgroundResource(android.R.color.transparent);

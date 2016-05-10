@@ -10,6 +10,7 @@
         android:layout_marginEnd="@dimen/listItem_text_delimiter"
         android:layout_marginRight="@dimen/listItem_text_delimiter"
         android:maxLines="2"
-        android:textAppearance="@style/AppTheme.TextAppearance" />
+        android:textAppearance="@style/AppTheme.TextAppearance"
+        android:paddingLeft="20dp" />
 
 </FrameLayout>

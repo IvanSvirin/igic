@@ -203,24 +203,31 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
                 FIT_SCALE = false;
                 webView.setInitialScale(0);
             }
+            setPageNumber();
         }
 
         @OnClick(R.id.forwardButton)
         public void onNext() {
             pager.setCurrentItem(pager.getCurrentItem() + 1);
+            setPageNumber();
         }
 
         @OnClick(R.id.backButton)
         public void onPrev() {
             pager.setCurrentItem(pager.getCurrentItem() - 1);
+            setPageNumber();
         }
+
         @OnClick(R.id.lastPageButton)
         public void onLast() {
             pager.setCurrentItem(pager.getBottom());
+            setPageNumber();
         }
+
         @OnClick(R.id.firstPageButton)
         public void onFirst() {
             pager.setCurrentItem(0);
+            setPageNumber();
         }
 
         @OnClick(R.id.collapseButton)
@@ -291,6 +298,10 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
             bar.setTitle(title);
         }
 
+        private void setPageNumber() {
+            pageNumber.setText(String.valueOf(pager.getCurrentItem() + 1) + " of " + String.valueOf(cursorPagerAdapter.getCount()));
+        }
+
         private void loadContent(String url) {
             webView.loadUrl(url);
         }
@@ -354,7 +365,6 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
                 args.putString(projection[i], cursor.getString(cursor.getColumnIndex(projection[i])));
             }
             frag.setArguments(args);
-            ui.pageNumber.setText(String.valueOf(ui.pager.getCurrentItem() + 1) + " of " + String.valueOf(getCount()));
             return frag;
         }
 

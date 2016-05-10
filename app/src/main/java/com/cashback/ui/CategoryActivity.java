@@ -11,14 +11,12 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.CursorAdapter;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +28,6 @@ import android.widget.TextView;
 import com.cashback.R;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
-import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.event.MerchantsEvent;
 import com.cashback.ui.components.NestedListView;
 
@@ -358,7 +355,7 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
                 String sort = sections.get(position);
                 holder.sortColumn.setText(sort);
                 if (position > 0)
-                    holder.sortDivider.setBackgroundResource(R.color.primary);
+                    holder.sortDivider.setBackgroundResource(R.color.primaryLight);
             } else {
                 holder.sortColumn.setText("");
                 holder.sortDivider.setBackgroundResource(android.R.color.transparent);
