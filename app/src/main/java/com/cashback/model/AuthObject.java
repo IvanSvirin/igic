@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
  * Created by I.Svirin on 4/7/2016.
  */
 public class AuthObject {
-    enum AuthType {EMAIL, GOOGLE, FACEBOOK}
+    enum AuthType {email, google, facebook}
     @Expose
     private AuthType authType;
     @Expose

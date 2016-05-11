@@ -9,6 +9,7 @@ import com.cashback.Utilities;
 import com.cashback.gcm.RegistrationGcmServices;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
+import com.facebook.FacebookSdk;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
@@ -26,6 +27,8 @@ public class LaunchActivity extends AppCompatActivity {
 
         Intent intentRegistrationGCM;
         Intent intentNextActivity;
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         if(checkPlayServices()){
             // Start intent to registration this app with GCM

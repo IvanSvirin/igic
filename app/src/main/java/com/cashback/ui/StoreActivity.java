@@ -350,6 +350,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             @ColorInt
             int color = swatch != null ? swatch.getRgb() : -7292864;
 //            appBarLayout.setBackgroundColor(color);
+            toolbar.setBackgroundColor(color);
             bigRelativeLayout.setBackgroundColor(color);
             storeName.setBackgroundColor(1157627903);
         }

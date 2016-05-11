@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.cashback.R;
+import com.facebook.CallbackManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -56,24 +57,21 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
 
-            if (position == 1){
+            if (position == 1) {
                 return new SignInFragment();
-            }
-            else{
+            } else {
                 return new SignUpFragment();
             }
         }
 
         @Override
-        public int getCount()
-        {
+        public int getCount() {
             return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position)
-            {
+            switch (position) {
                 case 0:
                     return getString(R.string.login_first_page_name);
                 case 1:

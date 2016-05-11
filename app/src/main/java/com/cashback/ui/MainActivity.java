@@ -23,6 +23,7 @@ import com.cashback.Utilities;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.ui.account.AccountFragment;
 import com.cashback.ui.featured.FeaturedFragment;
+import com.facebook.appevents.AppEventsLogger;
 
 import bolts.AppLinks;
 import butterknife.Bind;
@@ -95,13 +96,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onResume() {
         super.onResume();
-//        AppEventsLogger.activateApp(this);
+        AppEventsLogger.activateApp(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-//        AppEventsLogger.deactivateApp(this);
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override

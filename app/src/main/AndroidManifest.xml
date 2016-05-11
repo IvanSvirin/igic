@@ -3,6 +3,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <!-- [START gcm_permission] -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -10,27 +11,30 @@
     <permission
         android:name="org.shop2care.android.shop2care.app.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-
     <uses-permission android:name="org.shop2care.android.shop2care.app.permission.C2D_MESSAGE" />
-
     <!-- [END gcm_permission] -->
 
     <application
+        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:name="android.support.multidex.MultiDexApplication"
         android:theme="@style/AppTheme">
 
         <provider
-        android:name=".db.DataProvider"
-        android:authorities="com.cashback.provider"
-        android:exported="false" />
+            android:name=".db.DataProvider"
+            android:authorities="com.cashback.provider"
+            android:exported="false" />
 
         <!-- App Indexing -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
 
         <!-- gcm_receiver -->
         <receiver
@@ -64,39 +68,33 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.LaunchActivity" />
-        <activity android:name=".ui.account.HelpActivity" />
-        <activity android:name=".ui.account.TourActivity"/>
-        <activity android:name=".ui.account.PaymentsActivity"/>
-        <activity android:name=".ui.CategoryActivity"/>
-        <activity android:name=".ui.StoreActivity"/>
-        <activity android:name=".ui.allresults.SearchActivity"/>
-        <activity android:name=".ui.login.RestoreActivity"/>
-        <activity android:name=".ui.web.BrowserActivity"/>
-        <activity android:name=".ui.allresults.AllResultsActivity"/>
-        <activity android:name=".ui.account.ShoppingTripsActivity" />
-        <activity android:name="ui.account.YourOrderHistoryActivity" />
-
-        <activity
-            android:name=".ui.MainActivity">
-
-        <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
-
-        </activity>
-
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+        <activity android:name=".ui.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.MainActivity" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".ui.account.HelpActivity" />
+        <activity android:name=".ui.account.TourActivity" />
+        <activity android:name=".ui.account.PaymentsActivity" />
+        <activity android:name=".ui.CategoryActivity" />
+        <activity android:name=".ui.StoreActivity" />
+        <activity android:name=".ui.allresults.SearchActivity" />
+        <activity android:name=".ui.login.RestoreActivity" />
+        <activity android:name=".ui.web.BrowserActivity" />
+        <activity android:name=".ui.allresults.AllResultsActivity" />
+        <activity android:name=".ui.account.ShoppingTripsActivity" />
+        <activity android:name="ui.account.YourOrderHistoryActivity" />
     </application>
 </manifest>

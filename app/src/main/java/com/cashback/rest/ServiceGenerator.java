@@ -36,6 +36,7 @@ public abstract class ServiceGenerator<S> {
 
     // TODO: 4/19/2016 TEST - will be deleted
     public static final String API_PRODUCTION_URL = "http://www.greatcanadianrebates.ca";
+//    public static final String API_PRODUCTION_URL = "http://beta1.igive.com/rest/iGive";
 //    public static final String API_PRODUCTION_URL = "http://www.tm.iconsumer.com";
 
     protected Class<S> serviceClass;

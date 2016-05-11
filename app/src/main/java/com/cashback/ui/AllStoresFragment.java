@@ -31,6 +31,7 @@ import com.cashback.R;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.MerchantsEvent;
+import com.cashback.rest.request.MerchantsRequest;
 import com.cashback.ui.components.NestedListView;
 
 import java.util.ArrayList;
