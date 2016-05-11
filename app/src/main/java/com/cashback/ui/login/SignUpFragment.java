@@ -7,17 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.cashback.R;
 import com.cashback.ui.MainActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 
-import butterknife.Bind;
+import java.util.Arrays;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -40,8 +40,10 @@ public class SignUpFragment extends Fragment {
     }
 
     public class FragmentUi {
-        @Bind(R.id.facebookSingUpButton)
-        LoginButton facebookSingUpButton;
+        @OnClick(R.id.facebookSingUpButton)
+        public void onFBSignUp() {
+            LoginManager.getInstance().logInWithReadPermissions(getActivity(), Arrays.asList("email", "public_profile", "user_friends"));
+        }
 
         @OnClick(R.id.nativeSingUpButton)
         public void onNativeSignUp() {
@@ -59,22 +61,38 @@ public class SignUpFragment extends Fragment {
         }
 
         private void registerFbCallback() {
-            facebookSingUpButton.setReadPermissions("email", "public_profile", "user_friends");
-            facebookSingUpButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
-                    // TODO: 4/19/2016 TEST - will be deleted
-                    getContext().startActivity(new Intent(getContext(), MainActivity.class));
+
                 }
 
                 @Override
                 public void onCancel() {
+
                 }
 
                 @Override
                 public void onError(FacebookException error) {
+
                 }
             });
+//            facebookSingUpButton.setReadPermissions("email", "public_profile", "user_friends");
+//            facebookSingUpButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//                @Override
+//                public void onSuccess(LoginResult loginResult) {
+//                    // TODO: 4/19/2016 TEST - will be deleted
+//                    getContext().startActivity(new Intent(getContext(), MainActivity.class));
+//                }
+//
+//                @Override
+//                public void onCancel() {
+//                }
+//
+//                @Override
+//                public void onError(FacebookException error) {
+//                }
+//            });
         }
     }
 }
