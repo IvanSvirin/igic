@@ -23,6 +23,7 @@ public class DataContract {
     public final static Uri URI_PAYMENTS = Uri.withAppendedPath(BASE_CONTENT_URI, "payments");
     public final static Uri URI_SHOPPING_TRIPS = Uri.withAppendedPath(BASE_CONTENT_URI, "shopping_trips");
     public static final Uri URI_ORDERS = Uri.withAppendedPath(BASE_CONTENT_URI, "orders");
+    public static final Uri URI_CHARITY_ACCOUNTS = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_accounts");
 
 
     public static class Merchants implements BaseColumns {
@@ -128,5 +129,26 @@ public class DataContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "orders";
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "orders";
+    }
+
+    public static class CharityAccounts implements BaseColumns {
+        public static final String TABLE_NAME = "charity_accounts";
+        public static final String COLUMN_TOKEN = "token";
+        public static final String COLUMN_FIRST_NAME = "first_name";
+        public static final String COLUMN_LAST_NAME = "last_name";
+        public static final String COLUMN_EMAIL = "email";
+        public static final String COLUMN_MEMBER_DATE = "member_date";
+        public static final String COLUMN_NEXT_CHECK_AMOUNT = "next_check_amount";
+        public static final String COLUMN_PENDING_AMOUNT = "pending_amount";
+        public static final String COLUMN_TOTAL_PAID_AMOUNT = "total_paid_amount";
+        public static final String COLUMN_TOTAL_PAID_DATE = "total_paid_date";
+        public static final String COLUMN_TOTAL_RAISED = "total_raised";
+        public static final String COLUMN_CAUSE_DASHBOARD_URL = "cause_dashboard_url";
+        public static final String COLUMN_SELECT_CAUSE_URL = "select_cause_url";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "charity_accounts";
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "charity_accounts";
     }
 }

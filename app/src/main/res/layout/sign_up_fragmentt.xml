@@ -29,22 +29,22 @@
             android:paddingTop="@dimen/abc_dialog_padding_top_material">
 
             <EditText
-                android:id="@+id/email_edittext"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
-                android:nextFocusDown="@+id/password_edittext" />
+                android:nextFocusDown="@+id/password" />
 
             <EditText
-                android:id="@+id/password_edittext"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
-                android:nextFocusUp="@+id/email_edittext" />
+                android:nextFocusUp="@+id/email" />
 
             <EditText
                 android:id="@+id/referring_email_edittext"
@@ -53,7 +53,7 @@
                 android:layout_gravity="center_horizontal"
                 android:hint="@string/referral_member_email_label"
                 android:inputType="textEmailAddress"
-                android:nextFocusUp="@+id/password_edittext" />
+                android:nextFocusUp="@+id/password" />
 
             <Button
                 android:id="@+id/nativeSingUpButton"

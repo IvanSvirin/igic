@@ -31,6 +31,8 @@ public class DataProvider extends ContentProvider {
     private static final int SHOPPING_TRIPS = 700;
     private static final int ORDERS = 800;
 
+    private static final int CHARITY_ACCOUNTS = 901;
+
 
     private String LOG_TAG = "sql_log";
     private DbHelper dbHelper;
@@ -52,6 +54,7 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "payments", PAYMENTS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "shopping_trips", SHOPPING_TRIPS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "orders", ORDERS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "charity_accounts", CHARITY_ACCOUNTS);
     }
 
     @Override
@@ -130,6 +133,12 @@ public class DataProvider extends ContentProvider {
                 }
                 cursor = db.query(DataContract.Orders.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 break;
+            case CHARITY_ACCOUNTS:
+                if (TextUtils.isEmpty(sortOrder)) {
+                    sortOrder = DataContract.CharityAccounts.COLUMN_TOKEN + " COLLATE NOCASE ASC";
+                }
+                cursor = db.query(DataContract.CharityAccounts.TABLE_NAME, projection, null, null, null, null, sortOrder);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -191,6 +200,14 @@ public class DataProvider extends ContentProvider {
                 rowID = db.insertWithOnConflict(DataContract.Orders.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
                     resultUri = ContentUris.withAppendedId(DataContract.URI_ORDERS, rowID);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            case CHARITY_ACCOUNTS:
+                rowID = db.insertWithOnConflict(DataContract.CharityAccounts.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (rowID > 0) {
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_CHARITY_ACCOUNTS, rowID);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
@@ -298,6 +315,21 @@ public class DataProvider extends ContentProvider {
                     db.endTransaction();
                 }
                 break;
+            case CHARITY_ACCOUNTS:
+                db.beginTransaction();
+                try {
+                    delete(uri, null, null);
+                    for (ContentValues val : values) {
+                        insert(uri, val);
+                        countInsert++;
+                    }
+                    db.setTransactionSuccessful();
+                } catch (SQLException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
+                break;
         }
         context.getContentResolver().notifyChange(uri, null);
         return countInsert;
@@ -329,6 +361,9 @@ public class DataProvider extends ContentProvider {
                 break;
             case ORDERS:
                 affectedRowsCount = db.delete(DataContract.Orders.TABLE_NAME, null, null);
+                break;
+            case CHARITY_ACCOUNTS:
+                affectedRowsCount = db.delete(DataContract.CharityAccounts.TABLE_NAME, null, null);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -365,6 +400,8 @@ public class DataProvider extends ContentProvider {
                 return DataContract.ShoppingTrips.CONTENT_TYPE;
             case ORDERS:
                 return DataContract.Orders.CONTENT_TYPE;
+            case CHARITY_ACCOUNTS:
+                return DataContract.CharityAccounts.CONTENT_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
 

@@ -102,4 +102,22 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Orders.COLUMN_CASH_BACK + REAL_TYPE +
                     " )";
     public final String SQL_DELETE_ORDERS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Orders.TABLE_NAME;
+
+    public final String SQL_CREATE_CHARITY_ACCOUNTS_TABLE =
+            "CREATE TABLE " + DataContract.CharityAccounts.TABLE_NAME + "(" +
+                    DataContract.CharityAccounts._ID + PRIMARY_TYPE +
+                    DataContract.CharityAccounts.COLUMN_TOKEN + TEXT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_FIRST_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_LAST_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_EMAIL + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_MEMBER_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT + REAL_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT + REAL_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT + REAL_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_TOTAL_PAID_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_TOTAL_RAISED + REAL_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL + TEXT_TYPE +
+                    " )";
+    public final String SQL_DELETE_CHARITY_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.CharityAccounts.TABLE_NAME;
 }

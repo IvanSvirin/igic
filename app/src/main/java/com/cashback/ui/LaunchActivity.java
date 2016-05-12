@@ -2,6 +2,7 @@ package com.cashback.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -21,6 +22,8 @@ public class LaunchActivity extends AppCompatActivity {
     public static final String DB_TAG_LOG = "igic_db_log";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
+    //sandi_schleicher@hotmail.com
+    //igive
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,15 +31,17 @@ public class LaunchActivity extends AppCompatActivity {
         Intent intentRegistrationGCM;
         Intent intentNextActivity;
 
+        Utilities.saveIdfa(this, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+
         FacebookSdk.sdkInitialize(getApplicationContext());
 
-        if(checkPlayServices()){
+        if (checkPlayServices()) {
             // Start intent to registration this app with GCM
             intentRegistrationGCM = new Intent(this, RegistrationGcmServices.class);
             startService(intentRegistrationGCM);
         }
 
-        if(Utilities.isLoggedIn(this)) {
+        if (Utilities.isLoggedIn(this)) {
             intentNextActivity = new Intent(this, MainActivity.class);
         } else {
             intentNextActivity = new Intent(this, LoginActivity.class);
@@ -50,12 +55,12 @@ public class LaunchActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private boolean checkPlayServices(){
+    private boolean checkPlayServices() {
         int resultsCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        if(resultsCode != ConnectionResult.SUCCESS){
-            if(GooglePlayServicesUtil.isUserRecoverableError(resultsCode)){
+        if (resultsCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultsCode)) {
                 GooglePlayServicesUtil.getErrorDialog(resultsCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
-            } else{
+            } else {
                 Log.d(MAIN_TAG_LOG, "This device is not supported google play services.");
             }
         }

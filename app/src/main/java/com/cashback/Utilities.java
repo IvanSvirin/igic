@@ -13,22 +13,51 @@ import android.text.TextUtils;
 public class Utilities {
     private final static String PREF_TOKEN_KEY = "pref_token";
     private static final String PREF_ENTRY_KEY = "pref_entry";
+    private static final String PREF_IDFA_KEY = "pref_idfa";
 
 
-    public static String retrieveUserToken(Context context) {
+    public static boolean isLoggedIn(Context context) {
+        return !TextUtils.isEmpty(retrieveUserToken(context)) && retrieveUserEntry(context);
+    }
+
+    public static boolean saveIdfa(Context context, String idfa) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        return pref.getString(PREF_TOKEN_KEY, null);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(PREF_IDFA_KEY, idfa);
+        return editor.commit();
+    }
+
+    public static String retrieveIdfa(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(PREF_IDFA_KEY, null);
+    }
+    public static boolean saveUserEntry(Context context, boolean entry) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(PREF_ENTRY_KEY, entry);
+        return editor.commit();
     }
 
     public static boolean retrieveUserEntry(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getBoolean(PREF_ENTRY_KEY, false);
     }
-    public static boolean isLoggedIn(Context context) {
-        return !TextUtils.isEmpty(retrieveUserToken(context)) && retrieveUserEntry(context);
+
+
+    public static boolean saveUserToken(Context context, String token) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(PREF_TOKEN_KEY, token);
+        return editor.commit();
     }
 
-    public static void setStateSendingTokenToServer(Context context, final boolean state){
+    public static String retrieveUserToken(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(PREF_TOKEN_KEY, null);
+    }
+
+
+    public static void setStateSendingTokenToServer(Context context, final boolean state) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("sentTokenToServer", state);
@@ -85,6 +114,7 @@ public class Utilities {
         }
         return "";
     }
+
     public static String getFullMonth(String s) {
         switch (s) {
             case "01":

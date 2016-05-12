@@ -32,8 +32,7 @@ public class SignUpFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_up_fragmentt, container, false);
         fragmentUi = new FragmentUi(this, view);
         return view;
@@ -64,35 +63,18 @@ public class SignUpFragment extends Fragment {
             LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
-
+                    // TODO: 4/19/2016 TEST - will be deleted
+                    getContext().startActivity(new Intent(getContext(), MainActivity.class));
                 }
 
                 @Override
                 public void onCancel() {
-
                 }
 
                 @Override
                 public void onError(FacebookException error) {
-
                 }
             });
-//            facebookSingUpButton.setReadPermissions("email", "public_profile", "user_friends");
-//            facebookSingUpButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//                @Override
-//                public void onSuccess(LoginResult loginResult) {
-//                    // TODO: 4/19/2016 TEST - will be deleted
-//                    getContext().startActivity(new Intent(getContext(), MainActivity.class));
-//                }
-//
-//                @Override
-//                public void onCancel() {
-//                }
-//
-//                @Override
-//                public void onError(FacebookException error) {
-//                }
-//            });
         }
     }
 
@@ -101,5 +83,4 @@ public class SignUpFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
 }

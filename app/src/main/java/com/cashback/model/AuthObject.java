@@ -6,9 +6,8 @@ import com.google.gson.annotations.Expose;
  * Created by I.Svirin on 4/7/2016.
  */
 public class AuthObject {
-    enum AuthType {email, google, facebook}
     @Expose
-    private AuthType authType;
+    private String authType;
     @Expose
     private String firstName;   //only for iGive
     @Expose
@@ -26,7 +25,10 @@ public class AuthObject {
     @Expose
     private String referrerEmail;   //only for iConsumer
 
-    public AuthObject(AuthType authType, String firstName, String lastName, String email, String password, String zip, String token, String incomingReferrerId, String referrerEmail) {
+    public AuthObject() {
+    }
+
+    public AuthObject(String authType, String firstName, String lastName, String email, String password, String zip, String token, String incomingReferrerId, String referrerEmail) {
         this.authType = authType;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -38,13 +40,56 @@ public class AuthObject {
         this.referrerEmail = referrerEmail;
     }
 
-    public AuthType getAuthType() {
+    public String getAuthType() {
         return authType;
     }
 
-    public void setAuthType(AuthType authType) {
+    public void setAuthType(String authType) {
         this.authType = authType;
     }
+//    public enum AuthType {email, google, facebook}
+//
+//    @Expose
+//    private AuthType authType;
+//    @Expose
+//    private String firstName;   //only for iGive
+//    @Expose
+//    private String lastName;    //only for iGive
+//    @Expose
+//    private String email;
+//    @Expose
+//    private String password;
+//    @Expose
+//    private String zip; //only for iGive
+//    @Expose
+//    private String token;
+//    @Expose
+//    private String incomingReferrerId;
+//    @Expose
+//    private String referrerEmail;   //only for iConsumer
+//
+//    public AuthObject() {
+//    }
+//
+//    public AuthObject(AuthType authType, String firstName, String lastName, String email, String password, String zip, String token, String incomingReferrerId, String referrerEmail) {
+//        this.authType = authType;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.password = password;
+//        this.zip = zip;
+//        this.token = token;
+//        this.incomingReferrerId = incomingReferrerId;
+//        this.referrerEmail = referrerEmail;
+//    }
+//
+//    public AuthType getAuthType() {
+//        return authType;
+//    }
+//
+//    public void setAuthType(AuthType authType) {
+//        this.authType = authType;
+//    }
 
     public String getFirstName() {
         return firstName;
