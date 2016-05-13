@@ -2,7 +2,9 @@ package com.cashback.rest.request;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
@@ -24,8 +26,18 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.ResponseBody;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -33,6 +45,7 @@ import java.util.regex.Pattern;
 import de.greenrobot.event.EventBus;
 import retrofit.Call;
 import retrofit.Callback;
+import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
@@ -49,8 +62,7 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
     {
         Type type = new TypeToken<CharityAccount>() {
         }.getType();
-        gson1 = new GsonBuilder()
-                .registerTypeAdapter(type, new CharityAccountDeserializer()).create();
+        gson1 = new GsonBuilder().registerTypeAdapter(type, new CharityAccountDeserializer()).create();
     }
 
 
@@ -116,5 +128,54 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                 handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
             }
         });
+    }
+
+    // TODO: 4/19/2016 TEST - will be deleted
+    public class Task extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            String jsonString = "";
+            JSONObject jObj = null;
+            URL url;
+            InputStream inputStream = null;
+            HttpURLConnection urlConnection = null;
+            AuthObject authObject = new AuthObject();
+            authObject.setAuthType("email");
+            authObject.setEmail("sandi_schleicher@hotmail.com");
+            authObject.setPassword("igive");
+            try {
+                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/authorization/login");
+                urlConnection = (HttpURLConnection) url.openConnection();
+//                urlConnection.setRequestMethod("POST");
+//                urlConnection.addRequestProperty("auth_type", "email");
+//                urlConnection.addRequestProperty("email", "sandi_schleicher@hotmail.com");
+//                urlConnection.addRequestProperty("password", "igive");
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                inputStream.close();
+                urlConnection.disconnect();
+                jsonString = sb.toString();
+            } catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            }
+            try {
+                jObj = new JSONObject(jsonString);
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+            }
+            return null;
+        }
     }
 }

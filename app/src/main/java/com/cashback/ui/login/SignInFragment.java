@@ -18,6 +18,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.LoginEvent;
+import com.cashback.rest.request.MerchantsRequest;
 import com.cashback.rest.request.SignInRequest;
 import com.cashback.ui.MainActivity;
 import com.facebook.AccessToken;
