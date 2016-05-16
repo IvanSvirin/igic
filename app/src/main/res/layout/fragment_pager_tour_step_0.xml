@@ -10,5 +10,5 @@
         android:id="@+id/discover"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/discover" />
+        android:src="@drawable/tour1" />
 </RelativeLayout>

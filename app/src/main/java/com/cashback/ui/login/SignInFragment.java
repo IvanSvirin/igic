@@ -1,34 +1,39 @@
 package com.cashback.ui.login;
 
+import android.accounts.AccountManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.LoginEvent;
-import com.cashback.rest.request.MerchantsRequest;
 import com.cashback.rest.request.SignInRequest;
 import com.cashback.ui.MainActivity;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
+import com.google.android.gms.common.AccountPicker;
+import com.google.android.gms.plus.Account;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import butterknife.Bind;
@@ -39,6 +44,11 @@ import de.greenrobot.event.EventBus;
 
 public class SignInFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final int GOOGLE_AUTH = 111;
+    private final static String G_PLUS_SCOPE = "oauth2:https://www.googleapis.com/auth/plus.me";
+    private final static String USER_INFO_SCOPE = "https://www.googleapis.com/auth/userinfo.profile";
+    private final static String EMAIL_SCOPE = "https://www.googleapis.com/auth/userinfo.email";
+    private final static String SCOPES = G_PLUS_SCOPE + " " + USER_INFO_SCOPE + " " + EMAIL_SCOPE;
     private FragmentUi fragmentUi;
     private CallbackManager callbackManager;
 
@@ -65,6 +75,7 @@ public class SignInFragment extends Fragment {
     public void onEvent(LoginEvent event) {
         if (event.isSuccess) {
             Utilities.saveUserEntry(getActivity(), true);
+            Utilities.saveUserToken(getActivity(), event.getToken());
             startActivity(new Intent(getContext(), MainActivity.class));
             getActivity().finish();
         } else {
@@ -101,11 +112,13 @@ public class SignInFragment extends Fragment {
 
         @OnClick(R.id.googleLoginButton)
         public void onGoogleLogin() {
-            getContext().startActivity(new Intent(getContext(), MainActivity.class));
+            Intent intent = AccountPicker.newChooseAccountIntent(null, null, new String[]{"com.google"}, false, null, null, null, null);
+            startActivityForResult(intent, GOOGLE_AUTH);
         }
 
         @OnClick(R.id.forgotPasswordButton)
         public void onRestore() {
+            startActivity(new Intent(getActivity(), RestoreActivity.class));
         }
 
         public FragmentUi(SignInFragment fragment, View view) {
@@ -156,6 +169,24 @@ public class SignInFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GOOGLE_AUTH && resultCode == LoginActivity.RESULT_OK) {
+            // TODO: 4/19/2016 TEST - will be deleted
+            getContext().startActivity(new Intent(getContext(), MainActivity.class));
+
+//            final String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+//            try {
+//                String token = GoogleAuthUtil.getToken(getActivity(), accountName, SCOPES);
+//                AuthObject authObject = new AuthObject();
+//                authObject.setAuthType(AuthObject.AuthType.google);
+//                authObject.setToken(token);
+//                new SignInRequest(getContext(), authObject).fetchData();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (GoogleAuthException e) {
+//                e.printStackTrace();
+//            }
+        } else {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

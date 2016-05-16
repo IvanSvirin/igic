@@ -10,5 +10,5 @@
         android:id="@+id/save"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/save" />
+        android:src="@drawable/tour3" />
 </RelativeLayout>

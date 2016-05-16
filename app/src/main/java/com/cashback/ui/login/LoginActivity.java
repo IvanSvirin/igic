@@ -11,10 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.cashback.R;
-import com.facebook.CallbackManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ui.login.SignUpFragment;
 
 public class LoginActivity extends AppCompatActivity {
     private SectionsPagerAdapter sectionsPagerAdapter;

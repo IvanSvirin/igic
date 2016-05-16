@@ -47,7 +47,7 @@
                 android:nextFocusUp="@+id/email" />
 
             <EditText
-                android:id="@+id/referring_email_edittext"
+                android:id="@+id/referringEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

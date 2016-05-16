@@ -68,5 +68,8 @@
     <string name="date">Date:</string>
     <string name="store_summary">Store Summary</string>
     <string name="alert_about_empty_fields">Please fill all required fields</string>
+    <string name="zip_post">Zip/Postal Code</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
 
 </resources>

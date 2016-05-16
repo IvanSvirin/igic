@@ -19,4 +19,7 @@ public interface IAuthorization {
 
     @POST("/api/v1/authorization/login/")
     Call<CharityAccount> logIn(@Header("IDFA") String idfa, @Body AuthObject authObject);
+
+    @POST("/api/v1/authorization/signup/")
+    Call<CharityAccount> signUp(@Header("IDFA") String idfa, @Body AuthObject authObject);
 }
