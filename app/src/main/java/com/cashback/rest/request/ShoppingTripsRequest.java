@@ -20,7 +20,6 @@ import com.cashback.rest.event.ShoppingTripsEvent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.ResponseBody;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -28,10 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by I.Svirin on 5/4/2016.
@@ -60,7 +60,7 @@ public class ShoppingTripsRequest extends ServiceGenerator<IAccount> {
         call = createService(gson1).getShoppingTrips();
         call.enqueue(new Callback<List<Trip>>() {
             @Override
-            public void onResponse(Response<List<Trip>> response, Retrofit retrofit) {
+            public void onResponse(Call<List<Trip>> call, Response<List<Trip>> response) {
                 if (response.isSuccess()) {
                     List<Trip> listShoppingTrip = response.body();
                     List<ContentValues> listShoppingTripsValues = new ArrayList<>(listShoppingTrip.size());
@@ -93,7 +93,7 @@ public class ShoppingTripsRequest extends ServiceGenerator<IAccount> {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<List<Trip>> call, Throwable t) {
                 if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
                     ErrorResponse err = ((ErrorRestException) t).getBody();
                     EventBus.getDefault().post(new ShoppingTripsEvent(false, err.getMessage()));

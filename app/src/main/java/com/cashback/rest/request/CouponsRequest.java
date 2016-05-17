@@ -22,7 +22,6 @@ import com.cashback.rest.event.MerchantsEvent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.ResponseBody;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -30,10 +29,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by I.Svirin on 4/18/2016.
@@ -61,9 +61,8 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
     public void fetchData() {
         mCall = createService(mGson).getOfferCoupons();
         mCall.enqueue(new Callback<List<OfferCoupon>>() {
-
             @Override
-            public void onResponse(Response<List<OfferCoupon>> response, Retrofit retrofit) {
+            public void onResponse(Call<List<OfferCoupon>> call, Response<List<OfferCoupon>> response) {
                 if (response.isSuccess()) {
                     List<OfferCoupon> listOfferCoupons = response.body();
                     List<ContentValues> listOfferVals = new ArrayList<>(listOfferCoupons.size());
@@ -97,7 +96,7 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<List<OfferCoupon>> call, Throwable t) {
                 if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
                     ErrorResponse err = ((ErrorRestException) t).getBody();
                     EventBus.getDefault().post(new CouponsEvent(false, err.getMessage()));

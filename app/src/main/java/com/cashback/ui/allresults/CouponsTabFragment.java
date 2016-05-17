@@ -231,7 +231,11 @@ public class CouponsTabFragment extends Fragment implements LoaderManager.Loader
                 holder.vhRestrictions.setText(restrictions.trim());
                 holder.vhCashBack.setText(cashBack);
                 holder.vhExpireDate.setText(expire);
-                holder.vhCouponCode.setText(couponCode);
+                if (couponCode.length() < 4) {
+                    holder.vhCouponCode.setVisibility(View.INVISIBLE);
+                } else {
+                    holder.vhCouponCode.setText(couponCode);
+                }
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -250,7 +254,11 @@ public class CouponsTabFragment extends Fragment implements LoaderManager.Loader
                 holder.vhRestrictions.setText(restrictions.trim());
                 holder.vhCashBack.setText(cashBack);
                 holder.vhExpireDate.setText(expire);
-                holder.vhCouponCode.setText(couponCode);
+                if (couponCode.length() < 4) {
+                    holder.vhCouponCode.setVisibility(View.INVISIBLE);
+                } else {
+                    holder.vhCouponCode.setText(couponCode);
+                }
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

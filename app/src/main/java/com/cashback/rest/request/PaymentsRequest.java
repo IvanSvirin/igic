@@ -17,7 +17,6 @@ import com.cashback.rest.event.PaymentsEvent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.ResponseBody;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -25,10 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by ivansv on 02.05.2016.
@@ -57,7 +57,7 @@ public class PaymentsRequest extends ServiceGenerator<IAccount> {
         call = createService(gson1).getPayments();
         call.enqueue(new Callback<List<Payment>>() {
             @Override
-            public void onResponse(Response<List<Payment>> response, Retrofit retrofit) {
+            public void onResponse(Call<List<Payment>> call, Response<List<Payment>> response) {
                 if (response.isSuccess()) {
                     List<Payment> listPayment = response.body();
                     List<ContentValues> listPaymentsValues = new ArrayList<>(listPayment.size());
@@ -88,7 +88,7 @@ public class PaymentsRequest extends ServiceGenerator<IAccount> {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<List<Payment>> call, Throwable t) {
                 if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
                     ErrorResponse err = ((ErrorRestException) t).getBody();
                     EventBus.getDefault().post(new PaymentsEvent(false, err.getMessage()));

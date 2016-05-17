@@ -24,7 +24,6 @@ import com.cashback.rest.event.LoginEvent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.ResponseBody;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,11 +42,11 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import de.greenrobot.event.EventBus;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by I.Svirin on 5/12/2016.
@@ -77,7 +76,7 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
         call = createService(gson1).logIn(idfa, authObject);
         call.enqueue(new Callback<CharityAccount>() {
             @Override
-            public void onResponse(Response<CharityAccount> response, Retrofit retrofit) {
+            public void onResponse(Call<CharityAccount> call, Response<CharityAccount> response) {
                 if (response.isSuccess()) {
                     CharityAccount account = response.body();
                     EventBus.getDefault().post(new LoginEvent(true, null));
@@ -98,7 +97,7 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<CharityAccount> call, Throwable t) {
                 if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
                     ErrorResponse err = ((ErrorRestException) t).getBody();
                     EventBus.getDefault().post(new LoginEvent(false, err.getMessage()));
@@ -145,7 +144,8 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
             authObject.setEmail("sandi_schleicher@hotmail.com");
             authObject.setPassword("igive");
             try {
-                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/authorization/login");
+                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/merchants");
+//                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/authorization/login");
                 urlConnection = (HttpURLConnection) url.openConnection();
 //                urlConnection.setRequestMethod("POST");
 //                urlConnection.addRequestProperty("auth_type", "email");

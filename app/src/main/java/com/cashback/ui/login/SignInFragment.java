@@ -20,6 +20,8 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.LoginEvent;
+import com.cashback.rest.request.CouponsRequest;
+import com.cashback.rest.request.MerchantsRequest;
 import com.cashback.rest.request.SignInRequest;
 import com.cashback.ui.MainActivity;
 import com.facebook.CallbackManager;
@@ -101,7 +103,8 @@ public class SignInFragment extends Fragment {
 //                authObject.setAuthType(AuthObject.AuthType.email);
                 authObject.setEmail(email);
                 authObject.setPassword(password);
-                new SignInRequest(getContext(), authObject).fetchData();
+                new MerchantsRequest(getContext()).fetchData();
+//                new SignInRequest(getContext(), authObject).fetchData();
             }
         }
 

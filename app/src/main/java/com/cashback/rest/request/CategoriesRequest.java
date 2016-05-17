@@ -17,7 +17,6 @@ import com.cashback.rest.event.CategoriesEvent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.ResponseBody;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -25,10 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by I.Svirin on 4/29/2016.
@@ -57,7 +57,7 @@ public class CategoriesRequest extends ServiceGenerator<IMerchants> {
         call = createService(gson1).getCategories();
         call.enqueue(new Callback<List<Category>>() {
             @Override
-            public void onResponse(Response<List<Category>> response, Retrofit retrofit) {
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 if (response.isSuccess()) {
                     List<Category> listCategory = response.body();
                     List<ContentValues> listCategoriesValues = new ArrayList<>(listCategory.size());
@@ -86,7 +86,7 @@ public class CategoriesRequest extends ServiceGenerator<IMerchants> {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<List<Category>> call, Throwable t) {
                 if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
                     ErrorResponse err = ((ErrorRestException) t).getBody();
                     EventBus.getDefault().post(new CategoriesEvent(false, err.getMessage()));
@@ -97,6 +97,7 @@ public class CategoriesRequest extends ServiceGenerator<IMerchants> {
                     EventBus.getDefault().post(new CategoriesEvent(false, t.getMessage()));
                 }
             }
+
         });
     }
 }

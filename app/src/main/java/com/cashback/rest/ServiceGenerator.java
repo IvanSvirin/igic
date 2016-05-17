@@ -5,14 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 
 import com.google.gson.Gson;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.TimeUnit;
 
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 /**
  * Created by ivansv on 16.04.2016.
@@ -36,9 +37,9 @@ public abstract class ServiceGenerator<S> {
     public final static String REQUEST_STATUS_UNKNOWN = "unknown";
 
     // TODO: 4/19/2016 TEST - will be deleted
-    public static final String API_PRODUCTION_URL = "http://www.greatcanadianrebates.ca";
-//    public static final String API_PRODUCTION_URL = "http://beta1.igive.com/rest/iGive";
-//    public static final String API_PRODUCTION_URL = "http://www.tm.iconsumer.com";
+//    public static final String API_PRODUCTION_URL = "http://www.greatcanadianrebates.ca/";
+    public static final String API_PRODUCTION_URL = "http://beta1.igive.com/rest/iGive/";
+//    public static final String API_PRODUCTION_URL = "http://www.tm.iconsumer.com/";
 
     protected Class<S> serviceClass;
     protected Gson gson;
@@ -50,8 +51,12 @@ public abstract class ServiceGenerator<S> {
     private OkHttpClient httpClient = new OkHttpClient();
 
     public S createService(@NonNull Gson gson) {
-        httpClient.setConnectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS);
-        httpClient.setReadTimeout(READ_TIMEOUT, TimeUnit.MINUTES);
+        httpClient.newBuilder()
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(READ_TIMEOUT, TimeUnit.MINUTES)
+                .build();
+//        httpClient.setConnectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS);
+//        httpClient.setReadTimeout(READ_TIMEOUT, TimeUnit.MINUTES);
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(API_PRODUCTION_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson));
