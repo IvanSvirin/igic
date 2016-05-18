@@ -48,6 +48,7 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
         Type listType = new TypeToken<List<OfferCoupon>>() {
         }.getType();
         mGson = new GsonBuilder()
+                .setLenient()
                 .excludeFieldsWithoutExposeAnnotation()
                 .registerTypeAdapter(listType, new OfferDeserializer()).create();
     }
@@ -63,7 +64,7 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
         mCall.enqueue(new Callback<List<OfferCoupon>>() {
             @Override
             public void onResponse(Call<List<OfferCoupon>> call, Response<List<OfferCoupon>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccessful()) {
                     List<OfferCoupon> listOfferCoupons = response.body();
                     List<ContentValues> listOfferVals = new ArrayList<>(listOfferCoupons.size());
                     ContentValues vals;

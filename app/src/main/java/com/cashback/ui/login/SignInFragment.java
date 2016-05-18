@@ -103,8 +103,7 @@ public class SignInFragment extends Fragment {
 //                authObject.setAuthType(AuthObject.AuthType.email);
                 authObject.setEmail(email);
                 authObject.setPassword(password);
-                new MerchantsRequest(getContext()).fetchData();
-//                new SignInRequest(getContext(), authObject).fetchData();
+                new SignInRequest(getContext(), authObject).fetchData();
             }
         }
 

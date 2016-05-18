@@ -43,6 +43,7 @@ public class OrdersRequest extends ServiceGenerator<IAccount> {
         listType = new TypeToken<List<Order>>() {
         }.getType();
         gson1 = new GsonBuilder()
+                .setLenient()
                 .excludeFieldsWithoutExposeAnnotation()
                 .registerTypeAdapter(listType, new OrdersDeserializer()).create();
     }
@@ -58,7 +59,7 @@ public class OrdersRequest extends ServiceGenerator<IAccount> {
         call.enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccessful()) {
                     List<Order> listOrder = response.body();
                     List<ContentValues> listOrdersValues = new ArrayList<>(listOrder.size());
                     ContentValues values;

@@ -43,6 +43,7 @@ public class CategoriesRequest extends ServiceGenerator<IMerchants> {
         listType = new TypeToken<List<Category>>() {
         }.getType();
         gson1 = new GsonBuilder()
+                .setLenient()
                 .excludeFieldsWithoutExposeAnnotation()
                 .registerTypeAdapter(listType, new CategoriesDeserializer()).create();
     }
@@ -58,7 +59,7 @@ public class CategoriesRequest extends ServiceGenerator<IMerchants> {
         call.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccessful()) {
                     List<Category> listCategory = response.body();
                     List<ContentValues> listCategoriesValues = new ArrayList<>(listCategory.size());
                     ContentValues values;

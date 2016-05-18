@@ -4,6 +4,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import java.lang.annotation.Retention;
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 
 /**
@@ -61,7 +63,9 @@ public abstract class ServiceGenerator<S> {
                 .baseUrl(API_PRODUCTION_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson));
 
-        Retrofit retrofit = builder.client(httpClient).build();
+        Retrofit retrofit = builder
+                .client(httpClient)
+                .build();
         return retrofit.create(serviceClass);
     }
 

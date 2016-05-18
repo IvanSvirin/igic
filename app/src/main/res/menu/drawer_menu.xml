@@ -19,7 +19,7 @@
             android:title="@string/item_tell_a_friend" />
         <item
             android:id="@+id/item_account"
-            android:icon="@drawable/ic_logo"
+            android:icon="@drawable/ic_info_outline_black_24dp"
             android:title="@string/item_account" />
     </group>
 </menu>

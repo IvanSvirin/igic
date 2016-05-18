@@ -33,6 +33,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -61,7 +62,10 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
     {
         Type type = new TypeToken<CharityAccount>() {
         }.getType();
-        gson1 = new GsonBuilder().registerTypeAdapter(type, new CharityAccountDeserializer()).create();
+        gson1 = new GsonBuilder()
+                .setLenient()
+                .registerTypeAdapter(type, new CharityAccountDeserializer())
+                .create();
     }
 
 
@@ -73,60 +77,61 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
     }
 
     public void fetchData() {
-        call = createService(gson1).logIn(idfa, authObject);
-        call.enqueue(new Callback<CharityAccount>() {
-            @Override
-            public void onResponse(Call<CharityAccount> call, Response<CharityAccount> response) {
-                if (response.isSuccess()) {
-                    CharityAccount account = response.body();
-                    EventBus.getDefault().post(new LoginEvent(true, null));
-                    pushAccount(account);
-                    Utilities.saveUserToken(context, account.getToken());
-                } else {
-                    int statusCode = response.code();
-                    String answer = "Code " + statusCode + " . ";
-                    ResponseBody errorBody = response.errorBody();
-                    try {
-                        answer += errorBody.string();
-                        errorBody.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    EventBus.getDefault().post(new LoginEvent(false, answer));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CharityAccount> call, Throwable t) {
-                if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
-                    ErrorResponse err = ((ErrorRestException) t).getBody();
-                    EventBus.getDefault().post(new LoginEvent(false, err.getMessage()));
-                } else if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_WARNING)) {
-                    WarningResponse warn = ((WarningRestException) t).getBody();
-                    EventBus.getDefault().post(new LoginEvent(false, warn.getMessage()));
-                } else {
-                    EventBus.getDefault().post(new LoginEvent(false, t.getMessage()));
-                }
-            }
-
-            private void pushAccount(CharityAccount account) {
-                ContentValues values = new ContentValues();
-                values.put(DataContract.CharityAccounts.COLUMN_TOKEN, account.getToken());
-                values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, account.getFirstName());
-                values.put(DataContract.CharityAccounts.COLUMN_LAST_NAME, account.getLastName());
-                values.put(DataContract.CharityAccounts.COLUMN_EMAIL, account.getEmail());
-                values.put(DataContract.CharityAccounts.COLUMN_MEMBER_DATE, account.getMemberDate());
-                values.put(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT, account.getNextCheckAmount());
-                values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, account.getPendingAmount());
-                values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT, account.getTotalPaidAmount());
-                values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_DATE, account.getTotalPaidDate());
-                values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, account.getTotalRaised());
-                values.put(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL, account.getCauseDashboardUrl());
-                values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, account.getSelectCauseUrl());
-                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
-            }
-        });
+        new Task().execute();
+//        call = createService(gson1).logIn(idfa, authObject);
+//        call.enqueue(new Callback<CharityAccount>() {
+//            @Override
+//            public void onResponse(Call<CharityAccount> call, Response<CharityAccount> response) {
+//                if (response.isSuccessful()) {
+//                    CharityAccount account = response.body();
+//                    EventBus.getDefault().post(new LoginEvent(true, null));
+//                    pushAccount(account);
+//                    Utilities.saveUserToken(context, account.getToken());
+//                } else {
+//                    int statusCode = response.code();
+//                    String answer = "Code " + statusCode + " . ";
+//                    ResponseBody errorBody = response.errorBody();
+//                    try {
+//                        answer += errorBody.string();
+//                        errorBody.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    EventBus.getDefault().post(new LoginEvent(false, answer));
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<CharityAccount> call, Throwable t) {
+//                if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
+//                    ErrorResponse err = ((ErrorRestException) t).getBody();
+//                    EventBus.getDefault().post(new LoginEvent(false, err.getMessage()));
+//                } else if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_WARNING)) {
+//                    WarningResponse warn = ((WarningRestException) t).getBody();
+//                    EventBus.getDefault().post(new LoginEvent(false, warn.getMessage()));
+//                } else {
+//                    EventBus.getDefault().post(new LoginEvent(false, t.getMessage()));
+//                }
+//            }
+//
+//            private void pushAccount(CharityAccount account) {
+//                ContentValues values = new ContentValues();
+//                values.put(DataContract.CharityAccounts.COLUMN_TOKEN, account.getToken());
+//                values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, account.getFirstName());
+//                values.put(DataContract.CharityAccounts.COLUMN_LAST_NAME, account.getLastName());
+//                values.put(DataContract.CharityAccounts.COLUMN_EMAIL, account.getEmail());
+//                values.put(DataContract.CharityAccounts.COLUMN_MEMBER_DATE, account.getMemberDate());
+//                values.put(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT, account.getNextCheckAmount());
+//                values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, account.getPendingAmount());
+//                values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT, account.getTotalPaidAmount());
+//                values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_DATE, account.getTotalPaidDate());
+//                values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, account.getTotalRaised());
+//                values.put(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL, account.getCauseDashboardUrl());
+//                values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, account.getSelectCauseUrl());
+//                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+//                handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
+//            }
+//        });
     }
 
     // TODO: 4/19/2016 TEST - will be deleted
@@ -144,13 +149,22 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
             authObject.setEmail("sandi_schleicher@hotmail.com");
             authObject.setPassword("igive");
             try {
-                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/merchants");
-//                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/authorization/login");
+//                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/merchants");
+                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/authorization/login");
                 urlConnection = (HttpURLConnection) url.openConnection();
-//                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 //                urlConnection.addRequestProperty("auth_type", "email");
 //                urlConnection.addRequestProperty("email", "sandi_schleicher@hotmail.com");
 //                urlConnection.addRequestProperty("password", "igive");
+
+                String postParameters = "email=sandi_schleicher@hotmail.com&password=igive";
+                urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
+                PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
+                out.print(postParameters);
+                out.close();
+
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (MalformedURLException e) {
                 e.printStackTrace();

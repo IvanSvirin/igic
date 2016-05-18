@@ -46,6 +46,7 @@ public class ShoppingTripsRequest extends ServiceGenerator<IAccount> {
         listType = new TypeToken<List<Trip>>() {
         }.getType();
         gson1 = new GsonBuilder()
+                .setLenient()
                 .excludeFieldsWithoutExposeAnnotation()
                 .registerTypeAdapter(listType, new ShoppingTripsDeserializer()).create();
     }
@@ -61,7 +62,7 @@ public class ShoppingTripsRequest extends ServiceGenerator<IAccount> {
         call.enqueue(new Callback<List<Trip>>() {
             @Override
             public void onResponse(Call<List<Trip>> call, Response<List<Trip>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccessful()) {
                     List<Trip> listShoppingTrip = response.body();
                     List<ContentValues> listShoppingTripsValues = new ArrayList<>(listShoppingTrip.size());
                     ContentValues values;

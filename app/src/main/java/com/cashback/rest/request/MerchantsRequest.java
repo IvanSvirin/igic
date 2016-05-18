@@ -28,7 +28,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by ivansv on 16.04.2016.
@@ -43,8 +42,10 @@ public class MerchantsRequest extends ServiceGenerator<IMerchants> {
         listType = new TypeToken<List<Merchant>>() {
         }.getType();
         gson1 = new GsonBuilder()
+                .setLenient()
                 .excludeFieldsWithoutExposeAnnotation()
-                .registerTypeAdapter(listType, new MerchantsDeserializer()).create();
+                .registerTypeAdapter(listType, new MerchantsDeserializer())
+                .create();
     }
 
     public MerchantsRequest(Context ctx) {
@@ -58,7 +59,7 @@ public class MerchantsRequest extends ServiceGenerator<IMerchants> {
         call.enqueue(new Callback<List<Merchant>>() {
             @Override
             public void onResponse(Call<List<Merchant>> call, Response<List<Merchant>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccessful()) {
                     List<Merchant> listMerchant = response.body();
                     List<ContentValues> listMerchantsValues = new ArrayList<>(listMerchant.size());
                     ContentValues values;

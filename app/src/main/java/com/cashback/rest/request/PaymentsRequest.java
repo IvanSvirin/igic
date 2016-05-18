@@ -43,6 +43,7 @@ public class PaymentsRequest extends ServiceGenerator<IAccount> {
         listType = new TypeToken<List<Payment>>() {
         }.getType();
         gson1 = new GsonBuilder()
+                .setLenient()
                 .excludeFieldsWithoutExposeAnnotation()
                 .registerTypeAdapter(listType, new PaymentsDeserializer()).create();
     }
@@ -58,7 +59,7 @@ public class PaymentsRequest extends ServiceGenerator<IAccount> {
         call.enqueue(new Callback<List<Payment>>() {
             @Override
             public void onResponse(Call<List<Payment>> call, Response<List<Payment>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccessful()) {
                     List<Payment> listPayment = response.body();
                     List<ContentValues> listPaymentsValues = new ArrayList<>(listPayment.size());
                     ContentValues values;
