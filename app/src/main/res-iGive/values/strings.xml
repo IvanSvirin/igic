@@ -16,6 +16,7 @@
     <string name="order_number">Order Number:</string>
     <string name="purchase_amount">Purchase Amount:</string>
     <string name="notifications_donation_alerts">Notification when you give Donation</string>
+    <string name="cash_back_percent">% DONATION</string>
 
 
 </resources>

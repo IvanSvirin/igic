@@ -14,5 +14,6 @@
     <string name="notifications_payments_alerts">Notification when we sent your payment</string>
     <string name="how_to_use">How to Use iConsumer</string>
     <string name="where_is_mine">Where\'s My Cash Back</string>
+    <string name="cash_back_percent">% CASH BACK</string>
 
 </resources>

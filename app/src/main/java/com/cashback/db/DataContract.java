@@ -14,8 +14,8 @@ public class DataContract {
 
     public final static Uri URI_MERCHANTS = Uri.withAppendedPath(BASE_CONTENT_URI, "merchants");
     // TODO: 4/19/2016 TEST - will be deleted
-    public final static Uri URI_COUPONS = Uri.withAppendedPath(BASE_CONTENT_URI, "offer_coupons");
-    //    public final static Uri URI_COUPONS = Uri.withAppendedPath(BASE_CONTENT_URI, "coupons");
+//    public final static Uri URI_COUPONS = Uri.withAppendedPath(BASE_CONTENT_URI, "offer_coupons");
+    public final static Uri URI_COUPONS = Uri.withAppendedPath(BASE_CONTENT_URI, "coupons");
     public final static Uri URI_FAVORITES = Uri.withAppendedPath(BASE_CONTENT_URI, "favorites");
     public final static Uri URI_EXTRAS = Uri.withAppendedPath(BASE_CONTENT_URI, "extras");
 
@@ -62,19 +62,19 @@ public class DataContract {
     }
 
     // TODO: 4/19/2016 TEST - will be deleted
-    public static class OfferEntry implements BaseColumns {
-        public static final String TABLE_NAME = "offer_coupons";
-        public static final String COLUMN_ID = "id_offer";
-        public static final String COLUMN_MSG = "pay_out_msg";
-        public static final String COLUMN_DESCRIPTION = "desc";
-        public static final String COLUMN_CODE = "code";
-        public static final String COLUMN_EXPIRE = "expire";
-        public static final String COLUMN_EXPIRE_RAW = "expire_iso";
-        public static final String COLUMN_LOGO = "logo";
-        public static final String COLUMN_URL = "url";
-        public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "offer_coupons";
-    }
+//    public static class OfferEntry implements BaseColumns {
+//        public static final String TABLE_NAME = "offer_coupons";
+//        public static final String COLUMN_ID = "id_offer";
+//        public static final String COLUMN_MSG = "pay_out_msg";
+//        public static final String COLUMN_DESCRIPTION = "desc";
+//        public static final String COLUMN_CODE = "code";
+//        public static final String COLUMN_EXPIRE = "expire";
+//        public static final String COLUMN_EXPIRE_RAW = "expire_iso";
+//        public static final String COLUMN_LOGO = "logo";
+//        public static final String COLUMN_URL = "url";
+//        public static final String CONTENT_TYPE =
+//                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "offer_coupons";
+//    }
 
     public static class Categories implements BaseColumns {
         public static final String TABLE_NAME = "categories";

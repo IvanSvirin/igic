@@ -3,22 +3,17 @@ package com.cashback.rest.request;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.text.TextUtils;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
 import com.cashback.model.CharityAccount;
-import com.cashback.model.ErrorResponse;
-import com.cashback.model.Merchant;
-import com.cashback.model.WarningResponse;
-import com.cashback.rest.ErrorRestException;
 import com.cashback.rest.IAuthorization;
-import com.cashback.rest.IMerchants;
 import com.cashback.rest.ServiceGenerator;
-import com.cashback.rest.WarningRestException;
 import com.cashback.rest.adapter.CharityAccountDeserializer;
 import com.cashback.rest.event.LoginEvent;
 import com.google.gson.Gson;
@@ -38,46 +33,36 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
 
 import de.greenrobot.event.EventBus;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 /**
  * Created by I.Svirin on 5/12/2016.
  */
 public class SignInRequest extends ServiceGenerator<IAuthorization> {
-    private Call<CharityAccount> call;
-    private Gson gson1;
+    //    private Call<CharityAccount> call;
+//    private Gson gson1;
     private AuthObject authObject;
     private Context context;
-    private String idfa;
 
-    {
-        Type type = new TypeToken<CharityAccount>() {
-        }.getType();
-        gson1 = new GsonBuilder()
-                .setLenient()
-                .registerTypeAdapter(type, new CharityAccountDeserializer())
-                .create();
-    }
-
+//    {
+//        Type type = new TypeToken<CharityAccount>() {
+//        }.getType();
+//        gson1 = new GsonBuilder()
+//                .setLenient()
+//                .registerTypeAdapter(type, new CharityAccountDeserializer())
+//                .create();
+//    }
 
     public SignInRequest(Context context, AuthObject authObject) {
         super(IAuthorization.class);
         this.context = context;
         this.authObject = authObject;
-        this.idfa = Utilities.retrieveIdfa(context);
     }
 
     public void fetchData() {
-        new Task().execute();
+        new SignInRequestTask(authObject).execute();
 //        call = createService(gson1).logIn(idfa, authObject);
 //        call.enqueue(new Callback<CharityAccount>() {
 //            @Override
@@ -134,40 +119,36 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
 //        });
     }
 
-    // TODO: 4/19/2016 TEST - will be deleted
-    public class Task extends AsyncTask<Void, Void, Void> {
+    public class SignInRequestTask extends AsyncTask<Void, Void, Void> {
+        private AuthObject authObject;
+        private String jsonString = "";
+        private JSONObject jObj = null;
+        private URL url;
+        private InputStream inputStream = null;
+        private HttpURLConnection urlConnection = null;
+
+        public SignInRequestTask(AuthObject authObject) {
+            this.authObject = authObject;
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
-            String jsonString = "";
-            JSONObject jObj = null;
-            URL url;
-            InputStream inputStream = null;
-            HttpURLConnection urlConnection = null;
-            AuthObject authObject = new AuthObject();
-            authObject.setAuthType("email");
-            authObject.setEmail("sandi_schleicher@hotmail.com");
-            authObject.setPassword("igive");
             try {
-//                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/merchants");
                 url = new URL("http://beta1.igive.com/rest/iGive/api/v1/authorization/login");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-//                urlConnection.addRequestProperty("auth_type", "email");
-//                urlConnection.addRequestProperty("email", "sandi_schleicher@hotmail.com");
-//                urlConnection.addRequestProperty("password", "igive");
+                urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
 
                 String postParameters = "email=sandi_schleicher@hotmail.com&password=igive";
+//                String postParameters = "email=" + authObject.getEmail() + "password=" + authObject.getPassword();
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
                 out.print(postParameters);
                 out.close();
 
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -181,6 +162,9 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                 inputStream.close();
                 urlConnection.disconnect();
                 jsonString = sb.toString();
+                while (jsonString.charAt(0) != '{' && jsonString.charAt(0) != '[') {
+                    jsonString = jsonString.substring(1);
+                }
             } catch (Exception e) {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
             }
@@ -190,6 +174,27 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                if (jObj != null) {
+                    if (jObj.getInt("STATUS") == 1) {
+                        ContentValues values = new ContentValues();
+                        values.put(DataContract.CharityAccounts.COLUMN_TOKEN, jObj.getString("TOKEN"));
+                        DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                        handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
+                        EventBus.getDefault().post(new LoginEvent(true, null));
+                        Utilities.saveUserToken(context, jObj.getString("TOKEN"));
+                    } else {
+                        EventBus.getDefault().post(new LoginEvent(false, "Check your internet connection or authorization data"));
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

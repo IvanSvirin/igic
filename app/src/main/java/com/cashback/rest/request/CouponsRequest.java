@@ -2,7 +2,10 @@ package com.cashback.rest.request;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 
+import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.Coupon;
@@ -23,8 +26,19 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,84 +53,83 @@ import retrofit2.Retrofit;
  * Created by I.Svirin on 4/18/2016.
  */
 public class CouponsRequest extends ServiceGenerator<IMerchants> {
-    // TODO: 4/19/2016 TEST - will be deleted
-    private Call<List<OfferCoupon>> mCall;
-    private Gson mGson;
-    private Context mContext;
+//    private Call<List<OfferCoupon>> mCall;
+//    private Gson mGson;
+//    private Context mContext;
+//
+//    {
+//        Type listType = new TypeToken<List<OfferCoupon>>() {
+//        }.getType();
+//        mGson = new GsonBuilder()
+//                .setLenient()
+//                .excludeFieldsWithoutExposeAnnotation()
+//                .registerTypeAdapter(listType, new OfferDeserializer()).create();
+//    }
+//
+//    public CouponsRequest(Context ctx) {
+//        super(IMerchants.class);
+//        mContext = ctx;
+//    }
+//
+//    @Override
+//    public void fetchData() {
+//        mCall = createService(mGson).getOfferCoupons();
+//        mCall.enqueue(new Callback<List<OfferCoupon>>() {
+//            @Override
+//            public void onResponse(Call<List<OfferCoupon>> call, Response<List<OfferCoupon>> response) {
+//                if (response.isSuccessful()) {
+//                    List<OfferCoupon> listOfferCoupons = response.body();
+//                    List<ContentValues> listOfferVals = new ArrayList<>(listOfferCoupons.size());
+//                    ContentValues vals;
+//                    for (OfferCoupon oc : listOfferCoupons) {
+//                        vals = new ContentValues();
+//                        vals.put(DataContract.OfferEntry.COLUMN_ID, oc.getId());
+//                        vals.put(DataContract.OfferEntry.COLUMN_MSG, oc.getPayoutSizeMsg());
+//                        vals.put(DataContract.OfferEntry.COLUMN_DESCRIPTION, oc.getDescription());
+//                        vals.put(DataContract.OfferEntry.COLUMN_CODE, oc.getCouponCode());
+//                        vals.put(DataContract.OfferEntry.COLUMN_EXPIRE, oc.getExpireDate());
+//                        vals.put(DataContract.OfferEntry.COLUMN_EXPIRE_RAW, oc.getExpireRawDate());
+//                        vals.put(DataContract.OfferEntry.COLUMN_LOGO, oc.getLogoUrl());
+//                        vals.put(DataContract.OfferEntry.COLUMN_URL, oc.getActivateUrl());
+//                        listOfferVals.add(vals);
+//                    }
+//                    DataInsertHandler handler = new DataInsertHandler(mContext, mContext.getContentResolver());
+//                    handler.startBulkInsert(DataInsertHandler.COUPONS_TOKEN, null, DataContract.URI_COUPONS, listOfferVals.toArray(new ContentValues[listOfferVals.size()]));
+//                } else {
+//                    int statusCode = response.code();
+//                    String answer = "Code " + statusCode + " . ";
+//                    ResponseBody errorBody = response.errorBody();
+//                    try {
+//                        answer += errorBody.string();
+//                        errorBody.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    EventBus.getDefault().post(new CouponsEvent(false, answer));
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<OfferCoupon>> call, Throwable t) {
+//                if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
+//                    ErrorResponse err = ((ErrorRestException) t).getBody();
+//                    EventBus.getDefault().post(new CouponsEvent(false, err.getMessage()));
+//                } else if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_WARNING)) {
+//                    WarningResponse warn = ((WarningRestException) t).getBody();
+//                    EventBus.getDefault().post(new CouponsEvent(false, warn.getMessage()));
+//                } else {
+//                    EventBus.getDefault().post(new CouponsEvent(false, t.getMessage()));
+//                }
+//            }
+//        });
+//    }
 
-    {
-        Type listType = new TypeToken<List<OfferCoupon>>() {
-        }.getType();
-        mGson = new GsonBuilder()
-                .setLenient()
-                .excludeFieldsWithoutExposeAnnotation()
-                .registerTypeAdapter(listType, new OfferDeserializer()).create();
-    }
 
-    public CouponsRequest(Context ctx) {
-        super(IMerchants.class);
-        mContext = ctx;
-    }
-
-    @Override
-    public void fetchData() {
-        mCall = createService(mGson).getOfferCoupons();
-        mCall.enqueue(new Callback<List<OfferCoupon>>() {
-            @Override
-            public void onResponse(Call<List<OfferCoupon>> call, Response<List<OfferCoupon>> response) {
-                if (response.isSuccessful()) {
-                    List<OfferCoupon> listOfferCoupons = response.body();
-                    List<ContentValues> listOfferVals = new ArrayList<>(listOfferCoupons.size());
-                    ContentValues vals;
-                    for (OfferCoupon oc : listOfferCoupons) {
-                        vals = new ContentValues();
-                        vals.put(DataContract.OfferEntry.COLUMN_ID, oc.getId());
-                        vals.put(DataContract.OfferEntry.COLUMN_MSG, oc.getPayoutSizeMsg());
-                        vals.put(DataContract.OfferEntry.COLUMN_DESCRIPTION, oc.getDescription());
-                        vals.put(DataContract.OfferEntry.COLUMN_CODE, oc.getCouponCode());
-                        vals.put(DataContract.OfferEntry.COLUMN_EXPIRE, oc.getExpireDate());
-                        vals.put(DataContract.OfferEntry.COLUMN_EXPIRE_RAW, oc.getExpireRawDate());
-                        vals.put(DataContract.OfferEntry.COLUMN_LOGO, oc.getLogoUrl());
-                        vals.put(DataContract.OfferEntry.COLUMN_URL, oc.getActivateUrl());
-                        listOfferVals.add(vals);
-                    }
-                    DataInsertHandler handler = new DataInsertHandler(mContext, mContext.getContentResolver());
-                    handler.startBulkInsert(DataInsertHandler.COUPONS_TOKEN, null, DataContract.URI_COUPONS, listOfferVals.toArray(new ContentValues[listOfferVals.size()]));
-                } else {
-                    int statusCode = response.code();
-                    String answer = "Code " + statusCode + " . ";
-                    ResponseBody errorBody = response.errorBody();
-                    try {
-                        answer += errorBody.string();
-                        errorBody.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    EventBus.getDefault().post(new CouponsEvent(false, answer));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<OfferCoupon>> call, Throwable t) {
-                if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
-                    ErrorResponse err = ((ErrorRestException) t).getBody();
-                    EventBus.getDefault().post(new CouponsEvent(false, err.getMessage()));
-                } else if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_WARNING)) {
-                    WarningResponse warn = ((WarningRestException) t).getBody();
-                    EventBus.getDefault().post(new CouponsEvent(false, warn.getMessage()));
-                } else {
-                    EventBus.getDefault().post(new CouponsEvent(false, t.getMessage()));
-                }
-            }
-        });
-    }
-
-
-//    private Call<List<Coupon>> call;
+    //    private Call<List<Coupon>> call;
 //    private Type listType;
 //    private Gson gson1;
-//    private Context context;
-//
+    private Context context;
+
 //    {
 //        listType = new TypeToken<List<Coupon>>() {
 //        }.getType();
@@ -124,20 +137,20 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
 //                .excludeFieldsWithoutExposeAnnotation()
 //                .registerTypeAdapter(listType, new CouponsDeserializer()).create();
 //    }
-//
-//    public CouponsRequest(Context ctx) {
-//        super(IMerchants.class);
-//        this.context = ctx;
-//    }
-//
-//    @Override
-//    public void fetchData() {
+
+    public CouponsRequest(Context ctx) {
+        super(IMerchants.class);
+        this.context = ctx;
+    }
+
+    @Override
+    public void fetchData() {
+        new CouponsRequestTask().execute();
 //        call = createService(gson1).getAllFeatured();
 //        call.enqueue(new Callback<List<Coupon>>() {
-//
 //            @Override
-//            public void onResponse(Response<List<Coupon>> response, Retrofit retrofit) {
-//                if (response.isSuccess()) {
+//            public void onResponse(Call<List<Coupon>> call, Response<List<Coupon>> response) {
+//                if (response.isSuccessful()) {
 //                    List<Coupon> listCoupon = response.body();
 //                    List<ContentValues> listCouponsValues = new ArrayList<>(listCoupon.size());
 //                    ContentValues values;
@@ -173,7 +186,7 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
 //            }
 //
 //            @Override
-//            public void onFailure(Throwable t) {
+//            public void onFailure(Call<List<Coupon>> call, Throwable t) {
 //                if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
 //                    ErrorResponse err = ((ErrorRestException) t).getBody();
 //                    EventBus.getDefault().post(new CouponsEvent(false, err.getMessage()));
@@ -185,5 +198,79 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
 //                }
 //            }
 //        });
-//    }
+    }
+
+    private class CouponsRequestTask extends AsyncTask<Void, Void, Void> {
+        private String jsonString = "";
+        JSONArray jsonArray;
+        private JSONObject jObj = null;
+        private URL url;
+        private InputStream inputStream = null;
+        private HttpURLConnection urlConnection = null;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/merchants/coupons/featured/");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
+                urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
+
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                inputStream.close();
+                urlConnection.disconnect();
+                jsonString = sb.toString();
+                while (jsonString.charAt(0) != '{' && jsonString.charAt(0) != '[') {
+                    jsonString = jsonString.substring(1);
+                }
+            } catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            }
+            try {
+                jsonArray = new JSONArray(jsonString);
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            List<ContentValues> listCouponsValues = new ArrayList<>(jsonArray.length());
+            ContentValues values;
+            try {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    jObj = jsonArray.getJSONObject(i);
+                    values = new ContentValues();
+                    values.put(DataContract.Coupons.COLUMN_COUPON_ID, jObj.getLong("coupon_id"));
+                    values.put(DataContract.Coupons.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
+                    values.put(DataContract.Coupons.COLUMN_COUPON_TYPE, jObj.getString("coupon_type"));
+                    values.put(DataContract.Coupons.COLUMN_RESTRICTIONS, jObj.getString("restrictions"));
+                    values.put(DataContract.Coupons.COLUMN_COUPON_CODE, jObj.getString("coupon_code"));
+                    values.put(DataContract.Coupons.COLUMN_EXPIRATION_DATE, jObj.getString("expiration_date"));
+                    values.put(DataContract.Coupons.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
+                    values.put(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
+                    values.put(DataContract.Coupons.COLUMN_VENDOR_COMMISSION, jObj.getString("vendor_commission"));
+                    listCouponsValues.add(values);
+                }
+                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                handler.startBulkInsert(DataInsertHandler.COUPONS_TOKEN, false, DataContract.URI_COUPONS, listCouponsValues.toArray(new ContentValues[listCouponsValues.size()]));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                EventBus.getDefault().post(new CouponsEvent(false, "No coupons featured data"));
+            }
+        }
+    }
 }

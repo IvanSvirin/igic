@@ -22,8 +22,6 @@ public class LaunchActivity extends AppCompatActivity {
     public static final String DB_TAG_LOG = "igic_db_log";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
-    //sandi_schleicher@hotmail.com
-    //igive
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

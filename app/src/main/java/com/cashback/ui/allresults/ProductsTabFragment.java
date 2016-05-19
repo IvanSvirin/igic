@@ -135,8 +135,8 @@ public class ProductsTabFragment extends Fragment implements LoaderManager.Loade
                         // TODO: 4/19/2016 TEST - will be deleted
                         Intent intent = new Intent(context, BrowserActivity.class);
                         Cursor cursor = featuredAdapter.getCursor();
-                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
-                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
+                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
+                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
 //                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
@@ -159,11 +159,11 @@ public class ProductsTabFragment extends Fragment implements LoaderManager.Loade
                     cursor.moveToPosition(position);
                     Intent intent = new Intent(context, StoreActivity.class);
                     // TODO: 4/19/2016 TEST - will be deleted
-                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION)));
-                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_EXPIRE)));
-                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
-                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_LOGO)));
-                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
+                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS)));
+                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE)));
+                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
+                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
+                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
 //                    intent.putExtra("vendor_id", c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                     context.startActivity(intent);
                 }
@@ -210,9 +210,9 @@ public class ProductsTabFragment extends Fragment implements LoaderManager.Loade
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             // TODO: 4/19/2016 TEST - will be deleted
-            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_ID));
-            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_LOGO));
-            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG));
+            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
+            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
+            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
             if (GRID_TYPE_FLAG) {
                 GridViewHolder holder = (GridViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);

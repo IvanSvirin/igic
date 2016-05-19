@@ -38,16 +38,18 @@ public class PageFragment extends Fragment {
         view = inflater.inflate(R.layout.layout_browser_page, container, false);
         TextView couponCode = (TextView) view.findViewById(R.id.couponCode);
         Button shopNowButton = (Button) view.findViewById(R.id.shopNowButton);
-        if (getArguments().getString(DataContract.OfferEntry.COLUMN_CODE).length() < 4) {
+        if (getArguments().getString(DataContract.Coupons.COLUMN_COUPON_CODE).length() < 4) {
             couponCode.setVisibility(View.INVISIBLE);
             shopNowButton.setText(getResources().getString(R.string.btn_shop_now));
         } else {
             couponCode.setVisibility(View.VISIBLE);
-            couponCode.setText(getArguments().getString(DataContract.OfferEntry.COLUMN_CODE));
+            couponCode.setText(getArguments().getString(DataContract.Coupons.COLUMN_COUPON_CODE));
             shopNowButton.setText(getResources().getString(R.string.btn_copy_code));
         }
         TextView restrictions = (TextView) view.findViewById(R.id.restrictions);
-        restrictions.setText(getArguments().getString(DataContract.OfferEntry.COLUMN_DESCRIPTION) + " Exp. " + getArguments().getString(DataContract.OfferEntry.COLUMN_EXPIRE));
+        String date = getArguments().getString(DataContract.Coupons.COLUMN_EXPIRATION_DATE);
+        String expire = date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
+        restrictions.setText(getArguments().getString(DataContract.Coupons.COLUMN_RESTRICTIONS) + " Exp. " + expire);
 
         shopNowButton.setOnClickListener(new View.OnClickListener() {
             @Override

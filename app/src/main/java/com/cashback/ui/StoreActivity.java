@@ -39,11 +39,13 @@ import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.ui.components.NestedListView;
+import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -236,16 +238,17 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 public void onSaleClick(int id) {
                     if (Utilities.isLoggedIn(context)) {
                         Intent intent = new Intent(context, BrowserActivity.class);
+                        intent.putExtra("vendor_commission", commission);
 //                        intent.putExtra(BrowserActivity.FLAG_SALE_ID, id);
 //                        intent.putExtra(BrowserActivity.FLAG_EVENT_TYPE, BrowserActivity.EVENT_TYPE_SALE);
                         context.startActivity(intent);
                     } else {
                         // TODO: 4/19/2016 TEST - will be deleted
-                        Intent intent = new Intent(context, BrowserActivity.class);
-                        Cursor cursor = adapter.getCursor();
-                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
-                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
-//                        Intent intent = new Intent(context, LoginActivity.class);
+//                        Intent intent = new Intent(context, BrowserActivity.class);
+//                        Cursor cursor = adapter.getCursor();
+//                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
+//                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
                     }
@@ -260,27 +263,27 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     startActivity(Intent.createChooser(share, "Share Text"));
                 }
             });
-            AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Cursor cursor = adapter.getCursor();
-                    cursor.moveToPosition(position);
-                    Intent intent = new Intent(context, StoreActivity.class);
-                    // TODO: 4/19/2016 TEST - will be deleted
-                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION)));
-                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_EXPIRE)));
-                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_URL)));
-                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_LOGO)));
-                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG)));
-//                    intent.putExtra("vendor_id", c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
-                    context.startActivity(intent);
-                }
-            };
+//            AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    Cursor cursor = adapter.getCursor();
+//                    cursor.moveToPosition(position);
+//                    Intent intent = new Intent(context, StoreActivity.class);
+//                    // TODO: 4/19/2016 TEST - will be deleted
+//                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS)));
+//                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE)));
+//                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
+//                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
+//                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+//                    intent.putExtra("vendor_id", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+//                    context.startActivity(intent);
+//                }
+//            };
             if (isGridLayout) {
-                gridView.setOnItemClickListener(listener);
+//                gridView.setOnItemClickListener(listener);
                 gridView.setAdapter(adapter);
             } else {
-                nestedListView.setOnItemClickListener(listener);
+//                nestedListView.setOnItemClickListener(listener);
                 nestedListView.setAdapter(adapter);
             }
         }
@@ -303,22 +306,23 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 @Override
                 public void onClick(View v) {
                     if (Utilities.isLoggedIn(context)) {
-//                        Intent intent = new Intent(context, BrowserActivity.class);
+                        Intent intent = new Intent(context, BrowserActivity.class);
+                        intent.putExtra("vendor_commission", commission);
 //                        intent.putExtra(BrowserActivity.FLAG_MERCHANT_ID, merchantId);
 //                        intent.putExtra(BrowserActivity.FLAG_SALE_ID, -1);
 //                        intent.putExtra(BrowserActivity.FLAG_EVENT_TYPE, BrowserActivity.EVENT_TYPE_STORE);
-//                        context.startActivity(intent);
+                        context.startActivity(intent);
                     } else {
                         // TODO: 4/19/2016 TEST - will be deleted
-                        Intent intent = new Intent(context, BrowserActivity.class);
-                        intent.putExtra("vendor_commission", commission);
-//                        Intent intent = new Intent(context, LoginActivity.class);
+//                        Intent intent = new Intent(context, BrowserActivity.class);
+//                        intent.putExtra("vendor_commission", commission);
+                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
                     }
                 }
             };
-            storeLogo.setOnClickListener(listener);
+//            storeLogo.setOnClickListener(listener);
             buttonShop.setOnClickListener(listener);
 
             info.setOnClickListener(new View.OnClickListener() {
@@ -391,12 +395,12 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
             // TODO: 4/19/2016 TEST - will be deleted
-            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_ID));
-            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_LOGO));
-            String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_DESCRIPTION));
-            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_MSG));
-            String expire = context.getString(R.string.prefix_expire) + cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_EXPIRE));
-            String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.OfferEntry.COLUMN_CODE));
+            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
+            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
+            String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
+            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
+            String expire = context.getString(R.string.prefix_expire) + cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
+            String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
 
 //            final int couponId = c.getInt(c.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
 //            final String logoUrl = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
@@ -488,7 +492,6 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 
 
     public static class InfoDialog extends DialogFragment {
-
         private static String description;
 
         static InfoDialog newInstance(String message) {

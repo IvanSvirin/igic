@@ -243,7 +243,7 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
             ButterKnife.bind(this, browserActivity);
             initToolbar(browserActivity);
             cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),
-                    new String[]{DataContract.OfferEntry.COLUMN_DESCRIPTION, DataContract.OfferEntry.COLUMN_EXPIRE, DataContract.OfferEntry.COLUMN_CODE}, null);
+                    new String[]{DataContract.Coupons.COLUMN_RESTRICTIONS, DataContract.Coupons.COLUMN_EXPIRATION_DATE, DataContract.Coupons.COLUMN_COUPON_CODE}, null);
             pagerNavigator.setVisibility(View.INVISIBLE);
             collapseLayout.setVisibility(View.INVISIBLE);
         }
@@ -257,7 +257,7 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
                 // TODO: 4/19/2016 TEST - will be deleted
                 intent = getIntent();
                 bar.setTitle("STORE");
-                bar.setSubtitle(intent.getStringExtra("vendor_commission"));
+                bar.setSubtitle(intent.getStringExtra("vendor_commission") + " " + getResources().getString(R.string.cash_back_percent));
                 loadContent("https://www.iconsumer.com/");
             }
         }
