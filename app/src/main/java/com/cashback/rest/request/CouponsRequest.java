@@ -211,10 +211,12 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/merchants/coupons/featured/");
+                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/merchants/coupons/featured/");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
-                urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
+                // TODO: 4/19/2016 TEST - will be deleted
+                urlConnection.setRequestProperty("token", "jhhjj");
+//                urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
 
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (IOException e) {

@@ -40,7 +40,7 @@
                     <RelativeLayout
                         android:id="@+id/bigRelativeLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="176dp"
+                        android:layout_height="156dp"
                         app:layout_collapseMode="parallax"
                         app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
@@ -71,7 +71,7 @@
                     <RelativeLayout
                         android:id="@+id/relativeLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="80dp"
                         android:background="#ffffffff"
                         android:paddingBottom="@dimen/padding_small"
                         android:paddingEnd="@dimen/padding_standard"
@@ -110,11 +110,11 @@
                             android:id="@+id/textView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
                             android:text="@string/store_summary"
-                            android:textAppearance="@style/AppTheme.TextAppearance" />
+                            android:textAppearance="@style/AppTheme.TextAppearance"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
 
                         <TextView
                             android:layout_width="wrap_content"

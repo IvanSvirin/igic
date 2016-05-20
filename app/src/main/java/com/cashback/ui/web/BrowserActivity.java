@@ -41,6 +41,8 @@ import com.cashback.ui.MainActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnPageChange;
+import butterknife.OnTouch;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -209,25 +211,21 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
         @OnClick(R.id.forwardButton)
         public void onNext() {
             pager.setCurrentItem(pager.getCurrentItem() + 1);
-            setPageNumber();
         }
 
         @OnClick(R.id.backButton)
         public void onPrev() {
             pager.setCurrentItem(pager.getCurrentItem() - 1);
-            setPageNumber();
         }
 
         @OnClick(R.id.lastPageButton)
         public void onLast() {
             pager.setCurrentItem(pager.getBottom());
-            setPageNumber();
         }
 
         @OnClick(R.id.firstPageButton)
         public void onFirst() {
             pager.setCurrentItem(0);
-            setPageNumber();
         }
 
         @OnClick(R.id.collapseButton)
@@ -236,6 +234,11 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
             pagerNavigator.setVisibility(View.INVISIBLE);
             navigationPanel.setVisibility(View.VISIBLE);
             pager.setAdapter(null);
+        }
+
+        @OnPageChange(R.id.pager)
+        public void onSwipe() {
+            setPageNumber();
         }
 
         public ActivityUi(BrowserActivity browserActivity) {

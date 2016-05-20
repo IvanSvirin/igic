@@ -124,7 +124,7 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
             char ch1 = (char) (new Random().nextInt(26) + 65);
             char ch2 = (char) (new Random().nextInt(26) + 97);
             values.put(DataContract.Merchants.COLUMN_NAME, String.valueOf(ch1) + String.valueOf(ch2) + "Store");
-            values.put(DataContract.Merchants.COLUMN_COMMISSION, "5.0 %");
+            values.put(DataContract.Merchants.COLUMN_COMMISSION, "5.0%");
             listMerchantsValues.add(values);
         }
         DataInsertHandler handler = new DataInsertHandler(this, this.getContentResolver());

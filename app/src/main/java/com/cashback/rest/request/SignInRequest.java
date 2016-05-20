@@ -134,7 +134,7 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("http://beta1.igive.com/rest/iGive/api/v1/authorization/login");
+                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/authorization/login");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");

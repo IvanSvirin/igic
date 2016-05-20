@@ -102,13 +102,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/cash_back_percent"
                 android:id="@+id/textView9"
-                android:layout_alignTop="@+id/cashBack"
-                android:layout_toRightOf="@+id/cashBack"
-                android:layout_toEndOf="@+id/cashBack"
-                android:layout_marginLeft="7dp"
-                android:layout_marginStart="7dp"
                 android:textColor="@color/red"
-                android:textAppearance="@style/AppTheme.TextAppearance" />
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:layout_alignBottom="@+id/shareButton"
+                android:layout_toRightOf="@+id/cashBack"
+                android:layout_toEndOf="@+id/cashBack" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
