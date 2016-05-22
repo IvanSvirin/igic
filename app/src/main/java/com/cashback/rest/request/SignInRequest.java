@@ -3,22 +3,15 @@ package com.cashback.rest.request;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 
-import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
-import com.cashback.model.CharityAccount;
 import com.cashback.rest.IAuthorization;
 import com.cashback.rest.ServiceGenerator;
-import com.cashback.rest.adapter.CharityAccountDeserializer;
 import com.cashback.rest.event.LoginEvent;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,13 +22,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import de.greenrobot.event.EventBus;
-import retrofit2.Call;
 
 /**
  * Created by I.Svirin on 5/12/2016.
@@ -181,16 +171,23 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
             super.onPostExecute(aVoid);
             try {
                 if (jObj != null) {
-                    if (jObj.getInt("STATUS") == 1) {
-                        ContentValues values = new ContentValues();
-                        values.put(DataContract.CharityAccounts.COLUMN_TOKEN, jObj.getString("TOKEN"));
-                        DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                        handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
-                        EventBus.getDefault().post(new LoginEvent(true, null));
-                        Utilities.saveUserToken(context, jObj.getString("TOKEN"));
-                    } else {
-                        EventBus.getDefault().post(new LoginEvent(false, "Check your internet connection or authorization data"));
-                    }
+                    ContentValues values = new ContentValues();
+                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT, jObj.getString("TOTAL_PAID_AMOUNT"));
+                    values.put(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL, jObj.getString("CAUSE_DASHBOARD_URL"));
+                    values.put(DataContract.CharityAccounts.COLUMN_LAST_NAME, jObj.getString("LAST_NAME"));
+                    values.put(DataContract.CharityAccounts.COLUMN_EMAIL, jObj.getString("EMAIL"));
+                    values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, jObj.getString("FIRST_NAME"));
+                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, jObj.getString("TOTAL_RAISED"));
+                    values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, jObj.getString("SELECT_CAUSE_URL"));
+                    values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, jObj.getString("PENDING_AMOUNT"));
+                    values.put(DataContract.CharityAccounts.COLUMN_TOKEN, jObj.getString("TOKEN"));
+                    values.put(DataContract.CharityAccounts.COLUMN_MEMBER_DATE, jObj.getString("MEMBER_DATE"));
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
+                    EventBus.getDefault().post(new LoginEvent(true, null));
+                    Utilities.saveUserToken(context, jObj.getString("TOKEN"));
+                } else {
+                    EventBus.getDefault().post(new LoginEvent(false, "Check your internet connection or authorization data"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

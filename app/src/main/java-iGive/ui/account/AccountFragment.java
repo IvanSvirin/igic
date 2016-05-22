@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -17,9 +18,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cashback.R;
+import com.cashback.db.DataContract;
+import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
@@ -27,12 +31,13 @@ import com.cashback.ui.web.BrowserActivity;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 import ui.account.YourOrderHistoryActivity;
 
 /**
  * Created by I.Svirin on 4/11/2016.
  */
-public class AccountFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AccountFragment extends Fragment {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";
     private FragmentUi fragmentUi;
 
@@ -62,22 +67,12 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
     public void onStart() {
         super.onStart();
         getActivity().setTitle(R.string.item_account);
-//        EventBus.getDefault().register(this);
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentUi.unbind();
     }
 
     @Override
@@ -123,10 +118,30 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
         private Context context;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
+        @Bind(R.id.nextCheckAmountValue)
+        TextView nextCheckAmountValue;
+        @Bind(R.id.pendingAmountValue)
+        TextView pendingAmountValue;
+        @Bind(R.id.totalPaidValue)
+        TextView totalPaidValue;
+        @Bind(R.id.totalRaisedValue)
+        TextView totalRaisedValue;
 
         public FragmentUi(AccountFragment fragment, View view) {
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
+            initData();
+        }
+
+        private void initData() {
+            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+            }
+            pendingAmountValue.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT))));
+            totalPaidValue.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT))));
+            totalRaisedValue.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
+            cursor.close();
         }
 
         public void unbind() {

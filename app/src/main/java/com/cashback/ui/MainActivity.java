@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        RestUtilities.syncDistantData(getApplicationContext(), RestUtilities.TOKEN_ACCOUNT);
         setContentView(R.layout.layout_main);
 
         Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
