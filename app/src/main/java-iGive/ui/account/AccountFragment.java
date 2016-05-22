@@ -126,6 +126,8 @@ public class AccountFragment extends Fragment {
         TextView totalPaidValue;
         @Bind(R.id.totalRaisedValue)
         TextView totalRaisedValue;
+        @Bind(R.id.totalPaidDate)
+        TextView totalPaidDate;
 
         public FragmentUi(AccountFragment fragment, View view) {
             this.context = fragment.getContext();
@@ -141,6 +143,8 @@ public class AccountFragment extends Fragment {
             pendingAmountValue.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT))));
             totalPaidValue.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT))));
             totalRaisedValue.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
+            String date = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_DATE));
+            totalPaidDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             cursor.close();
         }
 
