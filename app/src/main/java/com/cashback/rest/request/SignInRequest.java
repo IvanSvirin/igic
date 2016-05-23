@@ -178,6 +178,7 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                     values.put(DataContract.CharityAccounts.COLUMN_EMAIL, jObj.getString("EMAIL"));
                     values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, jObj.getString("FIRST_NAME"));
                     values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, jObj.getString("TOTAL_RAISED"));
+                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED, jObj.getString("TOTALEARNED"));
                     values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, jObj.getString("SELECT_CAUSE_URL"));
                     values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, jObj.getString("PENDING_AMOUNT"));
                     values.put(DataContract.CharityAccounts.COLUMN_TOKEN, jObj.getString("TOKEN"));

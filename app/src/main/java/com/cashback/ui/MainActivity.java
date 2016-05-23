@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
@@ -166,13 +167,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             ButterKnife.bind(this, activity);
             navigator.setSaveEnabled(true);
             navigator.setNavigationItemSelectedListener(this);
+            initData();
+        }
+
+        private void initData() {
+            TextView userName = ButterKnife.findById(navigator, R.id.userName);
+            TextView userEmail = ButterKnife.findById(navigator, R.id.userEmail);
+            TextView totalEarned = ButterKnife.findById(navigator, R.id.totalEarned);
+//            Cursor cursor = getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
+//            if (cursor != null) {
+//                cursor.moveToFirst();
+//            }
+//            userName.setText(cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_FIRST_NAME)) + " "
+//                    + cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_FIRST_NAME)));
+//            userEmail.setText(cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_EMAIL)));
+//            totalEarned.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED))));
+//            cursor.close();
         }
 
         private void init(Bundle savedInstanceState) {
             Menu menu = navigator.getMenu();
             if (!Utilities.isLoggedIn(activity)) {
-                // TODO: 4/20/2016  "true" is only for testing
-                menu.findItem(R.id.item_account).setVisible(true);
+                menu.findItem(R.id.item_account).setVisible(false);
             }
             if (savedInstanceState != null) {
                 currentItemId = savedInstanceState.getInt(SELECTED_ITEM_ID);

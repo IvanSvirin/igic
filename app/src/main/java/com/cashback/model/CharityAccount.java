@@ -25,6 +25,8 @@ public class CharityAccount {
     @Expose
     private String totalPaidDate;
     @Expose
+    private String totalEarned;
+    @Expose
     private float totalRaised;
     @Expose
     private String causeDashboardUrl;
@@ -32,7 +34,7 @@ public class CharityAccount {
     private String selectCauseUrl;
 
     public CharityAccount(String token, String firstName, String lastName, String email, String memberDate, float nextCheckAmount, float pendingAmount, float totalPaidAmount,
-                          String totalPaidDate, float totalRaised, String causeDashboardUrl, String selectCauseUrl) {
+                          String totalPaidDate, float totalRaised, String causeDashboardUrl, String selectCauseUrl, String totalEarned) {
         this.token = token;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -45,6 +47,15 @@ public class CharityAccount {
         this.totalRaised = totalRaised;
         this.causeDashboardUrl = causeDashboardUrl;
         this.selectCauseUrl = selectCauseUrl;
+        this.totalEarned = totalEarned;
+    }
+
+    public String getTotalEarned() {
+        return totalEarned;
+    }
+
+    public void setTotalEarned(String totalEarned) {
+        this.totalEarned = totalEarned;
     }
 
     public String getToken() {
