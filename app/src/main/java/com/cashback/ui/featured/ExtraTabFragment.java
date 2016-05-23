@@ -3,6 +3,7 @@ package com.cashback.ui.featured;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -216,6 +217,8 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
             String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
             if (GRID_TYPE_FLAG) {
                 GridViewHolder holder = (GridViewHolder) view.getTag();
+                holder.vhWas.setText("Was 5%");
+                holder.vhWas.setPaintFlags(holder.vhWas.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
                 holder.vhCashBack.setText(cashBack);
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {

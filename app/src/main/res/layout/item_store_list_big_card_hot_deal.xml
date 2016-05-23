@@ -60,7 +60,7 @@
                 android:singleLine="true"
                 android:textAppearance="@style/AppTheme.TextAppearance"
                 android:textColor="@color/red"
-                android:layout_below="@+id/couponCode"
+                android:layout_alignBottom="@+id/shareButton"
                 android:layout_alignLeft="@+id/expireDate"
                 android:layout_alignStart="@+id/expireDate" />
 
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/expireDate"
                 android:text="Exp."
-                android:layout_below="@+id/restrictions"
+                android:layout_above="@+id/cashBack"
                 android:layout_alignLeft="@+id/restrictions"
                 android:layout_alignStart="@+id/restrictions" />
 
@@ -103,21 +103,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/shareButton"
-                android:src="@android:drawable/ic_menu_share"
-                android:layout_below="@+id/restrictions"
+                android:src="@drawable/ic_share_black_24dp"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Text"
+                android:text="NEW TEXT"
                 android:id="@+id/couponCode"
-                android:layout_alignTop="@+id/shareButton"
-                android:layout_toLeftOf="@+id/shareButton"
-                android:layout_toStartOf="@+id/shareButton"
                 android:textColor="@color/primary"
-                android:background="@drawable/coupon" />
+                android:background="@drawable/coupon"
+                android:textSize="12sp"
+                android:paddingTop="7dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignBottom="@+id/shareButton"
+                android:layout_toLeftOf="@+id/shareButton"
+                android:layout_toStartOf="@+id/shareButton" />
 
             <TextView
                 android:layout_width="wrap_content"

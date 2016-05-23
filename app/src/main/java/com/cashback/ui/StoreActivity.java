@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
@@ -27,7 +28,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -45,7 +45,6 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -228,7 +227,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             initListAdapter(activity);
             initClicks();
             // TODO: 4/19/2016 TEST - will be deleted
-            setLogo(logoUrl);
+            setData(logoUrl);
         }
 
         private void initListAdapter(final Context context) {
@@ -333,7 +332,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             });
         }
 
-        private void setLogo(final String url) {
+        private void setData(final String url) {
 //            if (url != null) {
 //                Handler handler = new Handler();
 //                handler.postDelayed(new Runnable() {
@@ -343,20 +342,21 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 //                    }
 //                }, 100);
 //            }
-            Picasso.with(context).load(url).into(storeLogo);
-
             cashBack.setText(commission);
 
-            Bitmap bitmap = ((BitmapDrawable) storeLogo.getDrawable()).getBitmap();
-            Palette.Builder pb = new Palette.Builder(bitmap);
-            Palette palette = pb.generate();
-            Palette.Swatch swatch = palette.getVibrantSwatch();
-            @ColorInt
-            int color = swatch != null ? swatch.getRgb() : -7292864;
+            Picasso.with(context).load(url).into(storeLogo);
+            if (storeLogo.getDrawable() != null) {
+                Bitmap bitmap = ((BitmapDrawable) storeLogo.getDrawable()).getBitmap();
+                Palette.Builder pb = new Palette.Builder(bitmap);
+                Palette palette = pb.generate();
+                Palette.Swatch swatch = palette.getVibrantSwatch();
+                @ColorInt
+                int color = swatch != null ? swatch.getRgb() : -7292864;
 //            appBarLayout.setBackgroundColor(color);
-            toolbar.setBackgroundColor(color);
-            bigRelativeLayout.setBackgroundColor(color);
-            storeName.setBackgroundColor(1157627903);
+                toolbar.setBackgroundColor(color);
+                bigRelativeLayout.setBackgroundColor(color);
+                storeName.setBackgroundColor(1157627903);
+            }
         }
 
         private void showDescriptionDialog(String message) {
@@ -399,7 +399,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
             String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
             String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
-            String expire = context.getString(R.string.prefix_expire) + cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
+            String date = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
+            String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
             String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
 
 //            final int couponId = c.getInt(c.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));

@@ -122,10 +122,9 @@
                             android:text="@string/cash_back_percent"
                             android:id="@+id/textView13"
                             android:textColor="@color/red"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginStart="8dp"
                             android:textAppearance="@style/AppTheme.TextAppearance"
-                            android:layout_alignTop="@+id/cashBack"
+                            android:layout_alignBaseline="@+id/cashBack"
+                            android:layout_alignBottom="@+id/cashBack"
                             android:layout_toRightOf="@+id/cashBack"
                             android:layout_toEndOf="@+id/cashBack" />
 

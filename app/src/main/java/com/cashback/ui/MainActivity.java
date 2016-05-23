@@ -154,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         private static final long DRAWER_CLOSE_DELAY_MS = 200;
         private MainActivity activity;
         private Fragment lastFragment;
-
         @Bind(R.id.drawer_layout)
         DrawerLayout drawer;
         @Bind(R.id.drawer_navigator)

@@ -13,6 +13,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.CursorAdapter;
+import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -23,19 +24,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Filter;
 import android.widget.FilterQueryProvider;
+import android.widget.Filterable;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
+import com.cashback.model.Merchant;
 import com.cashback.rest.event.MerchantsEvent;
-import com.cashback.rest.request.MerchantsRequest;
 import com.cashback.ui.components.NestedListView;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.SortedMap;
@@ -63,7 +67,7 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_all_stores, container, false);
+        View view = inflater.inflate(R.layout.layout_all_stores_test, container, false);
         fragmentUi = new FragmentUi(this, view);
         return view;
     }
@@ -194,7 +198,8 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         @Bind(R.id.toolbar)
         Toolbar toolbar;
         @Bind(R.id.all_stores_list)
-        NestedListView allStoresList;
+        ListViewCompat allStoresList;
+//        NestedListView allStoresList;
 
         public FragmentUi(AllStoresFragment fragment, View view) {
             this.context = fragment.getContext();
