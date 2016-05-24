@@ -23,21 +23,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee467d67-4538-4740-8b44-463997988d12" name="Default" comment="AllStoresFragment">
+    <list default="true" id="ee467d67-4538-4740-8b44-463997988d12" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/db/DataContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/db/DataContract.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/AllStoresFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/AllStoresFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/CategoriesFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/CategoriesFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/CategoryActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/CategoryActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/StoreActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/StoreActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/CouponsTabFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/CouponsTabFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/ProductsTabFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/ProductsTabFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/StoresTabFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/StoresTabFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/featured/ExtraTabFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/featured/ExtraTabFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/featured/FavoritesTabFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/featured/FavoritesTabFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/featured/HotDealsTabFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/featured/HotDealsTabFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/web/BrowserActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/web/BrowserActivity.java" />
     </list>
     <ignored path="igive_iconsumer_android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -3869,7 +3856,13 @@
       <option name="project" value="LOCAL" />
       <updated>1464070350087</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="AllStoresFragment">
+      <created>1464070409819</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1464070409819</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -3919,9 +3912,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="AllStoresFragment" />
     <MESSAGE value="New changelist" />
-    <option name="LAST_COMMIT_MESSAGE" value="New changelist" />
+    <MESSAGE value="AllStoresFragment" />
+    <option name="LAST_COMMIT_MESSAGE" value="AllStoresFragment" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
