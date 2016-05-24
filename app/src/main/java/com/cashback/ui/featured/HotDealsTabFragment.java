@@ -27,6 +27,7 @@ import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
+import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.squareup.picasso.Picasso;
 
@@ -124,16 +125,13 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                 public void onSaleClick(int id) {
                     if (Utilities.isLoggedIn(context)) {
                         Intent intent = new Intent(context, BrowserActivity.class);
-//                        intent.putExtra(BrowserActivity.FLAG_SALE_ID, id);
-//                        intent.putExtra(BrowserActivity.FLAG_EVENT_TYPE, BrowserActivity.EVENT_TYPE_SALE);
-                        context.startActivity(intent);
-                    } else {
-                        // TODO: 4/19/2016 TEST - will be deleted
-                        Intent intent = new Intent(context, BrowserActivity.class);
                         Cursor cursor = featuredAdapter.getCursor();
+                        intent.putExtra("vendor_id", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                         intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
                         intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
-//                        Intent intent = new Intent(context, LoginActivity.class);
+                        context.startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
                     }

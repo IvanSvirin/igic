@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /* LOADERS */
     public static final int ACCOUNT_LOADER = 0;
     public static final int COUPONS_LOADER = 1;
-    public static final int FAVORITE_LOADER = 2;
-    public static final int EXTRA_LOADER = 3;
+    public static final int FAVORITES_LOADER = 2;
+    public static final int EXTRAS_LOADER = 3;
     public static final int STORES_SEARCH_LOADER = 4;
     public static final int PRODUCTS_SEARCH_LOADER = 5;
     public static final int COUPONS_SEARCH_LOADER = 6;

@@ -42,6 +42,8 @@ public class FeaturedFragment extends Fragment {
         setHasOptionsMenu(true);
 //        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_ACCOUNT);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_MERCHANTS);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_EXTRAS);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_FAVORITES);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_COUPONS);
     }
 

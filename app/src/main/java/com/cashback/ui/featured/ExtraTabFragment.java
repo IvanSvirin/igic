@@ -25,6 +25,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
+import com.cashback.rest.event.ExtrasEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
@@ -55,9 +56,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // TODO: 4/19/2016 TEST - will be deleted
-        getLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
-//        getLoaderManager().initLoader(MainActivity.EXTRA_LOADER, null, this);
+        getLoaderManager().initLoader(MainActivity.EXTRAS_LOADER, null, this);
     }
 
     @Override
@@ -80,11 +79,10 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        // TODO: 4/19/2016 TEST - will be deleted
         CursorLoader loader = null;
-        if (id == MainActivity.COUPONS_LOADER) {
+        if (id == MainActivity.EXTRAS_LOADER) {
             loader = new CursorLoader(getActivity());
-            loader.setUri(DataContract.URI_COUPONS);
+            loader.setUri(DataContract.URI_EXTRAS);
         }
         return loader;    }
 
@@ -97,10 +95,9 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoaderReset(Loader<Cursor> loader) {
         fragmentUi.featuredAdapter.changeCursor(null);
     }
-    // TODO: 4/19/2016 TEST - will be deleted
-    public void onEvent(CouponsEvent event) {
+    public void onEvent(ExtrasEvent event) {
         if (event.isSuccess) {
-            getLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
+            getLoaderManager().restartLoader(MainActivity.EXTRAS_LOADER, null, this);
         }
     }
 
@@ -135,8 +132,8 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                         // TODO: 4/19/2016 TEST - will be deleted
                         Intent intent = new Intent(context, BrowserActivity.class);
                         Cursor cursor = featuredAdapter.getCursor();
-                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
+                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
 //                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
@@ -159,11 +156,9 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                     cursor.moveToPosition(position);
                     Intent intent = new Intent(context, StoreActivity.class);
                     // TODO: 4/19/2016 TEST - will be deleted
-                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS)));
-                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE)));
-                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
-                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
+                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_LOGO_URL)));
+                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
 //                    intent.putExtra("vendor_id", c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                     context.startActivity(intent);
                 }
@@ -211,42 +206,45 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
-            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
-            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
+            final int vendorId = cursor.getInt(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID));
+            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_LOGO_URL));
+            String cashBack = String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
+            String wasCashBack = cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION_WAS));
             if (GRID_TYPE_FLAG) {
                 GridViewHolder holder = (GridViewHolder) view.getTag();
-                holder.vhWas.setText("Was 5%");
+                holder.vhWas.setText("Was " + wasCashBack +  "%");
                 holder.vhWas.setPaintFlags(holder.vhWas.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
                 holder.vhCashBack.setText(cashBack);
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(couponId);
+                        onSaleClickListener.onSaleClick(vendorId);
                     }
                 });
                 holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onShareClickListener.onShareClick(couponId);
+                        onShareClickListener.onShareClick(vendorId);
                     }
                 });
             } else {
                 ViewHolder holder = (ViewHolder) view.getTag();
+                holder.vhWas.setText("Was " + wasCashBack +  "%");
+                holder.vhWas.setPaintFlags(holder.vhWas.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
                 holder.vhCashBack.setText(cashBack);
+
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(couponId);
+                        onSaleClickListener.onSaleClick(vendorId);
                     }
                 });
                 holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onShareClickListener.onShareClick(couponId);
+                        onShareClickListener.onShareClick(vendorId);
                     }
                 });
             }

@@ -172,25 +172,25 @@ public class MerchantsRequest extends ServiceGenerator<IMerchants> {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            List<ContentValues> listCouponsValues = new ArrayList<>(jsonArray.length());
+            List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
             ContentValues values;
             try {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     jObj = jsonArray.getJSONObject(i);
                     values = new ContentValues();
-                    values.put(DataContract.Merchants.COLUMN_COMMISSION, jObj.getString("commission"));
+                    values.put(DataContract.Merchants.COLUMN_COMMISSION, jObj.getDouble("commission"));
                     values.put(DataContract.Merchants.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
-                    values.put(DataContract.Merchants.COLUMN_IS_FAVORITE, jObj.getString("is_favorite"));
+                    values.put(DataContract.Merchants.COLUMN_IS_FAVORITE, jObj.getInt("is_favorite"));
                     values.put(DataContract.Merchants.COLUMN_DESCRIPTION, jObj.getString("description"));
                     values.put(DataContract.Merchants.COLUMN_LOGO_URL, jObj.getString("logo_url"));
-                    values.put(DataContract.Merchants.COLUMN_GIFT_CARD, jObj.getString("gift_card"));
+                    values.put(DataContract.Merchants.COLUMN_GIFT_CARD, jObj.getInt("gift_card"));
                     values.put(DataContract.Merchants.COLUMN_EXCEPTION_INFO, jObj.getString("exception_info"));
                     values.put(DataContract.Merchants.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
                     values.put(DataContract.Merchants.COLUMN_NAME, jObj.getString("name"));
-                    listCouponsValues.add(values);
+                    listValues.add(values);
                 }
                 DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startBulkInsert(DataInsertHandler.MERCHANTS_TOKEN, false, DataContract.URI_MERCHANTS, listCouponsValues.toArray(new ContentValues[listCouponsValues.size()]));
+                handler.startBulkInsert(DataInsertHandler.MERCHANTS_TOKEN, false, DataContract.URI_MERCHANTS, listValues.toArray(new ContentValues[listValues.size()]));
             } catch (JSONException e) {
                 e.printStackTrace();
                 EventBus.getDefault().post(new MerchantsEvent(false, "No merchants featured data"));

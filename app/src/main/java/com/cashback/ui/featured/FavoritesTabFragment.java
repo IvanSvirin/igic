@@ -24,6 +24,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
+import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
@@ -54,9 +55,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // TODO: 4/19/2016 TEST - will be deleted
-        getLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
-//        getLoaderManager().initLoader(MainActivity.FAVORITE_LOADER, null, this);
+        getLoaderManager().initLoader(MainActivity.FAVORITES_LOADER, null, this);
     }
 
     @Override
@@ -79,11 +78,10 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        // TODO: 4/19/2016 TEST - will be deleted
         CursorLoader loader = null;
-        if (id == MainActivity.COUPONS_LOADER) {
+        if (id == MainActivity.FAVORITES_LOADER) {
             loader = new CursorLoader(getActivity());
-            loader.setUri(DataContract.URI_COUPONS);
+            loader.setUri(DataContract.URI_FAVORITES);
         }
         return loader;
     }
@@ -99,9 +97,9 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
     }
 
     // TODO: 4/19/2016 TEST - will be deleted
-    public void onEvent(CouponsEvent event) {
+    public void onEvent(FavoritesEvent event) {
         if (event.isSuccess) {
-            getLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
+            getLoaderManager().restartLoader(MainActivity.FAVORITES_LOADER, null, this);
         }
     }
 
@@ -136,8 +134,8 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                         // TODO: 4/19/2016 TEST - will be deleted
                         Intent intent = new Intent(context, BrowserActivity.class);
                         Cursor cursor = featuredAdapter.getCursor();
-                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_AFFILIATE_URL)));
+                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
 //                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
@@ -160,11 +158,9 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                     cursor.moveToPosition(position);
                     Intent intent = new Intent(context, StoreActivity.class);
                     // TODO: 4/19/2016 TEST - will be deleted
-                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS)));
-                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE)));
-                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
-                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_AFFILIATE_URL)));
+                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_LOGO_URL)));
+                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
 //                    intent.putExtra("vendor_id", c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                     context.startActivity(intent);
                 }
@@ -213,10 +209,9 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
-            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
-            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
+            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID));
+            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_LOGO_URL));
+            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION));
             if (GRID_TYPE_FLAG) {
                 GridViewHolder holder = (GridViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);

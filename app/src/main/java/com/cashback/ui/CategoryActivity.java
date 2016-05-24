@@ -12,6 +12,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -29,6 +30,7 @@ import com.cashback.R;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.MerchantsEvent;
+import com.cashback.rest.request.MerchantsRequest;
 import com.cashback.ui.components.NestedListView;
 
 import java.util.ArrayList;
@@ -104,30 +106,10 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
         uiActivity.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
             // TODO: 4/19/2016 TEST - will be deleted
-            createExampleData();
+            new MerchantsRequest(this).fetchData();
         }
     }
 
-    // TODO: 4/19/2016 TEST - will be deleted
-    private void createExampleData() {
-        List<ContentValues> listMerchantsValues = new ArrayList<>();
-        ContentValues values;
-
-        for (int i = 0; i < 20; i++) {
-            values = new ContentValues();
-            values.put(DataContract.Merchants.COLUMN_VENDOR_ID, String.valueOf(new Random().nextInt(1000)));
-            char ch1 = (char) (new Random().nextInt(26) + 65);
-            char ch2 = (char) (new Random().nextInt(26) + 97);
-            values.put(DataContract.Merchants.COLUMN_NAME, String.valueOf(ch1) + String.valueOf(ch2) + "Store");
-            values.put(DataContract.Merchants.COLUMN_COMMISSION, "5.0%");
-            listMerchantsValues.add(values);
-        }
-        DataInsertHandler handler = new DataInsertHandler(this, this.getContentResolver());
-        if (!DataInsertHandler.IS_FILLING_MERCHANT_TABLE) {
-            handler.startBulkInsert(DataInsertHandler.MERCHANTS_TOKEN, false, DataContract.URI_MERCHANTS,
-                    listMerchantsValues.toArray(new ContentValues[listMerchantsValues.size()]));
-        }
-    }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
@@ -192,7 +174,7 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
         @Bind(R.id.toolbar)
         Toolbar toolbar;
         @Bind(R.id.all_stores_list)
-        NestedListView allStoresList;
+        ListViewCompat allStoresList;
 
         public UiActivity(CategoryActivity categoryActivity) {
             this.context = categoryActivity;
@@ -356,9 +338,9 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
                 holder.sortDivider.setBackgroundResource(android.R.color.transparent);
             }
             String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
-            holder.shopName.setText(name.trim());
+            holder.shopName.setText(name);
             String commission = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
-            holder.shopCommission.setText(commission.trim());
+            holder.shopCommission.setText(commission + "%");
         }
 
         protected boolean isOpenCursor() {

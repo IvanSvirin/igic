@@ -342,9 +342,9 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
                 holder.sortDivider.setBackgroundResource(android.R.color.transparent);
             }
             String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
-            holder.shopName.setText(name.trim());
+            holder.shopName.setText(name);
             String commission = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
-            holder.shopCommission.setText(commission.trim());
+            holder.shopCommission.setText(commission + "%");
         }
 
         protected boolean isOpenCursor() {

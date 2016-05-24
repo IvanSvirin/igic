@@ -187,7 +187,7 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
                     values.put(DataContract.Coupons.COLUMN_EXPIRATION_DATE, jObj.getString("expiration_date"));
                     values.put(DataContract.Coupons.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
                     values.put(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
-                    values.put(DataContract.Coupons.COLUMN_VENDOR_COMMISSION, jObj.getString("vendor_commission"));
+                    values.put(DataContract.Coupons.COLUMN_VENDOR_COMMISSION, jObj.getDouble("vendor_commission"));
                     listCouponsValues.add(values);
                 }
                 DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());

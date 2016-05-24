@@ -19,13 +19,16 @@ public class Extra {
     @Expose
     private boolean giftCard;
     @Expose
+    private boolean isFavorite;
+    @Expose
     private String affiliateUrl;
     @Expose
     private String logoUrl;
     @Expose
     private float commissionWas;
 
-    public Extra(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, float commissionWas) {
+    public Extra(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, float commissionWas,
+                 boolean isFavorite) {
         this.vendorId = vendorId;
         this.name = name;
         this.commission = commission;
@@ -35,6 +38,15 @@ public class Extra {
         this.affiliateUrl = affiliateUrl;
         this.logoUrl = logoUrl;
         this.commissionWas = commissionWas;
+        this.isFavorite = isFavorite;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     public long getVendorId() {

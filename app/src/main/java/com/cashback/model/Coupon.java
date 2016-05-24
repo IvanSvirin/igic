@@ -41,6 +41,9 @@ public class Coupon {
         this.vendorLogoUrl = vendorLogoUrl;
         this.vendorCommission = vendorCommission;
     }
+
+    public Coupon() {
+    }
 //    public Coupon(long couponId, long vendorId, CouponType couponType, String restrictions, String couponCode, String expirationDate, String affiliateUrl, String vendorLogoUrl,
 //                  float vendorCommission) {
 //        this.couponId = couponId;

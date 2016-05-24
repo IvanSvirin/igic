@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import com.cashback.Utilities;
 import com.cashback.rest.request.CategoriesRequest;
 import com.cashback.rest.request.CouponsRequest;
+import com.cashback.rest.request.ExtrasRequest;
+import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.rest.request.MerchantsRequest;
 import com.cashback.rest.request.OrdersRequest;
 import com.cashback.rest.request.PaymentsRequest;
@@ -18,6 +20,8 @@ import com.cashback.rest.request.ShoppingTripsRequest;
 public class RestUtilities {
     public final static String TOKEN_ACCOUNT = "token_account";
     public final static String TOKEN_MERCHANTS = "token_merchants";
+    public final static String TOKEN_FAVORITES = "token_favorites";
+    public final static String TOKEN_EXTRAS = "token_extras";
     public final static String TOKEN_COUPONS = "token_coupons";
     public final static String TOKEN_CATEGORIES = "token_categories";
     public final static String TOKEN_PAYMENTS = "token_payments";
@@ -25,7 +29,9 @@ public class RestUtilities {
     public static final String TOKEN_ORDERS = "token_orders";
 
     private final static long ACCOUNT_UPDATE_INTERVAL = 30000; // 30 sec * 1000
+    private final static long EXTRAS_UPDATE_INTERVAL = 21600000; // 6 h
     private final static long MERCHANTS_UPDATE_INTERVAL = 21600000; // 6 h
+    private final static long FAVORITES_UPDATE_INTERVAL = 21600000; // 6 h
     private final static long COUPONS_UPDATE_INTERVAL = 3600000; // 1h
     private final static long CATEGORIES_UPDATE_INTERVAL = 43200000; // 12h
     private final static long PAYMENTS_UPDATE_INTERVAL = 43200000; // 12h
@@ -48,6 +54,16 @@ public class RestUtilities {
             case TOKEN_MERCHANTS:
                 if (differenceTime >= MERCHANTS_UPDATE_INTERVAL) {
                     new MerchantsRequest(context).fetchData();
+                }
+                break;
+            case TOKEN_FAVORITES:
+                if (differenceTime >= FAVORITES_UPDATE_INTERVAL) {
+                    new FavoritesRequest(context).fetchData();
+                }
+                break;
+            case TOKEN_EXTRAS:
+                if (differenceTime >= EXTRAS_UPDATE_INTERVAL) {
+                    new ExtrasRequest(context).fetchData();
                 }
                 break;
             case TOKEN_COUPONS:

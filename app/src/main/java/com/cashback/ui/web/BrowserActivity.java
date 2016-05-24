@@ -35,8 +35,13 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.db.DataContract;
+import com.cashback.model.Coupon;
 import com.cashback.rest.event.CouponsEvent;
+import com.cashback.rest.event.MerchantCouponsEvent;
+import com.cashback.rest.request.CouponsByMerchantIdRequest;
 import com.cashback.ui.MainActivity;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,10 +53,11 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by I.Svirin on 4/12/2016.
  */
-public class BrowserActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class BrowserActivity extends AppCompatActivity {
     private ActivityUi ui;
     private MenuItem menuItem;
     private Intent intent;
+    private ArrayList<Coupon> coupons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +65,14 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         setContentView(R.layout.layout_browser);
 
+        intent = getIntent();
+        new CouponsByMerchantIdRequest(this, intent.getIntExtra("vendor_id", 1), coupons);
+
         ui = new ActivityUi(this);
         ui.setNavigationButtonState();
         ui.webView.setWebChromeClient(new MyWebChromeClient());
         ui.webView.setWebViewClient(new MyWebViewClient());
         ui.setWebSettings(false);
-
-        getSupportLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
     }
 
     @Override
@@ -105,29 +112,10 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        CursorLoader loader = null;
-        if (id == MainActivity.COUPONS_LOADER) {
-            loader = new CursorLoader(this);
-            loader.setUri(DataContract.URI_COUPONS);
-        }
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        ui.cursorPagerAdapter.changeCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        ui.cursorPagerAdapter.changeCursor(null);
-    }
-
-    public void onEvent(CouponsEvent event) {
+    public void onEvent(MerchantCouponsEvent event) {
         if (event.isSuccess) {
-            getSupportLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
+            ui.cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),
+                    new String[]{DataContract.Coupons.COLUMN_RESTRICTIONS, DataContract.Coupons.COLUMN_EXPIRATION_DATE, DataContract.Coupons.COLUMN_COUPON_CODE}, null);
         }
     }
 
@@ -241,8 +229,8 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
             context = browserActivity;
             ButterKnife.bind(this, browserActivity);
             initToolbar(browserActivity);
-            cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),
-                    new String[]{DataContract.Coupons.COLUMN_RESTRICTIONS, DataContract.Coupons.COLUMN_EXPIRATION_DATE, DataContract.Coupons.COLUMN_COUPON_CODE}, null);
+//            cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),
+//                    new String[]{DataContract.Coupons.COLUMN_RESTRICTIONS, DataContract.Coupons.COLUMN_EXPIRATION_DATE, DataContract.Coupons.COLUMN_COUPON_CODE}, null);
             pagerNavigator.setVisibility(View.INVISIBLE);
             collapseLayout.setVisibility(View.INVISIBLE);
         }
@@ -253,11 +241,11 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
             if (bar != null) {
                 bar.setDisplayHomeAsUpEnabled(true);
                 bar.setDefaultDisplayHomeAsUpEnabled(true);
-                // TODO: 4/19/2016 TEST - will be deleted
-                intent = getIntent();
+                Cursor cursor = getContentResolver().query(DataContract.URI_MERCHANTS, new String[]{DataContract.Merchants.COLUMN_NAME}, String.valueOf(intent.getIntExtra("vendor_id", 1)),
+                        new String[]{DataContract.Merchants.COLUMN_VENDOR_ID}, null);
                 bar.setTitle("STORE");
                 bar.setSubtitle(intent.getStringExtra("vendor_commission") + " " + getResources().getString(R.string.cash_back_percent));
-                loadContent("https://www.iconsumer.com/");
+                loadContent(intent.getStringExtra("affiliate_url"));
             }
         }
 

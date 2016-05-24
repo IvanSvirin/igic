@@ -24,11 +24,42 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Merchants.COLUMN_EXCEPTION_INFO + TEXT_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_DESCRIPTION + TEXT_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_GIFT_CARD + BOOL_TYPE + DELIMITER +
-                    DataContract.Merchants.COLUMN_IS_FAVORITE + TEXT_TYPE + DELIMITER +
+                    DataContract.Merchants.COLUMN_IS_FAVORITE + INT_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_LOGO_URL + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_MERCHANTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Merchants.TABLE_NAME;
+
+    public final String SQL_CREATE_FAVORITES_TABLE =
+            "CREATE TABLE " + DataContract.Favorites.TABLE_NAME + "(" +
+                    DataContract.Favorites._ID + PRIMARY_TYPE +
+                    DataContract.Favorites.COLUMN_VENDOR_ID + INT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.Favorites.COLUMN_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.Favorites.COLUMN_COMMISSION + REAL_TYPE + DELIMITER +
+                    DataContract.Favorites.COLUMN_EXCEPTION_INFO + TEXT_TYPE + DELIMITER +
+                    DataContract.Favorites.COLUMN_DESCRIPTION + TEXT_TYPE + DELIMITER +
+                    DataContract.Favorites.COLUMN_GIFT_CARD + BOOL_TYPE + DELIMITER +
+                    DataContract.Favorites.COLUMN_IS_FAVORITE + INT_TYPE + DELIMITER +
+                    DataContract.Favorites.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.Favorites.COLUMN_LOGO_URL + TEXT_TYPE +
+                    " )";
+    public final String SQL_DELETE_FAVORITES_TABLE = "DROP TABLE IF EXISTS " + DataContract.Merchants.TABLE_NAME;
+
+    public final String SQL_CREATE_EXTRAS_TABLE =
+            "CREATE TABLE " + DataContract.Extras.TABLE_NAME + "(" +
+                    DataContract.Extras._ID + PRIMARY_TYPE +
+                    DataContract.Extras.COLUMN_VENDOR_ID + INT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.Extras.COLUMN_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.Extras.COLUMN_COMMISSION + REAL_TYPE + DELIMITER +
+                    DataContract.Extras.COLUMN_EXCEPTION_INFO + TEXT_TYPE + DELIMITER +
+                    DataContract.Extras.COLUMN_DESCRIPTION + TEXT_TYPE + DELIMITER +
+                    DataContract.Extras.COLUMN_GIFT_CARD + BOOL_TYPE + DELIMITER +
+                    DataContract.Extras.COLUMN_IS_FAVORITE + INT_TYPE + DELIMITER +
+                    DataContract.Extras.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.Extras.COLUMN_COMMISSION_WAS + TEXT_TYPE + DELIMITER +
+                    DataContract.Extras.COLUMN_LOGO_URL + TEXT_TYPE +
+                    " )";
+    public final String SQL_DELETE_EXTRAS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Extras.TABLE_NAME;
 
     public final String SQL_CREATE_COUPONS_TABLE =
             "CREATE TABLE " + DataContract.Coupons.TABLE_NAME + "(" +

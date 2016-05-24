@@ -23,8 +23,8 @@ public class DataProvider extends ContentProvider {
     private static final int MERCHANTS_BY_IDS = 102;
     private static final int COUPONS = 200;
     private static final int COUPON_BY_ID = 201;
-    private static final int FAVORITE_MERCHANTS = 300;
-    private static final int EXTRA_MERCHANTS = 400;
+    private static final int FAVORITES = 300;
+    private static final int EXTRAS = 400;
 
     private static final int CATEGORIES = 500;
     private static final int PAYMENTS = 600;
@@ -43,12 +43,10 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "merchants", MERCHANTS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "merchants/#", MERCHANT_BY_ID);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "merchants/*", MERCHANTS_BY_IDS);
-        // TODO: 4/19/2016 TEST - will be deleted
-//        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "offer_coupons", COUPONS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "coupons", COUPONS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "coupons/#", COUPON_BY_ID);
-        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "favorite_merchants", FAVORITE_MERCHANTS);
-        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "extra_merchants", EXTRA_MERCHANTS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "extras", EXTRAS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "favorites", FAVORITES);
 
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "categories", CATEGORIES);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "payments", PAYMENTS);
@@ -76,6 +74,16 @@ public class DataProvider extends ContentProvider {
                 if (TextUtils.isEmpty(sortOrder))
                     sortOrder = DataContract.Merchants.COLUMN_NAME + " COLLATE NOCASE ASC";
                 cursor = db.query(DataContract.Merchants.TABLE_NAME, projection, selection, null, null, null, sortOrder);
+                return cursor;
+            case FAVORITES:
+                if (TextUtils.isEmpty(sortOrder))
+                    sortOrder = DataContract.Favorites.COLUMN_NAME + " COLLATE NOCASE ASC";
+                cursor = db.query(DataContract.Favorites.TABLE_NAME, projection, selection, null, null, null, sortOrder);
+                return cursor;
+            case EXTRAS:
+                if (TextUtils.isEmpty(sortOrder))
+                    sortOrder = DataContract.Extras.COLUMN_NAME + " COLLATE NOCASE ASC";
+                cursor = db.query(DataContract.Extras.TABLE_NAME, projection, selection, null, null, null, sortOrder);
                 return cursor;
             case MERCHANT_BY_ID:
                 common_selection = DataContract.Merchants.COLUMN_VENDOR_ID + " = " + uri.getLastPathSegment();
@@ -157,6 +165,22 @@ public class DataProvider extends ContentProvider {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
                 break;
+            case FAVORITES:
+                rowID = db.insertWithOnConflict(DataContract.Favorites.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (rowID > 0) {
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_FAVORITES, rowID);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            case EXTRAS:
+                rowID = db.insertWithOnConflict(DataContract.Extras.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (rowID > 0) {
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_EXTRAS, rowID);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
             case COUPONS:
                 rowID = db.insertWithOnConflict(DataContract.Coupons.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
@@ -219,6 +243,36 @@ public class DataProvider extends ContentProvider {
         int countInsert = 0;
         switch (match) {
             case MERCHANTS:
+                db.beginTransaction();
+                try {
+                    delete(uri, null, null);
+                    for (ContentValues val : values) {
+                        insert(uri, val);
+                        countInsert++;
+                    }
+                    db.setTransactionSuccessful();
+                } catch (SQLException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
+                break;
+            case FAVORITES:
+                db.beginTransaction();
+                try {
+                    delete(uri, null, null);
+                    for (ContentValues val : values) {
+                        insert(uri, val);
+                        countInsert++;
+                    }
+                    db.setTransactionSuccessful();
+                } catch (SQLException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
+                break;
+            case EXTRAS:
                 db.beginTransaction();
                 try {
                     delete(uri, null, null);
@@ -338,6 +392,12 @@ public class DataProvider extends ContentProvider {
             case MERCHANTS:
                 affectedRowsCount = db.delete(DataContract.Merchants.TABLE_NAME, null, null);
                 break;
+            case FAVORITES:
+                affectedRowsCount = db.delete(DataContract.Favorites.TABLE_NAME, null, null);
+                break;
+            case EXTRAS:
+                affectedRowsCount = db.delete(DataContract.Extras.TABLE_NAME, null, null);
+                break;
             case COUPONS:
                 affectedRowsCount = db.delete(DataContract.Coupons.TABLE_NAME, null, null);
                 break;
@@ -375,6 +435,10 @@ public class DataProvider extends ContentProvider {
         switch (match) {
             case MERCHANTS:
                 return DataContract.Merchants.CONTENT_TYPE;
+            case FAVORITES:
+                return DataContract.Favorites.CONTENT_TYPE;
+            case EXTRAS:
+                return DataContract.Extras.CONTENT_TYPE;
             case MERCHANT_BY_ID:
                 return DataContract.Merchants.CONTENT_ITEM_TYPE;
             case MERCHANTS_BY_IDS:
