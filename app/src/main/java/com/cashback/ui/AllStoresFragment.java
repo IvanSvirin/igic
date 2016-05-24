@@ -80,10 +80,15 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         ((MainActivity) getActivity()).setAssociateToolbar(toolbar);
         getActivity().setTitle(R.string.title_all_stores_fragment);
         EventBus.getDefault().register(this);
-        getLoaderManager().initLoader(MainActivity.MERCHANTS_LOADER, null, this);
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(MainActivity.MERCHANTS_LOADER, null, this);
+    }
+
+        @Override
     public void onStop() {
         super.onStop();
         fragmentUi.allStoresList.clearTextFilter();

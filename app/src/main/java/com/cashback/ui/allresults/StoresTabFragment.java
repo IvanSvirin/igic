@@ -52,8 +52,8 @@ public class StoresTabFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         // TODO: 4/19/2016 TEST - will be deleted
         getLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
 //        getLoaderManager().initLoader(MainActivity.STORES_SEARCH_LOADER, null, this);

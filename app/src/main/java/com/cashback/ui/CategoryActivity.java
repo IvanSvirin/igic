@@ -56,6 +56,8 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
         setContentView(R.layout.layout_categoryy);
 
         uiActivity = new UiActivity(this);
+        // TODO: 4/19/2016 TEST - will be deleted
+        getSupportLoaderManager().initLoader(MainActivity.MERCHANTS_LOADER, null, this);
     }
 
     @Override
@@ -70,13 +72,6 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
         super.onStop();
         uiActivity.allStoresList.clearTextFilter();
         uiActivity.getAdapter().getFilter().filter(null);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // TODO: 4/19/2016 TEST - will be deleted
-        getSupportLoaderManager().initLoader(MainActivity.MERCHANTS_LOADER, null, this);
     }
 
     @Override

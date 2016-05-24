@@ -64,11 +64,7 @@ public class BrowserActivity extends AppCompatActivity implements LoaderManager.
         ui.webView.setWebChromeClient(new MyWebChromeClient());
         ui.webView.setWebViewClient(new MyWebViewClient());
         ui.setWebSettings(false);
-    }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
         getSupportLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
     }
 

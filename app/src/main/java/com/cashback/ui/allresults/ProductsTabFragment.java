@@ -52,8 +52,8 @@ public class ProductsTabFragment extends Fragment implements LoaderManager.Loade
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         // TODO: 4/19/2016 TEST - will be deleted
         getLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
 //        getLoaderManager().initLoader(MainActivity.PRODUCTS_SEARCH_LOADER, null, this);

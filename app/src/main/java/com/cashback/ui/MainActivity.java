@@ -79,11 +79,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         fragmentManager = getSupportFragmentManager();
         drawerUi = new DrawerUi(this);
         drawerUi.init(savedInstanceState);
-    }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
         getSupportLoaderManager().initLoader(ACCOUNT_LOADER, null, this);
     }
 

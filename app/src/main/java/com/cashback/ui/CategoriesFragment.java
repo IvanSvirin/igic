@@ -54,17 +54,20 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         Toolbar toolbar = fragmentUi.getToolbar();
         ((MainActivity) getActivity()).setAssociateToolbar(toolbar);
         getActivity().setTitle(R.string.title_categories_fragment);
+    }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         // TODO: 4/19/2016 TEST - will be deleted
         getLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
 //        getLoaderManager().initLoader(MainActivity.CATEGORIES_LOADER, null, this);
     }
 
-    @Override
+        @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);

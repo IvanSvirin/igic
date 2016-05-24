@@ -50,10 +50,9 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         }
         return view;
     }
-
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
     }
 

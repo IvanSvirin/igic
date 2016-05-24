@@ -84,6 +84,10 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         commission = intent.getStringExtra("vendor_commission");
 
         uiActivity = new UiActivity(this);
+
+        // TODO: 4/19/2016 TEST - will be deleted
+        getSupportLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
+//        getSupportLoaderManager().initLoader(MainActivity.MERCHANT_COUPONS_LOADER, null, this);
     }
 
     @Override
@@ -105,15 +109,6 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 //            getSupportLoaderManager().restartLoader(MainActivity.MERCHANT_COUPONS_LOADER, null, this);
         }
     }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // TODO: 4/19/2016 TEST - will be deleted
-        getSupportLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
-//        getSupportLoaderManager().initLoader(MainActivity.MERCHANT_COUPONS_LOADER, null, this);
-    }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {

@@ -42,8 +42,8 @@ public class DataContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "merchants";
     }
 
-    public static class Merchants implements BaseColumns {
-        public static final String TABLE_NAME = "merchants";
+    public static class Extras implements BaseColumns {
+        public static final String TABLE_NAME = "extras";
         public static final String COLUMN_VENDOR_ID = "vendor_id";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_COMMISSION = "commission";
