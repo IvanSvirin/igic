@@ -6,18 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
-        style="@style/AppTheme.ScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <com.cashback.ui.components.NestedListView
-            android:id="@+id/all_stores_list"
-            style="@style/AppTheme.ListView"
-            android:layout_height="wrap_content"
-            tools:listItem="@layout/item_store_list" />
-    </android.support.v4.widget.NestedScrollView>
+    <android.support.v7.widget.ListViewCompat
+        android:id="@+id/all_stores_list"
+        style="@style/AppTheme.ListView"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listItem="@layout/item_store_list" />
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
@@ -31,6 +24,5 @@
             android:layout_height="@dimen/toolbar_height"
             android:theme="@style/AppThemeOverlay.ToolbarPrimary"
             app:layout_scrollFlags="enterAlways" />
-
     </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

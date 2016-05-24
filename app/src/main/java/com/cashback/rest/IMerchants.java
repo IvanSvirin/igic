@@ -4,7 +4,6 @@ import com.cashback.model.Category;
 import com.cashback.model.Coupon;
 import com.cashback.model.Extra;
 import com.cashback.model.Merchant;
-import com.cashback.model.OfferCoupon;
 
 import java.util.List;
 
@@ -28,9 +27,4 @@ public interface IMerchants {
 
     @GET("api/v1/categories/")
     Call<List<Category>> getCategories();
-
-
-    // TODO: 4/19/2016 TEST - will be deleted
-    @GET("api/2/offers/")
-    Call<List<OfferCoupon>> getOfferCoupons();
 }

@@ -9,6 +9,7 @@ import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.CategoriesEvent;
 import com.cashback.rest.event.CouponsEvent;
+import com.cashback.rest.event.MerchantsEvent;
 import com.cashback.rest.event.OrdersEvent;
 import com.cashback.rest.event.PaymentsEvent;
 import com.cashback.rest.event.ShoppingTripsEvent;
@@ -69,6 +70,10 @@ public class DataInsertHandler extends BulkAsyncQueryHandler {
             case COUPONS_TOKEN:
                 RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_COUPONS);
                 EventBus.getDefault().post(new CouponsEvent(true, null));
+                break;
+            case MERCHANTS_TOKEN:
+                RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_MERCHANTS);
+                EventBus.getDefault().post(new MerchantsEvent(true, null));
                 break;
             case CATEGORIES_TOKEN:
                 RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_CATEGORIES);

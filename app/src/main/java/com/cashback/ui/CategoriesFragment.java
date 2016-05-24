@@ -10,6 +10,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
+import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,7 +125,7 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
         @Bind(R.id.toolbar)
         Toolbar toolbar;
         @Bind(R.id.categories_list)
-        NestedListView categoriesList;
+        ListViewCompat categoriesList;
 
         public FragmentUi(CategoriesFragment fragment, View view) {
             this.context = fragment.getContext();

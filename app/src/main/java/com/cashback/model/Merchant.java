@@ -19,11 +19,13 @@ public class Merchant {
     @Expose
     private boolean giftCard;
     @Expose
+    private boolean isFavorite;
+    @Expose
     private String affiliateUrl;
     @Expose
     private String logoUrl;
 
-    public Merchant(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl) {
+    public Merchant(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, boolean isFavorit) {
         this.vendorId = vendorId;
         this.name = name;
         this.commission = commission;
@@ -32,6 +34,15 @@ public class Merchant {
         this.giftCard = giftCard;
         this.affiliateUrl = affiliateUrl;
         this.logoUrl = logoUrl;
+        this.isFavorite = isFavorite;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 
     public long getVendorId() {

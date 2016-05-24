@@ -41,7 +41,7 @@ public class FeaturedFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 //        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_ACCOUNT);
-//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_MERCHANTS);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_MERCHANTS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_COUPONS);
     }
 
@@ -64,18 +64,11 @@ public class FeaturedFragment extends Fragment {
     public void onStart() {
         super.onStart();
         getActivity().setTitle(R.string.title_featured_fragment);
-//        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    @Override
-    public void onStop() {
-//        EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     @Override

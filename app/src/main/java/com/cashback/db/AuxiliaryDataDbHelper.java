@@ -24,26 +24,11 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Merchants.COLUMN_EXCEPTION_INFO + TEXT_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_DESCRIPTION + TEXT_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_GIFT_CARD + BOOL_TYPE + DELIMITER +
+                    DataContract.Merchants.COLUMN_IS_FAVORITE + TEXT_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_LOGO_URL + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_MERCHANTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Merchants.TABLE_NAME;
-
-    // TODO: 4/19/2016 TEST - will be deleted
-//    public final String SQL_CREATE_COUPONS_TABLE =
-//            "CREATE TABLE " + DataContract.OfferEntry.TABLE_NAME + "(" +
-//                    DataContract.OfferEntry._ID + PRIMARY_TYPE +
-//                    DataContract.OfferEntry.COLUMN_ID + INT_TYPE + " UNIQUE" + DELIMITER +
-//                    DataContract.OfferEntry.COLUMN_MSG + TEXT_TYPE + DELIMITER +
-//                    DataContract.OfferEntry.COLUMN_DESCRIPTION + TEXT_TYPE + DELIMITER +
-//                    DataContract.OfferEntry.COLUMN_CODE + TEXT_TYPE + DELIMITER +
-//                    DataContract.OfferEntry.COLUMN_EXPIRE + TEXT_TYPE + DELIMITER +
-//                    DataContract.OfferEntry.COLUMN_EXPIRE_RAW + TEXT_TYPE + DELIMITER +
-//                    DataContract.OfferEntry.COLUMN_LOGO + TEXT_TYPE + DELIMITER +
-//                    DataContract.OfferEntry.COLUMN_URL + TEXT_TYPE +
-//                    " )";
-//    public final String SQL_DELETE_COUPONS_TABLE = "DROP TABLE IF EXISTS " + DataContract.OfferEntry.TABLE_NAME;
-
 
     public final String SQL_CREATE_COUPONS_TABLE =
             "CREATE TABLE " + DataContract.Coupons.TABLE_NAME + "(" +

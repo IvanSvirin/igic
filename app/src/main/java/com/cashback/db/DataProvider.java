@@ -94,11 +94,6 @@ public class DataProvider extends ContentProvider {
                 cursor = db.query(true, DataContract.Merchants.TABLE_NAME, projection, common_selection, null, null, null, sortOrder, null);
                 break;
             case COUPONS:
-                // TODO: 4/19/2016 TEST - will be deleted
-//                if (TextUtils.isEmpty(sortOrder)) {
-//                    sortOrder = DataContract.OfferEntry._ID + " COLLATE NOCASE ASC";
-//                }
-//                cursor = db.query(DataContract.OfferEntry.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 if (TextUtils.isEmpty(sortOrder))
                     sortOrder = DataContract.Coupons.COLUMN_VENDOR_ID + " COLLATE NOCASE ASC";
                 cursor = db.query(DataContract.Coupons.TABLE_NAME, projection, selection, null, null, null, sortOrder);
@@ -163,8 +158,6 @@ public class DataProvider extends ContentProvider {
                 }
                 break;
             case COUPONS:
-                // TODO: 4/19/2016 TEST - will be deleted
-//                rowID = db.insertWithOnConflict(DataContract.OfferEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 rowID = db.insertWithOnConflict(DataContract.Coupons.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
                     resultUri = ContentUris.withAppendedId(DataContract.URI_COUPONS, rowID);
@@ -346,8 +339,6 @@ public class DataProvider extends ContentProvider {
                 affectedRowsCount = db.delete(DataContract.Merchants.TABLE_NAME, null, null);
                 break;
             case COUPONS:
-                // TODO: 4/19/2016 TEST - will be deleted
-//                affectedRowsCount = db.delete(DataContract.OfferEntry.TABLE_NAME, null, null);
                 affectedRowsCount = db.delete(DataContract.Coupons.TABLE_NAME, null, null);
                 break;
             case CATEGORIES:
