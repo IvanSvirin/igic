@@ -126,7 +126,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                     if (Utilities.isLoggedIn(context)) {
                         Intent intent = new Intent(context, BrowserActivity.class);
                         Cursor cursor = featuredAdapter.getCursor();
-                        intent.putExtra("vendor_id", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                        intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                         intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
                         intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
                         context.startActivity(intent);

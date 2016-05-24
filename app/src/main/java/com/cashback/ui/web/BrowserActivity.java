@@ -10,9 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.ActionBar;
@@ -36,10 +33,8 @@ import android.widget.TextView;
 import com.cashback.R;
 import com.cashback.db.DataContract;
 import com.cashback.model.Coupon;
-import com.cashback.rest.event.CouponsEvent;
 import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.request.CouponsByMerchantIdRequest;
-import com.cashback.ui.MainActivity;
 
 import java.util.ArrayList;
 
@@ -47,7 +42,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnPageChange;
-import butterknife.OnTouch;
 import de.greenrobot.event.EventBus;
 
 /**
@@ -114,8 +108,9 @@ public class BrowserActivity extends AppCompatActivity {
 
     public void onEvent(MerchantCouponsEvent event) {
         if (event.isSuccess) {
-            ui.cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),
-                    new String[]{DataContract.Coupons.COLUMN_RESTRICTIONS, DataContract.Coupons.COLUMN_EXPIRATION_DATE, DataContract.Coupons.COLUMN_COUPON_CODE}, null);
+            ui.cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),coupons);
+//            ui.cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),
+//                    new String[]{DataContract.Coupons.COLUMN_RESTRICTIONS, DataContract.Coupons.COLUMN_EXPIRATION_DATE, DataContract.Coupons.COLUMN_COUPON_CODE}, null);
         }
     }
 
@@ -241,9 +236,12 @@ public class BrowserActivity extends AppCompatActivity {
             if (bar != null) {
                 bar.setDisplayHomeAsUpEnabled(true);
                 bar.setDefaultDisplayHomeAsUpEnabled(true);
-                Cursor cursor = getContentResolver().query(DataContract.URI_MERCHANTS, new String[]{DataContract.Merchants.COLUMN_NAME}, String.valueOf(intent.getIntExtra("vendor_id", 1)),
-                        new String[]{DataContract.Merchants.COLUMN_VENDOR_ID}, null);
-                bar.setTitle("STORE");
+                String[] projection = new String[]{DataContract.Merchants.COLUMN_NAME};
+                String selection = String.valueOf(intent.getLongExtra("vendor_id", 1));
+                String[] selectionArgs = new String[]{DataContract.Merchants.COLUMN_VENDOR_ID};
+                Cursor cursor = getContentResolver().query(DataContract.URI_MERCHANTS, projection, selection, selectionArgs, null);
+                String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
+                bar.setTitle(name);
                 bar.setSubtitle(intent.getStringExtra("vendor_commission") + " " + getResources().getString(R.string.cash_back_percent));
                 loadContent(intent.getStringExtra("affiliate_url"));
             }
@@ -321,26 +319,31 @@ public class BrowserActivity extends AppCompatActivity {
     }
 
     public class CursorPagerAdapter extends FragmentStatePagerAdapter {
-        private final String[] projection;
-        private Cursor cursor;
-        protected boolean dataValid;
-        protected int rowIDColumn;
+//        private final String[] projection;
+//        private Cursor cursor;
+//        protected boolean dataValid;
+//        protected int rowIDColumn;
         protected SparseIntArray itemPositions;
+        private ArrayList<Coupon> coupons;
 
-        public CursorPagerAdapter(FragmentManager fm, String[] projection, Cursor cursor) {
+        public CursorPagerAdapter(FragmentManager fm, ArrayList<Coupon> coupons) {
             super(fm);
-            this.projection = projection;
-            this.cursor = cursor;
-            this.dataValid = cursor != null;
-            this.rowIDColumn = dataValid ? cursor.getColumnIndexOrThrow("_id") : -1;
+            this.coupons = coupons;
         }
+//        public CursorPagerAdapter(FragmentManager fm, String[] projection, Cursor cursor) {
+//            super(fm);
+//            this.projection = projection;
+//            this.cursor = cursor;
+//            this.dataValid = cursor != null;
+//            this.rowIDColumn = dataValid ? cursor.getColumnIndexOrThrow("_id") : -1;
+//        }
 
         @Override
         public PageFragment getItem(int position) {
-            if (cursor == null) // shouldn't happen
-                return null;
+//            if (cursor == null) // shouldn't happen
+//                return null;
 
-            cursor.moveToPosition(position);
+//            cursor.moveToPosition(position);
             PageFragment frag;
             try {
                 frag = PageFragment.newInstance();
@@ -348,64 +351,68 @@ public class BrowserActivity extends AppCompatActivity {
                 throw new RuntimeException(ex);
             }
             Bundle args = new Bundle();
-            for (int i = 0; i < projection.length; ++i) {
-                args.putString(projection[i], cursor.getString(cursor.getColumnIndex(projection[i])));
-            }
+            args.putString(PageFragment.COUPON_CODE, coupons.get(position).getCouponCode());
+            args.putString(PageFragment.EXPIRATION_DATE, coupons.get(position).getExpirationDate());
+            args.putString(PageFragment.RESTRICTIONS, coupons.get(position).getRestrictions());
+//            for (int i = 0; i < projection.length; ++i) {
+//                args.putString(projection[i], cursor.getString(cursor.getColumnIndex(projection[i])));
+//            }
             frag.setArguments(args);
             return frag;
         }
 
         @Override
         public int getCount() {
-            if (cursor == null)
-                return 0;
-            else
-                return cursor.getCount();
+//            if (cursor == null)
+//                return 0;
+//            else
+//                return cursor.getCount();
+            return coupons.size();
         }
 
-        public Cursor getCursor() {
-            return cursor;
-        }
+//        public Cursor getCursor() {
+//            return cursor;
+//        }
 
-        public void changeCursor(Cursor cursor) {
-            Cursor old = swapCursor(cursor);
-            if (old != null) {
-                old.close();
-            }
-        }
+//        public void changeCursor(Cursor cursor) {
+//            Cursor old = swapCursor(cursor);
+//            if (old != null) {
+//                old.close();
+//            }
+//        }
 
-        public Cursor swapCursor(Cursor newCursor) {
-            if (newCursor == cursor) {
-                return null;
-            }
-            Cursor oldCursor = cursor;
-            cursor = newCursor;
-            if (newCursor != null) {
-                rowIDColumn = newCursor.getColumnIndexOrThrow("_id");
-                dataValid = true;
-            } else {
-                rowIDColumn = -1;
-                dataValid = false;
-            }
-            setItemPositions();
-            notifyDataSetChanged();
-            return oldCursor;
-        }
+//        public Cursor swapCursor(Cursor newCursor) {
+//            if (newCursor == cursor) {
+//                return null;
+//            }
+//            Cursor oldCursor = cursor;
+//            cursor = newCursor;
+//            if (newCursor != null) {
+//                rowIDColumn = newCursor.getColumnIndexOrThrow("_id");
+//                dataValid = true;
+//            } else {
+//                rowIDColumn = -1;
+//                dataValid = false;
+//            }
+//            setItemPositions();
+//            notifyDataSetChanged();
+//            return oldCursor;
+//        }
 
-        public void setItemPositions() {
-            itemPositions = null;
-
-            if (dataValid) {
-                int count = cursor.getCount();
-                itemPositions = new SparseIntArray(count);
-                cursor.moveToPosition(-1);
-                while (cursor.moveToNext()) {
-                    int rowId = cursor.getInt(rowIDColumn);
-                    int cursorPos = cursor.getPosition();
-                    itemPositions.append(rowId, cursorPos);
-                }
-            }
-        }
+//        public void setItemPositions() {
+//            itemPositions = null;
+//
+//            if (dataValid) {
+//                int count = cursor.getCount();
+//                itemPositions = new SparseIntArray(count);
+//                cursor.moveToPosition(-1);
+//                while (cursor.moveToNext()) {
+//                    int rowId = cursor.getInt(rowIDColumn);
+//                    int cursorPos = cursor.getPosition();
+//                    itemPositions.append(rowId, cursorPos);
+//                }
+//            }
+//        }
     }
 
     private void showDescriptionDialog(String message) {
