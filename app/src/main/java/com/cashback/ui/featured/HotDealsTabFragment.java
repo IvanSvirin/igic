@@ -3,6 +3,7 @@ package com.cashback.ui.featured;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -122,13 +123,15 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             featuredAdapter = new FeaturedAdapter(getActivity(), null, 0, isGridLayout);
             featuredAdapter.setOnSaleClickListener(new FeaturedAdapter.OnSaleClickListener() {
                 @Override
-                public void onSaleClick(int id) {
+                public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
                         Intent intent = new Intent(context, BrowserActivity.class);
-                        Cursor cursor = featuredAdapter.getCursor();
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(id));
+                        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
                         intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                         intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                        intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
                         context.startActivity(intent);
                     } else {
                         Intent intent = new Intent(context, LoginActivity.class);
@@ -139,7 +142,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             });
             featuredAdapter.setOnShareClickListener(new FeaturedAdapter.OnShareClickListener() {
                 @Override
-                public void onShareClick(int shareId) {
+                public void onShareClick(long shareId) {
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("text/plain");
                     share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
@@ -152,13 +155,10 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                     Cursor cursor = featuredAdapter.getCursor();
                     cursor.moveToPosition(position);
                     Intent intent = new Intent(context, StoreActivity.class);
-                    // TODO: 4/19/2016 TEST - will be deleted
-                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS)));
-                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE)));
                     intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
                     intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
-                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
-//                    intent.putExtra("vendor_id", c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                    intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                    intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                     context.startActivity(intent);
                 }
             };
@@ -205,21 +205,13 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
+            final long couponId = cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
             final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
             String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
             String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
             String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
             String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
-
-//            final int couponId = c.getInt(c.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
-//            final String logoUrl = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
-//            String restrictions = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
-//            String cashBack = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
-//            String expire = context.getString(R.string.prefix_expire) + c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
-//            String couponCode = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
             if (GRID_TYPE_FLAG) {
                 final GridViewHolder holder = (GridViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
@@ -274,7 +266,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         }
 
         public interface OnSaleClickListener {
-            void onSaleClick(int saleId);
+            void onSaleClick(long saleId);
         }
 
         public void setOnShareClickListener(OnShareClickListener listener) {
@@ -282,7 +274,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         }
 
         public interface OnShareClickListener {
-            void onShareClick(int shareId);
+            void onShareClick(long shareId);
         }
 
         public static class ViewHolder {

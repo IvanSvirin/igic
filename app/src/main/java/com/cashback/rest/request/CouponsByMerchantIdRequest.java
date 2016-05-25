@@ -33,10 +33,10 @@ import de.greenrobot.event.EventBus;
  */
 public class CouponsByMerchantIdRequest {
     private Context context;
-    private int id;
+    private long id;
     private ArrayList<Coupon> coupons;
 
-    public CouponsByMerchantIdRequest(Context ctx, int id, ArrayList<Coupon> coupons) {
+    public CouponsByMerchantIdRequest(Context ctx, long id, ArrayList<Coupon> coupons) {
         this.context = ctx;
         this.id = id;
         this.coupons = coupons;

@@ -107,7 +107,7 @@ public class DataProvider extends ContentProvider {
                 cursor = db.query(DataContract.Coupons.TABLE_NAME, projection, selection, null, null, null, sortOrder);
                 return cursor;
             case COUPON_BY_ID:
-                common_selection = DataContract.Coupons.COLUMN_VENDOR_ID + " = " + uri.getLastPathSegment();
+                common_selection = DataContract.Coupons.COLUMN_COUPON_ID + " = " + uri.getLastPathSegment();
                 if (!TextUtils.isEmpty(selection))
                     common_selection = selection + " AND " + common_selection;
                 cursor = db.query(DataContract.Coupons.TABLE_NAME, projection, common_selection, null, null, null, null);

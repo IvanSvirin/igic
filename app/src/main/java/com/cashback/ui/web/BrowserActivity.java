@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -32,6 +34,7 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.db.DataContract;
+import com.cashback.db.DbHelper;
 import com.cashback.model.Coupon;
 import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.request.CouponsByMerchantIdRequest;
@@ -59,8 +62,9 @@ public class BrowserActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         setContentView(R.layout.layout_browser);
 
+        coupons = new ArrayList<>();
         intent = getIntent();
-        new CouponsByMerchantIdRequest(this, intent.getIntExtra("vendor_id", 1), coupons);
+        new CouponsByMerchantIdRequest(this, intent.getLongExtra("vendor_id", 1), coupons).fetchData();
 
         ui = new ActivityUi(this);
         ui.setNavigationButtonState();
@@ -109,8 +113,8 @@ public class BrowserActivity extends AppCompatActivity {
     public void onEvent(MerchantCouponsEvent event) {
         if (event.isSuccess) {
             ui.cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),coupons);
-//            ui.cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),
-//                    new String[]{DataContract.Coupons.COLUMN_RESTRICTIONS, DataContract.Coupons.COLUMN_EXPIRATION_DATE, DataContract.Coupons.COLUMN_COUPON_CODE}, null);
+            ui.dealsButton.setText(String.valueOf(coupons.size()) + " DEALS");
+            ui.dealsButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -224,10 +228,9 @@ public class BrowserActivity extends AppCompatActivity {
             context = browserActivity;
             ButterKnife.bind(this, browserActivity);
             initToolbar(browserActivity);
-//            cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),
-//                    new String[]{DataContract.Coupons.COLUMN_RESTRICTIONS, DataContract.Coupons.COLUMN_EXPIRATION_DATE, DataContract.Coupons.COLUMN_COUPON_CODE}, null);
             pagerNavigator.setVisibility(View.INVISIBLE);
             collapseLayout.setVisibility(View.INVISIBLE);
+            dealsButton.setVisibility(View.INVISIBLE);
         }
 
         private void initToolbar(Activity activity) {
@@ -236,13 +239,13 @@ public class BrowserActivity extends AppCompatActivity {
             if (bar != null) {
                 bar.setDisplayHomeAsUpEnabled(true);
                 bar.setDefaultDisplayHomeAsUpEnabled(true);
-                String[] projection = new String[]{DataContract.Merchants.COLUMN_NAME};
-                String selection = String.valueOf(intent.getLongExtra("vendor_id", 1));
-                String[] selectionArgs = new String[]{DataContract.Merchants.COLUMN_VENDOR_ID};
-                Cursor cursor = getContentResolver().query(DataContract.URI_MERCHANTS, projection, selection, selectionArgs, null);
+
+                Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(intent.getLongExtra("vendor_id", 1)));
+                Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+                cursor.moveToFirst();
                 String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
                 bar.setTitle(name);
-                bar.setSubtitle(intent.getStringExtra("vendor_commission") + " " + getResources().getString(R.string.cash_back_percent));
+                bar.setSubtitle(String.valueOf(intent.getFloatExtra("vendor_commission", 1)) + " " + getResources().getString(R.string.cash_back_percent));
                 loadContent(intent.getStringExtra("affiliate_url"));
             }
         }
@@ -319,31 +322,15 @@ public class BrowserActivity extends AppCompatActivity {
     }
 
     public class CursorPagerAdapter extends FragmentStatePagerAdapter {
-//        private final String[] projection;
-//        private Cursor cursor;
-//        protected boolean dataValid;
-//        protected int rowIDColumn;
-        protected SparseIntArray itemPositions;
         private ArrayList<Coupon> coupons;
 
         public CursorPagerAdapter(FragmentManager fm, ArrayList<Coupon> coupons) {
             super(fm);
             this.coupons = coupons;
         }
-//        public CursorPagerAdapter(FragmentManager fm, String[] projection, Cursor cursor) {
-//            super(fm);
-//            this.projection = projection;
-//            this.cursor = cursor;
-//            this.dataValid = cursor != null;
-//            this.rowIDColumn = dataValid ? cursor.getColumnIndexOrThrow("_id") : -1;
-//        }
 
         @Override
         public PageFragment getItem(int position) {
-//            if (cursor == null) // shouldn't happen
-//                return null;
-
-//            cursor.moveToPosition(position);
             PageFragment frag;
             try {
                 frag = PageFragment.newInstance();
@@ -354,65 +341,14 @@ public class BrowserActivity extends AppCompatActivity {
             args.putString(PageFragment.COUPON_CODE, coupons.get(position).getCouponCode());
             args.putString(PageFragment.EXPIRATION_DATE, coupons.get(position).getExpirationDate());
             args.putString(PageFragment.RESTRICTIONS, coupons.get(position).getRestrictions());
-//            for (int i = 0; i < projection.length; ++i) {
-//                args.putString(projection[i], cursor.getString(cursor.getColumnIndex(projection[i])));
-//            }
             frag.setArguments(args);
             return frag;
         }
 
         @Override
         public int getCount() {
-//            if (cursor == null)
-//                return 0;
-//            else
-//                return cursor.getCount();
             return coupons.size();
         }
-
-//        public Cursor getCursor() {
-//            return cursor;
-//        }
-
-//        public void changeCursor(Cursor cursor) {
-//            Cursor old = swapCursor(cursor);
-//            if (old != null) {
-//                old.close();
-//            }
-//        }
-
-//        public Cursor swapCursor(Cursor newCursor) {
-//            if (newCursor == cursor) {
-//                return null;
-//            }
-//            Cursor oldCursor = cursor;
-//            cursor = newCursor;
-//            if (newCursor != null) {
-//                rowIDColumn = newCursor.getColumnIndexOrThrow("_id");
-//                dataValid = true;
-//            } else {
-//                rowIDColumn = -1;
-//                dataValid = false;
-//            }
-//            setItemPositions();
-//            notifyDataSetChanged();
-//            return oldCursor;
-//        }
-
-//        public void setItemPositions() {
-//            itemPositions = null;
-//
-//            if (dataValid) {
-//                int count = cursor.getCount();
-//                itemPositions = new SparseIntArray(count);
-//                cursor.moveToPosition(-1);
-//                while (cursor.moveToNext()) {
-//                    int rowId = cursor.getInt(rowIDColumn);
-//                    int cursorPos = cursor.getPosition();
-//                    itemPositions.append(rowId, cursorPos);
-//                }
-//            }
-//        }
     }
 
     private void showDescriptionDialog(String message) {

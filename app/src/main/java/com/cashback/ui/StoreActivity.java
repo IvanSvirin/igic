@@ -6,18 +6,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v4.widget.CursorAdapter;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -28,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -36,12 +32,15 @@ import android.widget.TextView;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
-import com.cashback.db.DataInsertHandler;
+import com.cashback.model.Coupon;
 import com.cashback.rest.event.MerchantCouponsEvent;
+import com.cashback.rest.request.CouponsByMerchantIdRequest;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,44 +49,40 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by I.Svirin on 4/20/2016.
  */
-public class StoreActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    public static final String STORE_ID = "store_id";
-    public static final String STORE_NAME = "store_name";
-
+public class StoreActivity extends AppCompatActivity {
+    private ArrayList<Coupon> coupons;
+    private Intent intent;
     private UiActivity uiActivity;
-    private int merchantId;
-    private String merchantName;
+    private long vendorId;
+    private String vendorName;
+    private String affiliateUrl;
     private MenuItem menuItem;
-    private Handler handler;
-
+//    private Handler handler;
     private String logoUrl;
-    private String commission;
+    private float commission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         setContentView(R.layout.layout_store);
-        handler = new Handler();
 
-        Intent intent = getIntent();
-        if (savedInstanceState == null) {
-            merchantId = intent.getIntExtra(STORE_ID, 0);
-            merchantName = intent.getStringExtra(STORE_NAME);
-        } else {
-            merchantId = savedInstanceState.getInt(STORE_ID);
-            merchantName = savedInstanceState.getString(STORE_NAME);
-        }
+//        handler = new Handler();
 
-        // TODO: 4/19/2016 TEST - will be deleted
+        coupons = new ArrayList<>();
+        intent = getIntent();
+        vendorId = intent.getLongExtra("vendor_id", 1);
+        new CouponsByMerchantIdRequest(this, vendorId, coupons).fetchData();
+        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(vendorId));
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        vendorName = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
+
+        commission = intent.getFloatExtra("vendor_commission", 1);
         logoUrl = intent.getStringExtra("vendor_logo_url");
-        commission = intent.getStringExtra("vendor_commission");
+        affiliateUrl = intent.getStringExtra("affiliate_url");
 
         uiActivity = new UiActivity(this);
-
-        // TODO: 4/19/2016 TEST - will be deleted
-        getSupportLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
-//        getSupportLoaderManager().initLoader(MainActivity.MERCHANT_COUPONS_LOADER, null, this);
     }
 
     @Override
@@ -104,45 +99,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 
     public void onEvent(MerchantCouponsEvent event) {
         if (event.isSuccess) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            getSupportLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
-//            getSupportLoaderManager().restartLoader(MainActivity.MERCHANT_COUPONS_LOADER, null, this);
+            uiActivity.initListAdapter(this);
         }
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-// TODO: 4/19/2016 TEST - will be deleted
-        CursorLoader loader = null;
-        if (id == MainActivity.COUPONS_LOADER) {
-            loader = new CursorLoader(this);
-            loader.setUri(DataContract.URI_COUPONS);
-        }
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        uiActivity.adapter.changeCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        uiActivity.adapter.changeCursor(null);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(STORE_ID, merchantId);
-        outState.putString(STORE_NAME, merchantName);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        merchantId = savedInstanceState.getInt(STORE_ID);
-        merchantName = savedInstanceState.getString(STORE_NAME);
     }
 
     @Override
@@ -168,15 +126,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             if (state) {
                 item.setChecked(false);
                 item.setIcon(R.drawable.ic_favorite_removed_white);
-                DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
-//                Uri deleteRequest = Uri.withAppendedPath(DataContract.URI_FAVORITE_REMAP, String.valueOf(merchantId));
-//                handler.startDelete(DataInsertHandler.FAVORITE_TOKEN, merchantId, deleteRequest, null, null);
+//                DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
+//                Uri deleteRequest = Uri.withAppendedPath(DataContract.URI_FAVORITE_REMAP, String.valueOf(vendorId));
+//                handler.startDelete(DataInsertHandler.FAVORITE_TOKEN, vendorId, deleteRequest, null, null);
             } else {
                 item.setChecked(true);
                 item.setIcon(R.drawable.ic_favorite_added_white);
-                DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
-//                Uri insertRequest = Uri.withAppendedPath(DataContract.URI_FAVORITE_REMAP, String.valueOf(merchantId));
-//                handler.startInsert(DataInsertHandler.FAVORITE_TOKEN, merchantId, insertRequest, null);
+//                DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
+//                Uri insertRequest = Uri.withAppendedPath(DataContract.URI_FAVORITE_REMAP, String.valueOf(vendorId));
+//                handler.startInsert(DataInsertHandler.FAVORITE_TOKEN, vendorId, insertRequest, null);
             }
             return true;
         }
@@ -218,30 +176,23 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             } else {
                 nestedListView = ButterKnife.findById(activity, R.id.common_list);
             }
-            initToolbar(activity, merchantName);
-            initListAdapter(activity);
+            initToolbar(activity, vendorName);
             initClicks();
-            // TODO: 4/19/2016 TEST - will be deleted
             setData(logoUrl);
         }
 
         private void initListAdapter(final Context context) {
-            adapter = new CursorCouponsAdapter(context, null, 0, isGridLayout);
+            adapter = new CursorCouponsAdapter(context, coupons, isGridLayout);
             adapter.setOnSaleClickListener(new CursorCouponsAdapter.OnSaleClickListener() {
                 @Override
-                public void onSaleClick(int id) {
+                public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
                         Intent intent = new Intent(context, BrowserActivity.class);
+                        intent.putExtra("vendor_id", vendorId);
                         intent.putExtra("vendor_commission", commission);
-//                        intent.putExtra(BrowserActivity.FLAG_SALE_ID, id);
-//                        intent.putExtra(BrowserActivity.FLAG_EVENT_TYPE, BrowserActivity.EVENT_TYPE_SALE);
+                        intent.putExtra("affiliate_url", affiliateUrl);
                         context.startActivity(intent);
                     } else {
-                        // TODO: 4/19/2016 TEST - will be deleted
-//                        Intent intent = new Intent(context, BrowserActivity.class);
-//                        Cursor cursor = adapter.getCursor();
-//                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-//                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
                         Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
@@ -250,7 +201,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             });
             adapter.setOnShareClickListener(new CursorCouponsAdapter.OnShareClickListener() {
                 @Override
-                public void onShareClick(int shareId) {
+                public void onShareClick(long shareId) {
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("text/plain");
                     share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
@@ -290,7 +241,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 actionBar.setDisplayHomeAsUpEnabled(true);
                 actionBar.setDefaultDisplayHomeAsUpEnabled(true);
                 actionBar.setDisplayShowTitleEnabled(true);
-                actionBar.setTitle(categoryName);
+                actionBar.setTitle("");
             }
             collapsingBar.setTitleEnabled(false);
         }
@@ -301,15 +252,11 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 public void onClick(View v) {
                     if (Utilities.isLoggedIn(context)) {
                         Intent intent = new Intent(context, BrowserActivity.class);
+                        intent.putExtra("vendor_id", vendorId);
                         intent.putExtra("vendor_commission", commission);
-//                        intent.putExtra(BrowserActivity.FLAG_MERCHANT_ID, merchantId);
-//                        intent.putExtra(BrowserActivity.FLAG_SALE_ID, -1);
-//                        intent.putExtra(BrowserActivity.FLAG_EVENT_TYPE, BrowserActivity.EVENT_TYPE_STORE);
+                        intent.putExtra("affiliate_url", affiliateUrl);
                         context.startActivity(intent);
                     } else {
-                        // TODO: 4/19/2016 TEST - will be deleted
-//                        Intent intent = new Intent(context, BrowserActivity.class);
-//                        intent.putExtra("vendor_commission", commission);
                         Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
@@ -337,7 +284,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 //                    }
 //                }, 100);
 //            }
-            cashBack.setText(commission);
+            cashBack.setText(String.valueOf(commission));
+            storeName.setText(vendorName);
 
             Picasso.with(context).load(url).into(storeLogo);
             if (storeLogo.getDrawable() != null) {
@@ -362,81 +310,83 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     }
 
-    public static class CursorCouponsAdapter extends CursorAdapter {
+    public static class CursorCouponsAdapter extends BaseAdapter {
         private final boolean GRID_TYPE_FLAG;
         private Context context;
+        private ArrayList<Coupon> coupons;
         private OnSaleClickListener onSaleClickListener;
         private OnShareClickListener onShareClickListener;
 
-        public CursorCouponsAdapter(Context context, Cursor c, int flags, boolean gridType) {
-            super(context, c, flags);
+        public CursorCouponsAdapter(Context context, ArrayList<Coupon> coupons, boolean gridType) {
             GRID_TYPE_FLAG = gridType;
             this.context = context;
+            this.coupons = coupons;
+        }
+        @Override
+        public int getCount() {
+            return coupons.size();
         }
 
         @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            View convertView = LayoutInflater.from(context).inflate(R.layout.item_coupons_list, parent, false);
+        public Object getItem(int position) {
+            return coupons.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.item_coupons_list, parent, false);
+                if (GRID_TYPE_FLAG) {
+                    GridViewHolder holder = new GridViewHolder(convertView);
+                    convertView.setTag(holder);
+                } else {
+                    ViewHolder holder = new ViewHolder(convertView);
+                    convertView.setTag(holder);
+                }
+            }
+            final long couponId = coupons.get(position).getCouponId();
+            String restrictions = coupons.get(position).getRestrictions();
+            String date = coupons.get(position).getExpirationDate();
+            String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
             if (GRID_TYPE_FLAG) {
-                GridViewHolder holder = new GridViewHolder(convertView);
-                convertView.setTag(holder);
+                final GridViewHolder holder = (GridViewHolder) convertView.getTag();
+                holder.vhRestrictions.setText(restrictions.trim());
+                holder.vhExpireDate.setText(expire);
+                holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onSaleClickListener.onSaleClick(couponId);
+                    }
+                });
+                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onShareClickListener.onShareClick(couponId);
+                    }
+                });
             } else {
-                ViewHolder holder = new ViewHolder(convertView);
-                convertView.setTag(holder);
+                ViewHolder holder = (ViewHolder) convertView.getTag();
+                holder.vhRestrictions.setText(restrictions.trim());
+                holder.vhExpireDate.setText(expire);
+                holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onSaleClickListener.onSaleClick(couponId);
+                    }
+                });
+                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onShareClickListener.onShareClick(couponId);
+                    }
+                });
             }
             return convertView;
-        }
-
-        @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
-            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
-            String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
-            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
-            String date = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
-            String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
-            String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
-
-//            final int couponId = c.getInt(c.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
-//            final String logoUrl = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
-//            String restrictions = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
-//            String cashBack = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
-//            String expire = context.getString(R.string.prefix_expire) + c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
-//            String couponCode = c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
-            if (GRID_TYPE_FLAG) {
-                final GridViewHolder holder = (GridViewHolder) view.getTag();
-                holder.vhRestrictions.setText(restrictions.trim());
-                holder.vhExpireDate.setText(expire);
-                holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(couponId);
-                    }
-                });
-                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onShareClickListener.onShareClick(couponId);
-                    }
-                });
-            } else {
-                ViewHolder holder = (ViewHolder) view.getTag();
-                holder.vhRestrictions.setText(restrictions.trim());
-                holder.vhExpireDate.setText(expire);
-                holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(couponId);
-                    }
-                });
-                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onShareClickListener.onShareClick(couponId);
-                    }
-                });
-            }
         }
 
         public void setOnSaleClickListener(OnSaleClickListener listener) {
@@ -444,7 +394,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         public interface OnSaleClickListener {
-            void onSaleClick(int saleId);
+            void onSaleClick(long saleId);
         }
 
         public void setOnShareClickListener(OnShareClickListener listener) {
@@ -452,7 +402,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         public interface OnShareClickListener {
-            void onShareClick(int shareId);
+            void onShareClick(long shareId);
         }
 
         public static class ViewHolder {

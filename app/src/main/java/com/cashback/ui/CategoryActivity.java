@@ -1,6 +1,5 @@
 package com.cashback.ui;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,15 +27,11 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.db.DataContract;
-import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.MerchantsEvent;
 import com.cashback.rest.request.MerchantsRequest;
-import com.cashback.ui.components.NestedListView;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -214,8 +209,8 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
                     int merchantId = cursor.getInt(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID));
                     String merchantName = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
                     Intent intent = new Intent(parent.getContext(), StoreActivity.class);
-                    intent.putExtra(StoreActivity.STORE_ID, merchantId);
-                    intent.putExtra(StoreActivity.STORE_NAME, merchantName);
+//                    intent.putExtra(StoreActivity.VENDOR_ID, merchantId);
+//                    intent.putExtra(StoreActivity.STORE_NAME, merchantName);
 //                    startActivity(intent);
                     // }
                 }
