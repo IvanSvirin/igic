@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -137,10 +138,12 @@ public class FavoritesRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/favorites/");
+                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/favorites/" + String.valueOf(id));
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
+                urlConnection.setDoOutput(true);
+                urlConnection.setRequestMethod("POST");
 
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (IOException e) {
@@ -175,7 +178,9 @@ public class FavoritesRequest {
             super.onPostExecute(aVoid);
             try {
                 if (jObj != null) {
-                    jObj.getLong("VENDOR_ID");
+                    long gottenId = jObj.getLong("VENDOR_ID");
+                    long isFavorite = jObj.getInt("IS_FAVORITE");
+                    if (gottenId == id && isFavorite == 1) fetchData();
                 } else {
                     EventBus.getDefault().post(new FavoritesEvent(false, "Check your internet connection or authorization data"));
                 }
@@ -183,7 +188,6 @@ public class FavoritesRequest {
                 e.printStackTrace();
             }
         }
-
     }
 
     private class DeleteMerchantTask extends AsyncTask<Void, Void, Void> {
@@ -200,7 +204,55 @@ public class FavoritesRequest {
 
         @Override
         protected Void doInBackground(Void... params) {
+            try {
+                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/favorites/" + String.valueOf(id));
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
+                urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
+                urlConnection.setRequestMethod("DELETE");
+
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                inputStream.close();
+                urlConnection.disconnect();
+                jsonString = sb.toString();
+                while (jsonString.charAt(0) != '{' && jsonString.charAt(0) != '[') {
+                    jsonString = jsonString.substring(1);
+                }
+            } catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            }
+            try {
+                jObj = new JSONObject(jsonString);
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+            }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                if (jObj != null) {
+                    long gottenId = jObj.getLong("VENDOR_ID");
+                    long isFavorite = jObj.getInt("IS_FAVORITE");
+                    if (gottenId == id && isFavorite == 0) fetchData();
+                } else {
+                    EventBus.getDefault().post(new FavoritesEvent(false, "Check your internet connection or authorization data"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

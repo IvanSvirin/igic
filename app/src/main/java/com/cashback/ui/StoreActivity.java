@@ -8,11 +8,15 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -23,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -35,9 +40,11 @@ import com.cashback.db.DataContract;
 import com.cashback.model.Coupon;
 import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.request.CouponsByMerchantIdRequest;
+import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -49,12 +56,12 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by I.Svirin on 4/20/2016.
  */
-public class StoreActivity extends AppCompatActivity {
+public class StoreActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private ArrayList<Coupon> coupons;
     private Intent intent;
     private UiActivity uiActivity;
     private MenuItem menuItem;
-    //    private Handler handler;
+    private Handler handler;
     private long vendorId;
     private String vendorName;
     private String affiliateUrl;
@@ -69,8 +76,7 @@ public class StoreActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         setContentView(R.layout.layout_store);
 
-//        handler = new Handler();
-
+        handler = new Handler();
         coupons = new ArrayList<>();
         intent = getIntent();
         vendorId = intent.getLongExtra("vendor_id", 1);
@@ -85,6 +91,8 @@ public class StoreActivity extends AppCompatActivity {
         commission = intent.getFloatExtra("vendor_commission", 1);
         logoUrl = intent.getStringExtra("vendor_logo_url");
         affiliateUrl = intent.getStringExtra("affiliate_url");
+
+        getSupportLoaderManager().initLoader(MainActivity.FAVORITES_LOADER, null, this);
 
         uiActivity = new UiActivity(this);
     }
@@ -130,19 +138,47 @@ public class StoreActivity extends AppCompatActivity {
             if (state) {
                 item.setChecked(false);
                 item.setIcon(R.drawable.ic_favorite_removed_white);
-//                DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
-//                Uri deleteRequest = Uri.withAppendedPath(DataContract.URI_FAVORITE_REMAP, String.valueOf(vendorId));
-//                handler.startDelete(DataInsertHandler.FAVORITE_TOKEN, vendorId, deleteRequest, null, null);
+                new FavoritesRequest(this).deleteMerchant(vendorId);
             } else {
                 item.setChecked(true);
                 item.setIcon(R.drawable.ic_favorite_added_white);
-//                DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
-//                Uri insertRequest = Uri.withAppendedPath(DataContract.URI_FAVORITE_REMAP, String.valueOf(vendorId));
-//                handler.startInsert(DataInsertHandler.FAVORITE_TOKEN, vendorId, insertRequest, null);
+                new FavoritesRequest(this).addMerchant(vendorId);
             }
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        CursorLoader loader = null;
+        if (id == MainActivity.FAVORITES_LOADER) {
+            loader = new CursorLoader(this);
+            loader.setUri(DataContract.URI_FAVORITES);
+        }
+        return loader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        data.moveToFirst();
+        do {
+            int id = data.getInt(data.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID));
+            if (id == vendorId) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        menuItem.setChecked(true);
+                        menuItem.setIcon(R.drawable.ic_favorite_added_white);
+                    }
+                }, 500);
+                return;
+            }
+        } while (data.moveToNext());
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
     }
 
     class UiActivity {
@@ -212,27 +248,21 @@ public class StoreActivity extends AppCompatActivity {
                     startActivity(Intent.createChooser(share, "Share Text"));
                 }
             });
-//            AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    Cursor cursor = adapter.getCursor();
-//                    cursor.moveToPosition(position);
-//                    Intent intent = new Intent(context, StoreActivity.class);
-//                    // TODO: 4/19/2016 TEST - will be deleted
-//                    intent.putExtra("restriction", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS)));
-//                    intent.putExtra("expiration_date", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE)));
-//                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-//                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
-//                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
-//                    intent.putExtra("vendor_id", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
-//                    context.startActivity(intent);
-//                }
-//            };
+            AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(context, BrowserActivity.class);
+                    intent.putExtra("vendor_id", vendorId);
+                    intent.putExtra("vendor_commission", commission);
+                    intent.putExtra("affiliate_url", affiliateUrl);
+                    context.startActivity(intent);
+                }
+            };
             if (isGridLayout) {
-//                gridView.setOnItemClickListener(listener);
+                gridView.setOnItemClickListener(listener);
                 gridView.setAdapter(adapter);
             } else {
-//                nestedListView.setOnItemClickListener(listener);
+                nestedListView.setOnItemClickListener(listener);
                 nestedListView.setAdapter(adapter);
             }
         }
@@ -279,31 +309,30 @@ public class StoreActivity extends AppCompatActivity {
         }
 
         private void setData(final String url) {
-//            if (url != null) {
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Picasso.with(context).load(url).into(storeLogo);
-//                    }
-//                }, 100);
-//            }
             cashBack.setText(String.valueOf(commission));
             storeName.setText(vendorName);
 
-            Picasso.with(context).load(url).into(storeLogo);
-            if (storeLogo.getDrawable() != null) {
-                Bitmap bitmap = ((BitmapDrawable) storeLogo.getDrawable()).getBitmap();
-                Palette.Builder pb = new Palette.Builder(bitmap);
-                Palette palette = pb.generate();
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                @ColorInt
-                int color = swatch != null ? swatch.getRgb() : -7292864;
-//            appBarLayout.setBackgroundColor(color);
-                toolbar.setBackgroundColor(color);
-                bigRelativeLayout.setBackgroundColor(color);
-                storeName.setBackgroundColor(1157627903);
-            }
+            Picasso.with(context).load(url).into(storeLogo, new Callback() {
+                @Override
+                public void onSuccess() {
+                    if (storeLogo.getDrawable() != null) {
+                        Bitmap bitmap = ((BitmapDrawable) storeLogo.getDrawable()).getBitmap();
+                        Palette.Builder pb = new Palette.Builder(bitmap);
+                        Palette palette = pb.generate();
+                        Palette.Swatch swatch = palette.getVibrantSwatch();
+                        @ColorInt
+                        int color = swatch != null ? swatch.getRgb() : -7292864;
+                        toolbar.setBackgroundColor(color);
+                        bigRelativeLayout.setBackgroundColor(color);
+                        storeName.setBackgroundColor(1157627903);
+                    }
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
         }
 
         private void showDescriptionDialog(String message) {

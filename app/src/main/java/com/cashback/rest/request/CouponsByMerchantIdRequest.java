@@ -94,25 +94,27 @@ public class CouponsByMerchantIdRequest {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Coupon coupon;
-            try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jObj = jsonArray.getJSONObject(i);
-                    coupon = new Coupon();
-                    coupon.setCouponId(jObj.getLong("coupon_id"));
-                    coupon.setVendorId(jObj.getLong("vendor_id"));
-                    coupon.setCouponType(jObj.getString("coupon_type"));
-                    coupon.setRestrictions(jObj.getString("restrictions"));
-                    coupon.setCouponCode(jObj.getString("coupon_code"));
-                    coupon.setExpirationDate(jObj.getString("expiration_date"));
-                    coupon.setAffiliateUrl(jObj.getString("affiliate_url"));
-                    coupon.setVendorLogoUrl(jObj.getString("vendor_logo_url"));
-                    coupon.setVendorCommission((float) jObj.getDouble("vendor_commission"));
-                    coupons.add(coupon);
+            if (jsonArray != null) {
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jObj = jsonArray.getJSONObject(i);
+                        coupon = new Coupon();
+                        coupon.setCouponId(jObj.getLong("coupon_id"));
+                        coupon.setVendorId(jObj.getLong("vendor_id"));
+                        coupon.setCouponType(jObj.getString("coupon_type"));
+                        coupon.setRestrictions(jObj.getString("restrictions"));
+                        coupon.setCouponCode(jObj.getString("coupon_code"));
+                        coupon.setExpirationDate(jObj.getString("expiration_date"));
+                        coupon.setAffiliateUrl(jObj.getString("affiliate_url"));
+                        coupon.setVendorLogoUrl(jObj.getString("vendor_logo_url"));
+                        coupon.setVendorCommission((float) jObj.getDouble("vendor_commission"));
+                        coupons.add(coupon);
+                    }
+                    EventBus.getDefault().post(new MerchantCouponsEvent(true, "OK"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post(new MerchantCouponsEvent(false, "No coupons featured data"));
                 }
-                EventBus.getDefault().post(new MerchantCouponsEvent(true, "OK"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new MerchantCouponsEvent(false, "No coupons featured data"));
             }
         }
     }

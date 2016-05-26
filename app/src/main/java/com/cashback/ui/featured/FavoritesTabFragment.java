@@ -3,6 +3,7 @@ package com.cashback.ui.featured;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -25,9 +26,11 @@ import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.rest.event.FavoritesEvent;
+import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
+import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.squareup.picasso.Picasso;
 
@@ -123,19 +126,18 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
             featuredAdapter = new FeaturedAdapter(getActivity(), null, 0, isGridLayout);
             featuredAdapter.setOnSaleClickListener(new FeaturedAdapter.OnSaleClickListener() {
                 @Override
-                public void onSaleClick(int id) {
+                public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
                         Intent intent = new Intent(context, BrowserActivity.class);
-//                        intent.putExtra(BrowserActivity.FLAG_SALE_ID, id);
-//                        intent.putExtra(BrowserActivity.FLAG_EVENT_TYPE, BrowserActivity.EVENT_TYPE_SALE);
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(id));
+                        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
+                        intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID)));
+                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_AFFILIATE_URL)));
+                        intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
                         context.startActivity(intent);
                     } else {
-                        // TODO: 4/19/2016 TEST - will be deleted
-                        Intent intent = new Intent(context, BrowserActivity.class);
-                        Cursor cursor = featuredAdapter.getCursor();
-                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_AFFILIATE_URL)));
-                        intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
-//                        Intent intent = new Intent(context, LoginActivity.class);
+                        Intent intent = new Intent(context, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
                     }
@@ -143,11 +145,18 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
             });
             featuredAdapter.setOnShareClickListener(new FeaturedAdapter.OnShareClickListener() {
                 @Override
-                public void onShareClick(int shareId) {
+                public void onShareClick(long shareId) {
                     Intent share = new Intent(Intent.ACTION_SEND);
                     share.setType("text/plain");
                     share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
                     startActivity(Intent.createChooser(share, "Share Text"));
+                }
+            });
+            featuredAdapter.setOnFavoriteClickListener(new FeaturedAdapter.OnFavoriteClickListener() {
+                @Override
+                public void onFavoriteClick(long favoriteId) {
+                    new FavoritesRequest(context).deleteMerchant(favoriteId);
+                    featuredAdapter.notifyDataSetChanged();
                 }
             });
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
@@ -156,11 +165,10 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                     Cursor cursor = featuredAdapter.getCursor();
                     cursor.moveToPosition(position);
                     Intent intent = new Intent(context, StoreActivity.class);
-                    // TODO: 4/19/2016 TEST - will be deleted
                     intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_AFFILIATE_URL)));
                     intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_LOGO_URL)));
-                    intent.putExtra("vendor_commission", cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
-//                    intent.putExtra("vendor_id", c.getString(c.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                    intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
+                    intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID)));
                     context.startActivity(intent);
                 }
             };
@@ -184,6 +192,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
         private Context context;
         private OnSaleClickListener onSaleClickListener;
         private OnShareClickListener onShareClickListener;
+        private OnFavoriteClickListener onFavoriteClickListener;
         private Picasso picasso;
 
         public FeaturedAdapter(Context context, Cursor c, int flags, boolean gridType) {
@@ -208,7 +217,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            final int couponId = cursor.getInt(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID));
+            final long vendorId = cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID));
             final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_LOGO_URL));
             String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION));
             if (GRID_TYPE_FLAG) {
@@ -218,13 +227,19 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(couponId);
+                        onSaleClickListener.onSaleClick(vendorId);
                     }
                 });
                 holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onShareClickListener.onShareClick(couponId);
+                        onShareClickListener.onShareClick(vendorId);
+                    }
+                });
+                holder.vhFavorite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onFavoriteClickListener.onFavoriteClick(vendorId);
                     }
                 });
             } else {
@@ -234,15 +249,22 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(couponId);
+                        onSaleClickListener.onSaleClick(vendorId);
                     }
                 });
                 holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onShareClickListener.onShareClick(couponId);
+                        onShareClickListener.onShareClick(vendorId);
                     }
                 });
+                holder.vhFavorite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onFavoriteClickListener.onFavoriteClick(vendorId);
+                    }
+                });
+
             }
         }
 
@@ -251,7 +273,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
         }
 
         public interface OnSaleClickListener {
-            void onSaleClick(int saleId);
+            void onSaleClick(long saleId);
         }
 
         public void setOnShareClickListener(OnShareClickListener listener) {
@@ -259,7 +281,15 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
         }
 
         public interface OnShareClickListener {
-            void onShareClick(int shareId);
+            void onShareClick(long shareId);
+        }
+
+        public void setOnFavoriteClickListener(OnFavoriteClickListener listener) {
+            onFavoriteClickListener = listener;
+        }
+
+        public interface OnFavoriteClickListener {
+            void onFavoriteClick(long favoriteId);
         }
 
         public static class ViewHolder {

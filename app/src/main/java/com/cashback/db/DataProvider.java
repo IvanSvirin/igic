@@ -24,7 +24,9 @@ public class DataProvider extends ContentProvider {
     private static final int COUPONS = 200;
     private static final int COUPON_BY_ID = 201;
     private static final int FAVORITES = 300;
+    private static final int FAVORITES_BY_ID = 301;
     private static final int EXTRAS = 400;
+    private static final int EXTRAS_BY_ID = 401;
 
     private static final int CATEGORIES = 500;
     private static final int PAYMENTS = 600;
@@ -46,7 +48,9 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "coupons", COUPONS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "coupons/#", COUPON_BY_ID);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "extras", EXTRAS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "extras/#", EXTRAS_BY_ID);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "favorites", FAVORITES);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "favorites/#", FAVORITES_BY_ID);
 
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "categories", CATEGORIES);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "payments", PAYMENTS);
@@ -75,16 +79,6 @@ public class DataProvider extends ContentProvider {
                     sortOrder = DataContract.Merchants.COLUMN_NAME + " COLLATE NOCASE ASC";
                 cursor = db.query(DataContract.Merchants.TABLE_NAME, projection, selection, null, null, null, sortOrder);
                 return cursor;
-            case FAVORITES:
-                if (TextUtils.isEmpty(sortOrder))
-                    sortOrder = DataContract.Favorites.COLUMN_NAME + " COLLATE NOCASE ASC";
-                cursor = db.query(DataContract.Favorites.TABLE_NAME, projection, selection, null, null, null, sortOrder);
-                return cursor;
-            case EXTRAS:
-                if (TextUtils.isEmpty(sortOrder))
-                    sortOrder = DataContract.Extras.COLUMN_NAME + " COLLATE NOCASE ASC";
-                cursor = db.query(DataContract.Extras.TABLE_NAME, projection, selection, null, null, null, sortOrder);
-                return cursor;
             case MERCHANT_BY_ID:
                 common_selection = DataContract.Merchants.COLUMN_VENDOR_ID + " = " + uri.getLastPathSegment();
                 if (!TextUtils.isEmpty(selection))
@@ -100,6 +94,28 @@ public class DataProvider extends ContentProvider {
                     common_selection = selection + " AND " + common_selection;
                 }
                 cursor = db.query(true, DataContract.Merchants.TABLE_NAME, projection, common_selection, null, null, null, sortOrder, null);
+                break;
+            case FAVORITES:
+                if (TextUtils.isEmpty(sortOrder))
+                    sortOrder = DataContract.Favorites.COLUMN_NAME + " COLLATE NOCASE ASC";
+                cursor = db.query(DataContract.Favorites.TABLE_NAME, projection, selection, null, null, null, sortOrder);
+                return cursor;
+            case FAVORITES_BY_ID:
+                common_selection = DataContract.Favorites.COLUMN_VENDOR_ID + " = " + uri.getLastPathSegment();
+                if (!TextUtils.isEmpty(selection))
+                    common_selection = selection + " AND " + common_selection;
+                cursor = db.query(DataContract.Favorites.TABLE_NAME, projection, common_selection, null, null, null, null);
+                break;
+            case EXTRAS:
+                if (TextUtils.isEmpty(sortOrder))
+                    sortOrder = DataContract.Extras.COLUMN_NAME + " COLLATE NOCASE ASC";
+                cursor = db.query(DataContract.Extras.TABLE_NAME, projection, selection, null, null, null, sortOrder);
+                return cursor;
+            case EXTRAS_BY_ID:
+                common_selection = DataContract.Extras.COLUMN_VENDOR_ID + " = " + uri.getLastPathSegment();
+                if (!TextUtils.isEmpty(selection))
+                    common_selection = selection + " AND " + common_selection;
+                cursor = db.query(DataContract.Extras.TABLE_NAME, projection, common_selection, null, null, null, null);
                 break;
             case COUPONS:
                 if (TextUtils.isEmpty(sortOrder))

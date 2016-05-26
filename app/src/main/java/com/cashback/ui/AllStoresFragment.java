@@ -103,13 +103,6 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         if (id == MainActivity.MERCHANTS_LOADER) {
             loader = new CursorLoader(getActivity());
             loader.setUri(DataContract.URI_MERCHANTS);
-            String projection[] = new String[]{
-                    DataContract.Merchants._ID,
-                    DataContract.Merchants.COLUMN_VENDOR_ID,
-                    DataContract.Merchants.COLUMN_NAME,
-                    DataContract.Merchants.COLUMN_COMMISSION,
-            };
-            loader.setProjection(projection);
             if (searchFilter != null) {
                 loader.setSelection(DataContract.Merchants.COLUMN_NAME + " LIKE '%" + searchFilter + "%'");
             }
@@ -202,17 +195,14 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
             allStoresList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // if (!uAdapter.isSection(position)) {
-                    //   int correctPosition = uAdapter.getCursorPositionWithoutSections(position);
                     Cursor cursor = adapter.getCursor();
-                    cursor.moveToPosition(position); //cursor.moveToPosition(correctPosition);
-                    int merchantId = cursor.getInt(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID));
-                    String merchantName = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
+                    cursor.moveToPosition(position);
                     Intent intent = new Intent(parent.getContext(), StoreActivity.class);
-//                    intent.putExtra(StoreActivity.VENDOR_ID, merchantId);
-//                    intent.putExtra(StoreActivity.STORE_NAME, merchantName);
-//                    startActivity(intent);
-                    // }
+                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL)));
+                    intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                    intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                    startActivity(intent);
                 }
             });
         }
