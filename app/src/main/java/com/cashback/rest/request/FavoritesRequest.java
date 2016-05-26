@@ -8,8 +8,8 @@ import android.util.Log;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
-import com.cashback.rest.event.ExtrasEvent;
 import com.cashback.rest.event.FavoritesEvent;
+import com.cashback.rest.event.LoginEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,10 +38,18 @@ public class FavoritesRequest {
     }
 
     public void fetchData() {
-        new ExtrasRequestTask().execute();
+        new FavoritesRequestTask().execute();
     }
 
-    private class ExtrasRequestTask extends AsyncTask<Void, Void, Void> {
+    public void addMerchant(long id) {
+        new AddMerchantTask(id).execute();
+    }
+
+    public void deleteMerchant(long id) {
+        new DeleteMerchantTask(id).execute();
+    }
+
+    private class FavoritesRequestTask extends AsyncTask<Void, Void, Void> {
         private String jsonString = "";
         JSONArray jsonArray;
         private JSONObject jObj = null;
@@ -111,6 +119,88 @@ public class FavoritesRequest {
                 e.printStackTrace();
                 EventBus.getDefault().post(new FavoritesEvent(false, "No merchants featured data"));
             }
+        }
+    }
+
+    private class AddMerchantTask extends AsyncTask<Void, Void, Void> {
+        private long id;
+        private String jsonString = "";
+        private JSONObject jObj = null;
+        private URL url;
+        private InputStream inputStream = null;
+        private HttpURLConnection urlConnection = null;
+
+        public AddMerchantTask(long id) {
+            this.id = id;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/favorites/");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
+                urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
+
+                inputStream = new BufferedInputStream(urlConnection.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                inputStream.close();
+                urlConnection.disconnect();
+                jsonString = sb.toString();
+                while (jsonString.charAt(0) != '{' && jsonString.charAt(0) != '[') {
+                    jsonString = jsonString.substring(1);
+                }
+            } catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            }
+            try {
+                jObj = new JSONObject(jsonString);
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            try {
+                if (jObj != null) {
+                    jObj.getLong("VENDOR_ID");
+                } else {
+                    EventBus.getDefault().post(new FavoritesEvent(false, "Check your internet connection or authorization data"));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private class DeleteMerchantTask extends AsyncTask<Void, Void, Void> {
+        private long id;
+        private String jsonString = "";
+        private JSONObject jObj = null;
+        private URL url;
+        private InputStream inputStream = null;
+        private HttpURLConnection urlConnection = null;
+
+        public DeleteMerchantTask(long id) {
+            this.id = id;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            return null;
         }
     }
 }

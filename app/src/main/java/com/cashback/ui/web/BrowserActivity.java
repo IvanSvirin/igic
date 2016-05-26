@@ -55,6 +55,9 @@ public class BrowserActivity extends AppCompatActivity {
     private MenuItem menuItem;
     private Intent intent;
     private ArrayList<Coupon> coupons;
+    private String exceptionInfo;
+    private String description;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,6 +247,9 @@ public class BrowserActivity extends AppCompatActivity {
                 Cursor cursor = getContentResolver().query(uri, null, null, null, null);
                 cursor.moveToFirst();
                 String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
+                exceptionInfo = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_EXCEPTION_INFO));
+                description = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_DESCRIPTION));
+
                 bar.setTitle(name);
                 bar.setSubtitle(String.valueOf(intent.getFloatExtra("vendor_commission", 1)) + " " + getResources().getString(R.string.cash_back_percent));
                 loadContent(intent.getStringExtra("affiliate_url"));
@@ -352,18 +358,19 @@ public class BrowserActivity extends AppCompatActivity {
     }
 
     private void showDescriptionDialog(String message) {
-        InfoDialog dialog = InfoDialog.newInstance(message);
+        InfoDialog dialog = InfoDialog.newInstance(description, exceptionInfo);
         dialog.setCancelable(true);
         dialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
         dialog.show(getSupportFragmentManager(), "TAG_DIALOG");
     }
 
     public static class InfoDialog extends DialogFragment {
-
         private static String description;
+        private static String exceptionInfo;
 
-        static InfoDialog newInstance(String message) {
-            description = message;
+        static InfoDialog newInstance(String d, String e) {
+            description = d;
+            exceptionInfo = e;
             return new InfoDialog();
         }
 
@@ -371,8 +378,10 @@ public class BrowserActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.view_dialog, container, false);
-            TextView tv = (TextView) v.findViewById(R.id.description);
-            tv.setText(description);
+            TextView tvDescription = (TextView) v.findViewById(R.id.description);
+            TextView tvExceptions = (TextView) v.findViewById(R.id.exceptions);
+            tvDescription.setText(description);
+            tvExceptions.setText(exceptionInfo);
             return v;
         }
     }

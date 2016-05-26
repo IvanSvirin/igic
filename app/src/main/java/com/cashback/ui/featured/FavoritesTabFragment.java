@@ -96,7 +96,6 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
         fragmentUi.featuredAdapter.changeCursor(null);
     }
 
-    // TODO: 4/19/2016 TEST - will be deleted
     public void onEvent(FavoritesEvent event) {
         if (event.isSuccess) {
             getLoaderManager().restartLoader(MainActivity.FAVORITES_LOADER, null, this);
