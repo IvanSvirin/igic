@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.cashback.R;
 import com.cashback.db.DataContract;
+import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
@@ -44,6 +45,8 @@ public class AccountFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_CHARITY_ORDERS);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_SHOPPING_TRIPS);
         setHasOptionsMenu(true);
     }
 

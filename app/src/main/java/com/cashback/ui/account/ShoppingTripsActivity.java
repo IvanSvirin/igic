@@ -24,6 +24,7 @@ import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.ShoppingTripsEvent;
+import com.cashback.rest.request.ShoppingTripsRequest;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.components.NestedListView;
 
@@ -89,13 +90,6 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
         if (id == MainActivity.SHOPPING_TRIPS_LOADER) {
             loader = new CursorLoader(this);
             loader.setUri(DataContract.URI_SHOPPING_TRIPS);
-            String projection[] = new String[]{
-                    DataContract.ShoppingTrips._ID,
-                    DataContract.ShoppingTrips.COLUMN_CONFIRMATION_NUMBER,
-                    DataContract.ShoppingTrips.COLUMN_TRIP_DATE,
-                    DataContract.ShoppingTrips.COLUMN_VENDOR_NAME,
-            };
-            loader.setProjection(projection);
         }
         return loader;
     }
@@ -104,37 +98,8 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         uiActivity.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            createExampleData();
-//            new ShoppingTripsRequest(this).fetchData();
+            new ShoppingTripsRequest(this).fetchData();
         }
-    }
-
-    // TODO: 4/19/2016 TEST - will be deleted
-    private void createExampleData() {
-        List<ContentValues> listShoppingTripsValues = new ArrayList<>();
-        ContentValues values;
-
-        for (int i = 0; i < 20; i++) {
-            values = new ContentValues();
-            int month = new Random().nextInt(12) + 1;
-            String sMonth = month > 9 ? String.valueOf(month) : "0" + String.valueOf(month);
-            int day = new Random().nextInt(30) + 1;
-            String sDay = day > 9 ? String.valueOf(day) : "0" + String.valueOf(day);
-            int hour = new Random().nextInt(24);
-            String sHour = hour > 9 ? String.valueOf(hour) : "0" + String.valueOf(hour);
-            int min = new Random().nextInt(60);
-            String sMin = min > 9 ? String.valueOf(min) : "0" + String.valueOf(min);
-            values.put(DataContract.ShoppingTrips.COLUMN_TRIP_DATE, "201" + String.valueOf((new Random().nextInt(6)) + "-" + sMonth + "-" + sDay + "-" + sHour + "-" + sMin));
-            values.put(DataContract.ShoppingTrips.COLUMN_CONFIRMATION_NUMBER, new Random().nextInt(100000));
-            values.put(DataContract.ShoppingTrips.COLUMN_VENDOR_NAME, "Vendor" + i);
-            listShoppingTripsValues.add(values);
-        }
-        DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
-//        if (!DataInsertHandler.IS_FILLING_MERCHANT_TABLE) {
-        handler.startBulkInsert(DataInsertHandler.SHOPPING_TRIPS_TOKEN, false, DataContract.URI_SHOPPING_TRIPS,
-                listShoppingTripsValues.toArray(new ContentValues[listShoppingTripsValues.size()]));
-//        }
     }
 
     @Override

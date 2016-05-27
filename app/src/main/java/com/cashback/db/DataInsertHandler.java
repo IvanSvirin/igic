@@ -31,6 +31,7 @@ public class DataInsertHandler extends BulkAsyncQueryHandler {
     public static final int PAYMENTS_TOKEN = 500;
     public static final int SHOPPING_TRIPS_TOKEN = 600;
     public static final int ORDERS_TOKEN = 700;
+    public static final int CHARITY_ORDERS_TOKEN = 701;
     public static final int EXTRAS_TOKEN = 800;
     public static final int FAVORITES_TOKEN = 900;
 
@@ -101,6 +102,10 @@ public class DataInsertHandler extends BulkAsyncQueryHandler {
                 break;
             case ORDERS_TOKEN:
                 RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_ORDERS);
+                EventBus.getDefault().post(new OrdersEvent(true, null));
+                break;
+            case CHARITY_ORDERS_TOKEN:
+                RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_CHARITY_ORDERS);
                 EventBus.getDefault().post(new OrdersEvent(true, null));
                 break;
         }

@@ -24,6 +24,7 @@ import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.OrdersEvent;
+import com.cashback.rest.request.CharityOrdersRequest;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.components.NestedListView;
 
@@ -88,17 +89,7 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
         CursorLoader loader = null;
         if (id == MainActivity.ORDERS_LOADER) {
             loader = new CursorLoader(this);
-            loader.setUri(DataContract.URI_ORDERS);
-            String projection[] = new String[]{
-                    DataContract.Orders._ID,
-                    DataContract.Orders.COLUMN_PURCHASE_TOTAL,
-                    DataContract.Orders.COLUMN_CONFIRMATION_NUMBER,
-                    DataContract.Orders.COLUMN_ORDER_DATE,
-                    DataContract.Orders.COLUMN_VENDOR_NAME,
-                    DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT,
-                    DataContract.Orders.COLUMN_CASH_BACK,
-            };
-            loader.setProjection(projection);
+            loader.setUri(DataContract.URI_CHARITY_ORDERS);
         }
         return loader;
     }
@@ -107,38 +98,8 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         uiActivity.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            createExampleData();
-//            new OrdersRequest(this).fetchData();
+            new CharityOrdersRequest(this).fetchData();
         }
-
-    }
-
-    private void createExampleData() {
-        List<ContentValues> listOrdersValues = new ArrayList<>();
-        ContentValues values;
-
-        for (int i = 0; i < 20; i++) {
-            values = new ContentValues();
-            int month = new Random().nextInt(12) + 1;
-            String sMonth = month > 9 ? String.valueOf(month) : "0" + String.valueOf(month);
-            int day = new Random().nextInt(30) + 1;
-            String sDay = day > 9 ? String.valueOf(day) : "0" + String.valueOf(day);
-            values.put(DataContract.Orders.COLUMN_ORDER_DATE, "201" + String.valueOf((new Random().nextInt(6)) + "-" +
-                    sMonth + "-" + sDay));
-            values.put(DataContract.Orders.COLUMN_VENDOR_NAME, "Vendor" + i);
-            values.put(DataContract.Orders.COLUMN_CASH_BACK, new Random().nextFloat() * 5);
-            values.put(DataContract.Orders.COLUMN_CONFIRMATION_NUMBER, new Random().nextInt(100000));
-            values.put(DataContract.Orders.COLUMN_PURCHASE_TOTAL, new Random().nextFloat() * 100);
-            values.put(DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT, new Random().nextFloat() * 200);
-
-            listOrdersValues.add(values);
-        }
-        DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
-//        if (!DataInsertHandler.IS_FILLING_MERCHANT_TABLE) {
-        handler.startBulkInsert(DataInsertHandler.ORDERS_TOKEN, false, DataContract.URI_ORDERS,
-                listOrdersValues.toArray(new ContentValues[listOrdersValues.size()]));
-//        }
     }
 
     @Override
@@ -221,7 +182,7 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
 
         protected SortedMap<Integer, String> buildSections(Cursor cursor) {
             TreeMap<Integer, String> sections = new TreeMap<>();
-            int columnIndex = cursor.getColumnIndex(DataContract.Orders.COLUMN_ORDER_DATE);
+            int columnIndex = cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_ORDER_DATE);
             cursor.moveToFirst();
             do {
                 String date = cursor.getString(columnIndex);
@@ -277,19 +238,19 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
                 holder.monthYear.setHeight(1);
                 holder.sortDivider.setBackgroundResource(android.R.color.transparent);
             }
-            String date = cursor.getString(cursor.getColumnIndex(DataContract.Orders.COLUMN_ORDER_DATE));
-            String monthDay = Utilities.getMonth(date.substring(5, 7)) + " " + date.substring(8, 10);
-//            holder.monthDay.setText(monthDay);
-//            String name = cursor.getString(cursor.getColumnIndex(DataContract.Orders.COLUMN_VENDOR_NAME));
-//            holder.storeName.setText(name.trim());
-//            String number = cursor.getString(cursor.getColumnIndex(DataContract.Orders.COLUMN_CONFIRMATION_NUMBER));
-//            holder.orderNumber.setText(" " + number.trim());
-//            String stock = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT)));
-//            holder.pendingStockValue.setText(" " + stock);
-//            String cashBack = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.Orders.COLUMN_CASH_BACK)));
-//            holder.storeCommission.setText("$" + cashBack);
-//            String total = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.Orders.COLUMN_PURCHASE_TOTAL)));
-//            holder.total.setText("$" + total);
+            String date = cursor.getString(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_ORDER_DATE));
+            String monthDay = " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
+            holder.dateValue.setText(monthDay);
+            String name = cursor.getString(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_VENDOR_NAME));
+            holder.storeName.setText(name);
+            // TODO: 5/27/2016 not forever
+            String number = cursor.getString(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER));
+//            int number = cursor.getInt(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER));
+            holder.orderNumberValue.setText(" " + number);
+            String donated = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_AMOUNT_DONATED)));
+            holder.amountDonated.setText(" $" + donated);
+            String purchase = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_PURCHASE_TOTAL)));
+            holder.purchaseAmountValue.setText(" $" + purchase);
         }
 
         protected boolean isOpenCursor() {
@@ -350,8 +311,8 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
             TextView monthYear;
             @Bind(R.id.storeName)
             TextView storeName;
-            @Bind(R.id.storeCommission)
-            TextView storeCommission;
+            @Bind(R.id.amountDonated)
+            TextView amountDonated;
             @Bind(R.id.orderNumberValue)
             TextView orderNumberValue;
             @Bind(R.id.purchaseAmountValue)

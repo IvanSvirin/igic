@@ -21,6 +21,7 @@ public class DataContract {
     public final static Uri URI_PAYMENTS = Uri.withAppendedPath(BASE_CONTENT_URI, "payments");
     public final static Uri URI_SHOPPING_TRIPS = Uri.withAppendedPath(BASE_CONTENT_URI, "shopping_trips");
     public static final Uri URI_ORDERS = Uri.withAppendedPath(BASE_CONTENT_URI, "orders");
+    public static final Uri URI_CHARITY_ORDERS = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_orders");
     public static final Uri URI_CHARITY_ACCOUNTS = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_accounts");
 
 
@@ -150,6 +151,25 @@ public class DataContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "orders";
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "orders";
+    }
+
+    public static class CharityOrders implements BaseColumns {
+        public static final String TABLE_NAME = "charity_orders";
+        public static final String COLUMN_VENDOR_ID = "vendor_id";
+        public static final String COLUMN_PURCHASE_TOTAL = "purchase_total";
+        public static final String COLUMN_CONFIRMATION_NUMBER = "confirmation_number";
+        public static final String COLUMN_ORDER_DATE = "order_date";
+        public static final String COLUMN_POSTED_DATE = "posted_date";
+        public static final String COLUMN_VENDOR_NAME = "vendor_name";
+        public static final String COLUMN_VENDOR_LOGO_URL = "vendor_logo_url";
+        public static final String COLUMN_CAUSE_NAME = "cause_name";
+        public static final String COLUMN_CAUSE_LOGO_URL = "cause_logo_url";
+        public static final String COLUMN_AMOUNT_DONATED = "amount_donated";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "charity_orders";
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "charity_orders";
     }
 
     public static class CharityAccounts implements BaseColumns {

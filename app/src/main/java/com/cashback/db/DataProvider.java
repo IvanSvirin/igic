@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,6 +33,7 @@ public class DataProvider extends ContentProvider {
     private static final int PAYMENTS = 600;
     private static final int SHOPPING_TRIPS = 700;
     private static final int ORDERS = 800;
+    private static final int CHARITY_ORDERS = 801;
 
     private static final int CHARITY_ACCOUNTS = 901;
 
@@ -56,6 +58,7 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "payments", PAYMENTS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "shopping_trips", SHOPPING_TRIPS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "orders", ORDERS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "charity_orders", CHARITY_ORDERS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "charity_accounts", CHARITY_ACCOUNTS);
     }
 
@@ -142,15 +145,21 @@ public class DataProvider extends ContentProvider {
                 break;
             case SHOPPING_TRIPS:
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = DataContract.ShoppingTrips.COLUMN_TRIP_DATE + " COLLATE NOCASE ASC";
+                    sortOrder = DataContract.ShoppingTrips.COLUMN_TRIP_DATE + " COLLATE NOCASE DESC";
                 }
                 cursor = db.query(DataContract.ShoppingTrips.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 break;
             case ORDERS:
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = DataContract.Orders.COLUMN_ORDER_DATE + " COLLATE NOCASE ASC";
+                    sortOrder = DataContract.Orders.COLUMN_ORDER_DATE + " COLLATE NOCASE DESC";
                 }
                 cursor = db.query(DataContract.Orders.TABLE_NAME, projection, null, null, null, null, sortOrder);
+                break;
+            case CHARITY_ORDERS:
+                if (TextUtils.isEmpty(sortOrder)) {
+                    sortOrder = DataContract.CharityOrders.COLUMN_ORDER_DATE + " COLLATE NOCASE DESC";
+                }
+                cursor = db.query(DataContract.CharityOrders.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 break;
             case CHARITY_ACCOUNTS:
                 if (TextUtils.isEmpty(sortOrder)) {
@@ -166,7 +175,7 @@ public class DataProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
         final int match = uriMatcher.match(uri);
         ContentResolver resolver = context.getContentResolver();
@@ -233,6 +242,14 @@ public class DataProvider extends ContentProvider {
                 rowID = db.insertWithOnConflict(DataContract.Orders.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
                     resultUri = ContentUris.withAppendedId(DataContract.URI_ORDERS, rowID);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            case CHARITY_ORDERS:
+                rowID = db.insertWithOnConflict(DataContract.CharityOrders.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (rowID > 0) {
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_CHARITY_ORDERS, rowID);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
@@ -378,6 +395,21 @@ public class DataProvider extends ContentProvider {
                     db.endTransaction();
                 }
                 break;
+            case CHARITY_ORDERS:
+                db.beginTransaction();
+                try {
+                    delete(uri, null, null);
+                    for (ContentValues val : values) {
+                        insert(uri, val);
+                        countInsert++;
+                    }
+                    db.setTransactionSuccessful();
+                } catch (SQLException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
+                break;
             case CHARITY_ACCOUNTS:
                 db.beginTransaction();
                 try {
@@ -429,6 +461,9 @@ public class DataProvider extends ContentProvider {
             case ORDERS:
                 affectedRowsCount = db.delete(DataContract.Orders.TABLE_NAME, null, null);
                 break;
+            case CHARITY_ORDERS:
+                affectedRowsCount = db.delete(DataContract.CharityOrders.TABLE_NAME, null, null);
+                break;
             case CHARITY_ACCOUNTS:
                 affectedRowsCount = db.delete(DataContract.CharityAccounts.TABLE_NAME, null, null);
                 break;
@@ -471,6 +506,8 @@ public class DataProvider extends ContentProvider {
                 return DataContract.ShoppingTrips.CONTENT_TYPE;
             case ORDERS:
                 return DataContract.Orders.CONTENT_TYPE;
+            case CHARITY_ORDERS:
+                return DataContract.CharityOrders.CONTENT_TYPE;
             case CHARITY_ACCOUNTS:
                 return DataContract.CharityAccounts.CONTENT_TYPE;
             default:

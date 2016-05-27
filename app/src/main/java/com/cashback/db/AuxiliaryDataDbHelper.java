@@ -65,7 +65,7 @@ public class AuxiliaryDataDbHelper {
             "CREATE TABLE " + DataContract.Coupons.TABLE_NAME + "(" +
                     DataContract.Coupons._ID + PRIMARY_TYPE +
                     DataContract.Coupons.COLUMN_COUPON_ID + INT_TYPE + " UNIQUE" + DELIMITER +
-                    DataContract.Coupons.COLUMN_VENDOR_ID + INT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.Coupons.COLUMN_VENDOR_ID + INT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_COUPON_TYPE + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_RESTRICTIONS + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_COUPON_CODE + TEXT_TYPE + DELIMITER +
@@ -96,7 +96,7 @@ public class AuxiliaryDataDbHelper {
     public final String SQL_CREATE_SHOPPING_TRIPS_TABLE =
             "CREATE TABLE " + DataContract.ShoppingTrips.TABLE_NAME + "(" +
                     DataContract.ShoppingTrips._ID + PRIMARY_TYPE +
-                    DataContract.ShoppingTrips.COLUMN_VENDOR_ID + INT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.ShoppingTrips.COLUMN_VENDOR_ID + INT_TYPE + DELIMITER +
                     DataContract.ShoppingTrips.COLUMN_CONFIRMATION_NUMBER + INT_TYPE + DELIMITER +
                     DataContract.ShoppingTrips.COLUMN_TRIP_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.ShoppingTrips.COLUMN_VENDOR_NAME + TEXT_TYPE + DELIMITER +
@@ -107,7 +107,7 @@ public class AuxiliaryDataDbHelper {
     public final String SQL_CREATE_ORDERS_TABLE =
             "CREATE TABLE " + DataContract.Orders.TABLE_NAME + "(" +
                     DataContract.Orders._ID + PRIMARY_TYPE +
-                    DataContract.Orders.COLUMN_VENDOR_ID + INT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.Orders.COLUMN_VENDOR_ID + INT_TYPE + DELIMITER +
                     DataContract.Orders.COLUMN_PURCHASE_TOTAL + REAL_TYPE + DELIMITER +
                     DataContract.Orders.COLUMN_CONFIRMATION_NUMBER + INT_TYPE + DELIMITER +
                     DataContract.Orders.COLUMN_ORDER_DATE + TEXT_TYPE + DELIMITER +
@@ -118,6 +118,22 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Orders.COLUMN_CASH_BACK + REAL_TYPE +
                     " )";
     public final String SQL_DELETE_ORDERS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Orders.TABLE_NAME;
+
+    public final String SQL_CREATE_CHARITY_ORDERS_TABLE =
+            "CREATE TABLE " + DataContract.CharityOrders.TABLE_NAME + "(" +
+                    DataContract.CharityOrders._ID + PRIMARY_TYPE +
+                    DataContract.CharityOrders.COLUMN_VENDOR_ID + INT_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_PURCHASE_TOTAL + REAL_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER + INT_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_ORDER_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_POSTED_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_VENDOR_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_CAUSE_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_CAUSE_LOGO_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_AMOUNT_DONATED + REAL_TYPE +
+                    " )";
+    public final String SQL_DELETE_CHARITY_ORDERS_TABLE = "DROP TABLE IF EXISTS " + DataContract.CharityOrders.TABLE_NAME;
 
     public final String SQL_CREATE_CHARITY_ACCOUNTS_TABLE =
             "CREATE TABLE " + DataContract.CharityAccounts.TABLE_NAME + "(" +

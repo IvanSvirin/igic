@@ -36,7 +36,7 @@
             android:layout_alignParentStart="true" />
 
         <TextView
-            android:id="@+id/storeCommission"
+            android:id="@+id/amountDonated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
@@ -61,6 +61,7 @@
             android:id="@+id/orderNumberValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:layout_alignBottom="@+id/orderTitle"
             android:layout_gravity="left|center_vertical"
             android:layout_toEndOf="@+id/orderTitle"
