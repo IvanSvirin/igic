@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -110,11 +111,34 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+        CursorLoader loader = null;
+        if (id == MainActivity.ACCOUNT_LOADER) {
+            loader = new CursorLoader(this);
+            loader.setUri(DataContract.URI_CHARITY_ACCOUNTS);
+        }
+        return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        final String name, email, cashBack;
+        if (data != null && data.getCount() > 0 && Utilities.isLoggedIn(this)) {
+            data.moveToFirst();
+            name = data.getString(data.getColumnIndex(DataContract.CharityAccounts.COLUMN_FIRST_NAME)) + " "
+                    + data.getString(data.getColumnIndex(DataContract.CharityAccounts.COLUMN_LAST_NAME));
+            email = data.getString(data.getColumnIndex(DataContract.CharityAccounts.COLUMN_EMAIL));
+            cashBack = "$ " + String.valueOf(data.getFloat(data.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED)));
+        } else {
+            name = "";
+            email = "";
+            cashBack = "";
+        }
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                drawerUi.initDrawerHeader(cashBack, name, email);
+            }
+        }, 500);
     }
 
     @Override
@@ -163,22 +187,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             ButterKnife.bind(this, activity);
             navigator.setSaveEnabled(true);
             navigator.setNavigationItemSelectedListener(this);
-            initData();
-        }
-
-        private void initData() {
-            TextView userName = ButterKnife.findById(navigator, R.id.userName);
-            TextView userEmail = ButterKnife.findById(navigator, R.id.userEmail);
-            TextView totalEarned = ButterKnife.findById(navigator, R.id.totalEarned);
-//            Cursor cursor = getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
-//            if (cursor != null) {
-//                cursor.moveToFirst();
-//            }
-//            userName.setText(cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_FIRST_NAME)) + " "
-//                    + cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_FIRST_NAME)));
-//            userEmail.setText(cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_EMAIL)));
-//            totalEarned.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED))));
-//            cursor.close();
         }
 
         private void init(Bundle savedInstanceState) {
@@ -271,6 +279,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             }
+        }
+
+        private void initDrawerHeader(String cashBack, String name, String email) {
+            TextView viewCashBack = ButterKnife.findById(navigator, R.id.totalEarned);
+            viewCashBack.setText(String.format(stringFormat, cashBack));
+            ((TextView) ButterKnife.findById(navigator, R.id.userName)).setText(name);
+            ((TextView) ButterKnife.findById(navigator, R.id.userEmail)).setText(email);
         }
 
         private boolean isBackPressed() {
