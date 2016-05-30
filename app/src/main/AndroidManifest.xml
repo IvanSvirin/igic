@@ -3,6 +3,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--<uses-permission android:name="android.permission.ACCOUNT_MANAGER" />-->
+
 
     <!-- [START gcm_permission] -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -25,6 +27,10 @@
             android:name=".db.DataProvider"
             android:authorities="com.cashback.provider"
             android:exported="false" />
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider136804739713072"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
 
         <!-- App Indexing -->
         <meta-data
