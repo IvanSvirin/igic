@@ -16,6 +16,7 @@ import com.cashback.R;
  */
 public class PageFragment extends Fragment {
 public static final String COUPON_CODE = "coupon_code";
+public static final String VENDOR_ID = "vendor_id";
 public static final String EXPIRATION_DATE = "expiration_date";
 public static final String RESTRICTIONS = "restrictions";
 
@@ -53,6 +54,7 @@ public static final String RESTRICTIONS = "restrictions";
             public void onClick(View v) {
                 getActivity().finish();
                 Intent intent = new Intent(getContext(), BrowserActivity.class);
+                intent.putExtra("vendor_id", getArguments().getLong(VENDOR_ID));
                 getContext().startActivity(intent);
             }
         });

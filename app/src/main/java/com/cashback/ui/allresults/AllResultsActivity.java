@@ -21,6 +21,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.cashback.R;
+import com.cashback.model.Coupon;
+import com.cashback.model.Merchant;
+import com.cashback.model.Product;
+import com.cashback.rest.event.MerchantCouponsEvent;
+import com.cashback.rest.event.SearchEvent;
+import com.cashback.rest.request.SearchRequest;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.cashback.ui.components.WrapContentHeightViewPager;
 import com.cashback.ui.featured.ExtraTabFragment;
@@ -32,36 +38,45 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by I.Svirin on 4/14/2016.
  */
-public class AllResultsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AllResultsActivity extends AppCompatActivity {
     private UiActivity uiActivity;
+    private String searchingWord;
+    public static ArrayList<Merchant> storesArray = new ArrayList<>();
+    public static ArrayList<Product> productsArray = new ArrayList<>();
+    public static ArrayList<Coupon> dealsArray = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_all_results);
-        uiActivity = new UiActivity(this);
+
+        Intent intent = getIntent();
+        searchingWord = intent.getStringExtra("searching_word");
+        new SearchRequest(this, searchingWord, storesArray, productsArray, dealsArray).fetchData();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onEvent(SearchEvent event) {
+        if (event.isSuccess) {
+            uiActivity = new UiActivity(this);
+        }
     }
 
     @Override
@@ -120,7 +135,7 @@ public class AllResultsActivity extends AppCompatActivity implements LoaderManag
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
-            setTitle(R.string.all_results);
+            setTitle(getResources().getString(R.string.all_results) + " \"" + searchingWord + "\"");
         }
 
         private void setupTabsView(FragmentManager mng) {

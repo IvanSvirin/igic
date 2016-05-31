@@ -243,7 +243,6 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
             holder.dateValue.setText(monthDay);
             String name = cursor.getString(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_VENDOR_NAME));
             holder.storeName.setText(name);
-            // TODO: 5/27/2016 not forever
             String number = cursor.getString(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER));
 //            int number = cursor.getInt(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER));
             holder.orderNumberValue.setText(" " + number);

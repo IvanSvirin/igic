@@ -95,7 +95,6 @@ public class CharityOrdersRequest {
                     jObj = jsonArray.getJSONObject(i);
                     values = new ContentValues();
                     values.put(DataContract.CharityOrders.COLUMN_VENDOR_NAME, jObj.getString("vendor_name"));
-                    // TODO: 5/27/2016 not forever
                     values.put(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER, jObj.getString("confirmation_number"));
 //                    values.put(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER, jObj.getInt("confirmation_number"));
                     values.put(DataContract.CharityOrders.COLUMN_AMOUNT_DONATED, jObj.getDouble("amount_donated"));

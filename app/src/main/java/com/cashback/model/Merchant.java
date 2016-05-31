@@ -37,6 +37,9 @@ public class Merchant {
         this.isFavorite = isFavorite;
     }
 
+    public Merchant() {
+    }
+
     public boolean isFavorite() {
         return isFavorite;
     }

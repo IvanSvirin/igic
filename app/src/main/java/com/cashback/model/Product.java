@@ -22,8 +22,17 @@ public class Product {
     private float vendorCommission;
     @Expose
     private String vendorAffiliateUrl;
+    @Expose
+    private float estimatedPriceTotal;
+    @Expose
+    private float estimatedShipping;
+    @Expose
+    private float priceMerchant;
+    @Expose
+    private float priceRetail;
 
-    public Product(long vendorId, String title, float price, String description, String imageUrl, String vendorLogoUrl, float vendorCommission, String vendorAffiliateUrl) {
+    public Product(long vendorId, String title, float price, String description, String imageUrl, String vendorLogoUrl, float vendorCommission, String vendorAffiliateUrl,
+                   float estimatedPriceTotal, float estimatedShipping, float priceMerchant, float priceRetail) {
         this.vendorId = vendorId;
         this.title = title;
         this.price = price;
@@ -32,6 +41,45 @@ public class Product {
         this.vendorLogoUrl = vendorLogoUrl;
         this.vendorCommission = vendorCommission;
         this.vendorAffiliateUrl = vendorAffiliateUrl;
+        this.estimatedPriceTotal = estimatedPriceTotal;
+        this.estimatedShipping = estimatedShipping;
+        this.priceMerchant = priceMerchant;
+        this.priceRetail = priceRetail;
+    }
+
+    public Product() {
+    }
+
+    public float getEstimatedPriceTotal() {
+        return estimatedPriceTotal;
+    }
+
+    public void setEstimatedPriceTotal(float estimatedPriceTotal) {
+        this.estimatedPriceTotal = estimatedPriceTotal;
+    }
+
+    public float getEstimatedShipping() {
+        return estimatedShipping;
+    }
+
+    public void setEstimatedShipping(float estimatedShipping) {
+        this.estimatedShipping = estimatedShipping;
+    }
+
+    public float getPriceMerchant() {
+        return priceMerchant;
+    }
+
+    public void setPriceMerchant(float priceMerchant) {
+        this.priceMerchant = priceMerchant;
+    }
+
+    public float getPriceRetail() {
+        return priceRetail;
+    }
+
+    public void setPriceRetail(float priceRetail) {
+        this.priceRetail = priceRetail;
     }
 
     public long getVendorId() {

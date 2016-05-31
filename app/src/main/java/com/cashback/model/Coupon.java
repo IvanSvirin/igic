@@ -28,9 +28,11 @@ public class Coupon {
     private String vendorLogoUrl;
     @Expose
     private float vendorCommission;
+    @Expose
+    private String label;
 
     public Coupon(long couponId, long vendorId, String couponType, String restrictions, String couponCode, String expirationDate, String affiliateUrl, String vendorLogoUrl,
-                  float vendorCommission) {
+                  float vendorCommission, String label) {
         this.couponId = couponId;
         this.vendorId = vendorId;
         this.couponType = couponType;
@@ -40,6 +42,7 @@ public class Coupon {
         this.affiliateUrl = affiliateUrl;
         this.vendorLogoUrl = vendorLogoUrl;
         this.vendorCommission = vendorCommission;
+        this.label = label;
     }
 
     public Coupon() {
@@ -56,6 +59,15 @@ public class Coupon {
 //        this.vendorLogoUrl = vendorLogoUrl;
 //        this.vendorCommission = vendorCommission;
 //    }
+
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
     public long getCouponId() {
         return couponId;

@@ -88,9 +88,9 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         exceptionInfo = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_EXCEPTION_INFO));
         description = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_DESCRIPTION));
 
-        commission = intent.getFloatExtra("vendor_commission", 1);
-        logoUrl = intent.getStringExtra("vendor_logo_url");
-        affiliateUrl = intent.getStringExtra("affiliate_url");
+        commission = cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
+        logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL));
+        affiliateUrl = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL));
 
         getSupportLoaderManager().initLoader(MainActivity.FAVORITES_LOADER, null, this);
 

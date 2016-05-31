@@ -249,10 +249,9 @@ public class BrowserActivity extends AppCompatActivity {
                 String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
                 exceptionInfo = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_EXCEPTION_INFO));
                 description = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_DESCRIPTION));
-
                 bar.setTitle(name);
-                bar.setSubtitle(String.valueOf(intent.getFloatExtra("vendor_commission", 1)) + " " + getResources().getString(R.string.cash_back_percent));
-                loadContent(intent.getStringExtra("affiliate_url"));
+                bar.setSubtitle(String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION))) + " " + getResources().getString(R.string.cash_back_percent));
+                loadContent(cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
             }
         }
 
@@ -347,6 +346,7 @@ public class BrowserActivity extends AppCompatActivity {
             args.putString(PageFragment.COUPON_CODE, coupons.get(position).getCouponCode());
             args.putString(PageFragment.EXPIRATION_DATE, coupons.get(position).getExpirationDate());
             args.putString(PageFragment.RESTRICTIONS, coupons.get(position).getRestrictions());
+            args.putLong(PageFragment.VENDOR_ID, coupons.get(position).getVendorId());
             frag.setArguments(args);
             return frag;
         }
