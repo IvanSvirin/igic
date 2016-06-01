@@ -285,7 +285,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
-                        android:checked="false"
                         app:showText="false"
                         android:theme="@style/AppTheme.SwitchCompat"
                         app:theme="@style/AppTheme.SwitchCompat" />
@@ -322,7 +321,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
-                        android:checked="false"
                         app:showText="false"
                         android:theme="@style/AppTheme.SwitchCompat"
                         app:theme="@style/AppTheme.SwitchCompat" />

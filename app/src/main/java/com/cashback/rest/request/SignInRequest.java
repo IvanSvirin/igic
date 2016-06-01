@@ -132,7 +132,7 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
 
                 String postParameters = "email=sandi_schleicher@hotmail.com&password=igive";
-//                String postParameters = "email=" + authObject.getEmail() + "password=" + authObject.getPassword();
+//                String postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword();
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
                 out.print(postParameters);
@@ -172,21 +172,22 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
             try {
                 if (jObj != null) {
                     ContentValues values = new ContentValues();
-                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT, jObj.getString("TOTAL_PAID_AMOUNT"));
-                    values.put(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL, jObj.getString("CAUSE_DASHBOARD_URL"));
-                    values.put(DataContract.CharityAccounts.COLUMN_LAST_NAME, jObj.getString("LAST_NAME"));
-                    values.put(DataContract.CharityAccounts.COLUMN_EMAIL, jObj.getString("EMAIL"));
-                    values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, jObj.getString("FIRST_NAME"));
-                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, jObj.getString("TOTAL_RAISED"));
-                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED, jObj.getString("TOTALEARNED"));
-                    values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, jObj.getString("SELECT_CAUSE_URL"));
-                    values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, jObj.getString("PENDING_AMOUNT"));
-                    values.put(DataContract.CharityAccounts.COLUMN_TOKEN, jObj.getString("TOKEN"));
-                    values.put(DataContract.CharityAccounts.COLUMN_MEMBER_DATE, jObj.getString("MEMBER_DATE"));
+                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT, jObj.getDouble("total_paid_amount"));
+                    values.put(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT, jObj.getDouble("next_check_amount"));
+                    values.put(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL, jObj.getString("cause_dashboard_url"));
+                    values.put(DataContract.CharityAccounts.COLUMN_LAST_NAME, jObj.getString("last_name"));
+                    values.put(DataContract.CharityAccounts.COLUMN_EMAIL, jObj.getString("email"));
+                    values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, jObj.getString("first_name"));
+                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, jObj.getDouble("total_raised"));
+//                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED, jObj.getString("TOTALEARNED"));
+                    values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, jObj.getString("select_cause_url"));
+                    values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, jObj.getDouble("pending_amount"));
+                    values.put(DataContract.CharityAccounts.COLUMN_TOKEN, jObj.getString("token"));
+                    values.put(DataContract.CharityAccounts.COLUMN_MEMBER_DATE, jObj.getString("member_date"));
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
                     EventBus.getDefault().post(new LoginEvent(true, null));
-                    Utilities.saveUserToken(context, jObj.getString("TOKEN"));
+                    Utilities.saveUserToken(context, jObj.getString("token"));
                 } else {
                     EventBus.getDefault().post(new LoginEvent(false, "Check your internet connection or authorization data"));
                 }

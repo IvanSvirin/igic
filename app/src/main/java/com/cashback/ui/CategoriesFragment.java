@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.db.DataContract;
+import com.cashback.rest.RestUtilities;
+import com.cashback.rest.event.CategoriesEvent;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.components.NestedListView;
 
@@ -39,7 +41,7 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_CATEGORIES);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_CATEGORIES);
     }
 
 
@@ -62,9 +64,7 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // TODO: 4/19/2016 TEST - will be deleted
-        getLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
-//        getLoaderManager().initLoader(MainActivity.CATEGORIES_LOADER, null, this);
+        getLoaderManager().initLoader(MainActivity.CATEGORIES_LOADER, null, this);
     }
 
         @Override
@@ -88,15 +88,10 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader loader = null;
-        // TODO: 4/19/2016 TEST - will be deleted
-        if (id == MainActivity.COUPONS_LOADER) {
+        if (id == MainActivity.CATEGORIES_LOADER) {
             loader = new CursorLoader(getActivity());
-            loader.setUri(DataContract.URI_COUPONS);
+            loader.setUri(DataContract.URI_CATEGORIES);
         }
-//        if (id == MainActivity.CATEGORIES_LOADER) {
-//            loader = new CursorLoader(getActivity());
-//            loader.setUri(DataContract.URI_CATEGORIES);
-//        }
         return loader;
     }
 
@@ -110,17 +105,11 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
         fragmentUi.adapter.changeCursor(null);
     }
 
-    // TODO: 4/19/2016 TEST - will be deleted
-    public void onEvent(CouponsEvent event) {
+    public void onEvent(CategoriesEvent event) {
         if (event.isSuccess) {
-            getLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
+            getLoaderManager().restartLoader(MainActivity.CATEGORIES_LOADER, null, this);
         }
     }
-//    public void onEvent(CategoriesEvent event) {
-//        if (event.isSuccess) {
-//            getLoaderManager().restartLoader(MainActivity.CATEGORIES_LOADER, null, this);
-//        }
-//    }
 
     public class FragmentUi {
         private Context context;
@@ -140,9 +129,10 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
             adapter = new CategoriesAdapter(getActivity(), null, 0);
             adapter.setOnCategoryClickListener(new CategoriesAdapter.OnCategoryClickListener() {
                 @Override
-                public void onCategoryClick(String categoryName) {
+                public void onCategoryClick(String categoryName, long id) {
                     Intent intent = new Intent(getContext(), CategoryActivity.class);
                     intent.putExtra("category_name", categoryName);
+                    intent.putExtra("category_id", id);
                     startActivity(intent);
                 }
             });
@@ -188,14 +178,13 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
         @Override
         public void bindView(View view, Context context, final Cursor cursor) {
             ViewHolder holder = (ViewHolder) view.getTag();
-            // TODO: 4/19/2016 TEST - will be deleted
-            final String name = "Category" + String.valueOf(new Random().nextInt(20));
-//            final String name = cursor.getString(cursor.getColumnIndex(DataContract.Categories.COLUMN_NAME));
+            final String name = cursor.getString(cursor.getColumnIndex(DataContract.Categories.COLUMN_NAME));
+            final long id = cursor.getLong(cursor.getColumnIndex(DataContract.Categories.COLUMN_CATEGORY_ID));
             holder.categoryName.setText(name);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onCategoryClick(name);
+                    listener.onCategoryClick(name, id);
                 }
             });
         }
@@ -205,7 +194,7 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
         }
 
         public interface OnCategoryClickListener {
-            void onCategoryClick(String categoryName);
+            void onCategoryClick(String categoryName, long id);
         }
 
         public static class ViewHolder {

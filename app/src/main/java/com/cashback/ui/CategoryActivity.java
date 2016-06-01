@@ -21,17 +21,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
 import android.widget.FilterQueryProvider;
+import android.widget.Filterable;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.db.DataContract;
+import com.cashback.model.Merchant;
+import com.cashback.rest.event.CategoryMerchantsEvent;
 import com.cashback.rest.event.MerchantsEvent;
+import com.cashback.rest.request.MerchantsByCategoryRequest;
 import com.cashback.rest.request.MerchantsRequest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -42,9 +51,11 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by I.Svirin on 4/14/2016.
  */
-public class CategoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class CategoryActivity extends AppCompatActivity {
     private static final String SEARCH_KEY = "keyword_store";
     private UiActivity uiActivity;
+    private ArrayList<Merchant> merchants = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +63,11 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         setContentView(R.layout.layout_categoryy);
 
+        Intent intent = getIntent();
+        long id = intent.getLongExtra("category_id", 1);
+        new MerchantsByCategoryRequest(this, merchants, id).fetchData();
+
         uiActivity = new UiActivity(this);
-        // TODO: 4/19/2016 TEST - will be deleted
-        getSupportLoaderManager().initLoader(MainActivity.MERCHANTS_LOADER, null, this);
     }
 
     @Override
@@ -71,50 +84,10 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
         uiActivity.getAdapter().getFilter().filter(null);
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String searchFilter = null;
-        if (args != null)
-            searchFilter = args.getString(SEARCH_KEY);
-
-        CursorLoader loader = null;
-        // TODO: 4/19/2016 TEST - will be deleted
-        if (id == MainActivity.MERCHANTS_LOADER) {
-            loader = new CursorLoader(this);
-            loader.setUri(DataContract.URI_MERCHANTS);
-            String projection[] = new String[]{
-                    DataContract.Merchants._ID,
-                    DataContract.Merchants.COLUMN_VENDOR_ID,
-                    DataContract.Merchants.COLUMN_NAME,
-                    DataContract.Merchants.COLUMN_COMMISSION,
-            };
-            loader.setProjection(projection);
-            if (searchFilter != null) {
-                loader.setSelection(DataContract.Merchants.COLUMN_NAME + " LIKE '%" + searchFilter + "%'");
-            }
-        }
-        return loader;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        uiActivity.getAdapter().swapCursor(data);
-        if (data == null || data.getCount() == 0) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            new MerchantsRequest(this).fetchData();
-        }
-    }
-
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        uiActivity.getAdapter().swapCursor(null);
-    }
-
-    // TODO: 4/19/2016 TEST - will be deleted
-    public void onEvent(MerchantsEvent event) {
+    public void onEvent(CategoryMerchantsEvent event) {
         if (event.isSuccess) {
-            getSupportLoaderManager().restartLoader(MainActivity.MERCHANTS_LOADER, null, this);
+            uiActivity.initListAdapter();
+            uiActivity.initListHandler();
         }
     }
 
@@ -179,22 +152,13 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             setTitle(getIntent().getStringExtra("category_name"));
 
-            allStoresList.setTextFilterEnabled(false);
-            initListAdapter();
-            initListHandler();
+            allStoresList.setTextFilterEnabled(true);
+//            initListAdapter();
+//            initListHandler();
         }
 
         private void initListAdapter() {
-            adapter = new AllStoresAdapter(context, null, 0);
-            adapter.setFilterQueryProvider(new FilterQueryProvider() {
-                @Override
-                public Cursor runQuery(CharSequence constraint) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(SEARCH_KEY, constraint.toString());
-                    getSupportLoaderManager().restartLoader(MainActivity.MERCHANTS_LOADER, bundle, CategoryActivity.this);
-                    return null;
-                }
-            });
+            adapter = new AllStoresAdapter(context, merchants);
             allStoresList.setAdapter(adapter);
         }
 
@@ -202,17 +166,10 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
             allStoresList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // if (!uAdapter.isSection(position)) {
-                    //   int correctPosition = uAdapter.getCursorPositionWithoutSections(position);
-                    Cursor cursor = adapter.getCursor();
-                    cursor.moveToPosition(position); //cursor.moveToPosition(correctPosition);
-                    int merchantId = cursor.getInt(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID));
-                    String merchantName = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
+                    long merchantId = merchants.get(position).getVendorId();
                     Intent intent = new Intent(parent.getContext(), StoreActivity.class);
-//                    intent.putExtra(StoreActivity.VENDOR_ID, merchantId);
-//                    intent.putExtra(StoreActivity.STORE_NAME, merchantName);
-//                    startActivity(intent);
-                    // }
+                    intent.putExtra("vendor_id", merchantId);
+                    startActivity(intent);
                 }
             });
         }
@@ -230,24 +187,24 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
         }
     }
 
-    public static class AllStoresAdapter extends CursorAdapter implements SectionIndexer {
+    public static class AllStoresAdapter extends BaseAdapter implements SectionIndexer, Filterable {
+        private Context context;
+        private ArrayList<Merchant> merchants;
+        private ArrayList<Merchant> merchantsFiltered;
         protected SortedMap<Integer, String> sections = new TreeMap<>();
         ArrayList<Integer> sectionList = new ArrayList<>();
         private LayoutInflater layoutInflater;
 
-        public AllStoresAdapter(Context context, Cursor c, boolean autoRequiry) {
-            super(context, c, autoRequiry);
+        public AllStoresAdapter(Context context, ArrayList<Merchant> merchants) {
+            this.context = context;
+            this.merchants = merchants;
+            Collections.sort(merchants, new Comparator<Merchant>() {
+                @Override
+                public int compare(Merchant lhs, Merchant rhs) {
+                    return lhs.getName().compareTo(rhs.getName());
+                }
+            });
             init(context, null);
-        }
-
-        public AllStoresAdapter(Context context, Cursor c, int flags) {
-            super(context, c, flags);
-            init(context, null);
-        }
-
-        protected AllStoresAdapter(Context context, Cursor c, boolean autoRequiry, SortedMap<Integer, String> sections) {
-            super(context, c, autoRequiry);
-            init(context, sections);
         }
 
         private void init(Context context, SortedMap<Integer, String> sections) {
@@ -259,43 +216,51 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
             }
         }
 
+        @Override
+        public int getCount() {
+            return merchantsFiltered == null ? merchants.size() : merchantsFiltered.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return merchantsFiltered == null ? merchants.get(position) : merchantsFiltered.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
         protected LayoutInflater getLayoutInflater() {
             return layoutInflater;
         }
 
         private void buildSections() {
-            if (isOpenCursor()) {
-                Cursor cursor = getCursor();
-                sections = buildSections(cursor);
-                if (sections == null) {
-                    sections = new TreeMap<>();
-                }
+            sections = build();
+            if (sections == null) {
+                sections = new TreeMap<>();
             }
         }
 
-        protected SortedMap<Integer, String> buildSections(Cursor cursor) {
+        protected SortedMap<Integer, String> build() {
             TreeMap<Integer, String> sections = new TreeMap<>();
-            int columnIndex = cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME);
-            cursor.moveToFirst();
-            do {
-                String name = cursor.getString(columnIndex);
+            for (int i = 0; i < merchants.size(); i++) {
+                String name = merchants.get(i).getName();
                 String section = name.toUpperCase().substring(0, 1);
                 if (section.matches("\\d")) {
                     section = "#";
                 }
                 if (!sections.containsValue(section)) {
-                    sections.put(cursor.getPosition(), section);
+                    sections.put(i, section);
                 }
-            } while (cursor.moveToNext() && isOpenCursor());
+            }
             return sections;
         }
 
         @Override
         public void notifyDataSetChanged() {
-            if (isOpenCursor()) {
-                buildSections();
-                sectionList.clear();
-            }
+            buildSections();
+            sectionList.clear();
             super.notifyDataSetChanged();
         }
 
@@ -304,25 +269,19 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
          */
         @Override
         public void notifyDataSetInvalidated() {
-            if (isOpenCursor()) {
-                buildSections();
-                sectionList.clear();
-            }
+            buildSections();
+            sectionList.clear();
             super.notifyDataSetInvalidated();
         }
 
         @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            View convertView = LayoutInflater.from(context).inflate(R.layout.item_store_list_extend, parent, false);
-            ViewHolder holder = new ViewHolder(convertView);
-            convertView.setTag(holder);
-            return convertView;
-        }
-
-        @Override
-        public void bindView(View convertView, Context context, final Cursor cursor) {
-            ViewHolder holder = (ViewHolder) convertView.getTag();
-            int position = cursor.getPosition();
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.item_store_list_extend, parent, false);
+                ViewHolder holder = new ViewHolder(convertView);
+                convertView.setTag(holder);
+            }
+            final ViewHolder holder = (ViewHolder) convertView.getTag();
             if (sections.containsKey(position)) {
                 String sort = sections.get(position);
                 holder.sortColumn.setText(sort);
@@ -332,19 +291,11 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
                 holder.sortColumn.setText("");
                 holder.sortDivider.setBackgroundResource(android.R.color.transparent);
             }
-            String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
+            String name = merchantsFiltered == null ? merchants.get(position).getName() : merchantsFiltered.get(position).getName();
             holder.shopName.setText(name);
-            String commission = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
-            holder.shopCommission.setText(commission + "%");
-        }
-
-        protected boolean isOpenCursor() {
-            Cursor cursor = getCursor();
-            if (cursor == null || cursor.isClosed() || cursor.getCount() < 1) {
-                swapCursor(null);
-                return false;
-            }
-            return true;
+            float commission = merchantsFiltered == null ? merchants.get(position).getCommission() : merchantsFiltered.get(position).getCommission();
+            holder.shopCommission.setText(String.valueOf(commission + "%"));
+            return convertView;
         }
 
         @Override
@@ -368,7 +319,7 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
                     sectionList.add(key);
                 }
             }
-            return sectionIndex < sectionList.size() ? sectionList.get(sectionIndex) : mCursor.getCount();
+            return sectionIndex < sectionList.size() ? sectionList.get(sectionIndex) : getCount();
         }
 
         @Override
@@ -389,19 +340,49 @@ public class CategoryActivity extends AppCompatActivity implements LoaderManager
             return sectionIndex < secs.length ? sectionIndex : 0;
         }
 
-        public static class ViewHolder {
-            @Bind(R.id.sortDivider)
-            TextView sortDivider;
-            @Bind(R.id.sortColumn)
-            TextView sortColumn;
-            @Bind(R.id.shopName)
-            TextView shopName;
-            @Bind(R.id.shopCommission)
-            TextView shopCommission;
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults results = new FilterResults();
+                    if (constraint == null || constraint.length() == 0) {
+                        //no search, so just return all the data
+                        results.count = merchants.size();
+                        results.values = merchants;
+                    } else {//do the search
+                        ArrayList<Merchant> resultsData = new ArrayList<>();
+                        String searchStr = constraint.toString().toUpperCase();
+                        for (Merchant m : merchants)
+                            if (m.getName().toUpperCase().contains(searchStr)) resultsData.add(m);
+                        results.count = resultsData.size();
+                        results.values = resultsData;
+                    }
+                    return results;
+                }
 
-            public ViewHolder(View convertView) {
-                ButterKnife.bind(this, convertView);
-            }
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    merchantsFiltered = (ArrayList<Merchant>) results.values;
+                    notifyDataSetChanged();
+                }
+            };
+        }
+    }
+
+    public static class ViewHolder {
+        @Bind(R.id.sortDivider)
+        TextView sortDivider;
+        @Bind(R.id.sortColumn)
+        TextView sortColumn;
+        @Bind(R.id.shopName)
+        TextView shopName;
+        @Bind(R.id.shopCommission)
+        TextView shopCommission;
+
+        public ViewHolder(View convertView) {
+            ButterKnife.bind(this, convertView);
         }
     }
 }
+

@@ -52,7 +52,7 @@ public class FavoritesRequest {
 
     private class FavoritesRequestTask extends AsyncTask<Void, Void, Void> {
         private String jsonString = "";
-        JSONArray jsonArray;
+        private JSONArray jsonArray;
         private JSONObject jObj = null;
         private URL url;
         private InputStream inputStream = null;
@@ -126,6 +126,7 @@ public class FavoritesRequest {
     private class AddMerchantTask extends AsyncTask<Void, Void, Void> {
         private long id;
         private String jsonString = "";
+        private JSONArray jsonArray;
         private JSONObject jObj = null;
         private URL url;
         private InputStream inputStream = null;
@@ -166,7 +167,7 @@ public class FavoritesRequest {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
             }
             try {
-                jObj = new JSONObject(jsonString);
+                jObj = (JSONObject) new JSONArray(jsonString).get(0);
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
@@ -178,8 +179,8 @@ public class FavoritesRequest {
             super.onPostExecute(aVoid);
             try {
                 if (jObj != null) {
-                    long gottenId = jObj.getLong("VENDOR_ID");
-                    long isFavorite = jObj.getInt("IS_FAVORITE");
+                    long gottenId = jObj.getLong("vendor_id");
+                    long isFavorite = jObj.getInt("is_favorite");
                     if (gottenId == id && isFavorite == 1) fetchData();
                 } else {
                     EventBus.getDefault().post(new FavoritesEvent(false, "Check your internet connection or authorization data"));
@@ -193,6 +194,7 @@ public class FavoritesRequest {
     private class DeleteMerchantTask extends AsyncTask<Void, Void, Void> {
         private long id;
         private String jsonString = "";
+        private JSONArray jsonArray;
         private JSONObject jObj = null;
         private URL url;
         private InputStream inputStream = null;
@@ -232,7 +234,7 @@ public class FavoritesRequest {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
             }
             try {
-                jObj = new JSONObject(jsonString);
+                jObj = (JSONObject) new JSONArray(jsonString).get(0);
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
@@ -244,8 +246,8 @@ public class FavoritesRequest {
             super.onPostExecute(aVoid);
             try {
                 if (jObj != null) {
-                    long gottenId = jObj.getLong("VENDOR_ID");
-                    long isFavorite = jObj.getInt("IS_FAVORITE");
+                    long gottenId = jObj.getLong("vendor_id");
+                    long isFavorite = jObj.getInt("is_favorite");
                     if (gottenId == id && isFavorite == 0) fetchData();
                 } else {
                     EventBus.getDefault().post(new FavoritesEvent(false, "Check your internet connection or authorization data"));

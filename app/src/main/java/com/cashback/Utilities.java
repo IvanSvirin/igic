@@ -31,6 +31,7 @@ public class Utilities {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getString(PREF_IDFA_KEY, null);
     }
+
     public static boolean saveUserEntry(Context context, boolean entry) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
@@ -71,6 +72,30 @@ public class Utilities {
             return true;
         }
         return false;
+    }
+
+    public static boolean isDonationNotifyOn(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getBoolean("donation_notify", false);
+    }
+
+    public static void setDonationNotify(Context context, boolean set) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("donation_notify", set);
+        editor.apply();
+    }
+
+    public static boolean isDealsNotifyOn(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getBoolean("deals_notify", false);
+    }
+
+    public static void setDealsNotify(Context context, boolean set) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("deals_notify", set);
+        editor.apply();
     }
 
     public static boolean isShowTour(Context context) {

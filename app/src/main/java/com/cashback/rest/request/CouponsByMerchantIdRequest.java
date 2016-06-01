@@ -113,6 +113,7 @@ public class CouponsByMerchantIdRequest {
                     EventBus.getDefault().post(new MerchantCouponsEvent(true, "OK"));
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    EventBus.getDefault().post(new MerchantCouponsEvent(false, "No coupons featured data"));
                 }
             } else {
                 EventBus.getDefault().post(new MerchantCouponsEvent(false, "No coupons featured data"));

@@ -42,7 +42,7 @@ public class ShoppingTripsRequest {
 
     private class ShoppingTripsRequestTask extends AsyncTask<Void, Void, Void> {
         private String jsonString = "";
-        JSONArray jsonArray;
+        private JSONArray jsonArray;
         private JSONObject jObj = null;
         private URL url;
         private InputStream inputStream = null;

@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,13 +19,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cashback.R;
+import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.CouponsEvent;
+import com.cashback.rest.event.SearchEvent;
+import com.cashback.rest.event.SettingsEvent;
+import com.cashback.rest.request.CharitySettingsRequest;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
@@ -47,6 +53,7 @@ public class AccountFragment extends Fragment {
         super.onCreate(savedInstanceState);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_CHARITY_ORDERS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_SHOPPING_TRIPS);
+        new CharitySettingsRequest(getContext()).fetchData();
         setHasOptionsMenu(true);
     }
 
@@ -61,7 +68,6 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        getLoaderManager().initLoader(MainActivity.IMAGE_LOADER, null, this);
         Toolbar toolbar = fragmentUi.getToolbar();
         ((MainActivity) getActivity()).setAssociateToolbar(toolbar);
     }
@@ -69,7 +75,14 @@ public class AccountFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        EventBus.getDefault().register(this);
         getActivity().setTitle(R.string.item_account);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     @Override
@@ -117,6 +130,13 @@ public class AccountFragment extends Fragment {
         }
     }
 
+    public void onEvent(SettingsEvent event) {
+        if (event.isSuccess) {
+            fragmentUi.dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
+            fragmentUi.donationSwitcher.setChecked(Utilities.isDonationNotifyOn(getContext()));
+        }
+    }
+
     public class FragmentUi {
         private Context context;
         @Bind(R.id.toolbar)
@@ -131,6 +151,10 @@ public class AccountFragment extends Fragment {
         TextView totalRaisedValue;
         @Bind(R.id.totalPaidDate)
         TextView totalPaidDate;
+        @Bind(R.id.trending_deals_alerts_switcher)
+        SwitchCompat dealsSwitcher;
+        @Bind(R.id.donation_alerts_switcher)
+        SwitchCompat donationSwitcher;
 
         public FragmentUi(AccountFragment fragment, View view) {
             this.context = fragment.getContext();
@@ -143,12 +167,27 @@ public class AccountFragment extends Fragment {
             if (cursor != null) {
                 cursor.moveToFirst();
             }
-            pendingAmountValue.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT))));
-            totalPaidValue.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT))));
-            totalRaisedValue.setText("$ " + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
+            nextCheckAmountValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT))));
+            pendingAmountValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT))));
+            totalPaidValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT))));
+            totalRaisedValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_DATE));
             totalPaidDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             cursor.close();
+            dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
+            donationSwitcher.setChecked(Utilities.isDonationNotifyOn(getContext()));
+            dealsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    new CharitySettingsRequest(context).changeData(Utilities.isDonationNotifyOn(getContext()), isChecked);
+                }
+            });
+            donationSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    new CharitySettingsRequest(context).changeData(isChecked, Utilities.isDealsNotifyOn(getContext()));
+                }
+            });
         }
 
         public void unbind() {
