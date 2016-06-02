@@ -2,17 +2,14 @@ package com.cashback.ui.allresults;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -21,7 +18,6 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
 import com.cashback.model.Merchant;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
@@ -171,7 +167,7 @@ public class StoresTabFragment extends Fragment {
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
                 holder.vhCashBack.setText(commission);
                 if (isFavorite) {
-                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favorite));
+                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoritegrey));
                 } else {
                     holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
                 }
@@ -198,7 +194,7 @@ public class StoresTabFragment extends Fragment {
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
                 holder.vhCashBack.setText(commission);
                 if (isFavorite) {
-                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favorite));
+                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoritegrey));
                 } else {
                     holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
                 }

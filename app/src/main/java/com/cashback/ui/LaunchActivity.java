@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 
+import com.cashback.BranchActivity;
 import com.cashback.Utilities;
 import com.cashback.gcm.RegistrationGcmServices;
 import com.cashback.ui.MainActivity;
@@ -20,6 +21,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import io.branch.referral.Branch;
 
 /**
  * Created by I.Svirin on 4/5/2016.
@@ -37,6 +40,9 @@ public class LaunchActivity extends AppCompatActivity {
         Intent intentNextActivity;
 
         Utilities.saveIdfa(this, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+
+        // Automatic session tracking
+        Branch.getAutoInstance(getApplicationContext());
 
         FacebookSdk.sdkInitialize(getApplicationContext());
 
