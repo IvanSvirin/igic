@@ -27,6 +27,7 @@ import com.cashback.db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.rest.request.FavoritesRequest;
+import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
@@ -146,10 +147,11 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
             featuredAdapter.setOnShareClickListener(new FeaturedAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
-                    Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("text/plain");
-                    share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
-                    startActivity(Intent.createChooser(share, "Share Text"));
+                    Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
+                    Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+                    cursor.moveToFirst();
+                    LaunchActivity.createLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
+                            cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                 }
             });
             featuredAdapter.setOnFavoriteClickListener(new FeaturedAdapter.OnFavoriteClickListener() {

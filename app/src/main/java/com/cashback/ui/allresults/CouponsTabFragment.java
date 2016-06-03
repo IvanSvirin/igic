@@ -2,6 +2,8 @@ package com.cashback.ui.allresults;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -18,7 +20,9 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+import com.cashback.db.DataContract;
 import com.cashback.model.Coupon;
+import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
@@ -89,10 +93,11 @@ public class CouponsTabFragment extends Fragment {
             couponsAdapter.setOnShareClickListener(new CouponsAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
-                    Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("text/plain");
-                    share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
-                    startActivity(Intent.createChooser(share, "Share Text"));
+                    Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
+                    Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+                    cursor.moveToFirst();
+                    LaunchActivity.createLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
+                            cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                 }
             });
             couponsAdapter.setOnCardClickListener(new CouponsAdapter.OnCardClickListener() {

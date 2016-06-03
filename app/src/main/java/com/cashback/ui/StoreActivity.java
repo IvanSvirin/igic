@@ -242,10 +242,11 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             adapter.setOnShareClickListener(new CursorCouponsAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
-                    Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("text/plain");
-                    share.putExtra(Intent.EXTRA_TEXT, String.valueOf(shareId));
-                    startActivity(Intent.createChooser(share, "Share Text"));
+                    Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
+                    Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+                    cursor.moveToFirst();
+                    LaunchActivity.createLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
+                            cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                 }
             });
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {

@@ -1,28 +1,38 @@
 package com.cashback.ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 
-import com.cashback.BranchActivity;
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.gcm.RegistrationGcmServices;
 import com.cashback.ui.MainActivity;
+import com.cashback.ui.account.HelpActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.facebook.FacebookSdk;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
+import io.branch.referral.util.LinkProperties;
 
 /**
  * Created by I.Svirin on 4/5/2016.
@@ -43,6 +53,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         // Automatic session tracking
         Branch.getAutoInstance(getApplicationContext());
+        initBranchSession();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
 
@@ -59,6 +70,57 @@ public class LaunchActivity extends AppCompatActivity {
         }
         startActivity(intentNextActivity);
         finish();
+    }
+
+    private void initBranchSession() {
+        Branch branch = Branch.getInstance();
+        branch.initSession(new Branch.BranchReferralInitListener() {
+            @Override
+            public void onInitFinished(JSONObject referringParams, BranchError error) {
+                if (error == null) {
+                    try {
+                        String vendorId = referringParams.getString("vendor_id");
+                        if (vendorId != null) {
+                            Intent intent = new Intent(getApplicationContext(), StoreActivity.class);
+                            intent.putExtra("vendor_id", Long.parseLong(vendorId));
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }, this.getIntent().getData(), this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
+    }
+
+    public static void createLink(final Context context, String url, long vendorId) {
+        BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+                .addContentMetadata("vendor_id", String.valueOf(vendorId));
+//                .setCanonicalIdentifier("share");
+//                .setTitle("Check out this article!")
+//                .setContentDescription("It’s really entertaining...")
+//                .setContentImageUrl("https://mysite.com/article_logo.png")
+//                .addContentMetadata("read_progress", "17%");
+
+        LinkProperties linkProperties = new LinkProperties()
+//                .setChannel("facebook")
+//                .setFeature("sharing")
+                .addControlParameter("$fallback_url", url);
+
+        branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
+            @Override
+            public void onLinkCreate(String url, BranchError error) {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, url);
+                context.startActivity(Intent.createChooser(share, "Share Text"));
+            }
+        });
     }
 
     @Override
