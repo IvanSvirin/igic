@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="layout_common_hot_deals" type="layout">@layout/layout_featured_tab_grid0</item>
+    <item name="layout_common_favorite" type="layout">@layout/layout_featured_tab_grid1</item>
+    <item name="layout_common_extra" type="layout">@layout/layout_featured_tab_grid2</item>
+    <item name="layout_common_stores" type="layout">@layout/layout_featured_tab_grid0</item>
+    <item name="layout_common_products" type="layout">@layout/layout_featured_tab_grid1</item>
+    <item name="layout_common_coupons" type="layout">@layout/layout_featured_tab_grid2</item>
+</resources>

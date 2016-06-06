@@ -10,10 +10,11 @@ public class LoginEvent {
     public final String message;
     public String token = null;
 
-    public LoginEvent(boolean isSuccess, @Nullable String message) {
+    public LoginEvent(boolean isSuccess, String message) {
         this.isSuccess = isSuccess;
         this.message = message;
     }
+
     public String getToken() {
         return token;
     }

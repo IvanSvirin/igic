@@ -30,13 +30,12 @@ import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
-import com.cashback.ui.web.BrowserActivity;
+import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import io.branch.referral.Branch;
 
 /**
  * Created by I.Svirin on 4/7/2016.
@@ -47,7 +46,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_featured_tab_grid0, container, false);
+        View view = inflater.inflate(R.layout.layout_common_hot_deals, container, false);
         fragmentUi = new FragmentUi(this, view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
@@ -127,7 +126,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                 @Override
                 public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
-                        Intent intent = new Intent(context, BrowserActivity.class);
+                        Intent intent = new Intent(context, BrowserDealsActivity.class);
                         Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(id));
                         Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
                         cursor.moveToFirst();

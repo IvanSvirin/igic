@@ -71,5 +71,11 @@
     <string name="zip_post">Zip/Postal Code</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
+    <string name="welcome_to_igive">Welcome to iGive!</string>
+    <string name="make_donation_to_shop">Make donation to shop!</string>
+    <string name="create_your_own_list_of_favorite_stores">Create your own list \n of favorite stores!</string>
+    <string name="buy_at_your_favorite_stores_to_do_donation">Buy at your favorite stores \n to do Donation!</string>
+    <string name="your_donation_money_with_coupons">Your donation money \n with coupons</string>
+    <string name="not_available_fb_share">Sorry. But you don\\\'t ability send the invite to your friends.</string>
 
 </resources>

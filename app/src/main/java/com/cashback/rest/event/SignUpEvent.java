@@ -10,7 +10,7 @@ public class SignUpEvent {
     public final String message;
     public String token = null;
 
-    public SignUpEvent(boolean isSuccess, @Nullable String message) {
+    public SignUpEvent(boolean isSuccess, String message) {
         this.isSuccess = isSuccess;
         this.message = message;
     }

@@ -43,7 +43,7 @@ import com.cashback.rest.request.CouponsByMerchantIdRequest;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
-import com.cashback.ui.web.BrowserActivity;
+import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -227,7 +227,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 @Override
                 public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
-                        Intent intent = new Intent(context, BrowserActivity.class);
+                        Intent intent = new Intent(context, BrowserDealsActivity.class);
                         intent.putExtra("vendor_id", vendorId);
                         intent.putExtra("vendor_commission", commission);
                         intent.putExtra("affiliate_url", affiliateUrl);
@@ -252,7 +252,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(context, BrowserActivity.class);
+                    Intent intent = new Intent(context, BrowserDealsActivity.class);
                     intent.putExtra("vendor_id", vendorId);
                     intent.putExtra("vendor_commission", commission);
                     intent.putExtra("affiliate_url", affiliateUrl);
@@ -286,7 +286,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 @Override
                 public void onClick(View v) {
                     if (Utilities.isLoggedIn(context)) {
-                        Intent intent = new Intent(context, BrowserActivity.class);
+                        Intent intent = new Intent(context, BrowserDealsActivity.class);
                         intent.putExtra("vendor_id", vendorId);
                         intent.putExtra("vendor_commission", commission);
                         intent.putExtra("affiliate_url", affiliateUrl);

@@ -8,9 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -27,8 +24,6 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.RestUtilities;
-import com.cashback.rest.event.CouponsEvent;
-import com.cashback.rest.event.SearchEvent;
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CharitySettingsRequest;
 import com.cashback.ui.MainActivity;
@@ -155,6 +150,7 @@ public class AccountFragment extends Fragment {
         SwitchCompat dealsSwitcher;
         @Bind(R.id.donation_alerts_switcher)
         SwitchCompat donationSwitcher;
+        private String memberSettingsUrl;
 
         public FragmentUi(AccountFragment fragment, View view) {
             this.context = fragment.getContext();
@@ -173,6 +169,7 @@ public class AccountFragment extends Fragment {
             totalRaisedValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_DATE));
             totalPaidDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
+            memberSettingsUrl = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL));
             cursor.close();
             dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
             donationSwitcher.setChecked(Utilities.isDonationNotifyOn(getContext()));
@@ -216,6 +213,8 @@ public class AccountFragment extends Fragment {
                     break;
                 case R.id.memberSettingsFrame:
                     intent = new Intent(context, BrowserActivity.class);
+                    intent.putExtra("title", getResources().getString(R.string.member_settings));
+                    intent.putExtra("url", memberSettingsUrl);
                     startActivity(intent);
                     break;
 

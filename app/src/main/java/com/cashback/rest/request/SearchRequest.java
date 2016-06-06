@@ -56,10 +56,10 @@ public class SearchRequest {
 
     private class SearchRequestTask extends AsyncTask<Void, Void, Void> {
         private String jsonString = "";
+        private JSONArray jsonArray;
         private JSONArray storesJsonArray;
         private JSONArray productsJsonArray;
         private JSONArray dealsJsonArray;
-
         private JSONObject jObj = null;
         private URL url;
         private InputStream inputStream = null;
@@ -94,7 +94,8 @@ public class SearchRequest {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
             }
             try {
-                jObj = new JSONObject(jsonString);
+                jsonArray = new JSONArray(jsonString);
+//                jObj = new JSONObject(jsonString);
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
@@ -104,11 +105,12 @@ public class SearchRequest {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if (jObj != null) {
+            if (jsonArray != null) {
                 try {
-                    storesJsonArray = jObj.getJSONArray("STORES");
-                    productsJsonArray = jObj.getJSONArray("PRODUCTS");
-                    dealsJsonArray = jObj.getJSONArray("DEALS");
+                    jObj = jsonArray.getJSONObject(0);
+                    storesJsonArray = jObj.getJSONArray("stores");
+                    productsJsonArray = jObj.getJSONArray("products");
+                    dealsJsonArray = jObj.getJSONArray("deals");
                     Merchant merchant;
                     for (int i = 0; i < storesJsonArray.length(); i++) {
                         jObj = storesJsonArray.getJSONObject(i);
@@ -128,17 +130,17 @@ public class SearchRequest {
                     for (int i = 0; i < productsJsonArray.length(); i++) {
                         jObj = productsJsonArray.getJSONObject(i);
                         product = new Product();
-                        product.setVendorId(jObj.getLong("VENDOR_ID"));
-                        product.setTitle(jObj.getString("TITLE"));
-                        product.setPrice((float) jObj.getDouble("PRICE"));
+                        product.setVendorId(jObj.getLong("vendor_id"));
+                        product.setTitle(jObj.getString("title"));
+                        product.setPrice((float) jObj.getDouble("price"));
                         product.setDescription(jObj.getString("description"));
-                        product.setImageUrl(jObj.getString("image_url_large"));
-                        product.setVendorLogoUrl(jObj.getString("VENDOR_LOGO_URL"));
-                        product.setVendorCommission((float) jObj.getDouble("VENDOR_COMMISSION"));
-                        product.setVendorAffiliateUrl(jObj.getString("VENDOR_AFFILIATE_URL"));
-                        product.setEstimatedPriceTotal((float) jObj.getDouble("estimated_price_total"));
-                        product.setPriceMerchant((float) jObj.getDouble("price_merchant"));
-                        product.setPriceRetail((float) jObj.getDouble("price_retail"));
+//                        product.setImageUrl(jObj.getString("image_url_large"));
+                        product.setVendorLogoUrl(jObj.getString("vendor_logo_url"));
+                        product.setVendorCommission((float) jObj.getDouble("vendor_commission"));
+                        product.setVendorAffiliateUrl(jObj.getString("vendor_affiliate_url"));
+//                        product.setEstimatedPriceTotal((float) jObj.getDouble("estimated_price_total"));
+//                        product.setPriceMerchant((float) jObj.getDouble("price_merchant"));
+//                        product.setPriceRetail((float) jObj.getDouble("price_retail"));
                         productsArray.add(product);
                     }
                     Coupon coupon;

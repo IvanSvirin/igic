@@ -50,6 +50,8 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_shopping_tripss);
 
+        getSupportLoaderManager().initLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -57,12 +59,6 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
         setTitle(R.string.shopping_trips);
 
         uiActivity = new UiActivity(this);
-    }
-
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        getSupportLoaderManager().initLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
     }
 
     @Override

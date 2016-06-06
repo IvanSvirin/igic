@@ -42,20 +42,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fbButton"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/small_btn_facebook" />
+                android:src="@drawable/small_btn_facebook"
+                android:layout_alignTop="@+id/twButton"
+                android:layout_toLeftOf="@+id/twButton"
+                android:layout_toStartOf="@+id/twButton"
+                android:layout_marginRight="9dp"
+                android:layout_marginEnd="9dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/twButton"
                 android:src="@drawable/small_btn_twitter"
-                android:layout_toRightOf="@+id/fbButton"
-                android:layout_toEndOf="@+id/fbButton"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_alignTop="@+id/fbButton" />
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/gButton"
+                android:layout_toStartOf="@+id/gButton" />
 
             <ImageView
                 android:layout_width="wrap_content"

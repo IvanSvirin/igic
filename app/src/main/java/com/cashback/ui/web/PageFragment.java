@@ -53,7 +53,7 @@ public static final String RESTRICTIONS = "restrictions";
             @Override
             public void onClick(View v) {
                 getActivity().finish();
-                Intent intent = new Intent(getContext(), BrowserActivity.class);
+                Intent intent = new Intent(getContext(), BrowserDealsActivity.class);
                 intent.putExtra("vendor_id", getArguments().getLong(VENDOR_ID));
                 getContext().startActivity(intent);
             }

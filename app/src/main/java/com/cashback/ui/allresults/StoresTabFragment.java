@@ -26,7 +26,7 @@ import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
-import com.cashback.ui.web.BrowserActivity;
+import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class StoresTabFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_featured_tab0, container, false);  // layout_all_results_tab_grid0 doesn't work
+        View view = inflater.inflate(R.layout.layout_common_stores, container, false);
         fragmentUi = new FragmentUi(this, view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
@@ -80,7 +80,7 @@ public class StoresTabFragment extends Fragment {
                 @Override
                 public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
-                        Intent intent = new Intent(context, BrowserActivity.class);
+                        Intent intent = new Intent(context, BrowserDealsActivity.class);
                         intent.putExtra("vendor_id", id);
                         context.startActivity(intent);
                     } else {

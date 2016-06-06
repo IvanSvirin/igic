@@ -340,6 +340,14 @@
 
             </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:drawable/divider_horizontal_bright"
+            android:dividerPadding="@dimen/divider_padding"
+            android:orientation="vertical"
+            android:showDividers="end|beginning">
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/frame_height"
@@ -371,6 +379,13 @@
                     android:textAppearance="@style/AppTheme.TextAppearance"
                     android:layout_gravity="top" />
             </FrameLayout>
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            />
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

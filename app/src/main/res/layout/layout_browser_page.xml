@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    tools:context=".ui.web.BrowserActivity"
+    tools:context=".ui.web.BrowserDealsActivity"
     android:background="@color/primary">
 
     <TextView

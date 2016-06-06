@@ -26,7 +26,7 @@ import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
-import com.cashback.ui.web.BrowserActivity;
+import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class ProductsTabFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_featured_tab1, container, false);  // layout_all_results_tab_grid1 doesn't work
+        View view = inflater.inflate(R.layout.layout_common_products, container, false);
         fragmentUi = new FragmentUi(this, view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
@@ -80,7 +80,7 @@ public class ProductsTabFragment extends Fragment {
                 @Override
                 public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
-                        Intent intent = new Intent(context, BrowserActivity.class);
+                        Intent intent = new Intent(context, BrowserDealsActivity.class);
                         intent.putExtra("vendor_id", id);
                         context.startActivity(intent);
                     } else {
@@ -165,14 +165,14 @@ public class ProductsTabFragment extends Fragment {
             }
             final long vendorId = productsArray.get(position).getVendorId();
             String logoUrl = productsArray.get(position).getVendorLogoUrl();
-            String productImageUrl = productsArray.get(position).getImageUrl();
+//            String productImageUrl = productsArray.get(position).getImageUrl();
             String name = productsArray.get(position).getTitle();
             float price = productsArray.get(position).getPrice();
             float commission = productsArray.get(position).getVendorCommission();
             if (GRID_TYPE_FLAG) {
                 final GridViewHolder holder = (GridViewHolder) convertView.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
-                picasso.load(productImageUrl).into(holder.vhProductImage);
+//                picasso.load(productImageUrl).into(holder.vhProductImage);
                 holder.vhProductName.setText(name);
                 holder.vhPrice.setText("$" + String.valueOf(price) + " ($" + String.format("%.2f", (price * commission / 100)) + ")");
                 holder.vhYourPriceValue.setText("$" + String.format("%.2f", (price * (100 - commission) / 100)));
@@ -198,7 +198,7 @@ public class ProductsTabFragment extends Fragment {
             } else {
                 ViewHolder holder = (ViewHolder) convertView.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
-                picasso.load(productImageUrl).into(holder.vhProductImage);
+//                picasso.load(productImageUrl).into(holder.vhProductImage);
                 holder.vhProductName.setText(name);
                 holder.vhPrice.setText("$" + String.valueOf(price) + " ($" + String.format("%.2f", (price * commission / 100)) + ")");
                 holder.vhYourPriceValue.setText(" $" + String.format("%.2f", (price * (100 - commission) / 100)));

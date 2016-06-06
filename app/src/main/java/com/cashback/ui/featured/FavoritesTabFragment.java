@@ -24,7 +24,6 @@ import android.widget.TextView;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
-import com.cashback.rest.event.CouponsEvent;
 import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.LaunchActivity;
@@ -32,7 +31,7 @@ import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
-import com.cashback.ui.web.BrowserActivity;
+import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -48,7 +47,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_featured_tab_grid1, container, false);
+        View view = inflater.inflate(R.layout.layout_common_favorite, container, false);
         fragmentUi = new FragmentUi(this, view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
@@ -129,7 +128,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                 @Override
                 public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
-                        Intent intent = new Intent(context, BrowserActivity.class);
+                        Intent intent = new Intent(context, BrowserDealsActivity.class);
                         Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(id));
                         Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
                         cursor.moveToFirst();
