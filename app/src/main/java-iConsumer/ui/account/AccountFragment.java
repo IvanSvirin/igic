@@ -27,9 +27,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by I.Svirin on 4/11/2016.
- */
 public class AccountFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";
     private FragmentUi fragmentUi;

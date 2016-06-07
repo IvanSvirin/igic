@@ -70,7 +70,6 @@ public class SignInFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         callbackManager = CallbackManager.Factory.create();
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -81,8 +80,14 @@ public class SignInFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
     }
 

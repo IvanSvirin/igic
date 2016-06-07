@@ -17,9 +17,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by I.Svirin on 4/18/2016.
- */
 public class MerchantsDeserializer implements JsonDeserializer<List<Merchant>> {
     @Override
     public List<Merchant> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws ErrorRestException, WarningRestException, JsonParseException {

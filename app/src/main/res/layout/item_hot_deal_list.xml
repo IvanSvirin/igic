@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <android.support.v7.widget.CardView
+        style="@style/AppTheme.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/padding_small"
+            android:paddingEnd="@dimen/padding_standard"
+            android:paddingRight="@dimen/padding_standard"
+            android:paddingStart="@dimen/padding_standard"
+            android:paddingLeft="@dimen/padding_standard"
+            android:paddingTop="@dimen/padding_small">
+
+            <ImageView
+                android:id="@+id/storeLogo"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:gravity="start"
+                android:paddingTop="5dp"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/restrictions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:singleLine="false"
+                android:text="@null"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:textColor="@color/textColorPrimary"
+                android:layout_below="@+id/textView3"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:id="@+id/cashBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:layout_gravity="start"
+                android:text="5"
+                android:singleLine="true"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:textColor="@color/red"
+                android:layout_below="@+id/expireDate"
+                android:layout_alignLeft="@+id/expireDate"
+                android:layout_alignStart="@+id/expireDate" />
+
+            <TextView
+                android:id="@+id/btnShopNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|top"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:text="@string/btn_shop_now"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:textColor="@color/primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sales_clearance"
+                android:layout_below="@+id/storeLogo"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/textView3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/expireDate"
+                android:text="Exp."
+                android:layout_below="@+id/restrictions"
+                android:layout_alignLeft="@+id/restrictions"
+                android:layout_alignStart="@+id/restrictions" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/shareButton"
+                android:src="@drawable/ic_share_black_24dp"
+                android:layout_alignBottom="@+id/textView8"
+                android:layout_alignRight="@+id/restrictions"
+                android:layout_alignEnd="@+id/restrictions" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEW TEXT"
+                android:id="@+id/couponCode"
+                android:textColor="@color/primary"
+                android:background="@drawable/coupon"
+                android:textSize="12sp"
+                android:paddingTop="7dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignBottom="@+id/shareButton"
+                android:layout_toLeftOf="@+id/shareButton"
+                android:layout_toStartOf="@+id/shareButton" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cash_back_percent"
+                android:id="@+id/textView8"
+                android:textColor="@color/red"
+                android:textAppearance="@style/AppTheme.TextAppearance"
+                android:layout_alignTop="@+id/cashBack"
+                android:layout_toRightOf="@+id/cashBack"
+                android:layout_toEndOf="@+id/cashBack" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>
+
+
+

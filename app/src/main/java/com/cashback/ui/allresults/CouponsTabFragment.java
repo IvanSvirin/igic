@@ -34,9 +34,6 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by I.Svirin on 4/15/2016.
- */
 public class CouponsTabFragment extends Fragment {
     private FragmentUi fragmentUi;
 
@@ -93,11 +90,10 @@ public class CouponsTabFragment extends Fragment {
             couponsAdapter.setOnShareClickListener(new CouponsAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
-                    Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
+                    Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(shareId));
                     Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
                     cursor.moveToFirst();
-                    LaunchActivity.createLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
-                            cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), shareId);
                 }
             });
             couponsAdapter.setOnCardClickListener(new CouponsAdapter.OnCardClickListener() {
@@ -153,7 +149,7 @@ public class CouponsTabFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_store_list_big_card_hot_deal, parent, false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.item_common_hot_deals, parent, false);
                 if (GRID_TYPE_FLAG) {
                     GridViewHolder holder = new GridViewHolder(convertView);
                     convertView.setTag(holder);
@@ -167,7 +163,7 @@ public class CouponsTabFragment extends Fragment {
             String label = couponsArray.get(position).getLabel();
             float commission = couponsArray.get(position).getVendorCommission();
             // TODO: 5/31/2016 not forever
-            String expire = "12/31/2050";
+            String expire = "Exp. 12/31/2050";
             String code = couponsArray.get(position).getCouponCode();
             if (GRID_TYPE_FLAG) {
                 final GridViewHolder holder = (GridViewHolder) convertView.getTag();

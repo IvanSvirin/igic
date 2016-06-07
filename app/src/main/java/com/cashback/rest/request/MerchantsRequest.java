@@ -43,9 +43,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by ivansv on 16.04.2016.
- */
 public class MerchantsRequest extends ServiceGenerator<IMerchants> {
 //    private Call<List<Merchant>> call;
 //    private Type listType;

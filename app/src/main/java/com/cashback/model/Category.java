@@ -3,9 +3,6 @@ package com.cashback.model;
 
 import com.google.gson.annotations.Expose;
 
-/**
- * Created by I.Svirin on 4/6/2016.
- */
 public class Category {
     @Expose
     private long categoryId;

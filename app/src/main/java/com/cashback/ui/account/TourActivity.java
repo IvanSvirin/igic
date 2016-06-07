@@ -14,9 +14,6 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.ButterKnife;
 
-/**
- * Created by I.Svirin on 4/13/2016.
- */
 public class TourActivity extends AppCompatActivity {
     private static final int TOTAL_PAGE_COUNT = 4;
     private static final int SCORE_RETAINED_FRAGMENT = 2;

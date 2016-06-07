@@ -13,9 +13,6 @@ import com.cashback.R;
 import com.cashback.ui.MainActivity;
 import com.google.android.gms.gcm.GcmListenerService;
 
-/**
- * Created by I.Svirin on 4/5/2016.
- */
 public class IgicGcmListenerService extends GcmListenerService {
     public static final int NOTIFICATION_ID = 1;
 

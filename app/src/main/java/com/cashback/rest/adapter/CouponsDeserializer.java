@@ -18,9 +18,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by I.Svirin on 4/18/2016.
- */
 public class CouponsDeserializer implements JsonDeserializer<List<Coupon>> {
     @Override
     public List<Coupon> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws ErrorRestException, WarningRestException, JsonParseException {

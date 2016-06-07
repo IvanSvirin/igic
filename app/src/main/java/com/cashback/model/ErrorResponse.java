@@ -1,8 +1,5 @@
 package com.cashback.model;
 
-/**
- * Created by I.Svirin on 4/18/2016.
- */
 public class ErrorResponse {
     private int ErrorCode;
     private String ErrorMessage;

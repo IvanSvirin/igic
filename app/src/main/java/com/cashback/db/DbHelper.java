@@ -5,9 +5,6 @@ import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by ivansv on 16.04.2016.
- */
 public class DbHelper extends SQLiteOpenHelper{
     public final static int DATABASE_VERSION = 1;
     public final static String DATABASE_NAME = "igic.db";

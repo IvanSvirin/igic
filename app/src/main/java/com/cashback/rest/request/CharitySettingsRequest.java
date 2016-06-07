@@ -28,9 +28,6 @@ import java.net.URL;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 6/1/2016.
- */
 public class CharitySettingsRequest {
     private Context context;
 

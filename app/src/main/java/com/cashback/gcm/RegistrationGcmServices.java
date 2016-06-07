@@ -9,9 +9,6 @@ import com.cashback.Utilities;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
-/**
- * Created by I.Svirin on 4/5/2016.
- */
 public class RegistrationGcmServices extends IntentService {
     private final static String SERVICE_NAME = "RegGcmServices";
 

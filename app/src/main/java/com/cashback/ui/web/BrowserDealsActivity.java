@@ -45,9 +45,6 @@ import butterknife.OnClick;
 import butterknife.OnPageChange;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/12/2016.
- */
 public class BrowserDealsActivity extends AppCompatActivity {
     private ActivityUi ui;
     private MenuItem menuItem;
@@ -75,15 +72,15 @@ public class BrowserDealsActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    public void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     @Override

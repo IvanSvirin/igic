@@ -6,4 +6,11 @@
     <item name="layout_common_stores" type="layout">@layout/layout_featured_tab0</item>
     <item name="layout_common_products" type="layout">@layout/layout_featured_tab1</item>
     <item name="layout_common_coupons" type="layout">@layout/layout_featured_tab2</item>
+    <item name="layout_common_store" type="layout">@layout/layout_store</item>
+
+    <item name="item_common_hot_deals" type="layout">@layout/item_hot_deal_list</item>
+    <item name="item_common_favorite" type="layout">@layout/item_favorite_list</item>
+    <item name="item_common_extra" type="layout">@layout/item_extra_list</item>
+    <item name="item_common_product" type="layout">@layout/item_product_list</item>
+    <item name="item_common_coupon" type="layout">@layout/item_coupons_list</item>
 </resources>

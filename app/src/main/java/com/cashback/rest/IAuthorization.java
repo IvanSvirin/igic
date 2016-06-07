@@ -8,10 +8,6 @@ import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
-
-/**
- * Created by I.Svirin on 5/12/2016.
- */
 public interface IAuthorization {
 
     @POST("api/v1/authorization/login/")

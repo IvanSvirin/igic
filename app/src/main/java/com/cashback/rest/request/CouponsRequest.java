@@ -47,9 +47,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/**
- * Created by I.Svirin on 4/18/2016.
- */
 public class CouponsRequest extends ServiceGenerator<IMerchants> {
     //    private Call<List<Coupon>> call;
 //    private Type listType;

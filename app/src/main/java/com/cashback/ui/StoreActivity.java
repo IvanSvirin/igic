@@ -53,9 +53,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/20/2016.
- */
 public class StoreActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private ArrayList<Coupon> coupons;
     private Intent intent;
@@ -74,7 +71,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
-        setContentView(R.layout.layout_store);
+        setContentView(R.layout.layout_common_store);
 
         handler = new Handler();
         coupons = new ArrayList<>();
@@ -98,15 +95,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    public void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     public void onEvent(MerchantCouponsEvent event) {
@@ -242,11 +239,10 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             adapter.setOnShareClickListener(new CursorCouponsAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
-                    Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
+                    Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(vendorId));
                     Cursor cursor = getContentResolver().query(uri, null, null, null, null);
                     cursor.moveToFirst();
-                    LaunchActivity.createLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
-                            cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), vendorId);
                 }
             });
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
@@ -331,7 +327,11 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 
                 @Override
                 public void onError() {
-
+                    @ColorInt
+                    int color = -7292864;
+                    toolbar.setBackgroundColor(color);
+                    bigRelativeLayout.setBackgroundColor(color);
+                    storeName.setBackgroundColor(1157627903);
                 }
             });
         }
@@ -375,7 +375,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_coupons_list, parent, false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.item_common_coupon, parent, false);
                 if (GRID_TYPE_FLAG) {
                     GridViewHolder holder = new GridViewHolder(convertView);
                     convertView.setTag(holder);

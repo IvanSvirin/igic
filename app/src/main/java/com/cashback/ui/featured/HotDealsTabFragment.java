@@ -37,9 +37,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/7/2016.
- */
 public class HotDealsTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private FragmentUi fragmentUi;
 
@@ -60,15 +57,15 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    public void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     @Override
@@ -147,7 +144,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                     Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
                     Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
                     cursor.moveToFirst();
-                    LaunchActivity.createLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
+                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
                             cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
                 }
             });
@@ -194,7 +191,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            View convertView = LayoutInflater.from(context).inflate(R.layout.item_store_list_big_card_hot_deal, parent, false);
+            View convertView = LayoutInflater.from(context).inflate(R.layout.item_common_hot_deals, parent, false);
             if (GRID_TYPE_FLAG) {
                 GridViewHolder holder = new GridViewHolder(convertView);
                 convertView.setTag(holder);
@@ -209,7 +206,9 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         public void bindView(View view, Context context, Cursor cursor) {
             final long couponId = cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
             final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
-            String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
+            // TODO: 6/7/2016
+//            String label = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_LABEL));
+//            String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
             String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
             String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
@@ -217,7 +216,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             if (GRID_TYPE_FLAG) {
                 final GridViewHolder holder = (GridViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
-                holder.vhRestrictions.setText(restrictions.trim());
+//                holder.vhRestrictions.setText(label);
                 holder.vhCashBack.setText(cashBack);
                 holder.vhExpireDate.setText(expire);
                 if (couponCode.length() < 4) {
@@ -240,7 +239,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             } else {
                 ViewHolder holder = (ViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
-                holder.vhRestrictions.setText(restrictions.trim());
+//                holder.vhRestrictions.setText(label);
                 holder.vhCashBack.setText(cashBack);
                 holder.vhExpireDate.setText(expire);
                 if (couponCode.length() < 4) {

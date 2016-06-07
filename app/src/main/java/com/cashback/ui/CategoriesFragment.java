@@ -31,9 +31,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/11/2016.
- */
 public class CategoriesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final String TAG_CATEGORIES_FRAGMENT = "I_categories_fragment";
     private FragmentUi fragmentUi;
@@ -68,15 +65,15 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
     }
 
         @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    public void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     @Override

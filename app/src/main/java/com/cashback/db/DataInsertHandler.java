@@ -18,9 +18,6 @@ import com.cashback.rest.event.ShoppingTripsEvent;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by ivansv on 16.04.2016.
- */
 public class DataInsertHandler extends BulkAsyncQueryHandler {
     public static boolean IS_FILLING_MERCHANT_TABLE = false;
 

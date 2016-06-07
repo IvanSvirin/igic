@@ -29,9 +29,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by I.Svirin on 4/7/2016.
- */
 public class FeaturedFragment extends Fragment {
     public static final String TAG_FEATURED_FRAGMENT = "I_featured_fragment";
     private FragmentUi fragmentUi;

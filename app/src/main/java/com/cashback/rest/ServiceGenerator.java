@@ -17,9 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 
-/**
- * Created by ivansv on 16.04.2016.
- */
 public abstract class ServiceGenerator<S> {
 
     private static final long CONNECT_TIMEOUT = 10;

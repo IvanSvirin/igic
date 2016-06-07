@@ -26,9 +26,6 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 5/4/2016.
- */
 public class ShoppingTripsRequest {
     private Context context;
 

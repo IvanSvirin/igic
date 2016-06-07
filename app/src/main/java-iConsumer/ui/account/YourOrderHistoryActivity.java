@@ -38,9 +38,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/12/2016.
- */
 public class YourOrderHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private UiActivity uiActivity;
 

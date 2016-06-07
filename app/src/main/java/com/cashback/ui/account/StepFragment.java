@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 
 import com.cashback.R;
 
-/**
- * Created by I.Svirin on 4/13/2016.
- */
 public class StepFragment extends Fragment {
 
     static final String ARGUMENT_PAGE_STEP = "arg_page_step";

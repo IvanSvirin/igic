@@ -18,9 +18,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by I.Svirin on 4/29/2016.
- */
 public class CategoriesDeserializer implements JsonDeserializer<List<Category>> {
     @Override
     public List<Category> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

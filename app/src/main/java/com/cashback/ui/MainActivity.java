@@ -1,5 +1,6 @@
 package com.cashback.ui;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,9 +35,6 @@ import butterknife.BindString;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/6/2016.
- */
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private final String SELECTED_ITEM_ID = "SELECTED_ITEM_ID";
     private final String CONTENT_KEY = "IAM_CONTENT";
@@ -86,27 +84,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
+        EventBus.getDefault().register(this);
         AppEventsLogger.activateApp(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        AppEventsLogger.deactivateApp(this);
-    }
-
-    @Override
-    public void onStop() {
         EventBus.getDefault().unregister(this);
-        super.onStop();
+        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
@@ -299,6 +287,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         private Fragment getCurrentContent() {
             return fragmentManager.findFragmentById(R.id.content_frame);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == TellAFriendFragment.GOOGLE_PLUS_REQUEST_CODE) && (resultCode == -1)) {
+            //Do something if success
         }
     }
 }

@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import com.cashback.R;
 
-/**
- * Created by I.Svirin on 4/25/2016.
- */
 public class PageFragment extends Fragment {
 public static final String COUPON_CODE = "coupon_code";
 public static final String VENDOR_ID = "vendor_id";

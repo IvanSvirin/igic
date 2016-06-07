@@ -48,9 +48,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/14/2016.
- */
 public class CategoryActivity extends AppCompatActivity {
     private static final String SEARCH_KEY = "keyword_store";
     private UiActivity uiActivity;
@@ -71,17 +68,24 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
-        EventBus.getDefault().unregister(this);
         super.onStop();
         uiActivity.allStoresList.clearTextFilter();
-        uiActivity.getAdapter().getFilter().filter(null);
+        if (uiActivity.getAdapter() != null) {
+            uiActivity.getAdapter().getFilter().filter(null);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
     }
 
     public void onEvent(CategoryMerchantsEvent event) {

@@ -15,9 +15,6 @@ import com.cashback.rest.request.OrdersRequest;
 import com.cashback.rest.request.PaymentsRequest;
 import com.cashback.rest.request.ShoppingTripsRequest;
 
-/**
- * Created by ivansv on 16.04.2016.
- */
 public class RestUtilities {
     public final static String TOKEN_ACCOUNT = "token_account";
     public final static String TOKEN_MERCHANTS = "token_merchants";

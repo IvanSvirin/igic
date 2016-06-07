@@ -3,10 +3,6 @@ package com.cashback.db;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
-
-/**
- * Created by I.Svirin on 4/12/2016.
- */
 public class DataContract {
     public final static String CONTENT_AUTHORITY = "com.cashback.provider";
     public final static String BASE_CONTENT = "content://";
@@ -86,6 +82,7 @@ public class DataContract {
         public static final String COLUMN_VENDOR_ID = "vendor_id";
         public static final String COLUMN_COUPON_TYPE = "coupon_type";
         public static final String COLUMN_RESTRICTIONS = "restrictions";
+        public static final String COLUMN_LABEL = "label";
         public static final String COLUMN_COUPON_CODE = "coupon_code";
         public static final String COLUMN_EXPIRATION_DATE = "expiration_date";
         public static final String COLUMN_AFFILIATE_URL = "affiliate_url";
@@ -187,6 +184,7 @@ public class DataContract {
         public static final String COLUMN_TOTAL_EARNED = "total_earned";
         public static final String COLUMN_CAUSE_DASHBOARD_URL = "cause_dashboard_url";
         public static final String COLUMN_SELECT_CAUSE_URL = "select_cause_url";
+        public static final String COLUMN_REFERRER_ID = "referrer_id";
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "charity_accounts";

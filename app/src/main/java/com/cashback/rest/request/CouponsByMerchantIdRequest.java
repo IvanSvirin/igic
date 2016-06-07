@@ -28,9 +28,6 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 5/24/2016.
- */
 public class CouponsByMerchantIdRequest {
     private Context context;
     private long id;

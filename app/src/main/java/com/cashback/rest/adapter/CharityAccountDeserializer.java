@@ -15,9 +15,6 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
-/**
- * Created by I.Svirin on 5/12/2016.
- */
 public class CharityAccountDeserializer implements JsonDeserializer<CharityAccount> {
     @Override
     public CharityAccount deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

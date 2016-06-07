@@ -35,9 +35,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by I.Svirin on 6/6/2016.
- */
 public class BrowserActivity extends AppCompatActivity {
     private ActivityUi ui;
     private Intent intent;

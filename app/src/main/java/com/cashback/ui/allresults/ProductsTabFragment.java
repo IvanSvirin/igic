@@ -34,9 +34,6 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by I.Svirin on 4/15/2016.
- */
 public class ProductsTabFragment extends Fragment {
     private FragmentUi fragmentUi;
 
@@ -93,11 +90,10 @@ public class ProductsTabFragment extends Fragment {
             productsAdapter.setOnShareClickListener(new ProductsAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
-                    Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
+                    Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(shareId));
                     Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
                     cursor.moveToFirst();
-                    LaunchActivity.createLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
-                            cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), shareId);
                 }
             });
             productsAdapter.setOnCardClickListener(new ProductsAdapter.OnCardClickListener() {
@@ -154,7 +150,7 @@ public class ProductsTabFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_product_list_card, parent, false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.item_common_product, parent, false);
                 if (GRID_TYPE_FLAG) {
                     GridViewHolder holder = new GridViewHolder(convertView);
                     convertView.setTag(holder);
@@ -165,14 +161,14 @@ public class ProductsTabFragment extends Fragment {
             }
             final long vendorId = productsArray.get(position).getVendorId();
             String logoUrl = productsArray.get(position).getVendorLogoUrl();
-//            String productImageUrl = productsArray.get(position).getImageUrl();
+            String productImageUrl = productsArray.get(position).getImageUrl();
             String name = productsArray.get(position).getTitle();
             float price = productsArray.get(position).getPrice();
             float commission = productsArray.get(position).getVendorCommission();
             if (GRID_TYPE_FLAG) {
                 final GridViewHolder holder = (GridViewHolder) convertView.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
-//                picasso.load(productImageUrl).into(holder.vhProductImage);
+                picasso.load(productImageUrl).into(holder.vhProductImage);
                 holder.vhProductName.setText(name);
                 holder.vhPrice.setText("$" + String.valueOf(price) + " ($" + String.format("%.2f", (price * commission / 100)) + ")");
                 holder.vhYourPriceValue.setText("$" + String.format("%.2f", (price * (100 - commission) / 100)));
@@ -198,7 +194,7 @@ public class ProductsTabFragment extends Fragment {
             } else {
                 ViewHolder holder = (ViewHolder) convertView.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
-//                picasso.load(productImageUrl).into(holder.vhProductImage);
+                picasso.load(productImageUrl).into(holder.vhProductImage);
                 holder.vhProductName.setText(name);
                 holder.vhPrice.setText("$" + String.valueOf(price) + " ($" + String.format("%.2f", (price * commission / 100)) + ")");
                 holder.vhYourPriceValue.setText(" $" + String.format("%.2f", (price * (100 - commission) / 100)));

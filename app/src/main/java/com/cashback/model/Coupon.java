@@ -2,9 +2,6 @@ package com.cashback.model;
 
 import com.google.gson.annotations.Expose;
 
-/**
- * Created by I.Svirin on 4/7/2016.
- */
 public class Coupon {
 //    enum CouponType {COUPON, SALE, CLEARANCE, FREE_GIFT, FREE_SHIPPING, SPECIAL_SHIPPING, SPECIAL_OFFER}
 

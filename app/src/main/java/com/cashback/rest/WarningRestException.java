@@ -2,9 +2,6 @@ package com.cashback.rest;
 
 import com.cashback.model.WarningResponse;
 
-/**
- * Created by I.Svirin on 4/18/2016.
- */
 public class WarningRestException extends RuntimeException {
     private WarningResponse body;
 

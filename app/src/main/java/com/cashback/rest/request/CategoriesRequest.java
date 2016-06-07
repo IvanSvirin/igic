@@ -44,9 +44,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/**
- * Created by I.Svirin on 4/29/2016.
- */
 public class CategoriesRequest {
     private Context context;
 

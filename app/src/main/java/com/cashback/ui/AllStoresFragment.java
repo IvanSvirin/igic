@@ -41,9 +41,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/11/2016.
- */
 public class AllStoresFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final String TAG_ALL_STORES_FRAGMENT = "I_all_stores_fragment";
     private static final String SEARCH_KEY = "keyword_store";
@@ -54,7 +51,6 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
 
     @Nullable
     @Override
@@ -70,7 +66,6 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         Toolbar toolbar = fragmentUi.getToolbar();
         ((MainActivity) getActivity()).setAssociateToolbar(toolbar);
         getActivity().setTitle(R.string.title_all_stores_fragment);
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -79,7 +74,19 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         getLoaderManager().initLoader(MainActivity.MERCHANTS_LOADER, null, this);
     }
 
-        @Override
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         fragmentUi.allStoresList.clearTextFilter();
@@ -89,7 +96,6 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventBus.getDefault().unregister(this);
         fragmentUi.unbind();
     }
 

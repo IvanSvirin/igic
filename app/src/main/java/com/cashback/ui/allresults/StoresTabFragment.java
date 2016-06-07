@@ -34,9 +34,6 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by I.Svirin on 4/15/2016.
- */
 public class StoresTabFragment extends Fragment {
     private FragmentUi fragmentUi;
 
@@ -93,11 +90,10 @@ public class StoresTabFragment extends Fragment {
             storesAdapter.setOnShareClickListener(new StoresAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
-                    Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
+                    Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(shareId));
                     Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
                     cursor.moveToFirst();
-                    LaunchActivity.createLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
-                            cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), shareId);
                 }
             });
             storesAdapter.setOnCardClickListener(new StoresAdapter.OnCardClickListener() {
@@ -154,7 +150,7 @@ public class StoresTabFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_store_list_small_card_favorite, parent, false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.item_common_favorite, parent, false);
                 if (GRID_TYPE_FLAG) {
                     GridViewHolder holder = new GridViewHolder(convertView);
                     convertView.setTag(holder);
@@ -172,7 +168,7 @@ public class StoresTabFragment extends Fragment {
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
                 holder.vhCashBack.setText(commission);
                 if (isFavorite) {
-                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoritegrey));
+                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favorite));
                 } else {
                     holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
                 }

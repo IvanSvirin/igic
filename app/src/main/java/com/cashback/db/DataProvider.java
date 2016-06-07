@@ -15,9 +15,6 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
-/**
- * Created by ivansv on 16.04.2016.
- */
 public class DataProvider extends ContentProvider {
     private static final int MERCHANTS = 100;
     private static final int MERCHANT_BY_ID = 101;

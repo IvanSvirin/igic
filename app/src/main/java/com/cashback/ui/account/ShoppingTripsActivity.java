@@ -39,9 +39,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/12/2016.
- */
 public class ShoppingTripsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private UiActivity uiActivity;
 
@@ -62,14 +59,14 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
         uiActivity.unbind();
     }

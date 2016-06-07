@@ -31,9 +31,6 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 5/31/2016.
- */
 public class SearchRequest {
     private Context context;
     private String searchingWord;
@@ -134,7 +131,7 @@ public class SearchRequest {
                         product.setTitle(jObj.getString("title"));
                         product.setPrice((float) jObj.getDouble("price"));
                         product.setDescription(jObj.getString("description"));
-//                        product.setImageUrl(jObj.getString("image_url_large"));
+                        product.setImageUrl(jObj.getString("image_url"));
                         product.setVendorLogoUrl(jObj.getString("vendor_logo_url"));
                         product.setVendorCommission((float) jObj.getDouble("vendor_commission"));
                         product.setVendorAffiliateUrl(jObj.getString("vendor_affiliate_url"));
@@ -155,7 +152,7 @@ public class SearchRequest {
                         coupon.setExpirationDate(jObj.getString("expiration_date"));
                         coupon.setAffiliateUrl(jObj.getString("affiliate_url"));
                         coupon.setVendorLogoUrl(jObj.getString("vendor_logo_url"));
-                        coupon.setLabel(jObj.getString("Label"));
+                        coupon.setLabel(jObj.getString("label"));
                         coupon.setVendorCommission((float) jObj.getDouble("vendor_commission"));
                         dealsArray.add(coupon);
                     }

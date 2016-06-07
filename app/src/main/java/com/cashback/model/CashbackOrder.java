@@ -2,9 +2,6 @@ package com.cashback.model;
 
 import com.google.gson.annotations.Expose;
 
-/**
- * Created by I.Svirin on 4/7/2016.
- */
 public class CashbackOrder {
     @Expose
     private long vendorId;

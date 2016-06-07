@@ -18,9 +18,6 @@ import com.cashback.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by I.Svirin on 5/6/2016.
- */
 public class SearchActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;

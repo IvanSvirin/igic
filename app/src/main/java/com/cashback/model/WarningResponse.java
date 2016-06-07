@@ -1,8 +1,5 @@
 package com.cashback.model;
 
-/**
- * Created by I.Svirin on 4/18/2016.
- */
 public class WarningResponse {
     private String field;
     private String error;

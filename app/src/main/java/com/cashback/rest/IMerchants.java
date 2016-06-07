@@ -11,9 +11,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 
-/**
- * Created by ivansv on 16.04.2016.
- */
 public interface IMerchants {
 
     @GET("api/v1/merchants/")

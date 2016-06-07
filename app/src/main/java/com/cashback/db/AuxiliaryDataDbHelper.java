@@ -1,8 +1,5 @@
 package com.cashback.db;
 
-/**
- * Created by ivansv on 16.04.2016.
- */
 public class AuxiliaryDataDbHelper {
     private static final String INT_TYPE = " INTEGER";
     private static final String BOOL_TYPE = " INTEGER";
@@ -69,6 +66,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Coupons.COLUMN_COUPON_TYPE + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_RESTRICTIONS + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_COUPON_CODE + TEXT_TYPE + DELIMITER +
+                    DataContract.Coupons.COLUMN_LABEL + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_EXPIRATION_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +
@@ -150,6 +148,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.CharityAccounts.COLUMN_TOTAL_RAISED + REAL_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_TOTAL_EARNED + REAL_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_REFERRER_ID + TEXT_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_CHARITY_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.CharityAccounts.TABLE_NAME;

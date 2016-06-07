@@ -12,9 +12,6 @@ import android.os.Message;
 
 import java.lang.ref.WeakReference;
 
-/**
- * Created by ivansv on 16.04.2016.
- */
 public class BulkAsyncQueryHandler extends Handler {
     private static final int EVENT_ARG_QUERY = 1;
     private static final int EVENT_ARG_INSERT = 2;

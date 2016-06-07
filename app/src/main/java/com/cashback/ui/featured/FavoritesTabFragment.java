@@ -38,9 +38,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/7/2016.
- */
 public class FavoritesTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private FragmentUi fragmentUi;
 
@@ -62,15 +59,15 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void onStop() {
+    public void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
-        super.onStop();
     }
 
     @Override
@@ -146,11 +143,10 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
             featuredAdapter.setOnShareClickListener(new FeaturedAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
-                    Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
+                    Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(shareId));
                     Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
                     cursor.moveToFirst();
-                    LaunchActivity.createLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
-                            cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), shareId);
                 }
             });
             featuredAdapter.setOnFavoriteClickListener(new FeaturedAdapter.OnFavoriteClickListener() {
@@ -205,7 +201,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            View convertView = LayoutInflater.from(context).inflate(R.layout.item_store_list_small_card_favorite, parent, false);
+            View convertView = LayoutInflater.from(context).inflate(R.layout.item_common_favorite, parent, false);
             if (GRID_TYPE_FLAG) {
                 GridViewHolder holder = new GridViewHolder(convertView);
                 convertView.setTag(holder);

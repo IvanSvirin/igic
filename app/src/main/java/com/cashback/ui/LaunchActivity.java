@@ -34,9 +34,6 @@ import io.branch.referral.Branch;
 import io.branch.referral.BranchError;
 import io.branch.referral.util.LinkProperties;
 
-/**
- * Created by I.Svirin on 4/5/2016.
- */
 public class LaunchActivity extends AppCompatActivity {
     public static final String MAIN_TAG_LOG = "igic_log";
     public static final String DB_TAG_LOG = "igic_db_log";
@@ -98,7 +95,7 @@ public class LaunchActivity extends AppCompatActivity {
         this.setIntent(intent);
     }
 
-    public static void createLink(final Context context, String url, long vendorId) {
+    public static void shareLink(final Context context, String url, long vendorId) {
         BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
                 .addContentMetadata("vendor_id", String.valueOf(vendorId));
 //                .setCanonicalIdentifier("share");

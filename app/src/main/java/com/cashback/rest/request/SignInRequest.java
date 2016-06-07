@@ -27,9 +27,6 @@ import java.net.URL;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 5/12/2016.
- */
 public class SignInRequest extends ServiceGenerator<IAuthorization> {
     //    private Call<CharityAccount> call;
 //    private Gson gson1;
@@ -184,6 +181,8 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                     values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, jObj.getDouble("pending_amount"));
                     values.put(DataContract.CharityAccounts.COLUMN_TOKEN, jObj.getString("token"));
                     values.put(DataContract.CharityAccounts.COLUMN_MEMBER_DATE, jObj.getString("member_date"));
+                    values.put(DataContract.CharityAccounts.COLUMN_REFERRER_ID, jObj.getString("referrer_id"));
+
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
                     EventBus.getDefault().post(new LoginEvent(true, null));

@@ -13,9 +13,6 @@ import com.cashback.ui.web.BrowserActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by I.Svirin on 4/12/2016.
- */
 public class HelpActivity extends AppCompatActivity {
 
     @Override

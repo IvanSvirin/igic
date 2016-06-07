@@ -30,9 +30,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/**
- * Created by I.Svirin on 5/5/2016.
- */
 public class OrdersRequest extends ServiceGenerator<IAccount> {
     private Call<List<Order>> call;
     private Type listType;

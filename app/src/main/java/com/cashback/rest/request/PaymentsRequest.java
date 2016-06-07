@@ -30,9 +30,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-/**
- * Created by ivansv on 02.05.2016.
- */
 public class PaymentsRequest extends ServiceGenerator<IAccount> {
     private Call<List<Payment>> call;
     private Type listType;

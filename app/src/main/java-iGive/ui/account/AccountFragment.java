@@ -36,9 +36,6 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import ui.account.YourOrderHistoryActivity;
 
-/**
- * Created by I.Svirin on 4/11/2016.
- */
 public class AccountFragment extends Fragment {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";
     private FragmentUi fragmentUi;

@@ -2,9 +2,6 @@ package com.cashback.model;
 
 import com.google.gson.annotations.Expose;
 
-/**
- * Created by I.Svirin on 4/7/2016.
- */
 public class CharityAccount {
     @Expose
     private String token;
@@ -32,9 +29,11 @@ public class CharityAccount {
     private String causeDashboardUrl;
     @Expose
     private String selectCauseUrl;
+    @Expose
+    private String referrerId;
 
     public CharityAccount(String token, String firstName, String lastName, String email, String memberDate, float nextCheckAmount, float pendingAmount, float totalPaidAmount,
-                          String totalPaidDate, float totalRaised, String causeDashboardUrl, String selectCauseUrl, String totalEarned) {
+                          String totalPaidDate, String totalEarned, float totalRaised, String causeDashboardUrl, String selectCauseUrl, String referrerId) {
         this.token = token;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,10 +43,19 @@ public class CharityAccount {
         this.pendingAmount = pendingAmount;
         this.totalPaidAmount = totalPaidAmount;
         this.totalPaidDate = totalPaidDate;
+        this.totalEarned = totalEarned;
         this.totalRaised = totalRaised;
         this.causeDashboardUrl = causeDashboardUrl;
         this.selectCauseUrl = selectCauseUrl;
-        this.totalEarned = totalEarned;
+        this.referrerId = referrerId;
+    }
+
+    public String getReferrerId() {
+        return referrerId;
+    }
+
+    public void setReferrerId(String referrerId) {
+        this.referrerId = referrerId;
     }
 
     public String getTotalEarned() {

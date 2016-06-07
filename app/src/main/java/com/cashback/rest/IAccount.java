@@ -9,10 +9,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
-
-/**
- * Created by ivansv on 02.05.2016.
- */
 public interface IAccount {
 
     @GET("api/v1/account/history/payment/")

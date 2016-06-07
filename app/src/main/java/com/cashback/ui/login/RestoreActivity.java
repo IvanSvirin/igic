@@ -13,9 +13,6 @@ import com.cashback.ui.MainActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by I.Svirin on 4/28/2016.
- */
 public class RestoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

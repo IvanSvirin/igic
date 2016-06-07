@@ -30,9 +30,6 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 6/1/2016.
- */
 public class MerchantsByCategoryRequest {
     private Context context;
     private ArrayList<Merchant> merchants;

@@ -40,9 +40,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 4/14/2016.
- */
 public class AllResultsActivity extends AppCompatActivity {
     private UiActivity uiActivity;
     private String searchingWord;
@@ -62,14 +59,14 @@ public class AllResultsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         EventBus.getDefault().register(this);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
     }
 

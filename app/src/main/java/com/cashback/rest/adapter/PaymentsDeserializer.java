@@ -17,9 +17,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by ivansv on 02.05.2016.
- */
 public class PaymentsDeserializer implements JsonDeserializer<List<Payment>> {
     @Override
     public List<Payment> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

@@ -1,8 +1,5 @@
 package com.cashback.model;
 
-/**
- * Created by I.Svirin on 4/7/2016.
- */
 public class SearchResult {
     private Merchant[] merchants;
     private Coupon[] coupons;

@@ -7,9 +7,6 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-/**
- * Created by I.Svirin on 4/5/2016.
- */
 public class Utilities {
     private final static String PREF_TOKEN_KEY = "pref_token";
     private static final String PREF_ENTRY_KEY = "pref_entry";

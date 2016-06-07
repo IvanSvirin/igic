@@ -27,9 +27,6 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 5/27/2016.
- */
 public class CharityOrdersRequest {
     private Context context;
 

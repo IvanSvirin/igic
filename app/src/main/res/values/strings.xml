@@ -77,5 +77,7 @@
     <string name="buy_at_your_favorite_stores_to_do_donation">Buy at your favorite stores \n to do Donation!</string>
     <string name="your_donation_money_with_coupons">Your donation money \n with coupons</string>
     <string name="not_available_fb_share">Sorry. But you don\\\'t ability send the invite to your friends.</string>
+    <string name="referral_reg_exp">http://www.igive.com/welcome/lp16/cr63b.cfm/%s</string>
+    <string name="share_title">Charity Shop | Online Donation Sites | Fundraising Ideas - iGive </string>
 
 </resources>
