@@ -3,14 +3,10 @@ package com.cashback.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,9 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cashback.R;
-import com.facebook.share.model.AppInviteContent;
+import com.cashback.db.DataContract;
 import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.AppInviteDialog;
 import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.plus.PlusShare;
 
@@ -39,7 +34,6 @@ import io.branch.referral.util.LinkProperties;
 
 public class TellAFriendFragment extends Fragment {
     public static final String TAG_TELL_A_FRIEND_FRAGMENT = "I_tell_a_friend_fragment";
-    public static final int GOOGLE_PLUS_REQUEST_CODE = 1001;
     private FragmentUi fragmentUi;
 
     @Nullable
@@ -71,7 +65,7 @@ public class TellAFriendFragment extends Fragment {
         ImageView fbButton;
         @Bind(R.id.twButton)
         ImageView twButton;
-        @Bind(R.id.gButton)
+        @Bind(R.id.shButton)
         ImageView gButton;
 
         @OnClick(R.id.fbButton)
@@ -125,8 +119,8 @@ public class TellAFriendFragment extends Fragment {
             });
         }
 
-        @OnClick(R.id.gButton)
-        void gShare() {
+        @OnClick(R.id.shButton)
+        void share() {
             // TODO: 6/7/2016 only for iConsumer
 //            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
 //            cursor.moveToFirst();
@@ -138,12 +132,10 @@ public class TellAFriendFragment extends Fragment {
             branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
                 @Override
                 public void onLinkCreate(String url, BranchError error) {
-                    Intent shareIntent = new PlusShare.Builder(context)
-                            .setType("text/plain")
-                            .setText(getString(R.string.share_title) + "\n")
-                            .setContentUrl(Uri.parse(url))
-                            .getIntent();
-                    startActivityForResult(shareIntent, GOOGLE_PLUS_REQUEST_CODE);
+                    Intent share = new Intent(Intent.ACTION_SEND);
+                    share.setType("text/plain");
+                    share.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_title) + "\n" + url);
+                    context.startActivity(Intent.createChooser(share, "Share Text"));
                 }
             });
         }

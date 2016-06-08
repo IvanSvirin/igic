@@ -289,12 +289,4 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             return fragmentManager.findFragmentById(R.id.content_frame);
         }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if ((requestCode == TellAFriendFragment.GOOGLE_PLUS_REQUEST_CODE) && (resultCode == -1)) {
-            //Do something if success
-        }
-    }
 }

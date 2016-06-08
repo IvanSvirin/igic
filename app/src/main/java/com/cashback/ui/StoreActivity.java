@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
@@ -322,6 +323,9 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         toolbar.setBackgroundColor(color);
                         bigRelativeLayout.setBackgroundColor(color);
                         storeName.setBackgroundColor(1157627903);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            getWindow().setStatusBarColor(color);
+                        }
                     }
                 }
 
@@ -332,6 +336,9 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     toolbar.setBackgroundColor(color);
                     bigRelativeLayout.setBackgroundColor(color);
                     storeName.setBackgroundColor(1157627903);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getWindow().setStatusBarColor(color);
+                    }
                 }
             });
         }

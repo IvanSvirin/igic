@@ -89,12 +89,12 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        fragmentUi.featuredAdapter.changeCursor(data);
+        fragmentUi.extraAdapter.changeCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        fragmentUi.featuredAdapter.changeCursor(null);
+        fragmentUi.extraAdapter.changeCursor(null);
     }
 
     public void onEvent(ExtrasEvent event) {
@@ -105,7 +105,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
 
     public class FragmentUi {
         private boolean isGridLayout;
-        private FeaturedAdapter featuredAdapter;
+        private ExtraAdapter extraAdapter;
         private NestedListView nestedListView;
         private GridView gridView;
 
@@ -121,8 +121,8 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
         }
 
         private void initListAdapter(final Context context) {
-            featuredAdapter = new FeaturedAdapter(getActivity(), null, 0, isGridLayout);
-            featuredAdapter.setOnSaleClickListener(new FeaturedAdapter.OnSaleClickListener() {
+            extraAdapter = new ExtraAdapter(getActivity(), null, 0, isGridLayout);
+            extraAdapter.setOnSaleClickListener(new ExtraAdapter.OnSaleClickListener() {
                 @Override
                 public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
@@ -141,7 +141,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                     }
                 }
             });
-            featuredAdapter.setOnShareClickListener(new FeaturedAdapter.OnShareClickListener() {
+            extraAdapter.setOnShareClickListener(new ExtraAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
                     Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(shareId));
@@ -150,7 +150,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                     LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), shareId);
                 }
             });
-            featuredAdapter.setOnFavoriteClickListener(new FeaturedAdapter.OnFavoriteClickListener() {
+            extraAdapter.setOnFavoriteClickListener(new ExtraAdapter.OnFavoriteClickListener() {
                 @Override
                 public void onFavoriteClick(long favoriteId) {
                     Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(favoriteId));
@@ -161,13 +161,13 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                     } else {
                         new FavoritesRequest(context).deleteMerchant(favoriteId);
                     }
-                    featuredAdapter.notifyDataSetChanged();
+                    extraAdapter.notifyDataSetChanged();
                 }
             });
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Cursor cursor = featuredAdapter.getCursor();
+                    Cursor cursor = extraAdapter.getCursor();
                     cursor.moveToPosition(position);
                     Intent intent = new Intent(context, StoreActivity.class);
                     intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
@@ -179,10 +179,10 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
             };
             if (isGridLayout) {
                 gridView.setOnItemClickListener(listener);
-                gridView.setAdapter(featuredAdapter);
+                gridView.setAdapter(extraAdapter);
             } else {
                 nestedListView.setOnItemClickListener(listener);
-                nestedListView.setAdapter(featuredAdapter);
+                nestedListView.setAdapter(extraAdapter);
             }
         }
 
@@ -191,7 +191,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
         }
     }
 
-    public static class FeaturedAdapter extends CursorAdapter {
+    public static class ExtraAdapter extends CursorAdapter {
         private final boolean GRID_TYPE_FLAG;
         private Context context;
         private OnSaleClickListener onSaleClickListener;
@@ -199,7 +199,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
         private OnFavoriteClickListener onFavoriteClickListener;
         private Picasso picasso;
 
-        public FeaturedAdapter(Context context, Cursor c, int flags, boolean gridType) {
+        public ExtraAdapter(Context context, Cursor c, int flags, boolean gridType) {
             super(context, c, flags);
             GRID_TYPE_FLAG = gridType;
             this.context = context;

@@ -86,12 +86,12 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        fragmentUi.featuredAdapter.changeCursor(data);
+        fragmentUi.hotDealsAdapter.changeCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        fragmentUi.featuredAdapter.changeCursor(null);
+        fragmentUi.hotDealsAdapter.changeCursor(null);
     }
 
     public void onEvent(CouponsEvent event) {
@@ -102,7 +102,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
 
     public class FragmentUi {
         private boolean isGridLayout;
-        private FeaturedAdapter featuredAdapter;
+        private HotDealsAdapter hotDealsAdapter;
         private NestedListView nestedListView;
         private GridView gridView;
 
@@ -118,8 +118,8 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         }
 
         private void initListAdapter(final Context context) {
-            featuredAdapter = new FeaturedAdapter(getActivity(), null, 0, isGridLayout);
-            featuredAdapter.setOnSaleClickListener(new FeaturedAdapter.OnSaleClickListener() {
+            hotDealsAdapter = new HotDealsAdapter(getActivity(), null, 0, isGridLayout);
+            hotDealsAdapter.setOnSaleClickListener(new HotDealsAdapter.OnSaleClickListener() {
                 @Override
                 public void onSaleClick(long id) {
                     if (Utilities.isLoggedIn(context)) {
@@ -138,7 +138,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                     }
                 }
             });
-            featuredAdapter.setOnShareClickListener(new FeaturedAdapter.OnShareClickListener() {
+            hotDealsAdapter.setOnShareClickListener(new HotDealsAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
                     Uri uri = Uri.withAppendedPath(DataContract.URI_COUPONS, String.valueOf(shareId));
@@ -151,7 +151,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Cursor cursor = featuredAdapter.getCursor();
+                    Cursor cursor = hotDealsAdapter.getCursor();
                     cursor.moveToPosition(position);
                     Intent intent = new Intent(context, StoreActivity.class);
                     intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
@@ -163,10 +163,10 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             };
             if (isGridLayout) {
                 gridView.setOnItemClickListener(listener);
-                gridView.setAdapter(featuredAdapter);
+                gridView.setAdapter(hotDealsAdapter);
             } else {
                 nestedListView.setOnItemClickListener(listener);
-                nestedListView.setAdapter(featuredAdapter);
+                nestedListView.setAdapter(hotDealsAdapter);
             }
         }
 
@@ -175,14 +175,14 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         }
     }
 
-    public static class FeaturedAdapter extends CursorAdapter {
+    public static class HotDealsAdapter extends CursorAdapter {
         private final boolean GRID_TYPE_FLAG;
         private Context context;
         private OnSaleClickListener onSaleClickListener;
         private OnShareClickListener onShareClickListener;
         private Picasso picasso;
 
-        public FeaturedAdapter(Context context, Cursor c, int flags, boolean gridType) {
+        public HotDealsAdapter(Context context, Cursor c, int flags, boolean gridType) {
             super(context, c, flags);
             GRID_TYPE_FLAG = gridType;
             this.context = context;
@@ -206,9 +206,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         public void bindView(View view, Context context, Cursor cursor) {
             final long couponId = cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID));
             final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
-            // TODO: 6/7/2016
-//            String label = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_LABEL));
-//            String restrictions = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_RESTRICTIONS));
+            String label = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_LABEL));
             String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
             String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
@@ -216,7 +214,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             if (GRID_TYPE_FLAG) {
                 final GridViewHolder holder = (GridViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
-//                holder.vhRestrictions.setText(label);
+                holder.vhRestrictions.setText(label);
                 holder.vhCashBack.setText(cashBack);
                 holder.vhExpireDate.setText(expire);
                 if (couponCode.length() < 4) {
@@ -239,7 +237,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             } else {
                 ViewHolder holder = (ViewHolder) view.getTag();
                 picasso.load(logoUrl).into(holder.vhStoreLogo);
-//                holder.vhRestrictions.setText(label);
+                holder.vhRestrictions.setText(label);
                 holder.vhCashBack.setText(cashBack);
                 holder.vhExpireDate.setText(expire);
                 if (couponCode.length() < 4) {

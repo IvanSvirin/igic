@@ -47,6 +47,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Account;
+import com.google.android.gms.plus.Plus;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -58,7 +59,7 @@ import de.greenrobot.event.EventBus;
 
 public class SignInFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private static final int GOOGLE_AUTH = 111;
+    public static final int GOOGLE_AUTH = 111;
     private final static String G_PLUS_SCOPE = "oauth2:https://www.googleapis.com/auth/plus.me";
     private final static String USER_INFO_SCOPE = "https://www.googleapis.com/auth/userinfo.profile";
     private final static String EMAIL_SCOPE = "https://www.googleapis.com/auth/userinfo.email";
@@ -116,7 +117,7 @@ public class SignInFragment extends Fragment {
                 Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_empty_fields, Snackbar.LENGTH_SHORT).show();
             } else {
                 AuthObject authObject = new AuthObject();
-                authObject.setAuthType("email");
+                authObject.setAuthType("0");
                 authObject.setEmail(email);
                 authObject.setPassword(password);
                 new SignInRequest(getContext(), authObject).fetchData();
@@ -132,8 +133,10 @@ public class SignInFragment extends Fragment {
         public void onGoogleLogin() {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestEmail()
+                    .requestIdToken(getString(R.string.google_client_id))
+//                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .build();
-            GoogleApiClient googleApiClient = new GoogleApiClient.Builder(getContext())
+            GoogleApiClient googleApiClient = new GoogleApiClient.Builder(getActivity())
                     .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
                         @Override
                         public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -200,7 +203,7 @@ public class SignInFragment extends Fragment {
                 GoogleSignInAccount acct = result.getSignInAccount();
                 String token = acct.getIdToken();
                 AuthObject authObject = new AuthObject();
-                authObject.setAuthType("google");
+                authObject.setAuthType("1");
                 authObject.setToken(token);
                 new SignInRequest(getContext(), authObject).fetchData();
             }

@@ -128,8 +128,8 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                 urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
 
-                String postParameters = "email=sandi_schleicher@hotmail.com&password=igive";
-//                String postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword();
+                String postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
+//                String postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
                 out.print(postParameters);

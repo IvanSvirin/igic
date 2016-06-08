@@ -2,6 +2,8 @@
     <string name="app_name">iGive</string>
     <string name="notification_title">iGive Notification</string>
     <string name="gcm_senderId">11111111</string>
+    <string name="google_client_id">99922677703-u73l4cngocmb5jcu10tpbt7h2ai15u3c.apps.googleusercontent.com</string>
+    <!--<string name="google_client_id">99922677703-6mscckono9i8379ihb9c6gjoat2v217m.apps.googleusercontent.com</string>-->
     <string name="item_account">My iGive</string>
     <string name="how_to_use">How to Use iGive</string>
     <string name="where_is_mine">Where\'s My Donation</string>

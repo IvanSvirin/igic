@@ -180,6 +180,7 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
                     values.put(DataContract.Coupons.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
                     values.put(DataContract.Coupons.COLUMN_COUPON_TYPE, jObj.getString("coupon_type"));
                     values.put(DataContract.Coupons.COLUMN_RESTRICTIONS, jObj.getString("restrictions"));
+                    values.put(DataContract.Coupons.COLUMN_LABEL, jObj.getString("label"));
                     values.put(DataContract.Coupons.COLUMN_COUPON_CODE, jObj.getString("coupon_code"));
                     values.put(DataContract.Coupons.COLUMN_EXPIRATION_DATE, jObj.getString("expiration_date"));
                     values.put(DataContract.Coupons.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
