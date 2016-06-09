@@ -26,7 +26,10 @@ import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.ui.account.AccountFragment;
+import com.cashback.ui.featured.ExtraTabFragment;
+import com.cashback.ui.featured.FavoritesTabFragment;
 import com.cashback.ui.featured.FeaturedFragment;
+import com.cashback.ui.featured.HotDealsTabFragment;
 import com.facebook.appevents.AppEventsLogger;
 
 import bolts.AppLinks;

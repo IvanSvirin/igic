@@ -112,9 +112,9 @@ public class FeaturedFragment extends Fragment {
 
         private void setupTabsView(FragmentManager mng) {
             TabsPagerAdapter tabsAdapter = new TabsPagerAdapter(mng);
-            tabsAdapter.addTab(new HotDealsTabFragment(), getString(R.string.tab_hot_deals).toUpperCase());
-            tabsAdapter.addTab(new FavoritesTabFragment(), getString(R.string.tab_favorites).toUpperCase());
-            tabsAdapter.addTab(new ExtraTabFragment(), getString(R.string.tab_extra).toUpperCase());
+            tabsAdapter.addTab(HotDealsTabFragment.newInstance(), getString(R.string.tab_hot_deals).toUpperCase());
+            tabsAdapter.addTab(FavoritesTabFragment.newInstance(), getString(R.string.tab_favorites).toUpperCase());
+            tabsAdapter.addTab(ExtraTabFragment.newInstance(), getString(R.string.tab_extra).toUpperCase());
             tabViewPager.setAdapter(tabsAdapter);
             tabLayout.setupWithViewPager(tabViewPager);
         }

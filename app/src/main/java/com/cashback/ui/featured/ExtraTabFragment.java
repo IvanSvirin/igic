@@ -14,11 +14,11 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,13 +26,8 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.ExtrasEvent;
-import com.cashback.rest.request.FavoritesRequest;
-import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.StoreActivity;
-import com.cashback.ui.components.NestedListView;
-import com.cashback.ui.login.LoginActivity;
-import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -42,10 +37,18 @@ import de.greenrobot.event.EventBus;
 public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private FragmentUi fragmentUi;
 
+    public static ExtraTabFragment newInstance() {
+        return new ExtraTabFragment();
+    }
+
+    public ExtraTabFragment() {
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_common_extra, container, false);
+        View view = inflater.inflate(R.layout.layout_featured_tab_new2, container, false);
+//        View view = inflater.inflate(R.layout.layout_common_extra, container, false);
         fragmentUi = new FragmentUi(this, view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
@@ -74,7 +77,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fragmentUi.unbind();
+//        fragmentUi.unbind();
     }
 
     @Override
@@ -105,89 +108,206 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
 
     public class FragmentUi {
         private boolean isGridLayout;
-        private ExtraAdapter extraAdapter;
-        private NestedListView nestedListView;
-        private GridView gridView;
+        private ExtraRecyclerAdapter extraAdapter;
+        @Bind(R.id.extra_recycler_view)
+        RecyclerView extraRecyclerView;
+//        private ExtraAdapter extraAdapter;
+//        private NestedListView nestedListView;
+//        private GridView gridView;
 
         public FragmentUi(ExtraTabFragment fragment, View view) {
             ButterKnife.bind(this, view);
             isGridLayout = ButterKnife.findById(view, R.id.checking_element) != null;
-            if (isGridLayout) {
-                gridView = ButterKnife.findById(view, R.id.common_list);
-            } else {
-                nestedListView = ButterKnife.findById(view, R.id.common_list);
-            }
+//            if (isGridLayout) {
+//                gridView = ButterKnife.findById(view, R.id.common_list);
+//            } else {
+//                nestedListView = ButterKnife.findById(view, R.id.common_list);
+//            }
             initListAdapter(fragment.getContext());
         }
 
         private void initListAdapter(final Context context) {
-            extraAdapter = new ExtraAdapter(getActivity(), null, 0, isGridLayout);
-            extraAdapter.setOnSaleClickListener(new ExtraAdapter.OnSaleClickListener() {
-                @Override
-                public void onSaleClick(long id) {
-                    if (Utilities.isLoggedIn(context)) {
-                        Intent intent = new Intent(context, BrowserDealsActivity.class);
-                        Uri uri = Uri.withAppendedPath(DataContract.URI_EXTRAS, String.valueOf(id));
-                        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
-                        cursor.moveToFirst();
-                        intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
-                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
-                        intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
-                        context.startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        context.startActivity(intent);
-                    }
-                }
-            });
-            extraAdapter.setOnShareClickListener(new ExtraAdapter.OnShareClickListener() {
-                @Override
-                public void onShareClick(long shareId) {
-                    Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(shareId));
-                    Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
-                    cursor.moveToFirst();
-                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), shareId);
-                }
-            });
-            extraAdapter.setOnFavoriteClickListener(new ExtraAdapter.OnFavoriteClickListener() {
-                @Override
-                public void onFavoriteClick(long favoriteId) {
-                    Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(favoriteId));
-                    Cursor c = context.getContentResolver().query(uri, null, null, null, null);
-                    int count = c.getCount();
-                    if (count == 0) {
-                        new FavoritesRequest(context).addMerchant(favoriteId);
-                    } else {
-                        new FavoritesRequest(context).deleteMerchant(favoriteId);
-                    }
-                    extraAdapter.notifyDataSetChanged();
-                }
-            });
+            extraAdapter = new ExtraRecyclerAdapter(getActivity());
+            extraRecyclerView.setHasFixedSize(true);
+            extraRecyclerView.setAdapter(extraAdapter);
+
+//            extraAdapter = new ExtraAdapter(getActivity(), null, 0, isGridLayout);
+//            extraAdapter.setOnSaleClickListener(new ExtraAdapter.OnSaleClickListener() {
+//                @Override
+//                public void onSaleClick(long id) {
+//                    if (Utilities.isLoggedIn(context)) {
+//                        Intent intent = new Intent(context, BrowserDealsActivity.class);
+//                        Uri uri = Uri.withAppendedPath(DataContract.URI_EXTRAS, String.valueOf(id));
+//                        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+//                        cursor.moveToFirst();
+//                        intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
+//                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
+//                        intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
+//                        context.startActivity(intent);
+//                    } else {
+//                        Intent intent = new Intent(context, LoginActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        context.startActivity(intent);
+//                    }
+//                }
+//            });
+//            extraAdapter.setOnShareClickListener(new ExtraAdapter.OnShareClickListener() {
+//                @Override
+//                public void onShareClick(long shareId) {
+//                    Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(shareId));
+//                    Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+//                    cursor.moveToFirst();
+//                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), shareId);
+//                }
+//            });
+//            extraAdapter.setOnFavoriteClickListener(new ExtraAdapter.OnFavoriteClickListener() {
+//                @Override
+//                public void onFavoriteClick(long favoriteId) {
+//                    Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(favoriteId));
+//                    Cursor c = context.getContentResolver().query(uri, null, null, null, null);
+//                    int count = c.getCount();
+//                    if (count == 0) {
+//                        new FavoritesRequest(context).addMerchant(favoriteId);
+//                    } else {
+//                        new FavoritesRequest(context).deleteMerchant(favoriteId);
+//                    }
+//                    extraAdapter.notifyDataSetChanged();
+//                }
+//            });
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Cursor cursor = extraAdapter.getCursor();
-                    cursor.moveToPosition(position);
-                    Intent intent = new Intent(context, StoreActivity.class);
-                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
-                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_LOGO_URL)));
-                    intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
-                    intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
-                    context.startActivity(intent);
+//                    Cursor cursor = extraAdapter.getCursor();
+//                    cursor.moveToPosition(position);
+//                    Intent intent = new Intent(context, StoreActivity.class);
+//                    intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
+//                    intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_LOGO_URL)));
+//                    intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
+//                    intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
+//                    context.startActivity(intent);
                 }
             };
             if (isGridLayout) {
-                gridView.setOnItemClickListener(listener);
-                gridView.setAdapter(extraAdapter);
+//                gridView.setOnItemClickListener(listener);
+//                gridView.setAdapter(extraAdapter);
             } else {
-                nestedListView.setOnItemClickListener(listener);
-                nestedListView.setAdapter(extraAdapter);
+//                nestedListView.setOnItemClickListener(listener);
+//                nestedListView.setAdapter(extraAdapter);
+            }
+        }
+        public void unbind() {
+            ButterKnife.unbind(this);
+        }
+    }
+
+    public static class ExtraRecyclerAdapter extends RecyclerView.Adapter<ExtraRecyclerAdapter.ExtraViewHolder> {
+        final private Context context;
+        //        final private FeaturedAdapterOnClickHandler mClickHandler;
+        private ExtraCursorAdapter cursorAdapter;
+        private Picasso picasso;
+        private Cursor cursor;
+
+        public class ExtraViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            public ImageView vhStoreLogo;
+            public TextView vhCashBack;
+            public TextView vhBtnShopNow;
+            public AppCompatImageView vhShareButton;
+            public ImageView vhFavorite;
+            public TextView vhWas;
+
+
+            public ExtraViewHolder(View itemView) {
+                super(itemView);
+                vhStoreLogo = (ImageView) itemView.findViewById(R.id.storeLogo);
+                vhFavorite = (ImageView) itemView.findViewById(R.id.favorite);
+                vhCashBack = (TextView) itemView.findViewById(R.id.cashBack);
+                vhBtnShopNow = (TextView) itemView.findViewById(R.id.btnShopNow);
+                vhWas = (TextView) itemView.findViewById(R.id.was);
+                vhShareButton = (AppCompatImageView) itemView.findViewById(R.id.shareButton);
+            }
+
+            @Override
+            public void onClick(View v) {
+//                int position = getAdapterPosition();
+//                StoreFeatured storeFeatured = cursorAdapter.getTypedItem(position);
+//                mClickHandler.onClick(storeFeatured, this);
             }
         }
 
-        public void unbind() {
-            ButterKnife.unbind(this);
+//        public static interface FeaturedAdapterOnClickHandler {
+//            void onClick(StoreFeatured storeFeatured, HotDealsViewHolder VH);
+//        }
+
+        public ExtraRecyclerAdapter(Context context) {
+//        public ExtraRecyclerAdapter(Context context, FeaturedAdapterOnClickHandler handler) {
+            this.context = context;
+//            mClickHandler = handler;
+            cursorAdapter = new ExtraCursorAdapter(context, null);
+            picasso = Picasso.with(context);
+        }
+
+        @Override
+        public ExtraViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            if (parent instanceof RecyclerView) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_common_extra, parent, false);
+                view.setFocusable(true);
+                return new ExtraViewHolder(view);
+            } else {
+                throw new RuntimeException("Not bound to RecyclerView");
+            }
+        }
+
+        @Override
+        public void onBindViewHolder(ExtraViewHolder holder, int position) {
+            cursor = getCursor();
+            cursor.moveToPosition(position);
+            final long vendorId = cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID));
+            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_LOGO_URL));
+            String cashBack = String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
+            String wasCashBack = cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION_WAS));
+            Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(vendorId));
+            Cursor c = context.getContentResolver().query(uri, null, null, null, null);
+            int count = c.getCount();
+                holder.vhWas.setText("Was " + wasCashBack + "%");
+                holder.vhWas.setPaintFlags(holder.vhWas.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                picasso.load(logoUrl).into(holder.vhStoreLogo);
+                holder.vhCashBack.setText(cashBack);
+                if (count == 0) {
+                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
+                } else {
+                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favorite));
+                }
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return cursorAdapter.getCount();
+        }
+
+        public void changeCursor(Cursor cursor) {
+            cursorAdapter.changeCursor(cursor);
+            notifyDataSetChanged();
+        }
+
+        public Cursor getCursor() {
+            return cursorAdapter.getCursor();
+        }
+
+        private class ExtraCursorAdapter extends CursorAdapter {
+
+            public ExtraCursorAdapter(Context context, Cursor cursor) {
+                super(context, cursor);
+            }
+
+            @Override
+            public View newView(Context context, Cursor cursor, ViewGroup parent) {
+                return null;
+            }
+
+            @Override
+            public void bindView(View view, Context context, Cursor cursor) {
+            }
         }
     }
 
