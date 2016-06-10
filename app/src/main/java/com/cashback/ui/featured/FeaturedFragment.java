@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -100,7 +101,8 @@ public class FeaturedFragment extends Fragment {
         @Bind(R.id.nested_scroll)
         FixedNestedScrollView nestedScrollView;
         @Bind(R.id.tab_content)
-        WrapContentHeightViewPager tabViewPager;
+        ViewPager tabViewPager;
+//        WrapContentHeightViewPager tabViewPager;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
 
@@ -112,9 +114,9 @@ public class FeaturedFragment extends Fragment {
 
         private void setupTabsView(FragmentManager mng) {
             TabsPagerAdapter tabsAdapter = new TabsPagerAdapter(mng);
-            tabsAdapter.addTab(HotDealsTabFragment.newInstance(), getString(R.string.tab_hot_deals).toUpperCase());
-            tabsAdapter.addTab(FavoritesTabFragment.newInstance(), getString(R.string.tab_favorites).toUpperCase());
-            tabsAdapter.addTab(ExtraTabFragment.newInstance(), getString(R.string.tab_extra).toUpperCase());
+            tabsAdapter.addTab(HotDealsTabFragmentTest.newInstance(), getString(R.string.tab_hot_deals).toUpperCase());
+            tabsAdapter.addTab(FavoritesTabFragmentTest.newInstance(), getString(R.string.tab_favorites).toUpperCase());
+            tabsAdapter.addTab(ExtraTabFragmentTest.newInstance(), getString(R.string.tab_extra).toUpperCase());
             tabViewPager.setAdapter(tabsAdapter);
             tabLayout.setupWithViewPager(tabViewPager);
         }
