@@ -21,7 +21,6 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -152,7 +151,6 @@ public class ExtraTabFragmentTest extends Fragment implements LoaderManager.Load
             public AppCompatImageView vhShareButton;
             public ImageView vhFavorite;
             public TextView vhWas;
-
 
             public ExtraViewHolder(View itemView) {
                 super(itemView);
