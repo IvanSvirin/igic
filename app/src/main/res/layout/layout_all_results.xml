@@ -45,12 +45,16 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <com.cashback.ui.components.WrapContentHeightViewPager
+            <android.support.v4.view.ViewPager
                 android:id="@+id/tab_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
         </LinearLayout>
-
     </com.cashback.ui.components.FixedNestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
+
+<!--<com.cashback.ui.components.WrapContentHeightViewPager-->
+<!--android:id="@+id/tab_content"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent" />-->

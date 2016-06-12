@@ -16,7 +16,6 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -69,7 +68,7 @@ public class StoresTabFragmentTest extends Fragment {
     }
 
     public class FragmentUi {
-        private HotDealsRecyclerAdapter hotDealsAdapter;
+        private StoresRecyclerAdapter storesAdapter;
         @Bind(R.id.hot_deals_recycler_view)
         RecyclerView hotDealsRecyclerView;
 
@@ -79,9 +78,9 @@ public class StoresTabFragmentTest extends Fragment {
         }
 
         private void initListAdapter() {
-            hotDealsAdapter = new HotDealsRecyclerAdapter(getActivity());
+            storesAdapter = new StoresRecyclerAdapter(getActivity());
             hotDealsRecyclerView.setHasFixedSize(true);
-            hotDealsRecyclerView.setAdapter(hotDealsAdapter);
+            hotDealsRecyclerView.setAdapter(storesAdapter);
         }
 
         public void unbind() {
@@ -89,26 +88,25 @@ public class StoresTabFragmentTest extends Fragment {
         }
     }
 
-    public static class HotDealsRecyclerAdapter extends RecyclerView.Adapter<HotDealsRecyclerAdapter.HotDealsViewHolder> {
+    public static class StoresRecyclerAdapter extends RecyclerView.Adapter<StoresRecyclerAdapter.StoresViewHolder> {
         final private Context context;
         private ArrayList<Merchant> storesArray;
         private Picasso picasso;
 
-        public class HotDealsViewHolder extends RecyclerView.ViewHolder {
-            public FrameLayout cardView;
+        public class StoresViewHolder extends RecyclerView.ViewHolder {
             public ImageView vhStoreLogo;
             public TextView vhCashBack;
             public TextView vhBtnShopNow;
             public AppCompatImageView vhShareButton;
             public ImageView vhFavorite;
 
-            public HotDealsViewHolder(View itemView) {
+            public StoresViewHolder(View itemView) {
                 super(itemView);
-                cardView = (FrameLayout) itemView.findViewById(R.id.card_view);
                 vhStoreLogo = (ImageView) itemView.findViewById(R.id.storeLogo);
                 vhCashBack = (TextView) itemView.findViewById(R.id.cashBack);
                 vhBtnShopNow = (TextView) itemView.findViewById(R.id.btnShopNow);
                 vhShareButton = (AppCompatImageView) itemView.findViewById(R.id.shareButton);
+                vhFavorite = (ImageView) itemView.findViewById(R.id.favorite);
                 vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -130,6 +128,7 @@ public class StoresTabFragmentTest extends Fragment {
                             Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
                                     storesArray.get(position).getVendorId()));
                             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+                            cursor.moveToFirst();
                             Intent intent = new Intent(context, BrowserDealsActivity.class);
                             intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
                             intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
@@ -149,6 +148,7 @@ public class StoresTabFragmentTest extends Fragment {
                         Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
                                 storesArray.get(position).getVendorId()));
                         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
                         Intent intent = new Intent(context, StoreActivity.class);
                         intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
                         intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL)));
@@ -160,25 +160,25 @@ public class StoresTabFragmentTest extends Fragment {
             }
         }
 
-        public HotDealsRecyclerAdapter(Context context) {
+        public StoresRecyclerAdapter(Context context) {
             this.context = context;
             storesArray = AllResultsActivity.storesArray;
             picasso = Picasso.with(context);
         }
 
         @Override
-        public HotDealsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public StoresViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             if (parent instanceof RecyclerView) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_common_favorite, parent, false);
                 view.setFocusable(true);
-                return new HotDealsViewHolder(view);
+                return new StoresViewHolder(view);
             } else {
                 throw new RuntimeException("Not bound to RecyclerView");
             }
         }
 
         @Override
-        public void onBindViewHolder(HotDealsViewHolder holder, int position) {
+        public void onBindViewHolder(StoresViewHolder holder, int position) {
             String logoUrl = storesArray.get(position).getLogoUrl();
             String commission = String.valueOf(storesArray.get(position).getCommission());
             boolean isFavorite = storesArray.get(position).isFavorite();

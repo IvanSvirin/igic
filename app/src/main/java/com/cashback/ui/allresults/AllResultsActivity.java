@@ -2,15 +2,13 @@ package com.cashback.ui.allresults;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -24,14 +22,9 @@ import com.cashback.R;
 import com.cashback.model.Coupon;
 import com.cashback.model.Merchant;
 import com.cashback.model.Product;
-import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.event.SearchEvent;
 import com.cashback.rest.request.SearchRequest;
 import com.cashback.ui.components.FixedNestedScrollView;
-import com.cashback.ui.components.WrapContentHeightViewPager;
-import com.cashback.ui.featured.ExtraTabFragment;
-import com.cashback.ui.featured.FavoritesTabFragment;
-import com.cashback.ui.featured.HotDealsTabFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +113,8 @@ public class AllResultsActivity extends AppCompatActivity {
         @Bind(R.id.nested_scroll)
         FixedNestedScrollView nestedScrollView;
         @Bind(R.id.tab_content)
-        WrapContentHeightViewPager tabViewPager;
+        ViewPager tabViewPager;
+//        WrapContentHeightViewPager tabViewPager;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
 
@@ -137,9 +131,9 @@ public class AllResultsActivity extends AppCompatActivity {
 
         private void setupTabsView(FragmentManager mng) {
             TabsPagerAdapter tabsAdapter = new TabsPagerAdapter(mng);
-            tabsAdapter.addTab(new StoresTabFragment(), getString(R.string.tab_stores).toUpperCase());
-            tabsAdapter.addTab(new ProductsTabFragment(), getString(R.string.tab_products).toUpperCase());
-            tabsAdapter.addTab(new CouponsTabFragment(), getString(R.string.tab_coupons).toUpperCase());
+            tabsAdapter.addTab(StoresTabFragmentTest.newInstance(), getString(R.string.tab_stores).toUpperCase());
+            tabsAdapter.addTab(ProductsTabFragmentTest.newInstance(), getString(R.string.tab_products).toUpperCase());
+            tabsAdapter.addTab(CouponsTabFragmentTest.newInstance(), getString(R.string.tab_coupons).toUpperCase());
             tabViewPager.setAdapter(tabsAdapter);
             tabLayout.setupWithViewPager(tabViewPager);
         }
