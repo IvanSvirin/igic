@@ -166,4 +166,21 @@ public class Utilities {
         }
         return "";
     }
+
+    public static String decToHex (int decimal) {
+        String heximal = Integer.toString(decimal,16);
+        return heximal;
+    }
+
+    public static int hexToDec(String inputHexNumber) {
+        String hexDigits = "0123456789ABCDEF";
+        inputHexNumber = inputHexNumber.toUpperCase();
+        int result = 0;
+        for (int i = 0; i < inputHexNumber.length(); i++) {
+            char c = inputHexNumber.charAt(i);
+            int hexDigit = hexDigits.indexOf(c);
+            result += 16 * result + hexDigit;
+        }
+        return result;
+    }
 }

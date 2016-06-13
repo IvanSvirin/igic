@@ -324,7 +324,12 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         bigRelativeLayout.setBackgroundColor(color);
                         storeName.setBackgroundColor(1157627903);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            getWindow().setStatusBarColor(color);
+//                            String hexColor = Utilities.decToHex(color);
+//                            char first = (char) (hexColor.charAt(1) + 1);
+//                            char second = (char) (hexColor.charAt(2) + 1);
+//                            hexColor = first + second + hexColor.substring(3);
+//                            getWindow().setStatusBarColor(Utilities.hexToDec(hexColor));
+                            getWindow().setStatusBarColor(color + 394758);
                         }
                     }
                 }
@@ -337,7 +342,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     bigRelativeLayout.setBackgroundColor(color);
                     storeName.setBackgroundColor(1157627903);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        getWindow().setStatusBarColor(color);
+                        getWindow().setStatusBarColor(color + 394758);
                     }
                 }
             });
