@@ -325,11 +325,19 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         storeName.setBackgroundColor(1157627903);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //                            String hexColor = Utilities.decToHex(color);
-//                            char first = (char) (hexColor.charAt(1) + 1);
-//                            char second = (char) (hexColor.charAt(2) + 1);
-//                            hexColor = first + second + hexColor.substring(3);
-//                            getWindow().setStatusBarColor(Utilities.hexToDec(hexColor));
-                            getWindow().setStatusBarColor(color + 394758);
+//                            char red = (char) (hexColor.charAt(2) - 1);
+//                            char green = (char) (hexColor.charAt(4) - 1);
+//                            char blue = (char) (hexColor.charAt(6) - 1);
+//                            StringBuilder sb = new StringBuilder();
+//                            sb.append(hexColor.charAt(0)).append(hexColor.charAt(1)).append(red).append(hexColor.charAt(3))
+//                                    .append(green).append(hexColor.charAt(5)).append(blue).append(hexColor.charAt(7));
+//                            int darkColor = Utilities.hexToDec(sb.toString());
+//                            getWindow().setStatusBarColor(darkColor);
+                            if (color < -394758) {
+                                getWindow().setStatusBarColor(color + 394758);
+                            } else {
+                                getWindow().setStatusBarColor(color);
+                            }
                         }
                     }
                 }
@@ -342,6 +350,14 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     bigRelativeLayout.setBackgroundColor(color);
                     storeName.setBackgroundColor(1157627903);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                        String hexColor = Utilities.decToHex(color);
+//                        char red = (char) (hexColor.charAt(3) - 1);
+//                        char green = (char) (hexColor.charAt(5) - 1);
+//                        char blue = (char) (hexColor.charAt(7) - 1);
+//                        StringBuilder sb = new StringBuilder();
+//                        sb.append(hexColor.charAt(1)).append(hexColor.charAt(2)).append(red).append(hexColor.charAt(4))
+//                                .append(green).append(hexColor.charAt(6)).append(blue).append(hexColor.charAt(8));
+//                        getWindow().setStatusBarColor(Utilities.hexToDec(sb.toString()));
                         getWindow().setStatusBarColor(color + 394758);
                     }
                 }

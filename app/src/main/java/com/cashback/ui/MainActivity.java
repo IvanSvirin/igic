@@ -1,5 +1,6 @@
 package com.cashback.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -19,6 +20,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.cashback.R;
@@ -175,7 +181,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         @BindString(R.string.format_donation_amount)
         String stringFormat;
 
-        public DrawerUi(MainActivity activity) {
+        public DrawerUi(final MainActivity activity) {
             this.activity = activity;
             ButterKnife.bind(this, activity);
             navigator.setSaveEnabled(true);

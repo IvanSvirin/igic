@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
@@ -110,10 +111,10 @@ public class CouponsByMerchantIdRequest {
                     EventBus.getDefault().post(new MerchantCouponsEvent(true, "OK"));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    EventBus.getDefault().post(new MerchantCouponsEvent(false, "No coupons featured data"));
+                    EventBus.getDefault().post(new MerchantCouponsEvent(false, context.getString(R.string.no_coupons_data)));
                 }
             } else {
-                EventBus.getDefault().post(new MerchantCouponsEvent(false, "No coupons featured data"));
+                EventBus.getDefault().post(new MerchantCouponsEvent(false, context.getString(R.string.no_coupons_data)));
             }
         }
     }

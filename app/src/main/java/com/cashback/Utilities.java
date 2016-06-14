@@ -168,7 +168,7 @@ public class Utilities {
     }
 
     public static String decToHex (int decimal) {
-        String heximal = Integer.toString(decimal,16);
+        String heximal = Integer.toHexString(decimal);
         return heximal;
     }
 

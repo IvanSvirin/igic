@@ -79,5 +79,6 @@
     <string name="not_available_fb_share">Sorry. But you don\\\'t ability send the invite to your friends.</string>
     <string name="referral_reg_exp">http://www.igive.com/welcome/lp16/cr63b.cfm/%s</string>
     <string name="share_title">Charity Shop | Online Donation Sites | Fundraising Ideas - iGive </string>
+    <string name="no_coupons_data">No coupons featured data</string>
 
 </resources>
