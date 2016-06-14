@@ -1,7 +1,6 @@
 package com.cashback.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,11 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.cashback.R;
@@ -32,11 +28,7 @@ import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.ui.account.AccountFragment;
-import com.cashback.ui.featured.ExtraTabFragment;
-import com.cashback.ui.featured.FavoritesTabFragment;
 import com.cashback.ui.featured.FeaturedFragment;
-import com.cashback.ui.featured.HotDealsTabFragment;
-import com.cashback.ui.featured.HotDealsTabFragmentTest;
 import com.facebook.appevents.AppEventsLogger;
 
 import bolts.AppLinks;
@@ -186,6 +178,31 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             ButterKnife.bind(this, activity);
             navigator.setSaveEnabled(true);
             navigator.setNavigationItemSelectedListener(this);
+            drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+                @Override
+                public void onDrawerSlide(View drawerView, float slideOffset) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                }
+
+                @Override
+                public void onDrawerOpened(View drawerView) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                }
+
+                @Override
+                public void onDrawerClosed(View drawerView) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                }
+
+                @Override
+                public void onDrawerStateChanged(int newState) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                }
+            });
         }
 
         private void init(Bundle savedInstanceState) {
