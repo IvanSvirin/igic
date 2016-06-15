@@ -179,7 +179,7 @@
                 android:id="@+id/common_list"
                 style="@style/AppTheme.GridView"
                 android:layout_height="wrap_content"
-                android:columnWidth="320dp"
+                android:columnWidth="280dp"
                 android:verticalSpacing="10dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:listItem="@layout/item_store_list_big_card" />

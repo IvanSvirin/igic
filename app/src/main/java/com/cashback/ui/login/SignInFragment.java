@@ -30,6 +30,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -49,6 +51,10 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Account;
 import com.google.android.gms.plus.Plus;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -56,6 +62,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import okhttp3.internal.Util;
 
 public class SignInFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -134,7 +141,7 @@ public class SignInFragment extends Fragment {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestEmail()
                     .requestIdToken(getString(R.string.google_client_id))
-//                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
+                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .build();
             GoogleApiClient googleApiClient = new GoogleApiClient.Builder(getActivity())
                     .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
@@ -161,12 +168,28 @@ public class SignInFragment extends Fragment {
         private void registerFbCallback() {
             LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
-                public void onSuccess(LoginResult loginResult) {
-                    String token = loginResult.getAccessToken().getToken();
-                    AuthObject authObject = new AuthObject();
-                    authObject.setAuthType("facebook");
-                    authObject.setToken(token);
-                    new SignInRequest(getContext(), authObject).fetchData();
+                public void onSuccess(final LoginResult loginResult) {
+                    final String token = loginResult.getAccessToken().getToken();
+                    GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            try {
+                                AuthObject authObject = new AuthObject();
+                                authObject.setAuthType("2");
+                                authObject.setToken(token);
+                                authObject.setFirstName(object.getString("first_name"));
+                                authObject.setLastName(object.getString("last_name"));
+                                authObject.setEmail(object.getString("email"));
+                                new SignInRequest(getContext(), authObject).fetchData();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "first_name,last_name,email");
+                    request.setParameters(parameters);
+                    request.executeAsync();
                 }
 
                 @Override

@@ -238,6 +238,9 @@ public class HotDealsTabFragmentTest extends Fragment implements LoaderManager.L
             holder.vhExpireDate.setText(expire);
             if (couponCode.length() < 4) {
                 holder.vhCouponCode.setVisibility(View.INVISIBLE);
+            } else if (couponCode.length() > 12) {
+                holder.vhCouponCode.setText(couponCode.substring(0, 12));
+                holder.vhCouponCode.setVisibility(View.VISIBLE);
             } else {
                 holder.vhCouponCode.setText(couponCode);
                 holder.vhCouponCode.setVisibility(View.VISIBLE);

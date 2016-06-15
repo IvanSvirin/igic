@@ -8,9 +8,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/great"
-        android:layout_centerVertical="true"
+        android:src="@drawable/tour2"
+        android:layout_below="@+id/textView16"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/tour2" />
+        android:layout_marginTop="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,8 +19,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/create_your_own_list_of_favorite_stores"
         android:id="@+id/textView16"
+        android:layout_marginTop="65dp"
+        android:textStyle="italic"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:textStyle="italic" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

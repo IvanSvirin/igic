@@ -127,9 +127,21 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
-
-                String postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
-//                String postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                String postParameters;
+                switch (authObject.getAuthType()) {
+                    case "0":
+                        postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
+//                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                        break;
+                    case "1":
+                    case "2":
+                        postParameters = "token=" + authObject.getToken() + "&first_name=" + authObject.getFirstName() + "&last_name=" + authObject.getLastName() +
+                                "&email=" + authObject.getEmail() + "&auth_type=" + authObject.getAuthType();
+                        break;
+                    default:
+                        postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
+//                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                }
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
                 out.print(postParameters);
