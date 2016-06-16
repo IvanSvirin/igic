@@ -42,44 +42,42 @@ public class HelpActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.howItWorksFrame:
                 intent = new Intent(this, TourActivity.class);
-                intent.putExtra("title", getApplication().getResources().getString(R.string.send_app_feedback));
-                intent.putExtra("url", "http://support.igive.com/Main/frmNewTicket.aspx");
                 startActivity(intent);
                 break;
             case R.id.sendAppFeedbackFrame:
                 intent = new Intent(this, BrowserActivity.class);
                 intent.putExtra("title", getApplication().getResources().getString(R.string.send_app_feedback));
-                intent.putExtra("url", "http://support.igive.com/Main/frmNewTicket.aspx");
+                intent.putExtra("url", getString(R.string.send_app_feedback_path));
                 startActivity(intent);
                 break;
             case R.id.paymentQuestionsFrame:
                 intent = new Intent(this, BrowserActivity.class);
                 intent.putExtra("title", getApplication().getResources().getString(R.string.payment_questions));
-                intent.putExtra("url", "http://support.igive.com/kb/a3/when-will-my-cause-get-a-check.aspx");
+                intent.putExtra("url", getString(R.string.payment_questions_path));
                 startActivity(intent);
                 break;
             case R.id.howToUseFrame:
                 intent = new Intent(this, BrowserActivity.class);
                 intent.putExtra("title", getApplication().getResources().getString(R.string.how_to_use));
-                intent.putExtra("url", "http://support.igive.com/kb/a115/how-igive-works.aspx");
+                intent.putExtra("url", getString(R.string.how_to_use_path));
                 startActivity(intent);
                 break;
             case R.id.whereIsMineFrame:
                 intent = new Intent(this, BrowserActivity.class);
                 intent.putExtra("title", getApplication().getResources().getString(R.string.where_is_mine));
-                intent.putExtra("url", "http://support.igive.com/kb/a2/tracking-your-donation.aspx");
+                intent.putExtra("url", getString(R.string.where_is_my_donation_path));
                 startActivity(intent);
                 break;
             case R.id.privacySecurityFrame:
                 intent = new Intent(this, BrowserActivity.class);
                 intent.putExtra("title", getApplication().getResources().getString(R.string.privacy_security));
-                intent.putExtra("url", "http://www.igive.com/isearch/privacy.cfm");
+                intent.putExtra("url", getString(R.string.privacy_and_security_path));
                 startActivity(intent);
                 break;
             case R.id.termsConditionsFrame:
                 intent = new Intent(this, BrowserActivity.class);
                 intent.putExtra("title", getApplication().getResources().getString(R.string.terms_conditions));
-                intent.putExtra("url", "http://www.igive.com/isearch/tos.cfm");
+                intent.putExtra("url", getString(R.string.terms_and_conditions_path));
                 startActivity(intent);
                 break;
         }

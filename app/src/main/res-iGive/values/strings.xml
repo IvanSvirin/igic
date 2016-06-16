@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">iGive</string>
     <string name="notification_title">iGive Notification</string>
-    <string name="gcm_senderId">11111111</string>
+    <string name="project_number">99922677703</string>
     <!--<string name="google_client_id">99922677703-u73l4cngocmb5jcu10tpbt7h2ai15u3c.apps.googleusercontent.com</string>-->
     <string name="google_client_id">99922677703-6mscckono9i8379ihb9c6gjoat2v217m.apps.googleusercontent.com</string>
     <string name="item_account">My iGive</string>
@@ -19,6 +19,16 @@
     <string name="purchase_amount">Purchase Amount:</string>
     <string name="notifications_donation_alerts">Notification when you give Donation</string>
     <string name="cash_back_percent">% DONATION</string>
-
+    <string name="categories_path">https://beta1.igive.com/rest/iGive/api/v1/categories/</string>
+    <string name="merchants_path">https://beta1.igive.com/rest/iGive/api/v1/merchants/</string>
+    <string name="coupons_path">https://beta1.igive.com/rest/iGive/api/v1/merchants/coupons/featured/</string>
+    <string name="extras_path">https://beta1.igive.com/rest/iGive/api/v1/merchants/extra/</string>
+    <string name="favorites_path">https://beta1.igive.com/rest/iGive/api/v1/favorites/</string>
+    <string name="send_app_feedback_path">http://support.igive.com/Main/frmNewTicket.aspx</string>
+    <string name="payment_questions_path">http://support.igive.com/kb/a3/when-will-my-cause-get-a-check.aspx</string>
+    <string name="how_to_use_path">http://support.igive.com/kb/a115/how-igive-works.aspx</string>
+    <string name="where_is_my_donation_path">http://support.igive.com/kb/a2/tracking-your-donation.aspx</string>
+    <string name="privacy_and_security_path">http://www.igive.com/isearch/privacy.cfm</string>
+    <string name="terms_and_conditions_path">http://www.igive.com/isearch/tos.cfm</string>
 
 </resources>

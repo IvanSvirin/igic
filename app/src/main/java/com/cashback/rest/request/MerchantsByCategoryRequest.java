@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
@@ -56,7 +57,7 @@ public class MerchantsByCategoryRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/categories/" + String.valueOf(id) + "/merchants/");
+                url = new URL(context.getString(R.string.categories_path) + String.valueOf(id) + "/merchants/");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));

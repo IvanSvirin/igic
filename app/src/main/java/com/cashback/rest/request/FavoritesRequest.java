@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
@@ -58,7 +59,7 @@ public class FavoritesRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/favorites/");
+                url = new URL(context.getString(R.string.favorites_path));
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
@@ -136,7 +137,7 @@ public class FavoritesRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/favorites/" + String.valueOf(id));
+                url = new URL(context.getString(R.string.favorites_path) + String.valueOf(id));
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
@@ -204,7 +205,7 @@ public class FavoritesRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/favorites/" + String.valueOf(id));
+                url = new URL(context.getString(R.string.favorites_path) + String.valueOf(id));
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));

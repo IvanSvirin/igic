@@ -2,7 +2,6 @@ package com.cashback.gcm;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 
 import com.cashback.R;
 import com.cashback.Utilities;
@@ -22,8 +21,7 @@ public class RegistrationGcmServices extends IntentService {
         try {
             synchronized (this) {
                 InstanceID instanceID = InstanceID.getInstance(this);
-                // it needs real gcm_senderId
-                String token = instanceID.getToken(getString(R.string.gcm_senderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE);
+                String token = instanceID.getToken(getString(R.string.project_number), GoogleCloudMessaging.INSTANCE_ID_SCOPE);
                 sendRegTokeToServer(token);
                 Utilities.setStateSendingTokenToServer(this, true);
             }
@@ -34,11 +32,5 @@ public class RegistrationGcmServices extends IntentService {
 
     private void sendRegTokeToServer(String token) {
 
-        AppCompatActivity activity = (AppCompatActivity) getBaseContext();
-        // this code from S2C (must be changed later)
-//        final MiscWorkerFragment fragment = MiscWorkerFragment.getWorkerFragment(activity.
-//                getSupportFragmentManager());
-//        MiscModel miscModel = fragment.getModel();
-//        miscModel.registerGcm(token);
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
@@ -133,7 +134,7 @@ public class MerchantsRequest extends ServiceGenerator<IMerchants> {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/merchants/");
+                url = new URL(context.getString(R.string.merchants_path));
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));

@@ -1,1 +1,48 @@
-{"project_info":{"project_id":"ssop2care-100de","project_number":"893564134855","name":"Shop2Care"},"client":[{"client_info":{"client_id":"android:com.cashback.igive","client_type":1,"android_client_info":{"package_name":"com.cashback.igive"}},"oauth_client":[],"services":{"analytics_service":{"status":1},"cloud_messaging_service":{"status":2,"apns_config":[]},"appinvite_service":{"status":1,"other_platform_oauth_client":[]},"google_signin_service":{"status":1},"ads_service":{"status":1}}}],"ARTIFACT_VERSION":"1"}
+{
+  "project_info": {
+    "project_number": "99922677703",
+    "project_id": "igive-33265"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99922677703:android:38c2d2819ca9afa5",
+        "android_client_info": {
+          "package_name": "com.igive.button"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99922677703-6mscckono9i8379ihb9c6gjoat2v217m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.igive.button",
+            "certificate_hash": "A1F7C7FBA309DB183A6BF84FC2901A01EDE37317"
+          }
+        },
+        {
+          "client_id": "99922677703-u73l4cngocmb5jcu10tpbt7h2ai15u3c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-H1V9ZBUatKQJOPwcpHKOLHP_m3CTz-I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
