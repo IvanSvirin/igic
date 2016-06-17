@@ -10,7 +10,7 @@
     <dimen name="carousel_collapsing_toolbar_height">200dp</dimen>
     <dimen name="tabLayout_height">40dp</dimen>
     <dimen name="zero_dp">0dp</dimen>
-    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
     <dimen name="activity_horizontal_padding">20dp</dimen>
     <dimen name="activity_vertical_padding">20dp</dimen>
 

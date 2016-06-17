@@ -11,8 +11,8 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar_layout"
         style="@style/AppTheme.Root"
+        android:background="@color/primaryLight"
         android:layout_height="@dimen/app_bar_height"
-        android:background="#ffffff"
         android:orientation="vertical"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="@dimen/zero_dp">
@@ -164,12 +164,14 @@
         android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/primaryLight"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <com.cashback.ui.components.NestedListView
                 android:id="@+id/common_list"
                 android:layout_height="wrap_content"
+                android:background="@color/primaryLight"
                 style="@style/AppTheme.ListView"
                 tools:listItem="@layout/item_store_list" />
     </com.cashback.ui.components.FixedNestedScrollView>

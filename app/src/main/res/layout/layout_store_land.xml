@@ -13,7 +13,7 @@
         android:id="@+id/appbar_layout"
         style="@style/AppTheme.Root"
         android:layout_height="@dimen/app_bar_height"
-        android:background="#ffffff"
+        android:background="@color/primaryLight"
         android:orientation="vertical"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:elevation="@dimen/zero_dp">
@@ -165,6 +165,7 @@
         android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/primaryLight"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -172,6 +173,7 @@
             android:id="@+id/child_of_nested"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/primaryLight"
             android:orientation="vertical"
             android:visibility="visible">
 
@@ -179,6 +181,7 @@
                 android:id="@+id/common_list"
                 style="@style/AppTheme.GridView"
                 android:layout_height="wrap_content"
+                android:background="@color/primaryLight"
                 android:columnWidth="280dp"
                 android:verticalSpacing="10dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
