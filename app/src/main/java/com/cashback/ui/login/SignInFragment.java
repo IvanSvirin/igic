@@ -139,9 +139,9 @@ public class SignInFragment extends Fragment {
         @OnClick(R.id.googleLoginButton)
         public void onGoogleLogin() {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestEmail()
+//                    .requestEmail()
                     .requestIdToken(getString(R.string.google_client_id))
-                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
+//                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .build();
             GoogleApiClient googleApiClient = new GoogleApiClient.Builder(getActivity())
                     .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {

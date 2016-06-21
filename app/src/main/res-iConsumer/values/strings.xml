@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">iConsumer</string>
     <string name="notification_title">iConsumer Notification</string>
-    <string name="gcm_senderId">11111111</string>
+    <!--<string name="project_number">99922677703</string>-->
+    <!--<string name="google_client_id">1095490684025-cc2pvg2078nlkd5vtbaqtu4djbqskr91.apps.googleusercontent.com</string>-->
+    <!--<string name="google_client_id">1095490684025-n6c7egvq2pllg585v0nt3ovkss5irbu9.apps.googleusercontent.com</string>-->
     <string name="item_account">My iConsumer</string>
     <string name="title_cash_pending">Cash Pending</string>
     <string name="title_payments">Payments</string>

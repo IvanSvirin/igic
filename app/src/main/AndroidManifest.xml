@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme">
 
         <provider
-            android:name=".db.DataProvider"
+            android:name="com.cashback.db.DataProvider"
             android:authorities="com.cashback.provider"
             android:exported="false" />
 
@@ -63,22 +63,22 @@
                 <!-- support pre-4.4 KitKat devices -->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="org.shop2care.android.shop2care.app" />
+                <category android:name="com.cashback" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name="gcm.IgicGcmListenerService"
+            android:name="com.cashback.gcm.IgicGcmListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
         <service
-            android:name=".gcm.RegistrationGcmServices"
+            android:name="com.cashback.gcm.RegistrationGcmServices"
             android:exported="false" />
         <service
-            android:name=".gcm.IgicInstanceIDListenerService"
+            android:name="com.cashback.gcm.IgicInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -86,7 +86,7 @@
         </service>
 
         <activity
-            android:name=".ui.LaunchActivity"
+            android:name="com.cashback.ui.LaunchActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -104,9 +104,9 @@
 
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name="com.cashback.ui.MainActivity" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name="com.cashback.ui.login.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
         <activity
@@ -114,17 +114,17 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".ui.account.HelpActivity" />
-        <activity android:name=".ui.account.TourActivity" />
-        <activity android:name=".ui.account.PaymentsActivity" />
-        <activity android:name=".ui.CategoryActivity" />
-        <activity android:name=".ui.StoreActivity" />
-        <activity android:name=".ui.allresults.SearchActivity" />
-        <activity android:name=".ui.login.RestoreActivity" />
-        <activity android:name=".ui.web.BrowserDealsActivity" />
-        <activity android:name=".ui.web.BrowserActivity" />
-        <activity android:name=".ui.allresults.AllResultsActivity" />
-        <activity android:name=".ui.account.ShoppingTripsActivity" />
+        <activity android:name="com.cashback.ui.account.HelpActivity" />
+        <activity android:name="com.cashback.ui.account.TourActivity" />
+        <activity android:name="com.cashback.ui.account.PaymentsActivity" />
+        <activity android:name="com.cashback.ui.CategoryActivity" />
+        <activity android:name="com.cashback.ui.StoreActivity" />
+        <activity android:name="com.cashback.ui.allresults.SearchActivity" />
+        <activity android:name="com.cashback.ui.login.RestoreActivity" />
+        <activity android:name="com.cashback.ui.web.BrowserDealsActivity" />
+        <activity android:name="com.cashback.ui.web.BrowserActivity" />
+        <activity android:name="com.cashback.ui.allresults.AllResultsActivity" />
+        <activity android:name="com.cashback.ui.account.ShoppingTripsActivity" />
         <activity android:name="ui.account.YourOrderHistoryActivity" />
     </application>
 </manifest>

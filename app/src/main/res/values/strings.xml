@@ -1,4 +1,8 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
+
+    <string name="project_number">756856295049</string>
+    <string name="google_client_id">756856295049-6mfj475qhdiiaieuu25qtqi3gutdig9b.apps.googleusercontent.com</string>
+
     <string name="facebook_app_id" translatable="false">136804739713072</string>
     <string name="login_first_page_name">SIGN UP</string>
     <string name="login_second_page_name">LOG IN</string>

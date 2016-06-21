@@ -31,6 +31,5 @@ public class RegistrationGcmServices extends IntentService {
     }
 
     private void sendRegTokeToServer(String token) {
-
     }
 }

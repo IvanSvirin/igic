@@ -28,12 +28,12 @@ android {
 
     productFlavors {
         iconsumer {
+//            applicationId "com.iconsumer.button"
             applicationId "com.cashback.iconsumer"
         }
         igive {
-            //todo ????????????
-            applicationId "com.igive.button"
-//            applicationId "com.cashback.igive"
+//            applicationId "com.igive.button"
+            applicationId "com.cashback"
         }
     }
 
