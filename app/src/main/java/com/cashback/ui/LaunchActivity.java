@@ -21,6 +21,7 @@ import com.cashback.ui.account.HelpActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.facebook.FacebookSdk;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.json.JSONException;
@@ -38,6 +39,7 @@ public class LaunchActivity extends AppCompatActivity {
     public static final String MAIN_TAG_LOG = "igic_log";
     public static final String DB_TAG_LOG = "igic_db_log";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    static final String TAG = "GCM Registration";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         Utilities.saveIdfa(this, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
 
-        // Automatic session tracking
+//         Automatic session tracking
         Branch.getAutoInstance(getApplicationContext());
         initBranchSession();
 
@@ -125,14 +127,29 @@ public class LaunchActivity extends AppCompatActivity {
         super.onResume();
     }
 
+//    private boolean checkPlayServices() {
+//        int resultsCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+//        if (resultsCode != ConnectionResult.SUCCESS) {
+//            if (GooglePlayServicesUtil.isUserRecoverableError(resultsCode)) {
+//                GooglePlayServicesUtil.getErrorDialog(resultsCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+//            } else {
+//                Log.d(MAIN_TAG_LOG, "This device is not supported google play services.");
+//            }
+//        }
+//        return true;
+//    }
+
     private boolean checkPlayServices() {
-        int resultsCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        if (resultsCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultsCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultsCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog((android.app.Activity) this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
             } else {
-                Log.d(MAIN_TAG_LOG, "This device is not supported google play services.");
+                Log.i(TAG, "This device is not supported.");
             }
+            return false;
         }
         return true;
     }
