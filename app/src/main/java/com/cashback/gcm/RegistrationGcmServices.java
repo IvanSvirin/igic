@@ -19,25 +19,24 @@ public class RegistrationGcmServices extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-//        GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
 //        try {
+//            GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
 //            String token = gcm.register(getString(R.string.project_number));
 //            sendRegTokeToServer(token);
-//            Utilities.setStateSendingTokenToServer(this, true);
+//            Utilities.setStateSendingTokenToServer(getApplicationContext(), true);
 //        } catch (IOException e) {
 //            e.printStackTrace();
-//            Utilities.setStateSendingTokenToServer(this, false);
+//            Utilities.setStateSendingTokenToServer(getApplicationContext(), false);
 //        }
 
-
-//        try {
-//            InstanceID instanceID = InstanceID.getInstance(this);
-//            String token = instanceID.getToken(getString(R.string.project_number), GoogleCloudMessaging.INSTANCE_ID_SCOPE);
-//            sendRegTokeToServer(token);
-//            Utilities.setStateSendingTokenToServer(this, true);
-//        } catch (Exception e) {
-//            Utilities.setStateSendingTokenToServer(this, false);
-//        }
+        try {
+            InstanceID instanceID = InstanceID.getInstance(this);
+            String token = instanceID.getToken(getString(R.string.project_number), GoogleCloudMessaging.INSTANCE_ID_SCOPE);
+            sendRegTokeToServer(token);
+            Utilities.setStateSendingTokenToServer(this, true);
+        } catch (Exception e) {
+            Utilities.setStateSendingTokenToServer(this, false);
+        }
     }
 
     private void sendRegTokeToServer(String token) {

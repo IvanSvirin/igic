@@ -1,34 +1,28 @@
 package com.cashback.ui;
 
-import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.gcm.RegistrationGcmServices;
-import com.cashback.ui.MainActivity;
-import com.cashback.ui.account.HelpActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.facebook.FacebookSdk;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.Branch;
@@ -47,7 +41,6 @@ public class LaunchActivity extends AppCompatActivity {
 
         Intent intentRegistrationGCM;
         Intent intentNextActivity;
-
         Utilities.saveIdfa(this, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
 
 //         Automatic session tracking
@@ -120,11 +113,6 @@ public class LaunchActivity extends AppCompatActivity {
                 context.startActivity(Intent.createChooser(share, "Share Text"));
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
 //    private boolean checkPlayServices() {

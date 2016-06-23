@@ -7,6 +7,8 @@
     <item name="layout_common_products" type="layout">@layout/layout_featured_tab1</item>
     <item name="layout_common_coupons" type="layout">@layout/layout_featured_tab2</item>
     <item name="layout_common_store" type="layout">@layout/layout_store</item>
+    <item name="layout_featured_common" type="layout">@layout/layout_featured</item>
+    <item name="layout_all_results_common" type="layout">@layout/layout_all_results</item>
 
     <item name="item_common_hot_deals" type="layout">@layout/item_hot_deal_list</item>
     <item name="item_common_favorite" type="layout">@layout/item_favorite_list</item>

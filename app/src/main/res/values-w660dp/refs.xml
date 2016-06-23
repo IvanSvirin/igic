@@ -7,6 +7,8 @@
     <item name="layout_common_products" type="layout">@layout/layout_featured_tab_grid1</item>
     <item name="layout_common_coupons" type="layout">@layout/layout_featured_tab_grid2</item>
     <item name="layout_common_store" type="layout">@layout/layout_store_grid</item>
+    <item name="layout_featured_common" type="layout">@layout/layout_featured_grid</item>
+    <item name="layout_all_results_common" type="layout">@layout/layout_all_results_grid</item>
 
     <item name="item_common_hot_deals" type="layout">@layout/item_hot_deal_grid</item>
     <item name="item_common_favorite" type="layout">@layout/item_favorite_grid</item>

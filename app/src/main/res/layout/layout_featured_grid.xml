@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator_layout"
+    style="@style/AppTheme.Root"
+    android:background="@color/white">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
+        style="@style/AppTheme.Root"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="@dimen/zero_dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:background="@android:color/transparent"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/AppThemeOverlay.ToolbarPrimary" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_header"
+            style="@style/AppTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tabLayout_height"
+            app:tabGravity="fill"
+            app:tabMode="scrollable" />
+    </android.support.design.widget.AppBarLayout>
+
+    <com.cashback.ui.components.FixedNestedScrollView
+        android:id="@+id/nested_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/child_of_nested"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/tab_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </com.cashback.ui.components.FixedNestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

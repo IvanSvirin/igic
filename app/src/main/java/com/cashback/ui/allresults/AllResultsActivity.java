@@ -44,7 +44,7 @@ public class AllResultsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_all_results);
+        setContentView(R.layout.layout_all_results_common);
 
         Intent intent = getIntent();
         searchingWord = intent.getStringExtra("searching_word");

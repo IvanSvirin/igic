@@ -48,7 +48,7 @@ public class FeaturedFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_featured, container, false);
+        View view = inflater.inflate(R.layout.layout_featured_common, container, false);
         fragmentUi = new FragmentUi(this, view);
         return view;
     }

@@ -130,7 +130,7 @@ public class SearchRequest {
                         product.setVendorId(jObj.getLong("vendor_id"));
                         product.setTitle(jObj.getString("title"));
                         product.setPrice((float) jObj.getDouble("price"));
-                        product.setDescription(jObj.getString("description"));
+//                        product.setDescription(jObj.getString("description"));
                         product.setImageUrl(jObj.getString("image_url"));
                         product.setVendorLogoUrl(jObj.getString("vendor_logo_url"));
                         product.setVendorCommission((float) jObj.getDouble("vendor_commission"));
