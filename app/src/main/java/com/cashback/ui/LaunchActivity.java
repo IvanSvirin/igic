@@ -115,18 +115,6 @@ public class LaunchActivity extends AppCompatActivity {
         });
     }
 
-//    private boolean checkPlayServices() {
-//        int resultsCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-//        if (resultsCode != ConnectionResult.SUCCESS) {
-//            if (GooglePlayServicesUtil.isUserRecoverableError(resultsCode)) {
-//                GooglePlayServicesUtil.getErrorDialog(resultsCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
-//            } else {
-//                Log.d(MAIN_TAG_LOG, "This device is not supported google play services.");
-//            }
-//        }
-//        return true;
-//    }
-
     private boolean checkPlayServices() {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);

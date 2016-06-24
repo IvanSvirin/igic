@@ -57,7 +57,7 @@ public class SignUpFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEvent(SignUpEvent event) {
+    public void onEvent(AccountEvent event) {
         if (event.isSuccess) {
             Utilities.saveUserToken(getActivity(), event.getToken());
             startActivity(new Intent(getContext(), MainActivity.class));

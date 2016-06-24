@@ -1,9 +1,7 @@
 package com.cashback.ui.login;
 
-import android.accounts.AccountManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,58 +9,40 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
-import com.cashback.rest.event.LoginEvent;
-import com.cashback.rest.request.CouponsRequest;
-import com.cashback.rest.request.MerchantsRequest;
-import com.cashback.rest.request.SignInRequest;
+import com.cashback.rest.event.AccountEvent;
+import com.cashback.rest.request.SignInCharityRequest;
 import com.cashback.ui.MainActivity;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-import com.google.android.gms.auth.GoogleAuthException;
-import com.google.android.gms.auth.GoogleAuthUtil;
-import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.AccountPicker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.plus.Account;
-import com.google.android.gms.plus.Plus;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
-import okhttp3.internal.Util;
 
 public class SignInFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -99,7 +79,7 @@ public class SignInFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEvent(LoginEvent event) {
+    public void onEvent(AccountEvent event) {
         if (event.isSuccess) {
             Utilities.saveUserEntry(getActivity(), true);
             Utilities.saveUserToken(getActivity(), event.getToken());
@@ -127,7 +107,7 @@ public class SignInFragment extends Fragment {
                 authObject.setAuthType("0");
                 authObject.setEmail(email);
                 authObject.setPassword(password);
-                new SignInRequest(getContext(), authObject).fetchData();
+                new SignInCharityRequest(getContext(), authObject, "login").fetchData();
             }
         }
 
@@ -180,7 +160,7 @@ public class SignInFragment extends Fragment {
                                 authObject.setFirstName(object.getString("first_name"));
                                 authObject.setLastName(object.getString("last_name"));
                                 authObject.setEmail(object.getString("email"));
-                                new SignInRequest(getContext(), authObject).fetchData();
+                                new SignInCharityRequest(getContext(), authObject, "login").fetchData();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -228,7 +208,10 @@ public class SignInFragment extends Fragment {
                 AuthObject authObject = new AuthObject();
                 authObject.setAuthType("1");
                 authObject.setToken(token);
-                new SignInRequest(getContext(), authObject).fetchData();
+                authObject.setFirstName(acct.getGivenName());
+                authObject.setLastName(acct.getFamilyName());
+                authObject.setEmail(acct.getEmail());
+                new SignInCharityRequest(getContext(), authObject, "login").fetchData();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);

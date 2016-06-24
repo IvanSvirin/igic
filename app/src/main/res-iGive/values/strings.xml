@@ -30,5 +30,8 @@
     <string name="where_is_my_donation_path">http://support.igive.com/kb/a2/tracking-your-donation.aspx</string>
     <string name="privacy_and_security_path">http://www.igive.com/isearch/privacy.cfm</string>
     <string name="terms_and_conditions_path">http://www.igive.com/isearch/tos.cfm</string>
+    <string name="sign_in_path">https://beta1.igive.com/rest/iGive/api/v1/authorization/</string>
+    <string name="reset_path">https://beta1.igive.com/rest/iGive/api/v1/authorization/reset</string>
+
 
 </resources>

@@ -33,6 +33,7 @@ public class DataProvider extends ContentProvider {
     private static final int CHARITY_ORDERS = 801;
 
     private static final int CHARITY_ACCOUNTS = 901;
+    private static final int CASHBACK_ACCOUNTS = 902;
 
 
     private String LOG_TAG = "sql_log";
@@ -57,6 +58,7 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "orders", ORDERS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "charity_orders", CHARITY_ORDERS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "charity_accounts", CHARITY_ACCOUNTS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "cashback_accounts", CASHBACK_ACCOUNTS);
     }
 
     @Override
@@ -164,6 +166,12 @@ public class DataProvider extends ContentProvider {
                 }
                 cursor = db.query(DataContract.CharityAccounts.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 break;
+            case CASHBACK_ACCOUNTS:
+                if (TextUtils.isEmpty(sortOrder)) {
+                    sortOrder = DataContract.CashbackAccounts.COLUMN_TOKEN + " COLLATE NOCASE ASC";
+                }
+                cursor = db.query(DataContract.CashbackAccounts.TABLE_NAME, projection, null, null, null, null, sortOrder);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -255,6 +263,14 @@ public class DataProvider extends ContentProvider {
                 rowID = db.insertWithOnConflict(DataContract.CharityAccounts.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
                     resultUri = ContentUris.withAppendedId(DataContract.URI_CHARITY_ACCOUNTS, rowID);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            case CASHBACK_ACCOUNTS:
+                rowID = db.insertWithOnConflict(DataContract.CashbackAccounts.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (rowID > 0) {
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_CASHBACK_ACCOUNTS, rowID);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
@@ -422,6 +438,21 @@ public class DataProvider extends ContentProvider {
                     db.endTransaction();
                 }
                 break;
+            case CASHBACK_ACCOUNTS:
+                db.beginTransaction();
+                try {
+                    delete(uri, null, null);
+                    for (ContentValues val : values) {
+                        insert(uri, val);
+                        countInsert++;
+                    }
+                    db.setTransactionSuccessful();
+                } catch (SQLException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
+                break;
         }
         context.getContentResolver().notifyChange(uri, null);
         return countInsert;
@@ -463,6 +494,9 @@ public class DataProvider extends ContentProvider {
                 break;
             case CHARITY_ACCOUNTS:
                 affectedRowsCount = db.delete(DataContract.CharityAccounts.TABLE_NAME, null, null);
+                break;
+            case CASHBACK_ACCOUNTS:
+                affectedRowsCount = db.delete(DataContract.CashbackAccounts.TABLE_NAME, null, null);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -507,6 +541,8 @@ public class DataProvider extends ContentProvider {
                 return DataContract.CharityOrders.CONTENT_TYPE;
             case CHARITY_ACCOUNTS:
                 return DataContract.CharityAccounts.CONTENT_TYPE;
+            case CASHBACK_ACCOUNTS:
+                return DataContract.CashbackAccounts.CONTENT_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
 

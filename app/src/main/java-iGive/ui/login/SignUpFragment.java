@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,8 @@ import android.widget.EditText;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
-import com.cashback.rest.event.SignUpEvent;
-import com.cashback.rest.request.SignInRequest;
+import com.cashback.rest.event.AccountEvent;
+import com.cashback.rest.request.SignInCharityRequest;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.facebook.CallbackManager;
@@ -67,7 +69,7 @@ public class SignUpFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEvent(SignUpEvent event) {
+    public void onEvent(AccountEvent event) {
         if (event.isSuccess) {
             Utilities.saveUserToken(getActivity(), event.getToken());
             startActivity(new Intent(getContext(), MainActivity.class));
@@ -96,7 +98,17 @@ public class SignUpFragment extends Fragment {
 
         @OnClick(R.id.nativeSingUpButton)
         public void onNativeSignUp() {
-            getContext().startActivity(new Intent(getContext(), MainActivity.class));
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_empty_fields, Snackbar.LENGTH_SHORT).show();
+            } else {
+                AuthObject authObject = new AuthObject();
+                authObject.setAuthType("0");
+                authObject.setEmail(email);
+                authObject.setPassword(password);
+                new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
+            }
         }
 
         @OnClick(R.id.googleSingUpButton)
@@ -129,11 +141,9 @@ public class SignUpFragment extends Fragment {
                 public void onSuccess(LoginResult loginResult) {
                     String token = loginResult.getAccessToken().getToken();
                     AuthObject authObject = new AuthObject();
-                    authObject.setAuthType("facebook");
+                    authObject.setAuthType("2");
                     authObject.setToken(token);
-                    // TODO: 4/19/2016 TEST - will be deleted
-                    new SignInRequest(getContext(), authObject).fetchData();
-//                new SignUpRequest(getContext(), authObject).fetchData();
+                    new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
                 }
 
                 @Override
@@ -170,11 +180,9 @@ public class SignUpFragment extends Fragment {
                 GoogleSignInAccount acct = result.getSignInAccount();
                 String token = acct.getIdToken();
                 AuthObject authObject = new AuthObject();
-                authObject.setAuthType("google");
+                authObject.setAuthType("1");
                 authObject.setToken(token);
-                // TODO: 4/19/2016 TEST - will be deleted
-                new SignInRequest(getContext(), authObject).fetchData();
-//                new SignUpRequest(getContext(), authObject).fetchData();
+                new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);

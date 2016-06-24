@@ -19,6 +19,7 @@ public class DataContract {
     public static final Uri URI_ORDERS = Uri.withAppendedPath(BASE_CONTENT_URI, "orders");
     public static final Uri URI_CHARITY_ORDERS = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_orders");
     public static final Uri URI_CHARITY_ACCOUNTS = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_accounts");
+    public static final Uri URI_CASHBACK_ACCOUNTS = Uri.withAppendedPath(BASE_CONTENT_URI, "cashback_accounts");
 
 
     public static class Merchants implements BaseColumns {
@@ -190,5 +191,23 @@ public class DataContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "charity_accounts";
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "charity_accounts";
+    }
+
+    public static class CashbackAccounts implements BaseColumns {
+        public static final String TABLE_NAME = "cashback_accounts";
+        public static final String COLUMN_TOKEN = "token";
+        public static final String COLUMN_FIRST_NAME = "first_name";
+        public static final String COLUMN_LAST_NAME = "last_name";
+        public static final String COLUMN_EMAIL = "email";
+        public static final String COLUMN_NEXT_PAYMENT_DATE = "next_payment_date";
+        public static final String COLUMN_MEMBER_DATE = "member_date";
+        public static final String COLUMN_CASH_PENDING_AMOUNT = "cash_pending_amount";
+        public static final String COLUMN_PAYMENTS_TOTAL_AMOUNT = "payments_total_amount";
+        public static final String COLUMN_REFERRER_ID = "referrer_id";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "cashback_accounts";
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "cashback_accounts";
     }
 }

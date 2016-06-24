@@ -5,13 +5,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.IAuthorization;
-import com.cashback.rest.ServiceGenerator;
-import com.cashback.rest.event.LoginEvent;
+import com.cashback.rest.event.AccountEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,83 +27,22 @@ import java.net.URL;
 
 import de.greenrobot.event.EventBus;
 
-public class SignInRequest extends ServiceGenerator<IAuthorization> {
-    //    private Call<CharityAccount> call;
-//    private Gson gson1;
+/**
+ * Created by I.Svirin on 6/24/2016.
+ */
+public class SignInRequest {
     private AuthObject authObject;
     private Context context;
+    private String pathEnd;
 
-//    {
-//        Type type = new TypeToken<CharityAccount>() {
-//        }.getType();
-//        gson1 = new GsonBuilder()
-//                .setLenient()
-//                .registerTypeAdapter(type, new CharityAccountDeserializer())
-//                .create();
-//    }
-
-    public SignInRequest(Context context, AuthObject authObject) {
-        super(IAuthorization.class);
+    public SignInRequest(Context context, AuthObject authObject, String pathEnd) {
         this.context = context;
         this.authObject = authObject;
+        this.pathEnd = pathEnd;
     }
 
     public void fetchData() {
-        new SignInRequestTask(authObject).execute();
-//        call = createService(gson1).logIn(idfa, authObject);
-//        call.enqueue(new Callback<CharityAccount>() {
-//            @Override
-//            public void onResponse(Call<CharityAccount> call, Response<CharityAccount> response) {
-//                if (response.isSuccessful()) {
-//                    CharityAccount account = response.body();
-//                    EventBus.getDefault().post(new LoginEvent(true, null));
-//                    pushAccount(account);
-//                    Utilities.saveUserToken(context, account.getToken());
-//                } else {
-//                    int statusCode = response.code();
-//                    String answer = "Code " + statusCode + " . ";
-//                    ResponseBody errorBody = response.errorBody();
-//                    try {
-//                        answer += errorBody.string();
-//                        errorBody.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    EventBus.getDefault().post(new LoginEvent(false, answer));
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CharityAccount> call, Throwable t) {
-//                if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
-//                    ErrorResponse err = ((ErrorRestException) t).getBody();
-//                    EventBus.getDefault().post(new LoginEvent(false, err.getMessage()));
-//                } else if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_WARNING)) {
-//                    WarningResponse warn = ((WarningRestException) t).getBody();
-//                    EventBus.getDefault().post(new LoginEvent(false, warn.getMessage()));
-//                } else {
-//                    EventBus.getDefault().post(new LoginEvent(false, t.getMessage()));
-//                }
-//            }
-//
-//            private void pushAccount(CharityAccount account) {
-//                ContentValues values = new ContentValues();
-//                values.put(DataContract.CharityAccounts.COLUMN_TOKEN, account.getToken());
-//                values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, account.getFirstName());
-//                values.put(DataContract.CharityAccounts.COLUMN_LAST_NAME, account.getLastName());
-//                values.put(DataContract.CharityAccounts.COLUMN_EMAIL, account.getEmail());
-//                values.put(DataContract.CharityAccounts.COLUMN_MEMBER_DATE, account.getMemberDate());
-//                values.put(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT, account.getNextCheckAmount());
-//                values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, account.getPendingAmount());
-//                values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT, account.getTotalPaidAmount());
-//                values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_DATE, account.getTotalPaidDate());
-//                values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, account.getTotalRaised());
-//                values.put(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL, account.getCauseDashboardUrl());
-//                values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, account.getSelectCauseUrl());
-//                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-//                handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
-//            }
-//        });
+        new SignInRequestTask(authObject, pathEnd).execute();
     }
 
     public class SignInRequestTask extends AsyncTask<Void, Void, Void> {
@@ -113,15 +52,17 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
         private URL url;
         private InputStream inputStream = null;
         private HttpURLConnection urlConnection = null;
+        private String pathEnd;
 
-        public SignInRequestTask(AuthObject authObject) {
+        public SignInRequestTask(AuthObject authObject, String pathEnd) {
             this.authObject = authObject;
+            this.pathEnd = pathEnd;
         }
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/authorization/login");
+                url = new URL(context.getString(R.string.sign_in_path) + pathEnd);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");
@@ -130,7 +71,7 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                 String postParameters;
                 switch (authObject.getAuthType()) {
                     case "0":
-                        postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
+                        postParameters = "email=sandi_schleicher@hotmail.com&password=iconsumer&auth_type=" + authObject.getAuthType();
 //                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                         break;
                     case "1":
@@ -139,7 +80,7 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
                                 "&email=" + authObject.getEmail() + "&auth_type=" + authObject.getAuthType();
                         break;
                     default:
-                        postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
+                        postParameters = "email=sandi_schleicher@hotmail.com&password=iconsumer&auth_type=" + authObject.getAuthType();
 //                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                 }
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
@@ -181,26 +122,22 @@ public class SignInRequest extends ServiceGenerator<IAuthorization> {
             try {
                 if (jObj != null) {
                     ContentValues values = new ContentValues();
-                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT, jObj.getDouble("total_paid_amount"));
-                    values.put(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT, jObj.getDouble("next_check_amount"));
-                    values.put(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL, jObj.getString("cause_dashboard_url"));
-                    values.put(DataContract.CharityAccounts.COLUMN_LAST_NAME, jObj.getString("last_name"));
-                    values.put(DataContract.CharityAccounts.COLUMN_EMAIL, jObj.getString("email"));
-                    values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, jObj.getString("first_name"));
-                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, jObj.getDouble("total_raised"));
-//                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED, jObj.getString("TOTALEARNED"));
-                    values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, jObj.getString("select_cause_url"));
-                    values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, jObj.getDouble("pending_amount"));
-                    values.put(DataContract.CharityAccounts.COLUMN_TOKEN, jObj.getString("token"));
-                    values.put(DataContract.CharityAccounts.COLUMN_MEMBER_DATE, jObj.getString("member_date"));
-                    values.put(DataContract.CharityAccounts.COLUMN_REFERRER_ID, jObj.getString("referrer_id"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT, jObj.getDouble("cash_pending_amount"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT, jObj.getDouble("payments_total_amount"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_LAST_NAME, jObj.getString("last_name"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_EMAIL, jObj.getString("email"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_FIRST_NAME, jObj.getString("first_name"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_TOKEN, jObj.getString("token"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_MEMBER_DATE, jObj.getString("member_date"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_NEXT_PAYMENT_DATE, jObj.getString("next_payment_date"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_REFERRER_ID, jObj.getString("referrer_id"));
 
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                    handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
-                    EventBus.getDefault().post(new LoginEvent(true, null));
+                    handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CASHBACK_ACCOUNTS, values);
+                    EventBus.getDefault().post(new AccountEvent(true, null));
                     Utilities.saveUserToken(context, jObj.getString("token"));
                 } else {
-                    EventBus.getDefault().post(new LoginEvent(false, "Check your internet connection or authorization data"));
+                    EventBus.getDefault().post(new AccountEvent(false, "Check your internet connection or authorization data"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

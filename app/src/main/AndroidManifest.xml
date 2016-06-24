@@ -3,6 +3,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <!--<uses-permission android:name="android.permission.ACCOUNT_MANAGER" />-->
 
 
@@ -75,15 +76,15 @@
             </intent-filter>
         </service>
         <service
-            android:name="com.cashback.gcm.RegistrationGcmServices"
-            android:exported="false" />
-        <service
             android:name="com.cashback.gcm.IgicInstanceIDListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
+        <service
+            android:name="com.cashback.gcm.RegistrationGcmServices"
+            android:exported="false" />
 
         <activity
             android:name="com.cashback.ui.LaunchActivity"

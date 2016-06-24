@@ -4,11 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +20,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -31,10 +32,13 @@ import android.widget.TextView;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
+import com.cashback.gcm.RegistrationGcmServices;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.ui.account.AccountFragment;
 import com.cashback.ui.featured.FeaturedFragment;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import bolts.AppLinks;
 import butterknife.Bind;
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private int currentItemId = 0;
     private Handler handler;
     private FragmentManager fragmentManager;
+    private BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,7 +198,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 public void onDrawerOpened(View drawerView) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                    imm.hideSoftInputFromWindow(drawerView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);}
+                    imm.hideSoftInputFromWindow(drawerView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
 
                 @Override
                 public void onDrawerClosed(View drawerView) {

@@ -152,4 +152,19 @@ public class AuxiliaryDataDbHelper {
                     DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_CHARITY_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.CharityAccounts.TABLE_NAME;
+
+    public final String SQL_CREATE_CASHBACK_ACCOUNTS_TABLE =
+            "CREATE TABLE " + DataContract.CashbackAccounts.TABLE_NAME + "(" +
+                    DataContract.CashbackAccounts._ID + PRIMARY_TYPE +
+                    DataContract.CashbackAccounts.COLUMN_TOKEN + TEXT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_FIRST_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_LAST_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_EMAIL + TEXT_TYPE + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_MEMBER_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_NEXT_PAYMENT_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT + REAL_TYPE + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT + REAL_TYPE + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_REFERRER_ID + TEXT_TYPE +
+                    " )";
+    public final String SQL_DELETE_CASHBACK_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.CashbackAccounts.TABLE_NAME;
 }

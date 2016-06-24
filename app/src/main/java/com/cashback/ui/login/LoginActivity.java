@@ -1,6 +1,5 @@
 package com.cashback.ui.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,11 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.cashback.R;
-import com.cashback.model.AuthObject;
-import com.cashback.rest.request.SignInRequest;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
