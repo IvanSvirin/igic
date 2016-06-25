@@ -24,6 +24,8 @@ import com.cashback.ui.login.LoginActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
@@ -32,6 +34,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -138,12 +143,29 @@ public class SignUpFragment extends Fragment {
         private void registerFbCallback() {
             LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
-                public void onSuccess(LoginResult loginResult) {
-                    String token = loginResult.getAccessToken().getToken();
-                    AuthObject authObject = new AuthObject();
-                    authObject.setAuthType("2");
-                    authObject.setToken(token);
-                    new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
+                public void onSuccess(final LoginResult loginResult) {
+                    final String token = loginResult.getAccessToken().getToken();
+                    GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            try {
+                                AuthObject authObject = new AuthObject();
+                                authObject.setAuthType("2");
+                                authObject.setToken(token);
+                                authObject.setFirstName(object.getString("first_name"));
+                                authObject.setLastName(object.getString("last_name"));
+                                authObject.setEmail(object.getString("email"));
+                                authObject.setUserId(object.getString("id"));
+                                new SignInCharityRequest(getContext(), authObject, "login").fetchData();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "first_name,last_name,email");
+                    request.setParameters(parameters);
+                    request.executeAsync();
                 }
 
                 @Override
@@ -182,6 +204,7 @@ public class SignUpFragment extends Fragment {
                 AuthObject authObject = new AuthObject();
                 authObject.setAuthType("1");
                 authObject.setToken(token);
+                authObject.setUserId(acct.getId());
                 new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
             }
         } else {

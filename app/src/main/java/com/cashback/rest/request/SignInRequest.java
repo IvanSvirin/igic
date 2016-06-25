@@ -10,7 +10,6 @@ import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
-import com.cashback.rest.IAuthorization;
 import com.cashback.rest.event.AccountEvent;
 
 import org.json.JSONException;
@@ -77,7 +76,7 @@ public class SignInRequest {
                     case "1":
                     case "2":
                         postParameters = "token=" + authObject.getToken() + "&first_name=" + authObject.getFirstName() + "&last_name=" + authObject.getLastName() +
-                                "&email=" + authObject.getEmail() + "&auth_type=" + authObject.getAuthType();
+                                "&email=" + authObject.getEmail() + "&auth_type=" + authObject.getAuthType()+ authObject.getUserId();
                         break;
                     default:
                         postParameters = "email=sandi_schleicher@hotmail.com&password=iconsumer&auth_type=" + authObject.getAuthType();

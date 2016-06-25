@@ -160,6 +160,7 @@ public class SignInFragment extends Fragment {
                                 authObject.setFirstName(object.getString("first_name"));
                                 authObject.setLastName(object.getString("last_name"));
                                 authObject.setEmail(object.getString("email"));
+                                authObject.setUserId(object.getString("id"));
                                 new SignInCharityRequest(getContext(), authObject, "login").fetchData();
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -211,6 +212,7 @@ public class SignInFragment extends Fragment {
                 authObject.setFirstName(acct.getGivenName());
                 authObject.setLastName(acct.getFamilyName());
                 authObject.setEmail(acct.getEmail());
+                authObject.setUserId(acct.getId());
                 new SignInCharityRequest(getContext(), authObject, "login").fetchData();
             }
         } else {

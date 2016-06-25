@@ -98,9 +98,29 @@ public class SignUpFragment extends Fragment {
         private void registerFbCallback() {
             LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
-                public void onSuccess(LoginResult loginResult) {
-                    // TODO: 4/19/2016 TEST - will be deleted
-                    getContext().startActivity(new Intent(getContext(), MainActivity.class));
+                public void onSuccess(final LoginResult loginResult) {
+                    final String token = loginResult.getAccessToken().getToken();
+                    GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            try {
+                                AuthObject authObject = new AuthObject();
+                                authObject.setAuthType("2");
+                                authObject.setToken(token);
+                                authObject.setFirstName(object.getString("first_name"));
+                                authObject.setLastName(object.getString("last_name"));
+                                authObject.setEmail(object.getString("email"));
+                                authObject.setUserId(object.getString("id"));
+                                new SignInCharityRequest(getContext(), authObject, "login").fetchData();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "first_name,last_name,email");
+                    request.setParameters(parameters);
+                    request.executeAsync();
                 }
 
                 @Override
@@ -131,6 +151,18 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+        if (requestCode == GOOGLE_AUTH && resultCode == LoginActivity.RESULT_OK) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                GoogleSignInAccount acct = result.getSignInAccount();
+                String token = acct.getIdToken();
+                AuthObject authObject = new AuthObject();
+                authObject.setAuthType("1");
+                authObject.setToken(token);
+                authObject.setUserId(acct.getId());
+                new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
+            }
+        } else {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }    }
 }

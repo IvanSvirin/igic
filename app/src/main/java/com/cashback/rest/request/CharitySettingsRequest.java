@@ -1,16 +1,11 @@
 package com.cashback.rest.request;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
-import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
-import com.cashback.model.CharitySettings;
-import com.cashback.rest.event.LoginEvent;
 import com.cashback.rest.event.SettingsEvent;
 
 import org.json.JSONArray;

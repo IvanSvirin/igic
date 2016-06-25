@@ -21,11 +21,13 @@ public class AuthObject {
     private String incomingReferrerId;
     @Expose
     private String referrerEmail;   //only for iConsumer
+    @Expose
+    private String userId;
 
     public AuthObject() {
     }
 
-    public AuthObject(String authType, String firstName, String lastName, String email, String password, String zip, String token, String incomingReferrerId, String referrerEmail) {
+    public AuthObject(String authType, String firstName, String lastName, String email, String password, String zip, String token, String incomingReferrerId, String referrerEmail, String userId) {
         this.authType = authType;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,6 +37,15 @@ public class AuthObject {
         this.token = token;
         this.incomingReferrerId = incomingReferrerId;
         this.referrerEmail = referrerEmail;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getAuthType() {
