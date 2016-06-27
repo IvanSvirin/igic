@@ -15,10 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cashback.R;
-import com.cashback.db.DataContract;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.google.android.gms.plus.PlusShare;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -31,6 +29,7 @@ import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.Branch;
 import io.branch.referral.BranchError;
 import io.branch.referral.util.LinkProperties;
+import ui.MainActivity;
 
 public class TellAFriendFragment extends Fragment {
     public static final String TAG_TELL_A_FRIEND_FRAGMENT = "I_tell_a_friend_fragment";

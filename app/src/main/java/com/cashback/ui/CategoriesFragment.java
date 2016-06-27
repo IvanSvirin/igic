@@ -21,15 +21,12 @@ import com.cashback.R;
 import com.cashback.db.DataContract;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.CategoriesEvent;
-import com.cashback.rest.event.CouponsEvent;
-import com.cashback.ui.components.NestedListView;
-
-import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import ui.MainActivity;
 
 public class CategoriesFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final String TAG_CATEGORIES_FRAGMENT = "I_categories_fragment";

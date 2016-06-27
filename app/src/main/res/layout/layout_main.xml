@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     style="@style/AppTheme.Root"
-    tools:context=".ui.MainActivity">
+    tools:context="ui.MainActivity">
 
     <FrameLayout
         android:id="@+id/content_frame"

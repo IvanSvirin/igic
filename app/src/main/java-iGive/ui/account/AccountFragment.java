@@ -26,7 +26,7 @@ import com.cashback.db.DataContract;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CharitySettingsRequest;
-import com.cashback.ui.MainActivity;
+import ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 
@@ -106,7 +106,8 @@ public class AccountFragment extends Fragment {
                 }
                 break;
             case R.id.action_logout:
-                // TODO: 4/19/2016 TEST - will be deleted
+                Utilities.removeUserToken(getContext());
+                getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 break;
         }

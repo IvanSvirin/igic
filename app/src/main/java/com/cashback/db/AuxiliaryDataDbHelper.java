@@ -112,7 +112,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Orders.COLUMN_POSTED_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.Orders.COLUMN_VENDOR_NAME + TEXT_TYPE + DELIMITER +
                     DataContract.Orders.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +
-                    DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT + INT_TYPE + DELIMITER +
+                    DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT + REAL_TYPE + DELIMITER +
                     DataContract.Orders.COLUMN_CASH_BACK + REAL_TYPE +
                     " )";
     public final String SQL_DELETE_ORDERS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Orders.TABLE_NAME;

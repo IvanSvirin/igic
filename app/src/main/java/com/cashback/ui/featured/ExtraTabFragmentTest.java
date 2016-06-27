@@ -30,7 +30,7 @@ import com.cashback.db.DataContract;
 import com.cashback.rest.event.ExtrasEvent;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.LaunchActivity;
-import com.cashback.ui.MainActivity;
+import ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserDealsActivity;

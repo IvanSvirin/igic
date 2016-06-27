@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 
 import com.cashback.R;
-import com.cashback.ui.MainActivity;
+import ui.MainActivity;
 import com.google.android.gms.gcm.GcmListenerService;
 
 public class IgicGcmListenerService extends GcmListenerService {

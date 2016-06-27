@@ -30,5 +30,10 @@
     <string name="terms_and_conditions_path">http://www.iconsumer.com/isearch/tos.cfm</string>
     <string name="sign_in_path">https://beta1.igive.com/rest/iConsumer/api/v1/authorization/</string>
     <string name="reset_path">https://beta1.igive.com/rest/iConsumer/api/v1/authorization/reset</string>
+    <string name="search_path">https://beta1.igive.com/rest/iConsumer/api/v1/search/</string>
+    <string name="gcm_path">https://beta1.igive.com/rest/iConsumer/api/v1/gcm/</string>
+    <string name="orders_path">https://beta1.igive.com/rest/iConsumer/api/v1/account/history/order/</string>
+    <string name="trip_path">https://beta1.igive.com/rest/iConsumer/api/v1/account/history/trip/</string>
+    <string name="cashback_notify">cashback_notify</string>
 
 </resources>

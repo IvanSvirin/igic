@@ -123,7 +123,6 @@ public class FavoritesRequest {
     private class AddMerchantTask extends AsyncTask<Void, Void, Void> {
         private long id;
         private String jsonString = "";
-        private JSONArray jsonArray;
         private JSONObject jObj = null;
         private URL url;
         private InputStream inputStream = null;
@@ -191,7 +190,6 @@ public class FavoritesRequest {
     private class DeleteMerchantTask extends AsyncTask<Void, Void, Void> {
         private long id;
         private String jsonString = "";
-        private JSONArray jsonArray;
         private JSONObject jObj = null;
         private URL url;
         private InputStream inputStream = null;

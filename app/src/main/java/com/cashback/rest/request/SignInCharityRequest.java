@@ -31,7 +31,7 @@ public class SignInCharityRequest {
     private Context context;
     private String pathEnd;
 
-    public SignInCharityRequest(Context context, AuthObject authObject,  String pathEnd) {
+    public SignInCharityRequest(Context context, AuthObject authObject, String pathEnd) {
         this.context = context;
         this.authObject = authObject;
         this.pathEnd = pathEnd;
@@ -67,17 +67,22 @@ public class SignInCharityRequest {
                 String postParameters;
                 switch (authObject.getAuthType()) {
                     case "0":
-                        postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
+                        if (pathEnd.equals("login")) {
+                            // TODO: 6/27/2016
+                            postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
 //                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                        } else {
+                            postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType() +
+                                    "&first_name=" + authObject.getFirstName() + "&last_name=" + authObject.getLastName() + "&zip=" + authObject.getZip();
+                        }
                         break;
                     case "1":
                     case "2":
                         postParameters = "token=" + authObject.getToken() + "&first_name=" + authObject.getFirstName() + "&last_name=" + authObject.getLastName() +
-                                "&email=" + authObject.getEmail() + "&auth_type=" + authObject.getAuthType()+ authObject.getUserId();
+                                "&email=" + authObject.getEmail() + "&auth_type=" + authObject.getAuthType() + "&user_id=" + authObject.getUserId();
                         break;
                     default:
-                        postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
-//                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                        postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                 }
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());

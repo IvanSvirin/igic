@@ -104,38 +104,9 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         uiActivity.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            createExampleData();
-//            new OrdersRequest(this).fetchData();
+            new OrdersRequest(this).fetchData();
         }
 
-    }
-
-    private void createExampleData() {
-        List<ContentValues> listOrdersValues = new ArrayList<>();
-        ContentValues values;
-
-        for (int i = 0; i < 20; i++) {
-            values = new ContentValues();
-            int month = new Random().nextInt(12) + 1;
-            String sMonth = month > 9 ? String.valueOf(month) : "0" + String.valueOf(month);
-            int day = new Random().nextInt(30) + 1;
-            String sDay = day > 9 ? String.valueOf(day) : "0" + String.valueOf(day);
-            values.put(DataContract.Orders.COLUMN_ORDER_DATE, "201" + String.valueOf((new Random().nextInt(6)) + "-" +
-                    sMonth + "-" + sDay));
-            values.put(DataContract.Orders.COLUMN_VENDOR_NAME, "Vendor" + i);
-            values.put(DataContract.Orders.COLUMN_CASH_BACK, new Random().nextFloat() * 5);
-            values.put(DataContract.Orders.COLUMN_CONFIRMATION_NUMBER, new Random().nextInt(100000));
-            values.put(DataContract.Orders.COLUMN_PURCHASE_TOTAL, new Random().nextFloat() * 100);
-            values.put(DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT, new Random().nextFloat() * 200);
-
-            listOrdersValues.add(values);
-        }
-        DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
-//        if (!DataInsertHandler.IS_FILLING_MERCHANT_TABLE) {
-        handler.startBulkInsert(DataInsertHandler.ORDERS_TOKEN, false, DataContract.URI_ORDERS,
-                listOrdersValues.toArray(new ContentValues[listOrdersValues.size()]));
-//        }
     }
 
     @Override

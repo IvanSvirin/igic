@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import ui.MainActivity;
 
 public class StoreActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private ArrayList<Coupon> coupons;

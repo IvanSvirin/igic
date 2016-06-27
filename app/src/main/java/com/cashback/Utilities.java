@@ -1,5 +1,6 @@
 package com.cashback;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -54,6 +55,13 @@ public class Utilities {
         return pref.getString(PREF_TOKEN_KEY, null);
     }
 
+    public static boolean removeUserToken(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.remove(PREF_TOKEN_KEY);
+        return editor.commit();
+    }
+
 
     public static void setStateSendingTokenToServer(Context context, final boolean state) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -71,27 +79,39 @@ public class Utilities {
         return false;
     }
 
-    public static boolean isDonationNotifyOn(Context context) {
+    public static boolean isCashBackNotifyOn(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getBoolean("donation_notify", false);
+        return prefs.getBoolean(context.getString(R.string.cashback_notify), false);
     }
 
-    public static void setDonationNotify(Context context, boolean set) {
+    public static void setCashBackNotify(Context context, boolean set) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("donation_notify", set);
+        editor.putBoolean(context.getString(R.string.cashback_notify), set);
         editor.apply();
     }
 
     public static boolean isDealsNotifyOn(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getBoolean("deals_notify", false);
+        return prefs.getBoolean(context.getString(R.string.deals_notify), false);
     }
 
     public static void setDealsNotify(Context context, boolean set) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("deals_notify", set);
+        editor.putBoolean(context.getString(R.string.deals_notify), set);
+        editor.apply();
+    }
+
+    public static boolean isPaymentsNotifyOn(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getBoolean(context.getString(R.string.payments_notify), false);
+    }
+
+    public static void setPaymentsNotify(Context context, boolean set) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(context.getString(R.string.payments_notify), set);
         editor.apply();
     }
 
@@ -167,7 +187,7 @@ public class Utilities {
         return "";
     }
 
-    public static String decToHex (int decimal) {
+    public static String decToHex(int decimal) {
         String heximal = Integer.toHexString(decimal);
         return heximal;
     }
@@ -182,5 +202,12 @@ public class Utilities {
             result += 16 * result + hexDigit;
         }
         return result;
+    }
+
+    public static ProgressDialog onCreateProgressDialog(Context context) {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("Загружаю. Подождите...");
+        return progressDialog;
     }
 }

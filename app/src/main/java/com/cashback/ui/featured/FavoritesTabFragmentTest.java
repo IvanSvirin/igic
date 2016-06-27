@@ -19,7 +19,6 @@ import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +28,7 @@ import com.cashback.db.DataContract;
 import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.LaunchActivity;
-import com.cashback.ui.MainActivity;
+import ui.MainActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserDealsActivity;

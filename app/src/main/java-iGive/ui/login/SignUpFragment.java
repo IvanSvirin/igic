@@ -19,7 +19,7 @@ import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.request.SignInCharityRequest;
-import com.cashback.ui.MainActivity;
+import ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -105,13 +105,19 @@ public class SignUpFragment extends Fragment {
         public void onNativeSignUp() {
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            String firstName = etFirstName.getText().toString();
+            String lastName = etLastName.getText().toString();
+            String zip = etZip.getText().toString();
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(zip)) {
                 Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_empty_fields, Snackbar.LENGTH_SHORT).show();
             } else {
                 AuthObject authObject = new AuthObject();
                 authObject.setAuthType("0");
                 authObject.setEmail(email);
                 authObject.setPassword(password);
+                authObject.setFirstName(firstName);
+                authObject.setLastName(lastName);
+                authObject.setZip(zip);
                 new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
             }
         }

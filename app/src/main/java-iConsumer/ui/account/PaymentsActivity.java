@@ -101,34 +101,8 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         uiActivity.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
-            // TODO: 4/19/2016 TEST - will be deleted
-            createExampleData();
-//            new PaymentsRequest(this).fetchData();
+            new PaymentsRequest(this).fetchData();
         }
-    }
-
-    // TODO: 4/19/2016 TEST - will be deleted
-    private void createExampleData() {
-        List<ContentValues> listPaymentsValues = new ArrayList<>();
-        ContentValues values;
-
-        for (int i = 0; i < 20; i++) {
-            values = new ContentValues();
-            int month = new Random().nextInt(12) + 1;
-            String sMonth = month > 9 ? String.valueOf(month) : "0" + String.valueOf(month);
-            int day = new Random().nextInt(30) + 1;
-            String sDay = day > 9 ? String.valueOf(day) : "0" + String.valueOf(day);
-            values.put(DataContract.Payments.COLUMN_PAYMENT_DATE, "201" + String.valueOf((new Random().nextInt(6)) + "-" +
-                    sMonth + "-" + sDay));
-            values.put(DataContract.Payments.COLUMN_PAYMENT_AMOUNT, new Random().nextFloat() * 100);
-            values.put(DataContract.Payments.COLUMN_PAYMENT_ACCOUNT, "PayPal");
-            listPaymentsValues.add(values);
-        }
-        DataInsertHandler handler = new DataInsertHandler(this, getContentResolver());
-//        if (!DataInsertHandler.IS_FILLING_MERCHANT_TABLE) {
-        handler.startBulkInsert(DataInsertHandler.PAYMENTS_TOKEN, false, DataContract.URI_PAYMENTS,
-                listPaymentsValues.toArray(new ContentValues[listPaymentsValues.size()]));
-//        }
     }
 
     @Override

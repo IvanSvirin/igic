@@ -6,6 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+import com.cashback.rest.request.GcmRequest;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
@@ -24,7 +25,7 @@ public class RegistrationGcmServices extends IntentService {
             InstanceID instanceID = InstanceID.getInstance(this);
             String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE);
 //            String token = instanceID.getToken(getString(R.string.project_number), GoogleCloudMessaging.INSTANCE_ID_SCOPE);
-            sendRegTokeToServer(token);
+            sendRegTokenToServer(token);
             Utilities.setStateSendingTokenToServer(this, true);
         } catch (Exception e) {
             Utilities.setStateSendingTokenToServer(this, false);
@@ -34,6 +35,7 @@ public class RegistrationGcmServices extends IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
     }
 
-    private void sendRegTokeToServer(String token) {
+    private void sendRegTokenToServer(String token) {
+        new GcmRequest(this).onGcm(token);
     }
 }

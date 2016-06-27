@@ -40,6 +40,7 @@ import java.util.TreeMap;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import ui.MainActivity;
 
 public class AllStoresFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final String TAG_ALL_STORES_FRAGMENT = "I_all_stores_fragment";

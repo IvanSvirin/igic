@@ -1,6 +1,5 @@
 package com.cashback.ui.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import android.widget.EditText;
 import com.cashback.R;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.request.ResetRequest;
-import com.cashback.ui.MainActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

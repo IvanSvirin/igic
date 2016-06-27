@@ -70,17 +70,17 @@ public class SignInRequest {
                 String postParameters;
                 switch (authObject.getAuthType()) {
                     case "0":
+                        // TODO: 6/27/2016
                         postParameters = "email=sandi_schleicher@hotmail.com&password=iconsumer&auth_type=" + authObject.getAuthType();
 //                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                         break;
                     case "1":
                     case "2":
                         postParameters = "token=" + authObject.getToken() + "&first_name=" + authObject.getFirstName() + "&last_name=" + authObject.getLastName() +
-                                "&email=" + authObject.getEmail() + "&auth_type=" + authObject.getAuthType()+ authObject.getUserId();
+                                "&email=" + authObject.getEmail() + "&auth_type=" + authObject.getAuthType() + "&user_id=" + authObject.getUserId();
                         break;
                     default:
-                        postParameters = "email=sandi_schleicher@hotmail.com&password=iconsumer&auth_type=" + authObject.getAuthType();
-//                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                        postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                 }
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());

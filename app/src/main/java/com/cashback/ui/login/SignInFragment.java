@@ -19,7 +19,7 @@ import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.request.SignInCharityRequest;
-import com.cashback.ui.MainActivity;
+import ui.MainActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;

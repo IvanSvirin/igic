@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.SettingsEvent;
@@ -88,8 +89,8 @@ public class CharitySettingsRequest {
             try {
                 if (jsonArray != null) {
                     jObj = jsonArray.getJSONObject(0);
-                    Utilities.setDonationNotify(context, jObj.getBoolean("donation_notify"));
-                    Utilities.setDealsNotify(context, jObj.getBoolean("deals_notify"));
+                    Utilities.setCashBackNotify(context, jObj.getBoolean(context.getString(R.string.cashback_notify)));
+                    Utilities.setDealsNotify(context, jObj.getBoolean(context.getString(R.string.deals_notify)));
                     EventBus.getDefault().post(new SettingsEvent(true, null));
                 } else {
                     EventBus.getDefault().post(new SettingsEvent(false, "Check your internet connection or authorization data"));
@@ -167,8 +168,8 @@ public class CharitySettingsRequest {
             try {
                 if (jsonArray != null) {
                     jObj = jsonArray.getJSONObject(0);
-                    Utilities.setDonationNotify(context, jObj.getBoolean("donation_notify"));
-                    Utilities.setDealsNotify(context, jObj.getBoolean("deals_notify"));
+                    Utilities.setCashBackNotify(context, jObj.getBoolean(context.getString(R.string.cashback_notify)));
+                    Utilities.setDealsNotify(context, jObj.getBoolean(context.getString(R.string.deals_notify)));
                     EventBus.getDefault().post(new SettingsEvent(true, null));
                 } else {
                     EventBus.getDefault().post(new SettingsEvent(false, "Check your internet connection or authorization data"));

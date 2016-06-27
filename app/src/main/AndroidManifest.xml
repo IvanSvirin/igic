@@ -105,7 +105,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
-        <activity android:name="com.cashback.ui.MainActivity" />
+        <activity android:name="ui.MainActivity" />
         <activity
             android:name="com.cashback.ui.login.LoginActivity"
             android:label="@string/app_name"

@@ -82,12 +82,36 @@ public class SignUpFragment extends Fragment {
 
         @OnClick(R.id.nativeSingUpButton)
         public void onNativeSignUp() {
-            getContext().startActivity(new Intent(getContext(), MainActivity.class));
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_empty_fields, Snackbar.LENGTH_SHORT).show();
+            } else {
+                AuthObject authObject = new AuthObject();
+                authObject.setAuthType("0");
+                authObject.setEmail(email);
+                authObject.setPassword(password);
+                new SignInRequest(getContext(), authObject, "signup").fetchData();
+            }
         }
 
         @OnClick(R.id.googleSingUpButton)
         public void onGoogleSignUp() {
-            getContext().startActivity(new Intent(getContext(), MainActivity.class));
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                    .requestEmail()
+                    .requestIdToken(getString(R.string.google_client_id))
+//                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
+                    .build();
+            GoogleApiClient googleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+                        @Override
+                        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        }
+                    })
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .build();
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+            startActivityForResult(signInIntent, GOOGLE_AUTH);
         }
 
         public FragmentUi(SignUpFragment fragment, View view) {
@@ -111,7 +135,7 @@ public class SignUpFragment extends Fragment {
                                 authObject.setLastName(object.getString("last_name"));
                                 authObject.setEmail(object.getString("email"));
                                 authObject.setUserId(object.getString("id"));
-                                new SignInCharityRequest(getContext(), authObject, "login").fetchData();
+                                new SignInRequest(getContext(), authObject, "signup").fetchData();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -160,9 +184,10 @@ public class SignUpFragment extends Fragment {
                 authObject.setAuthType("1");
                 authObject.setToken(token);
                 authObject.setUserId(acct.getId());
-                new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
+                new SignInRequest(getContext(), authObject, "signup").fetchData();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
-        }    }
+        }
+    }
 }

@@ -1,6 +1,5 @@
 package ui.account;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
@@ -22,16 +21,13 @@ import android.widget.TextView;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
-import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.OrdersEvent;
 import com.cashback.rest.request.CharityOrdersRequest;
-import com.cashback.ui.MainActivity;
+import ui.MainActivity;
 import com.cashback.ui.components.NestedListView;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
 

@@ -8,8 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,23 +16,35 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cashback.R;
+import com.cashback.Utilities;
+import com.cashback.db.DataContract;
+import com.cashback.rest.RestUtilities;
+import com.cashback.rest.event.SettingsEvent;
+import com.cashback.rest.request.CashBackSettingsRequest;
 import com.cashback.ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
-public class AccountFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AccountFragment extends Fragment {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";
     private FragmentUi fragmentUi;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_CHARITY_ORDERS);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_SHOPPING_TRIPS);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_PAYMENTS);
+        new CashBackSettingsRequest(getContext()).fetchData();
         setHasOptionsMenu(true);
     }
 
@@ -48,7 +59,6 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        getLoaderManager().initLoader(MainActivity.IMAGE_LOADER, null, this);
         Toolbar toolbar = fragmentUi.getToolbar();
         ((MainActivity) getActivity()).setAssociateToolbar(toolbar);
     }
@@ -57,23 +67,21 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
     public void onStart() {
         super.onStart();
         getActivity().setTitle(R.string.item_account);
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentUi.unbind();
     }
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -98,7 +106,8 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
                 }
                 break;
             case R.id.action_logout:
-                // TODO: 4/19/2016 TEST - will be deleted
+                Utilities.removeUserToken(getContext());
+                getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 break;
         }
@@ -114,14 +123,72 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
         }
     }
 
+    public void onEvent(SettingsEvent event) {
+        if (event.isSuccess) {
+            fragmentUi.dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
+            fragmentUi.cashbackSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
+            fragmentUi.paymentsSwitcher.setChecked(Utilities.isPaymentsNotifyOn(getContext()));
+        }
+    }
+
     public class FragmentUi {
         private Context context;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
+        @Bind(R.id.userCashPending)
+        TextView userCashPending;
+        @Bind(R.id.userPayments)
+        TextView userPayments;
+        @Bind(R.id.nextPaymentDate)
+        TextView nextPaymentDate;
+        @Bind(R.id.joinDate)
+        TextView joinDate;
+        @Bind(R.id.trending_deals_alerts_switcher)
+        SwitchCompat dealsSwitcher;
+        @Bind(R.id.cash_back_alerts_switcher)
+        SwitchCompat cashbackSwitcher;
+        @Bind(R.id.payments_alerts_switcher)
+        SwitchCompat paymentsSwitcher;
 
         public FragmentUi(AccountFragment fragment, View view) {
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
+            initData();
+        }
+
+        private void initData() {
+            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CASHBACK_ACCOUNTS, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+            }
+            userCashPending.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT))));
+            userPayments.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT))));
+            String date = cursor.getString(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_NEXT_PAYMENT_DATE));
+            nextPaymentDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
+            date = cursor.getString(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_MEMBER_DATE));
+            joinDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
+            cursor.close();
+            dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
+            cashbackSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
+            paymentsSwitcher.setChecked(Utilities.isPaymentsNotifyOn(getContext()));
+            dealsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    new CashBackSettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), isChecked, Utilities.isPaymentsNotifyOn(getContext()));
+                }
+            });
+            cashbackSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    new CashBackSettingsRequest(context).changeData(isChecked, Utilities.isDealsNotifyOn(getContext()), Utilities.isPaymentsNotifyOn(getContext()));
+                }
+            });
+            paymentsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    new CashBackSettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), Utilities.isDealsNotifyOn(getContext()), isChecked);
+                }
+            });
         }
 
         public void unbind() {
@@ -137,7 +204,7 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
             Intent intent;
             switch (view.getId()) {
                 case R.id.paymentsFrame:
-                    intent = new Intent(context, PaymentsActivity.class);
+                    intent = new Intent(context, com.cashback.ui.account.PaymentsActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingTripsFrame:
@@ -145,7 +212,7 @@ public class AccountFragment extends Fragment implements LoaderManager.LoaderCal
                     startActivity(intent);
                     break;
                 case R.id.yourOrderHistoryFrame:
-                    intent = new Intent(context, YourOrderHistoryActivity.class);
+                    intent = new Intent(context, com.cashback.ui.account.YourOrderHistoryActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.helpFrame:

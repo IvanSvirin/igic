@@ -1,5 +1,6 @@
 package com.cashback.ui.featured;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,11 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashback.R;
+import com.cashback.Utilities;
 import com.cashback.rest.RestUtilities;
-import com.cashback.ui.MainActivity;
+import ui.MainActivity;
 import com.cashback.ui.allresults.SearchActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
-import com.cashback.ui.components.WrapContentHeightViewPager;
 
 import java.util.ArrayList;
 import java.util.List;

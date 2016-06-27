@@ -39,38 +39,38 @@
                 android:text="@string/input_help_text" />
 
             <ImageView
+                android:id="@+id/fbButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/fbButton"
-                android:src="@drawable/small_btn_facebook"
                 android:layout_alignParentBottom="true"
+                android:layout_marginEnd="25dp"
+                android:layout_marginRight="25dp"
                 android:layout_toLeftOf="@+id/twButton"
                 android:layout_toStartOf="@+id/twButton"
-                android:layout_marginRight="25dp"
-                android:layout_marginEnd="25dp" />
+                android:src="@drawable/small_btn_facebook" />
 
             <ImageView
+                android:id="@+id/twButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/twButton"
-                android:src="@drawable/small_btn_twitter"
-                android:layout_marginRight="21dp"
-                android:layout_marginEnd="21dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginEnd="21dp"
+                android:layout_marginRight="21dp"
                 android:layout_toLeftOf="@+id/shButton"
-                android:layout_toStartOf="@+id/shButton" />
+                android:layout_toStartOf="@+id/shButton"
+                android:src="@drawable/small_btn_twitter" />
 
             <ImageView
+                android:id="@+id/shButton"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/shButton"
-                android:src="@drawable/ic_share_black_24dp"
+                android:layout_alignEnd="@+id/textView7"
                 android:layout_alignParentBottom="true"
                 android:layout_alignRight="@+id/textView7"
-                android:layout_alignEnd="@+id/textView7"
-                android:layout_marginRight="17dp"
+                android:layout_alignTop="@+id/twButton"
                 android:layout_marginEnd="17dp"
-                android:layout_alignTop="@+id/twButton" />
+                android:layout_marginRight="17dp"
+                android:src="@drawable/ic_share_black_24dp" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
