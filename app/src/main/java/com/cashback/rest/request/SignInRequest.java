@@ -11,6 +11,8 @@ import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
+import com.cashback.rest.event.SignInEvent;
+import com.cashback.rest.event.SignUpEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,9 +28,6 @@ import java.net.URL;
 
 import de.greenrobot.event.EventBus;
 
-/**
- * Created by I.Svirin on 6/24/2016.
- */
 public class SignInRequest {
     private AuthObject authObject;
     private Context context;
@@ -71,7 +70,7 @@ public class SignInRequest {
                 switch (authObject.getAuthType()) {
                     case "0":
                         // TODO: 6/27/2016
-                        postParameters = "email=sandi_schleicher@hotmail.com&password=iconsumer&auth_type=" + authObject.getAuthType();
+                        postParameters = "email=tech.softomate@gmail.ru&password=redsleep72&auth_type=1";
 //                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                         break;
                     case "1":
@@ -126,17 +125,26 @@ public class SignInRequest {
                     values.put(DataContract.CashbackAccounts.COLUMN_LAST_NAME, jObj.getString("last_name"));
                     values.put(DataContract.CashbackAccounts.COLUMN_EMAIL, jObj.getString("email"));
                     values.put(DataContract.CashbackAccounts.COLUMN_FIRST_NAME, jObj.getString("first_name"));
-                    values.put(DataContract.CashbackAccounts.COLUMN_TOKEN, jObj.getString("token"));
+                    String token = jObj.getString("token");
+                    Utilities.saveUserToken(context, token);
+                    values.put(DataContract.CashbackAccounts.COLUMN_TOKEN, token);
                     values.put(DataContract.CashbackAccounts.COLUMN_MEMBER_DATE, jObj.getString("member_date"));
                     values.put(DataContract.CashbackAccounts.COLUMN_NEXT_PAYMENT_DATE, jObj.getString("next_payment_date"));
                     values.put(DataContract.CashbackAccounts.COLUMN_REFERRER_ID, jObj.getString("referrer_id"));
 
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CASHBACK_ACCOUNTS, values);
-                    EventBus.getDefault().post(new AccountEvent(true, null));
-                    Utilities.saveUserToken(context, jObj.getString("token"));
+                    if (pathEnd.equals("login")) {
+                        EventBus.getDefault().post(new SignInEvent(true, token));
+                    } else {
+                        EventBus.getDefault().post(new SignUpEvent(true, token));
+                    }
                 } else {
-                    EventBus.getDefault().post(new AccountEvent(false, "Check your internet connection or authorization data"));
+                    if (pathEnd.equals("login")) {
+                        EventBus.getDefault().post(new SignInEvent(false, "Check your internet connection or authorization data"));
+                    } else {
+                        EventBus.getDefault().post(new SignUpEvent(false, "Check your internet connection or authorization data"));
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

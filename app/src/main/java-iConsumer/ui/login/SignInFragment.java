@@ -1,4 +1,4 @@
-package com.cashback.ui.login;
+package ui.login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,8 +18,10 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
-import com.cashback.rest.request.SignInCharityRequest;
-import com.cashback.ui.MainActivity;
+import com.cashback.rest.event.SignInEvent;
+import com.cashback.rest.request.SignInRequest;
+import com.cashback.ui.login.LoginActivity;
+import com.cashback.ui.login.RestoreActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -43,6 +45,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import ui.MainActivity;
 
 public class SignInFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
@@ -79,10 +82,9 @@ public class SignInFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEvent(AccountEvent event) {
+    public void onEvent(SignInEvent event) {
         if (event.isSuccess) {
             Utilities.saveUserEntry(getActivity(), true);
-            Utilities.saveUserToken(getActivity(), event.getToken());
             startActivity(new Intent(getContext(), MainActivity.class));
             getActivity().finish();
         } else {

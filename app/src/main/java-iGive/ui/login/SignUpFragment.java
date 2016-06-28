@@ -18,6 +18,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
+import com.cashback.rest.event.SignUpEvent;
 import com.cashback.rest.request.SignInCharityRequest;
 import ui.MainActivity;
 import com.cashback.ui.login.LoginActivity;
@@ -74,9 +75,8 @@ public class SignUpFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEvent(AccountEvent event) {
+    public void onEvent(SignUpEvent event) {
         if (event.isSuccess) {
-            Utilities.saveUserToken(getActivity(), event.getToken());
             startActivity(new Intent(getContext(), MainActivity.class));
             getActivity().finish();
         } else {

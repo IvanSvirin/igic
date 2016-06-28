@@ -37,6 +37,11 @@
     <string name="orders_path">https://beta1.igive.com/rest/iGive/api/v1/account/history/order/</string>
     <string name="trip_path">https://beta1.igive.com/rest/iGive/api/v1/account/history/trip/</string>
     <string name="cashback_notify">donation_notify</string>
+    <string name="tell_a_friend">More supporters means more money, faster for you
+couse or charity!
+Invite your friends to join the iGive so they can
+automatically help their couse or charity whenever
+they shop online.</string>
 
 
 </resources>

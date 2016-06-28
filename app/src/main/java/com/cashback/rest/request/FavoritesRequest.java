@@ -66,6 +66,7 @@ public class FavoritesRequest {
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
+                EventBus.getDefault().post(new FavoritesEvent(false, "No merchants featured data"));
             }
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
@@ -81,12 +82,12 @@ public class FavoritesRequest {
                     jsonString = jsonString.substring(1);
                 }
             } catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
+                EventBus.getDefault().post(new FavoritesEvent(false, "No merchants featured data"));
             }
             try {
                 jsonArray = new JSONArray(jsonString);
             } catch (JSONException e) {
-                Log.e("JSON Parser", "Error parsing data " + e.toString());
+                EventBus.getDefault().post(new FavoritesEvent(false, "No merchants featured data"));
             }
             return null;
         }
@@ -94,28 +95,30 @@ public class FavoritesRequest {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
-            ContentValues values;
-            try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jObj = jsonArray.getJSONObject(i);
-                    values = new ContentValues();
-                    values.put(DataContract.Favorites.COLUMN_COMMISSION, jObj.getDouble("commission"));
-                    values.put(DataContract.Favorites.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
-                    values.put(DataContract.Favorites.COLUMN_IS_FAVORITE, jObj.getInt("is_favorite"));
-                    values.put(DataContract.Favorites.COLUMN_DESCRIPTION, jObj.getString("description"));
-                    values.put(DataContract.Favorites.COLUMN_LOGO_URL, jObj.getString("logo_url"));
-                    values.put(DataContract.Favorites.COLUMN_GIFT_CARD, jObj.getInt("gift_card"));
-                    values.put(DataContract.Favorites.COLUMN_EXCEPTION_INFO, jObj.getString("exception_info"));
-                    values.put(DataContract.Favorites.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
-                    values.put(DataContract.Favorites.COLUMN_NAME, jObj.getString("name"));
-                    listValues.add(values);
+            if (jsonArray != null) {
+                List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
+                ContentValues values;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jObj = jsonArray.getJSONObject(i);
+                        values = new ContentValues();
+                        values.put(DataContract.Favorites.COLUMN_COMMISSION, jObj.getDouble("commission"));
+                        values.put(DataContract.Favorites.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
+                        values.put(DataContract.Favorites.COLUMN_IS_FAVORITE, jObj.getInt("is_favorite"));
+                        values.put(DataContract.Favorites.COLUMN_DESCRIPTION, jObj.getString("description"));
+                        values.put(DataContract.Favorites.COLUMN_LOGO_URL, jObj.getString("logo_url"));
+                        values.put(DataContract.Favorites.COLUMN_GIFT_CARD, jObj.getInt("gift_card"));
+                        values.put(DataContract.Favorites.COLUMN_EXCEPTION_INFO, jObj.getString("exception_info"));
+                        values.put(DataContract.Favorites.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
+                        values.put(DataContract.Favorites.COLUMN_NAME, jObj.getString("name"));
+                        listValues.add(values);
+                    }
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startBulkInsert(DataInsertHandler.FAVORITES_TOKEN, false, DataContract.URI_FAVORITES, listValues.toArray(new ContentValues[listValues.size()]));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post(new FavoritesEvent(false, "No merchants featured data"));
                 }
-                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startBulkInsert(DataInsertHandler.FAVORITES_TOKEN, false, DataContract.URI_FAVORITES, listValues.toArray(new ContentValues[listValues.size()]));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new FavoritesEvent(false, "No merchants featured data"));
             }
         }
     }

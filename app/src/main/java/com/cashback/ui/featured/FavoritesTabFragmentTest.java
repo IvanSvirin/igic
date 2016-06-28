@@ -28,7 +28,9 @@ import com.cashback.db.DataContract;
 import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.LaunchActivity;
+
 import ui.MainActivity;
+
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserDealsActivity;
@@ -112,6 +114,8 @@ public class FavoritesTabFragmentTest extends Fragment implements LoaderManager.
     public void onEvent(FavoritesEvent event) {
         if (event.isSuccess) {
             getLoaderManager().restartLoader(MainActivity.FAVORITES_LOADER, null, this);
+        } else {
+            Utilities.showFailNotification(event.message, getContext());
         }
     }
 

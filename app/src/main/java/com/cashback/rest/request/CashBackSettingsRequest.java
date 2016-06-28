@@ -50,7 +50,7 @@ public class CashBackSettingsRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iConsumer/api/v1/account/settings/");
+                url = new URL("https://beta1.iconsumer.com/rest/icon/api/v1/account/settings/");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
@@ -123,7 +123,7 @@ public class CashBackSettingsRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iConsumer/api/v1/account/settings/");
+                url = new URL("https://beta1.iconsumer.com/rest/icon/api/v1/account/settings/");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("PUT");

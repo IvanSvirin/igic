@@ -2,10 +2,12 @@ package com.cashback;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 public class Utilities {
@@ -52,7 +54,8 @@ public class Utilities {
 
     public static String retrieveUserToken(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        return pref.getString(PREF_TOKEN_KEY, null);
+        String token = pref.getString(PREF_TOKEN_KEY, null);
+        return token;
     }
 
     public static boolean removeUserToken(Context context) {
@@ -209,5 +212,19 @@ public class Utilities {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage("Загружаю. Подождите...");
         return progressDialog;
+    }
+
+    public static void showFailNotification(String message, Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message)
+                .setTitle("Failure")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
     }
 }

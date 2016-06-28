@@ -1,4 +1,4 @@
-package com.cashback.ui.account;
+package ui.account;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -26,13 +26,15 @@ import com.cashback.db.DataContract;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CashBackSettingsRequest;
-import com.cashback.ui.MainActivity;
+import com.cashback.ui.account.HelpActivity;
+import com.cashback.ui.account.ShoppingTripsActivity;
 import com.cashback.ui.login.LoginActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import ui.MainActivity;
 
 public class AccountFragment extends Fragment {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";
@@ -204,7 +206,7 @@ public class AccountFragment extends Fragment {
             Intent intent;
             switch (view.getId()) {
                 case R.id.paymentsFrame:
-                    intent = new Intent(context, com.cashback.ui.account.PaymentsActivity.class);
+                    intent = new Intent(context, PaymentsActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingTripsFrame:
@@ -212,7 +214,7 @@ public class AccountFragment extends Fragment {
                     startActivity(intent);
                     break;
                 case R.id.yourOrderHistoryFrame:
-                    intent = new Intent(context, com.cashback.ui.account.YourOrderHistoryActivity.class);
+                    intent = new Intent(context, YourOrderHistoryActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.helpFrame:

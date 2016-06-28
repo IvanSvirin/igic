@@ -11,6 +11,8 @@ import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
+import com.cashback.rest.event.SignInEvent;
+import com.cashback.rest.event.SignUpEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -133,16 +135,25 @@ public class SignInCharityRequest {
 //                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED, jObj.getString("TOTALEARNED"));
                     values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, jObj.getString("select_cause_url"));
                     values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, jObj.getDouble("pending_amount"));
-                    values.put(DataContract.CharityAccounts.COLUMN_TOKEN, jObj.getString("token"));
+                    String token = jObj.getString("token");
+                    Utilities.saveUserToken(context, token);
+                    values.put(DataContract.CharityAccounts.COLUMN_TOKEN, token);
                     values.put(DataContract.CharityAccounts.COLUMN_MEMBER_DATE, jObj.getString("member_date"));
                     values.put(DataContract.CharityAccounts.COLUMN_REFERRER_ID, jObj.getString("referrer_id"));
 
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
-                    EventBus.getDefault().post(new AccountEvent(true, null));
-                    Utilities.saveUserToken(context, jObj.getString("token"));
+                    if (pathEnd.equals("login")) {
+                        EventBus.getDefault().post(new SignInEvent(true, token));
+                    } else {
+                        EventBus.getDefault().post(new SignUpEvent(true, token));
+                    }
                 } else {
-                    EventBus.getDefault().post(new AccountEvent(false, "Check your internet connection or authorization data"));
+                    if (pathEnd.equals("login")) {
+                        EventBus.getDefault().post(new SignInEvent(false, "Check your internet connection or authorization data"));
+                    } else {
+                        EventBus.getDefault().post(new SignUpEvent(false, "Check your internet connection or authorization data"));
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

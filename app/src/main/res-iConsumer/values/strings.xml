@@ -17,23 +17,32 @@
     <string name="how_to_use">How to Use iConsumer</string>
     <string name="where_is_mine">Where\'s My Cash Back</string>
     <string name="cash_back_percent">% CASH BACK</string>
-    <string name="categories_path">https://beta1.igive.com/rest/iConsumer/api/v1/categories/</string>
-    <string name="merchants_path">https://beta1.igive.com/rest/iConsumer/api/v1/merchants/</string>
-    <string name="coupons_path">https://beta1.igive.com/rest/iConsumer/api/v1/merchants/coupons/featured/</string>
-    <string name="extras_path">https://beta1.igive.com/rest/iConsumer/api/v1/merchants/extra/</string>
-    <string name="favorites_path">https://beta1.igive.com/rest/iConsumer/api/v1/favorites/</string>
+    <string name="categories_path">https://beta1.iconsumer.com/rest/icon/api/v1/categories/</string>
+    <string name="merchants_path">https://beta1.iconsumer.com/rest/icon/api/v1/merchants/</string>
+    <string name="coupons_path">https://beta1.iconsumer.com/rest/icon/api/v1/merchants/coupons/featured/</string>
+    <string name="extras_path">https://beta1.iconsumer.com/rest/icon/api/v1/merchants/extra/</string>
+    <string name="favorites_path">https://beta1.iconsumer.com/rest/icon/api/v1/favorites/</string>
     <string name="send_app_feedback_path">http://support.iconsumer.com/Main/frmNewTicket.aspx</string>
     <string name="payment_questions_path">http://support.iconsumer.com/kb/a3/when-will-my-cause-get-a-check.aspx</string>
     <string name="how_to_use_path">http://support.iconsumer.com/kb/a115/how-igive-works.aspx</string>
     <string name="where_is_my_donation_path">http://support.iconsumer.com/kb/a2/tracking-your-donation.aspx</string>
     <string name="privacy_and_security_path">http://www.iconsumer.com/isearch/privacy.cfm</string>
     <string name="terms_and_conditions_path">http://www.iconsumer.com/isearch/tos.cfm</string>
-    <string name="sign_in_path">https://beta1.igive.com/rest/iConsumer/api/v1/authorization/</string>
-    <string name="reset_path">https://beta1.igive.com/rest/iConsumer/api/v1/authorization/reset</string>
-    <string name="search_path">https://beta1.igive.com/rest/iConsumer/api/v1/search/</string>
-    <string name="gcm_path">https://beta1.igive.com/rest/iConsumer/api/v1/gcm/</string>
-    <string name="orders_path">https://beta1.igive.com/rest/iConsumer/api/v1/account/history/order/</string>
-    <string name="trip_path">https://beta1.igive.com/rest/iConsumer/api/v1/account/history/trip/</string>
+    <string name="sign_in_path">https://beta1.iconsumer.com/rest/icon/api/v1/authorization/</string>
+    <string name="reset_path">https:/beta1.iconsumer.com/rest/icon/api/v1/authorization/reset</string>
+    <string name="search_path">https://beta1.iconsumer.com/rest/icon/api/v1/search/</string>
+    <string name="gcm_path">https://beta1.iconsumer.com/rest/icon/api/v1/gcm/</string>
+    <string name="orders_path">https://beta1.iconsumer.com/rest/icon/api/v1/account/history/order/</string>
+    <string name="trip_path">https://beta1.iconsumer.com/rest/icon/api/v1/account/history/trip/</string>
     <string name="cashback_notify">cashback_notify</string>
+    <string name="tell_a_friend">iConsumer membership is free and our members
+        are owners of iConsumer. Each person who joins
+        iConsumer earns 100 shares of stock just for
+        joining. Members earn more shares of stock based
+        on but IN ADDITON TO their Cash Back earnings.
+        Refer friends to iConsumer. Members earn 100
+        shares of stock for each friend who shops
+        and earns Cash Back.
+    </string>
 
 </resources>

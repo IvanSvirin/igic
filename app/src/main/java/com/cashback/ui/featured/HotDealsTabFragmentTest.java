@@ -111,6 +111,8 @@ public class HotDealsTabFragmentTest extends Fragment implements LoaderManager.L
     public void onEvent(CouponsEvent event) {
         if (event.isSuccess) {
             getLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
+        } else {
+            Utilities.showFailNotification(event.message, getContext());
         }
     }
 

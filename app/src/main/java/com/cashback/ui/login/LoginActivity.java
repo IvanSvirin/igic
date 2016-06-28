@@ -14,6 +14,7 @@ import com.cashback.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ui.login.SignInFragment;
 import ui.login.SignUpFragment;
 
 public class LoginActivity extends AppCompatActivity {

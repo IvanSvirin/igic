@@ -85,7 +85,7 @@
     <string name="referral_reg_exp">http://www.igive.com/welcome/lp16/cr63b.cfm/%s</string>
     <string name="share_title">Charity Shop | Online Donation Sites | Fundraising Ideas - iGive </string>
     <string name="no_coupons_data">No coupons featured data</string>
-    <string name="payments_path">https://beta1.igive.com/rest/iConsumer/api/v1/account/history/payment/</string>
+    <string name="payments_path">https://beta1.iconsumer.com/rest/icon/api/v1/account/history/payment/</string>
     <string name="deals_notify">deals_notify</string>
     <string name="payments_notify">payments_notify</string>
 

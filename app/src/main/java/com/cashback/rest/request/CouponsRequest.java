@@ -143,6 +143,7 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
+                EventBus.getDefault().post(new CouponsEvent(false, "No coupons featured data"));
             }
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
@@ -158,12 +159,12 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
                     jsonString = jsonString.substring(1);
                 }
             } catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
+                EventBus.getDefault().post(new CouponsEvent(false, "No coupons featured data"));
             }
             try {
                 jsonArray = new JSONArray(jsonString);
             } catch (JSONException e) {
-                Log.e("JSON Parser", "Error parsing data " + e.toString());
+                EventBus.getDefault().post(new CouponsEvent(false, "No coupons featured data"));
             }
             return null;
         }
@@ -171,30 +172,32 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            List<ContentValues> listCouponsValues = new ArrayList<>(jsonArray.length());
-            ContentValues values;
-            try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jObj = jsonArray.getJSONObject(i);
-                    values = new ContentValues();
-                    values.put(DataContract.Coupons.COLUMN_COUPON_ID, jObj.getLong("coupon_id"));
-                    values.put(DataContract.Coupons.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
-                    values.put(DataContract.Coupons.COLUMN_COUPON_TYPE, jObj.getString("coupon_type"));
-                    values.put(DataContract.Coupons.COLUMN_RESTRICTIONS, jObj.getString("restrictions"));
-                    values.put(DataContract.Coupons.COLUMN_LABEL, jObj.getString("label"));
-                    values.put(DataContract.Coupons.COLUMN_COUPON_CODE, jObj.getString("coupon_code"));
-                    values.put(DataContract.Coupons.COLUMN_EXPIRATION_DATE, jObj.getString("expiration_date"));
-                    values.put(DataContract.Coupons.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
-                    values.put(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
-                    values.put(DataContract.Coupons.COLUMN_VENDOR_COMMISSION, jObj.getDouble("vendor_commission"));
-                    listCouponsValues.add(values);
-                }
-                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startBulkInsert(DataInsertHandler.COUPONS_TOKEN, false, DataContract.URI_COUPONS, listCouponsValues.toArray(new ContentValues[listCouponsValues.size()]));
+            if (jsonArray != null) {
+                List<ContentValues> listCouponsValues = new ArrayList<>(jsonArray.length());
+                ContentValues values;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jObj = jsonArray.getJSONObject(i);
+                        values = new ContentValues();
+                        values.put(DataContract.Coupons.COLUMN_COUPON_ID, jObj.getLong("coupon_id"));
+                        values.put(DataContract.Coupons.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
+                        values.put(DataContract.Coupons.COLUMN_COUPON_TYPE, jObj.getString("coupon_type"));
+                        values.put(DataContract.Coupons.COLUMN_RESTRICTIONS, jObj.getString("restrictions"));
+                        values.put(DataContract.Coupons.COLUMN_LABEL, jObj.getString("label"));
+                        values.put(DataContract.Coupons.COLUMN_COUPON_CODE, jObj.getString("coupon_code"));
+                        values.put(DataContract.Coupons.COLUMN_EXPIRATION_DATE, jObj.getString("expiration_date"));
+                        values.put(DataContract.Coupons.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
+                        values.put(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
+                        values.put(DataContract.Coupons.COLUMN_VENDOR_COMMISSION, jObj.getDouble("vendor_commission"));
+                        listCouponsValues.add(values);
+                    }
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startBulkInsert(DataInsertHandler.COUPONS_TOKEN, false, DataContract.URI_COUPONS, listCouponsValues.toArray(new ContentValues[listCouponsValues.size()]));
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new CouponsEvent(false, "No coupons featured data"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post(new CouponsEvent(false, "No coupons featured data"));
+                }
             }
         }
     }

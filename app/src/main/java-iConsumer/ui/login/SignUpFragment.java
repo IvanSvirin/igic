@@ -3,9 +3,12 @@ package ui.login;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +16,27 @@ import android.widget.EditText;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+import com.cashback.model.AuthObject;
+import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignUpEvent;
-import com.cashback.ui.MainActivity;
+import com.cashback.rest.request.SignInRequest;
+import com.cashback.ui.login.LoginActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -27,6 +44,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import ui.MainActivity;
 
 public class SignUpFragment extends Fragment {
     private static final int GOOGLE_AUTH = 111;
@@ -57,9 +75,8 @@ public class SignUpFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEvent(AccountEvent event) {
+    public void onEvent(SignUpEvent event) {
         if (event.isSuccess) {
-            Utilities.saveUserToken(getActivity(), event.getToken());
             startActivity(new Intent(getContext(), MainActivity.class));
             getActivity().finish();
         } else {

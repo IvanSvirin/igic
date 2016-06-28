@@ -32,7 +32,6 @@ import com.cashback.ui.AllStoresFragment;
 import com.cashback.ui.CategoriesFragment;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.TellAFriendFragment;
-import com.cashback.ui.account.AccountFragment;
 import com.cashback.ui.featured.FeaturedFragment;
 import com.facebook.appevents.AppEventsLogger;
 
@@ -41,6 +40,7 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import ui.account.AccountFragment;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private final String SELECTED_ITEM_ID = "SELECTED_ITEM_ID";
@@ -123,8 +123,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             name = data.getString(data.getColumnIndex(DataContract.CashbackAccounts.COLUMN_FIRST_NAME)) + " "
                     + data.getString(data.getColumnIndex(DataContract.CashbackAccounts.COLUMN_LAST_NAME));
             email = data.getString(data.getColumnIndex(DataContract.CashbackAccounts.COLUMN_EMAIL));
-            cashBack = "$";
-//            cashBack = "$ " + String.valueOf(data.getFloat(data.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED)));
+            cashBack = "$ " + String.valueOf(data.getFloat(data.getColumnIndex(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT)));
         } else {
             name = "";
             email = "";

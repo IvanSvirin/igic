@@ -126,7 +126,7 @@ public class AccountFragment extends Fragment {
     public void onEvent(SettingsEvent event) {
         if (event.isSuccess) {
             fragmentUi.dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
-            fragmentUi.donationSwitcher.setChecked(Utilities.isDonationNotifyOn(getContext()));
+            fragmentUi.donationSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
         }
     }
 
@@ -167,14 +167,14 @@ public class AccountFragment extends Fragment {
             totalRaisedValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_DATE));
             totalPaidDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
-            memberSettingsUrl = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL));
+            memberSettingsUrl = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL)) + "?token=" + Utilities.retrieveUserToken(context);
             cursor.close();
             dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
-            donationSwitcher.setChecked(Utilities.isDonationNotifyOn(getContext()));
+            donationSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
             dealsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    new CharitySettingsRequest(context).changeData(Utilities.isDonationNotifyOn(getContext()), isChecked);
+                    new CharitySettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), isChecked);
                 }
             });
             donationSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

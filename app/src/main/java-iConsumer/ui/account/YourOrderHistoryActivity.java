@@ -1,4 +1,4 @@
-package com.cashback.ui.account;
+package ui.account;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -24,7 +24,7 @@ import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.OrdersEvent;
-import com.cashback.ui.MainActivity;
+import com.cashback.rest.request.OrdersRequest;
 import com.cashback.ui.components.NestedListView;
 
 import java.util.ArrayList;
@@ -37,6 +37,7 @@ import java.util.TreeMap;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import ui.MainActivity;
 
 public class YourOrderHistoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private UiActivity uiActivity;
