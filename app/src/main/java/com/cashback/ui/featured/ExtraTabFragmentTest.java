@@ -254,7 +254,9 @@ public class ExtraTabFragmentTest extends Fragment implements LoaderManager.Load
             Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(vendorId));
             Cursor c = context.getContentResolver().query(uri, null, null, null, null);
             int count = c.getCount();
-            holder.vhWas.setText("Was " + wasCashBack + "%");
+            if (!(wasCashBack.equals("") || wasCashBack.equals(" "))) {
+                holder.vhWas.setText("Was " + wasCashBack + "%");
+            }
             holder.vhWas.setPaintFlags(holder.vhWas.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             picasso.load(logoUrl).into(holder.vhStoreLogo);
             holder.vhCashBack.setText(cashBack);

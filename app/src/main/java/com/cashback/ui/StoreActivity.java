@@ -160,20 +160,23 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        data.moveToFirst();
-        do {
-            int id = data.getInt(data.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID));
-            if (id == vendorId) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        menuItem.setChecked(true);
-                        menuItem.setIcon(R.drawable.ic_favorite_added_white);
-                    }
-                }, 500);
-                return;
-            }
-        } while (data.moveToNext());
+        int count = data.getCount();
+        if (count > 0) {
+            data.moveToFirst();
+            do {
+                int id = data.getInt(data.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID));
+                if (id == vendorId) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            menuItem.setChecked(true);
+                            menuItem.setIcon(R.drawable.ic_favorite_added_white);
+                        }
+                    }, 500);
+                    return;
+                }
+            } while (data.moveToNext());
+        }
     }
 
     @Override

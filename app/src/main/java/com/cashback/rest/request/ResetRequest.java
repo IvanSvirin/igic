@@ -15,9 +15,6 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by I.Svirin on 6/24/2016.
- */
 public class ResetRequest {
     private AuthObject authObject;
     private Context context;

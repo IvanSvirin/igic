@@ -24,7 +24,6 @@
             android:layout_height="@dimen/app_bar_height"
             android:elevation="@dimen/toolbar_elevation"
             android:fitsSystemWindows="true"
-            app:contentScrim="@color/primary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 

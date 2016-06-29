@@ -103,23 +103,25 @@ public class CategoriesRequest {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
-            ContentValues values;
-            try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jObj = jsonArray.getJSONObject(i);
-                    values = new ContentValues();
-                    values.put(DataContract.Categories.COLUMN_CATEGORY_ID, jObj.getLong("category_id"));
-                    values.put(DataContract.Categories.COLUMN_NAME, jObj.getString("name"));
-                    listValues.add(values);
+            if (jsonArray != null) {
+                super.onPostExecute(aVoid);
+                List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
+                ContentValues values;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jObj = jsonArray.getJSONObject(i);
+                        values = new ContentValues();
+                        values.put(DataContract.Categories.COLUMN_CATEGORY_ID, jObj.getLong("category_id"));
+                        values.put(DataContract.Categories.COLUMN_NAME, jObj.getString("name"));
+                        listValues.add(values);
+                    }
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startBulkInsert(DataInsertHandler.CATEGORIES_TOKEN, false, DataContract.URI_CATEGORIES, listValues.toArray(new ContentValues[listValues.size()]));
+                    EventBus.getDefault().post(new CategoriesEvent(true, null));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post(new CategoriesEvent(false, "No trips data"));
                 }
-                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startBulkInsert(DataInsertHandler.CATEGORIES_TOKEN, false, DataContract.URI_CATEGORIES, listValues.toArray(new ContentValues[listValues.size()]));
-                EventBus.getDefault().post(new CategoriesEvent(true, null));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new CategoriesEvent(false, "No trips data"));
             }
         }
     }

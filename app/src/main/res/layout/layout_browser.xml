@@ -74,6 +74,4 @@
             android:foreground="?android:windowContentOverlay" />
 
     </RelativeLayout>
-
-
 </RelativeLayout>

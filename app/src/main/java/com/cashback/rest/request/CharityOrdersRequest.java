@@ -86,29 +86,31 @@ public class CharityOrdersRequest {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
-            ContentValues values;
-            try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jObj = jsonArray.getJSONObject(i);
-                    values = new ContentValues();
-                    values.put(DataContract.CharityOrders.COLUMN_VENDOR_NAME, jObj.getString("vendor_name"));
-                    values.put(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER, jObj.getString("confirmation_number"));
-//                    values.put(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER, jObj.getInt("confirmation_number"));
-                    values.put(DataContract.CharityOrders.COLUMN_AMOUNT_DONATED, jObj.getDouble("amount_donated"));
-                    values.put(DataContract.CharityOrders.COLUMN_ORDER_DATE, jObj.getString("order_date"));
-                    values.put(DataContract.CharityOrders.COLUMN_POSTED_DATE, jObj.getString("posted_date"));
-                    values.put(DataContract.CharityOrders.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
-                    values.put(DataContract.CharityOrders.COLUMN_PURCHASE_TOTAL, jObj.getDouble("purchase_total"));
-                    values.put(DataContract.CharityOrders.COLUMN_CAUSE_NAME, jObj.getString("cause_name"));
-                    values.put(DataContract.CharityOrders.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
-                    listValues.add(values);
+            if (jsonArray != null) {
+                List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
+                ContentValues values;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jObj = jsonArray.getJSONObject(i);
+                        values = new ContentValues();
+                        values.put(DataContract.CharityOrders.COLUMN_VENDOR_NAME, jObj.getString("vendor_name"));
+                        values.put(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER, jObj.getString("confirmation_number"));
+    //                    values.put(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER, jObj.getInt("confirmation_number"));
+                        values.put(DataContract.CharityOrders.COLUMN_AMOUNT_DONATED, jObj.getDouble("amount_donated"));
+                        values.put(DataContract.CharityOrders.COLUMN_ORDER_DATE, jObj.getString("order_date"));
+                        values.put(DataContract.CharityOrders.COLUMN_POSTED_DATE, jObj.getString("posted_date"));
+                        values.put(DataContract.CharityOrders.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
+                        values.put(DataContract.CharityOrders.COLUMN_PURCHASE_TOTAL, jObj.getDouble("purchase_total"));
+                        values.put(DataContract.CharityOrders.COLUMN_CAUSE_NAME, jObj.getString("cause_name"));
+                        values.put(DataContract.CharityOrders.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
+                        listValues.add(values);
+                    }
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startBulkInsert(DataInsertHandler.CHARITY_ORDERS_TOKEN, false, DataContract.URI_CHARITY_ORDERS, listValues.toArray(new ContentValues[listValues.size()]));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post(new OrdersEvent(false, "No orders data"));
                 }
-                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startBulkInsert(DataInsertHandler.CHARITY_ORDERS_TOKEN, false, DataContract.URI_CHARITY_ORDERS, listValues.toArray(new ContentValues[listValues.size()]));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new OrdersEvent(false, "No orders data"));
             }
         }
     }

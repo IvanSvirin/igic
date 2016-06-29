@@ -1,4 +1,4 @@
-package com.cashback.ui.account;
+package ui.account;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -27,6 +27,9 @@ import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CharitySettingsRequest;
 import ui.MainActivity;
+
+import com.cashback.ui.account.HelpActivity;
+import com.cashback.ui.account.ShoppingTripsActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 
@@ -95,10 +98,10 @@ public class AccountFragment extends Fragment {
             case R.id.action_rate_the_app:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 //Try Google play
-                intent.setData(Uri.parse("market://details?id=[Id]"));
+                intent.setData(Uri.parse("market://details?id=com.igive.button"));
                 if (!StartRateAppActivity(intent)) {
                     //Market (Google play) app seems not installed, let's try to open a webbrowser
-                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?[Id]"));
+                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.igive.button"));
                     if (!StartRateAppActivity(intent)) {
                         //Well if this also fails, we have run out of options, inform the user.
                         Toast.makeText(getActivity(), "Could not open Android market, please install the market app.", Toast.LENGTH_SHORT).show();

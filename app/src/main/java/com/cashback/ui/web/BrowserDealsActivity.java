@@ -143,6 +143,8 @@ public class BrowserDealsActivity extends AppCompatActivity {
         ViewPager pager;
         @Bind(R.id.pagerNavigator)
         RelativeLayout pagerNavigator;
+        @Bind(R.id.pagerBackground)
+        RelativeLayout pagerBackground;
         @Bind(R.id.forwardButton)
         ImageButton forwardButton;
         @Bind(R.id.backButton)
@@ -179,6 +181,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
             collapseLayout.setVisibility(View.VISIBLE);
             pagerNavigator.setVisibility(View.VISIBLE);
             navigationPanel.setVisibility(View.INVISIBLE);
+            pagerBackground.setVisibility(View.VISIBLE);
             setPageNumber();
         }
 
@@ -207,6 +210,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
             collapseLayout.setVisibility(View.INVISIBLE);
             pagerNavigator.setVisibility(View.INVISIBLE);
             navigationPanel.setVisibility(View.VISIBLE);
+            pagerBackground.setVisibility(View.INVISIBLE);
             pager.setAdapter(null);
         }
 
@@ -222,6 +226,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
             pagerNavigator.setVisibility(View.INVISIBLE);
             collapseLayout.setVisibility(View.INVISIBLE);
             dealsButton.setVisibility(View.INVISIBLE);
+            pagerBackground.setVisibility(View.INVISIBLE);
         }
 
         private void initToolbar(Activity activity) {

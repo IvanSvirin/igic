@@ -210,7 +210,7 @@ public class Utilities {
     public static ProgressDialog onCreateProgressDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("Загружаю. Подождите...");
+        progressDialog.setMessage("Downloading. Please, wait...");
         return progressDialog;
     }
 

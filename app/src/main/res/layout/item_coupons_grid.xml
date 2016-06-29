@@ -8,8 +8,8 @@
 
     <android.support.v7.widget.CardView
         style="@style/AppTheme.CardView"
-        android:layout_width="320dp"
-        android:layout_height="210dp"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
         android:layout_gravity="center"
         android:foreground="?android:attr/selectableItemBackground">
 
@@ -34,6 +34,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:singleLine="false"
+                android:lines="2"
                 android:text="@null"
                 android:textAppearance="@style/AppTheme.TextAppearance"
                 android:textColor="@color/textColorPrimary"

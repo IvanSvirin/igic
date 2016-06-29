@@ -9,8 +9,8 @@
         android:id="@+id/common_list"
         style="@style/AppTheme.GridView"
         android:layout_height="wrap_content"
-        android:columnWidth="320dp"
-        android:verticalSpacing="10dp"
+        android:numColumns="3"
+        android:verticalSpacing="8dp"
         tools:listItem="@layout/item_store_list_small_card" />
 
     <Space

@@ -60,7 +60,8 @@ public class SignInRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL(context.getString(R.string.sign_in_path) + pathEnd);
+                url = new URL("https://beta1.igive.com/rest/iConsumer/api/v1/authorization/login/");
+//                url = new URL(context.getString(R.string.sign_in_path) + pathEnd);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");

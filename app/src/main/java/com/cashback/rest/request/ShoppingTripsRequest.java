@@ -85,24 +85,26 @@ public class ShoppingTripsRequest {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
-            ContentValues values;
-            try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jObj = jsonArray.getJSONObject(i);
-                    values = new ContentValues();
-                    values.put(DataContract.ShoppingTrips.COLUMN_VENDOR_NAME, jObj.getString("vendor_name"));
-                    values.put(DataContract.ShoppingTrips.COLUMN_CONFIRMATION_NUMBER, jObj.getInt("confirmation_number"));
-                    values.put(DataContract.ShoppingTrips.COLUMN_TRIP_DATE, jObj.getString("trip_date"));
-                    values.put(DataContract.ShoppingTrips.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
-                    values.put(DataContract.ShoppingTrips.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
-                    listValues.add(values);
+            if (jsonArray != null) {
+                List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
+                ContentValues values;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jObj = jsonArray.getJSONObject(i);
+                        values = new ContentValues();
+                        values.put(DataContract.ShoppingTrips.COLUMN_VENDOR_NAME, jObj.getString("vendor_name"));
+                        values.put(DataContract.ShoppingTrips.COLUMN_CONFIRMATION_NUMBER, jObj.getInt("confirmation_number"));
+                        values.put(DataContract.ShoppingTrips.COLUMN_TRIP_DATE, jObj.getString("trip_date"));
+                        values.put(DataContract.ShoppingTrips.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
+                        values.put(DataContract.ShoppingTrips.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
+                        listValues.add(values);
+                    }
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startBulkInsert(DataInsertHandler.SHOPPING_TRIPS_TOKEN, false, DataContract.URI_SHOPPING_TRIPS, listValues.toArray(new ContentValues[listValues.size()]));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post(new OrdersEvent(false, "No trips data"));
                 }
-                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startBulkInsert(DataInsertHandler.SHOPPING_TRIPS_TOKEN, false, DataContract.URI_SHOPPING_TRIPS, listValues.toArray(new ContentValues[listValues.size()]));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new OrdersEvent(false, "No trips data"));
             }
         }
     }

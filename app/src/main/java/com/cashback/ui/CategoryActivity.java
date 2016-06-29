@@ -1,5 +1,6 @@
 package com.cashback.ui;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -29,6 +30,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.cashback.R;
+import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.model.Merchant;
 import com.cashback.rest.event.CategoryMerchantsEvent;
@@ -52,7 +54,7 @@ public class CategoryActivity extends AppCompatActivity {
     private static final String SEARCH_KEY = "keyword_store";
     private UiActivity uiActivity;
     private ArrayList<Merchant> merchants = new ArrayList<>();
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,8 @@ public class CategoryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         long id = intent.getLongExtra("category_id", 1);
         new MerchantsByCategoryRequest(this, merchants, id).fetchData();
+        progressDialog = Utilities.onCreateProgressDialog(this);
+        progressDialog.show();
 
         uiActivity = new UiActivity(this);
     }
@@ -89,6 +93,7 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     public void onEvent(CategoryMerchantsEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             uiActivity.initListAdapter();
             uiActivity.initListHandler();

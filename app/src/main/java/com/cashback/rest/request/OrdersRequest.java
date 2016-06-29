@@ -102,29 +102,31 @@ public class OrdersRequest {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
-            ContentValues values;
-            try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jObj = jsonArray.getJSONObject(i);
-                    values = new ContentValues();
-                    values.put(DataContract.Orders.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
-                    values.put(DataContract.Orders.COLUMN_PURCHASE_TOTAL, jObj.getDouble("purchase_total"));
-                    values.put(DataContract.Orders.COLUMN_CONFIRMATION_NUMBER, jObj.getInt("confirmation_number"));
-                    values.put(DataContract.Orders.COLUMN_ORDER_DATE, jObj.getString("order_date"));
-                    values.put(DataContract.Orders.COLUMN_POSTED_DATE, jObj.getString("posted_date"));
-                    values.put(DataContract.Orders.COLUMN_VENDOR_NAME, jObj.getString("vendor_name"));
-                    values.put(DataContract.Orders.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
-                    values.put(DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT, jObj.getDouble("purchase_total"));
-                    values.put(DataContract.Orders.COLUMN_CASH_BACK, jObj.getDouble("purchase_total"));
+            if (jsonArray != null) {
+                List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
+                ContentValues values;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jObj = jsonArray.getJSONObject(i);
+                        values = new ContentValues();
+                        values.put(DataContract.Orders.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
+                        values.put(DataContract.Orders.COLUMN_PURCHASE_TOTAL, jObj.getDouble("purchase_total"));
+                        values.put(DataContract.Orders.COLUMN_CONFIRMATION_NUMBER, jObj.getInt("confirmation_number"));
+                        values.put(DataContract.Orders.COLUMN_ORDER_DATE, jObj.getString("order_date"));
+                        values.put(DataContract.Orders.COLUMN_POSTED_DATE, jObj.getString("posted_date"));
+                        values.put(DataContract.Orders.COLUMN_VENDOR_NAME, jObj.getString("vendor_name"));
+                        values.put(DataContract.Orders.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
+                        values.put(DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT, jObj.getDouble("purchase_total"));
+                        values.put(DataContract.Orders.COLUMN_CASH_BACK, jObj.getDouble("purchase_total"));
 
-                    listValues.add(values);
+                        listValues.add(values);
+                    }
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startBulkInsert(DataInsertHandler.ORDERS_TOKEN, false, DataContract.URI_ORDERS, listValues.toArray(new ContentValues[listValues.size()]));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post(new OrdersEvent(false, "No orders data"));
                 }
-                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startBulkInsert(DataInsertHandler.ORDERS_TOKEN, false, DataContract.URI_ORDERS, listValues.toArray(new ContentValues[listValues.size()]));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new OrdersEvent(false, "No orders data"));
             }
         }
     }

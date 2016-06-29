@@ -32,7 +32,6 @@ import com.cashback.ui.AllStoresFragment;
 import com.cashback.ui.CategoriesFragment;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.TellAFriendFragment;
-import com.cashback.ui.account.AccountFragment;
 import com.cashback.ui.featured.FeaturedFragment;
 import com.facebook.appevents.AppEventsLogger;
 
@@ -41,6 +40,7 @@ import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import ui.account.AccountFragment;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private final String SELECTED_ITEM_ID = "SELECTED_ITEM_ID";

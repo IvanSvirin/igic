@@ -49,18 +49,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class CouponsRequest extends ServiceGenerator<IMerchants> {
-    //    private Call<List<Coupon>> call;
-//    private Type listType;
-//    private Gson gson1;
     private Context context;
-
-//    {
-//        listType = new TypeToken<List<Coupon>>() {
-//        }.getType();
-//        gson1 = new GsonBuilder()
-//                .excludeFieldsWithoutExposeAnnotation()
-//                .registerTypeAdapter(listType, new CouponsDeserializer()).create();
-//    }
 
     public CouponsRequest(Context ctx) {
         super(IMerchants.class);
@@ -70,58 +59,6 @@ public class CouponsRequest extends ServiceGenerator<IMerchants> {
     @Override
     public void fetchData() {
         new CouponsRequestTask().execute();
-//        call = createService(gson1).getAllFeatured();
-//        call.enqueue(new Callback<List<Coupon>>() {
-//            @Override
-//            public void onResponse(Call<List<Coupon>> call, Response<List<Coupon>> response) {
-//                if (response.isSuccessful()) {
-//                    List<Coupon> listCoupon = response.body();
-//                    List<ContentValues> listCouponsValues = new ArrayList<>(listCoupon.size());
-//                    ContentValues values;
-//
-//                    for (Coupon coupon : listCoupon) {
-//                        values = new ContentValues();
-//                        values.put(DataContract.Coupons.COLUMN_COUPON_ID, coupon.getCouponId());
-//                        values.put(DataContract.Coupons.COLUMN_VENDOR_ID, coupon.getVendorId());
-//                        values.put(DataContract.Coupons.COLUMN_COUPON_TYPE, String.valueOf(coupon.getCouponType()));
-//                        values.put(DataContract.Coupons.COLUMN_RESTRICTIONS, coupon.getRestrictions());
-//                        values.put(DataContract.Coupons.COLUMN_COUPON_CODE, coupon.getCouponCode());
-//                        values.put(DataContract.Coupons.COLUMN_EXPIRATION_DATE, coupon.getExpirationDate());
-//                        values.put(DataContract.Coupons.COLUMN_AFFILIATE_URL, coupon.getAffiliateUrl());
-//                        values.put(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL, coupon.getVendorLogoUrl());
-//                        values.put(DataContract.Coupons.COLUMN_VENDOR_COMMISSION, coupon.getVendorCommission());
-//                        listCouponsValues.add(values);
-//                    }
-//                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-//                    handler.startBulkInsert(DataInsertHandler.COUPONS_TOKEN, false, DataContract.URI_COUPONS, listCouponsValues.toArray(new ContentValues[listCouponsValues.size()]));
-//
-//                } else {
-//                    int statusCode = response.code();
-//                    String answer = "Code " + statusCode + " . ";
-//                    ResponseBody errorBody = response.errorBody();
-//                    try {
-//                        answer += errorBody.string();
-//                        errorBody.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    EventBus.getDefault().post(new CouponsEvent(false, answer));
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Coupon>> call, Throwable t) {
-//                if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
-//                    ErrorResponse err = ((ErrorRestException) t).getBody();
-//                    EventBus.getDefault().post(new CouponsEvent(false, err.getMessage()));
-//                } else if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_WARNING)) {
-//                    WarningResponse warn = ((WarningRestException) t).getBody();
-//                    EventBus.getDefault().post(new CouponsEvent(false, warn.getMessage()));
-//                } else {
-//                    EventBus.getDefault().post(new CouponsEvent(false, t.getMessage()));
-//                }
-//            }
-//        });
     }
 
     private class CouponsRequestTask extends AsyncTask<Void, Void, Void> {

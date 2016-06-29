@@ -10,7 +10,7 @@
         style="@style/AppTheme.CardView"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_gravity="center"
-        android:layout_height="210dp"
+        android:layout_height="140dp"
         android:layout_width="280dp">
 
         <RelativeLayout
@@ -31,6 +31,7 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:singleLine="false"
+                android:lines="2"
                 android:text="@null"
                 android:textAppearance="@style/AppTheme.TextAppearance"
                 android:textColor="@color/textColorPrimary"

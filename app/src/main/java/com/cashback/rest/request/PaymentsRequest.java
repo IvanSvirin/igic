@@ -85,23 +85,25 @@ public class PaymentsRequest {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
-            ContentValues values;
-            try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jObj = jsonArray.getJSONObject(i);
-                    values = new ContentValues();
-                    values.put(DataContract.Payments.COLUMN_PAYMENT_AMOUNT, jObj.getDouble("payment_amount"));
-                    values.put(DataContract.Payments.COLUMN_PAYMENT_DATE, jObj.getString("payment_date"));
-                    values.put(DataContract.Payments.COLUMN_PAYMENT_ACCOUNT, jObj.getString("payment_account"));
+            if (jsonArray != null) {
+                List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
+                ContentValues values;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jObj = jsonArray.getJSONObject(i);
+                        values = new ContentValues();
+                        values.put(DataContract.Payments.COLUMN_PAYMENT_AMOUNT, jObj.getDouble("payment_amount"));
+                        values.put(DataContract.Payments.COLUMN_PAYMENT_DATE, jObj.getString("payment_date"));
+                        values.put(DataContract.Payments.COLUMN_PAYMENT_ACCOUNT, jObj.getString("payment_account"));
 
-                    listValues.add(values);
+                        listValues.add(values);
+                    }
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startBulkInsert(DataInsertHandler.PAYMENTS_TOKEN, false, DataContract.URI_PAYMENTS, listValues.toArray(new ContentValues[listValues.size()]));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post(new OrdersEvent(false, "No payments data"));
                 }
-                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startBulkInsert(DataInsertHandler.PAYMENTS_TOKEN, false, DataContract.URI_PAYMENTS, listValues.toArray(new ContentValues[listValues.size()]));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new OrdersEvent(false, "No payments data"));
             }
         }
     }

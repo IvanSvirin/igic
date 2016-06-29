@@ -53,14 +53,14 @@
                 android:id="@+id/dealsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/ab_ic_buynow_coupon"
                 android:contentDescription="@null"
                 android:text="22 DEALS"
                 android:textColor="@color/textColorPrimaryInverse"
-                android:textSize="20sp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp" />
+                android:textSize="20sp" />
         </RelativeLayout>
 
 
@@ -117,11 +117,20 @@
 
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/pager"
+    <RelativeLayout
+        android:id="@+id/pagerBackground"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_above="@+id/navigation_panel"></android.support.v4.view.ViewPager>
+        android:layout_above="@+id/navigation_panel"
+        android:background="@color/primary">
+
+        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v4.view.ViewPager>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/pagerNavigator"

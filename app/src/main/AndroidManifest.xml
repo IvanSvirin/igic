@@ -117,7 +117,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name="com.cashback.ui.account.HelpActivity" />
         <activity android:name="com.cashback.ui.account.TourActivity" />
-        <activity android:name="com.cashback.ui.account.PaymentsActivity" />
+        <activity android:name="ui.account.PaymentsActivity" />
         <activity android:name="com.cashback.ui.CategoryActivity" />
         <activity android:name="com.cashback.ui.StoreActivity" />
         <activity android:name="com.cashback.ui.allresults.SearchActivity" />

@@ -1,5 +1,6 @@
 package com.cashback.ui.allresults;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.cashback.R;
+import com.cashback.Utilities;
 import com.cashback.model.Coupon;
 import com.cashback.model.Merchant;
 import com.cashback.model.Product;
@@ -39,7 +41,7 @@ public class AllResultsActivity extends AppCompatActivity {
     public static ArrayList<Merchant> storesArray = new ArrayList<>();
     public static ArrayList<Product> productsArray = new ArrayList<>();
     public static ArrayList<Coupon> dealsArray = new ArrayList<>();
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class AllResultsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         searchingWord = intent.getStringExtra("searching_word");
         new SearchRequest(this, searchingWord, storesArray, productsArray, dealsArray).fetchData();
+        progressDialog = Utilities.onCreateProgressDialog(this);
+        progressDialog.show();
     }
 
     @Override
@@ -64,6 +68,7 @@ public class AllResultsActivity extends AppCompatActivity {
     }
 
     public void onEvent(SearchEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             uiActivity = new UiActivity(this);
         }

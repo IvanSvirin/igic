@@ -45,21 +45,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MerchantsRequest extends ServiceGenerator<IMerchants> {
-//    private Call<List<Merchant>> call;
-//    private Type listType;
-//    private Gson gson1;
     private Context context;
 
-//    {
-//        listType = new TypeToken<List<Merchant>>() {
-//        }.getType();
-//        gson1 = new GsonBuilder()
-//                .setLenient()
-//                .excludeFieldsWithoutExposeAnnotation()
-//                .registerTypeAdapter(listType, new MerchantsDeserializer())
-//                .create();
-//    }
-//
     public MerchantsRequest(Context ctx) {
         super(IMerchants.class);
         this.context = ctx;
@@ -68,59 +55,6 @@ public class MerchantsRequest extends ServiceGenerator<IMerchants> {
     @Override
     public void fetchData() {
         new MerchantsRequestTask().execute();
-
-//        call = createService(gson1).getMerchants();
-//        call.enqueue(new Callback<List<Merchant>>() {
-//            @Override
-//            public void onResponse(Call<List<Merchant>> call, Response<List<Merchant>> response) {
-//                if (response.isSuccessful()) {
-//                    List<Merchant> listMerchant = response.body();
-//                    List<ContentValues> listMerchantsValues = new ArrayList<>(listMerchant.size());
-//                    ContentValues values;
-//
-//                    for (Merchant m : listMerchant) {
-//                        values = new ContentValues();
-//                        values.put(DataContract.Merchants.COLUMN_VENDOR_ID, m.getVendorId());
-//                        values.put(DataContract.Merchants.COLUMN_NAME, m.getName());
-//                        values.put(DataContract.Merchants.COLUMN_COMMISSION, m.getCommission());
-//                        values.put(DataContract.Merchants.COLUMN_EXCEPTION_INFO, m.getExceptionInfo());
-//                        values.put(DataContract.Merchants.COLUMN_DESCRIPTION, m.getDescription());
-//                        values.put(DataContract.Merchants.COLUMN_GIFT_CARD, m.isGiftCard());
-//                        values.put(DataContract.Merchants.COLUMN_AFFILIATE_URL, m.getAffiliateUrl());
-//                        values.put(DataContract.Merchants.COLUMN_LOGO_URL, m.getLogoUrl());
-//                        listMerchantsValues.add(values);
-//                    }
-//                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-//                    if (!DataInsertHandler.IS_FILLING_MERCHANT_TABLE) {
-//                        handler.startBulkInsert(DataInsertHandler.MERCHANTS_TOKEN, false, DataContract.URI_MERCHANTS, listMerchantsValues.toArray(new ContentValues[listMerchantsValues.size()]));
-//                    }
-//                } else {
-//                    int statusCode = response.code();
-//                    String answer = "Code " + statusCode + " . ";
-//                    ResponseBody errorBody = response.errorBody();
-//                    try {
-//                        answer += errorBody.string();
-//                        errorBody.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    EventBus.getDefault().post(new MerchantsEvent(false, answer));
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Merchant>> call, Throwable t) {
-//                if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_ERROR)) {
-//                    ErrorResponse err = ((ErrorRestException) t).getBody();
-//                    EventBus.getDefault().post(new MerchantsEvent(false, err.getMessage()));
-//                } else if (t.getMessage() != null && t.getMessage().equals(ServiceGenerator.REQUEST_STATUS_WARNING)) {
-//                    WarningResponse warn = ((WarningRestException) t).getBody();
-//                    EventBus.getDefault().post(new MerchantsEvent(false, warn.getMessage()));
-//                } else {
-//                    EventBus.getDefault().post(new MerchantsEvent(false, t.getMessage()));
-//                }
-//            }
-//        });
     }
 
     private class MerchantsRequestTask extends AsyncTask<Void, Void, Void> {
@@ -170,30 +104,31 @@ public class MerchantsRequest extends ServiceGenerator<IMerchants> {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
-            ContentValues values;
-            try {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jObj = jsonArray.getJSONObject(i);
-                    values = new ContentValues();
-                    values.put(DataContract.Merchants.COLUMN_COMMISSION, jObj.getDouble("commission"));
-                    values.put(DataContract.Merchants.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
-                    values.put(DataContract.Merchants.COLUMN_IS_FAVORITE, jObj.getInt("is_favorite"));
-                    values.put(DataContract.Merchants.COLUMN_DESCRIPTION, jObj.getString("description"));
-                    values.put(DataContract.Merchants.COLUMN_LOGO_URL, jObj.getString("logo_url"));
-                    values.put(DataContract.Merchants.COLUMN_GIFT_CARD, jObj.getInt("gift_card"));
-                    values.put(DataContract.Merchants.COLUMN_EXCEPTION_INFO, jObj.getString("exception_info"));
-                    values.put(DataContract.Merchants.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
-                    values.put(DataContract.Merchants.COLUMN_NAME, jObj.getString("name"));
-                    listValues.add(values);
+            if (jsonArray != null) {
+                List<ContentValues> listValues = new ArrayList<>(jsonArray.length());
+                ContentValues values;
+                try {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jObj = jsonArray.getJSONObject(i);
+                        values = new ContentValues();
+                        values.put(DataContract.Merchants.COLUMN_COMMISSION, jObj.getDouble("commission"));
+                        values.put(DataContract.Merchants.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
+                        values.put(DataContract.Merchants.COLUMN_IS_FAVORITE, jObj.getInt("is_favorite"));
+                        values.put(DataContract.Merchants.COLUMN_DESCRIPTION, jObj.getString("description"));
+                        values.put(DataContract.Merchants.COLUMN_LOGO_URL, jObj.getString("logo_url"));
+                        values.put(DataContract.Merchants.COLUMN_GIFT_CARD, jObj.getInt("gift_card"));
+                        values.put(DataContract.Merchants.COLUMN_EXCEPTION_INFO, jObj.getString("exception_info"));
+                        values.put(DataContract.Merchants.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
+                        values.put(DataContract.Merchants.COLUMN_NAME, jObj.getString("name"));
+                        listValues.add(values);
+                    }
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startBulkInsert(DataInsertHandler.MERCHANTS_TOKEN, false, DataContract.URI_MERCHANTS, listValues.toArray(new ContentValues[listValues.size()]));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    EventBus.getDefault().post(new MerchantsEvent(false, "No merchants featured data"));
                 }
-                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                handler.startBulkInsert(DataInsertHandler.MERCHANTS_TOKEN, false, DataContract.URI_MERCHANTS, listValues.toArray(new ContentValues[listValues.size()]));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                EventBus.getDefault().post(new MerchantsEvent(false, "No merchants featured data"));
             }
         }
-
     }
 }
