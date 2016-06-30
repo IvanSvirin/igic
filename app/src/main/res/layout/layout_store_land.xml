@@ -188,7 +188,7 @@
                 android:columnWidth="280dp"
                 android:verticalSpacing="10dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:listItem="@layout/item_store_list_big_card" />
+                tools:listItem="@layout/item_coupons" />
 
             <Space
                 android:id="@+id/checking_element"

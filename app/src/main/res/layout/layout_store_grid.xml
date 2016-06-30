@@ -180,7 +180,7 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <com.cashback.ui.components.NestedGridView
+            <GridView
                 android:id="@+id/common_list"
                 style="@style/AppTheme.GridView"
                 android:layout_height="wrap_content"
@@ -188,7 +188,7 @@
                 android:columnWidth="320dp"
                 android:verticalSpacing="10dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:listItem="@layout/item_store_list_big_card" />
+                tools:listItem="@layout/item_coupons" />
 
             <Space
                 android:id="@+id/checking_element"

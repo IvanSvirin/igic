@@ -37,10 +37,10 @@ import de.greenrobot.event.EventBus;
 
 public class AllResultsActivity extends AppCompatActivity {
     private UiActivity uiActivity;
-    private String searchingWord;
-    public static ArrayList<Merchant> storesArray = new ArrayList<>();
-    public static ArrayList<Product> productsArray = new ArrayList<>();
-    public static ArrayList<Coupon> dealsArray = new ArrayList<>();
+    private static String searchingWord = "";
+    public static ArrayList<Merchant> storesArray;
+    public static ArrayList<Product> productsArray;
+    public static ArrayList<Coupon> dealsArray;
     private ProgressDialog progressDialog;
 
     @Override
@@ -49,10 +49,18 @@ public class AllResultsActivity extends AppCompatActivity {
         setContentView(R.layout.layout_all_results_common);
 
         Intent intent = getIntent();
-        searchingWord = intent.getStringExtra("searching_word");
-        new SearchRequest(this, searchingWord, storesArray, productsArray, dealsArray).fetchData();
-        progressDialog = Utilities.onCreateProgressDialog(this);
-        progressDialog.show();
+        String newWord = intent.getStringExtra("searching_word");
+        if (!searchingWord.equals(newWord)) {
+            searchingWord = newWord;
+            storesArray = new ArrayList<>();
+            productsArray = new ArrayList<>();
+            dealsArray = new ArrayList<>();
+            new SearchRequest(this, searchingWord, storesArray, productsArray, dealsArray).fetchData();
+            progressDialog = Utilities.onCreateProgressDialog(this);
+            progressDialog.show();
+        } else {
+            uiActivity = new UiActivity(this);
+        }
     }
 
     @Override
@@ -119,7 +127,6 @@ public class AllResultsActivity extends AppCompatActivity {
         FixedNestedScrollView nestedScrollView;
         @Bind(R.id.tab_content)
         ViewPager tabViewPager;
-//        WrapContentHeightViewPager tabViewPager;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
 

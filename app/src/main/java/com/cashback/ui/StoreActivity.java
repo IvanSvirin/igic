@@ -269,7 +269,6 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         }
 
-
         private void initToolbar(Activity activity, String categoryName) {
             ((AppCompatActivity) activity).setSupportActionBar(toolbar);
             actionBar = ((AppCompatActivity) activity).getSupportActionBar();
