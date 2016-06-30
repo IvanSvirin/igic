@@ -10,7 +10,8 @@
         android:layout_marginEnd="@dimen/listItem_text_delimiter"
         android:layout_marginRight="@dimen/listItem_text_delimiter"
         android:maxLines="2"
-        android:textAppearance="@style/AppTheme.TextAppearance" />
+        android:textAppearance="@style/AppTheme.TextAppearance"
+        android:alpha="0.87" />
 
     <TextView
         android:id="@+id/storeCommission"
@@ -19,6 +20,7 @@
         android:layout_gravity="end|center_vertical"
         android:singleLine="true"
         android:textAppearance="@style/AppTheme.TextAppearance"
-        android:textColor="@color/red" />
+        android:textColor="@color/red"
+        android:alpha="0.87" />
 
 </FrameLayout>

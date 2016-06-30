@@ -15,7 +15,8 @@
         android:textColor="@color/textColorPrimaryInverse"
         android:textSize="20dp"
         android:layout_above="@+id/restrictions"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:alpha="1" />
 
     <Button
         android:layout_width="150dp"

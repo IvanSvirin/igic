@@ -57,7 +57,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/title_cash_pending"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                     <TextView
                         android:id="@+id/userCashPending"
@@ -80,9 +81,9 @@
                         android:gravity="center_vertical|start"
                         android:text="@string/next_payment_date"
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:textColor="@color/primaryDark"
                         android:layout_gravity="left|bottom"
-                        android:id="@+id/nextPaymentDate" />
+                        android:id="@+id/nextPaymentDate"
+                        android:alpha="0.54" />
 
                 </FrameLayout>
 
@@ -99,7 +100,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/title_payments"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                     <TextView
                         android:id="@+id/userPayments"
@@ -122,9 +124,9 @@
                         android:gravity="center_vertical|start"
                         android:text="@string/join_date"
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:textColor="@color/primaryDark"
                         android:layout_gravity="left|bottom"
-                        android:id="@+id/joinDate" />
+                        android:id="@+id/joinDate"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -141,7 +143,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/shopping_trips"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/shoppingTrips" />
+                        android:id="@+id/shoppingTrips"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
 
@@ -159,7 +162,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/your_order_history"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/yourOrderHistory" />
+                        android:id="@+id/yourOrderHistory"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
             </LinearLayout>
@@ -201,7 +205,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/trending_deals_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/trending_deals_alerts_switcher"
@@ -221,8 +226,9 @@
                         android:gravity="center_vertical|start"
                         android:text="@string/notifications_trending_deals_alerts"
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:textColor="@color/primaryDark"
-                        android:layout_gravity="left|bottom" />
+                        android:layout_gravity="left|bottom"
+                        android:allowUndo="false"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
 
@@ -238,7 +244,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/cash_back_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/cash_back_alerts_switcher"
@@ -258,9 +265,9 @@
                         android:gravity="center_vertical|start"
                         android:text="@string/notifications_cash_back_alerts"
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:textColor="@color/primaryDark"
                         android:layout_gravity="left|bottom"
-                        android:id="@+id/textView" />
+                        android:id="@+id/textView"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -275,7 +282,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/payments_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/payments_alerts_switcher"
@@ -295,9 +303,9 @@
                         android:gravity="center_vertical|start"
                         android:text="@string/notifications_payments_alerts"
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:textColor="@color/primaryDark"
                         android:layout_gravity="left|bottom"
-                        android:id="@+id/textView2" />
+                        android:id="@+id/textView2"
+                        android:alpha="0.54" />
                 </FrameLayout>
             </LinearLayout>
 
@@ -330,7 +338,8 @@
                     android:paddingLeft="@dimen/padding_small"
                     android:text="@string/help"
                     android:textAppearance="@style/AppTheme.TextAppearance"
-                    android:layout_gravity="top" />
+                    android:layout_gravity="top"
+                    android:alpha="0.87" />
             </FrameLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -92,7 +92,8 @@
                             android:singleLine="true"
                             android:text="5"
                             android:textAppearance="@style/AppTheme.TextAppearance"
-                            android:textColor="@color/red" />
+                            android:textColor="@color/red"
+                            android:alpha="0.87" />
 
                         <ImageView
                             android:id="@+id/info"
@@ -103,7 +104,8 @@
                             android:layout_marginStart="40dp"
                             android:layout_alignBottom="@+id/textView2"
                             android:layout_toRightOf="@+id/textView2"
-                            android:layout_toEndOf="@+id/textView2" />
+                            android:layout_toEndOf="@+id/textView2"
+                            android:alpha="0.87" />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -111,7 +113,8 @@
                             android:layout_height="wrap_content"
                             android:text="@string/store_summary"
                             android:textAppearance="@style/AppTheme.TextAppearance"
-                            android:layout_alignParentBottom="true" />
+                            android:layout_alignParentBottom="true"
+                            android:alpha="0.87" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -123,7 +126,8 @@
                             android:layout_alignBaseline="@+id/cashBack"
                             android:layout_alignBottom="@+id/cashBack"
                             android:layout_toRightOf="@+id/cashBack"
-                            android:layout_toEndOf="@+id/cashBack" />
+                            android:layout_toEndOf="@+id/cashBack"
+                            android:alpha="0.87" />
 
                     </RelativeLayout>
 

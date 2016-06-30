@@ -9,12 +9,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
-import android.widget.GridView;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +25,6 @@ import com.cashback.db.DataContract;
 import com.cashback.model.Merchant;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
-import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
@@ -37,10 +37,23 @@ import butterknife.ButterKnife;
 public class StoresTabFragment extends Fragment {
     private FragmentUi fragmentUi;
 
+    public static StoresTabFragment newInstance() {
+        return new StoresTabFragment();
+    }
+
+    public StoresTabFragment() {
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_common_stores, container, false);
+        View view;
+        Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        if (display.getRotation() == Surface.ROTATION_90 || display.getRotation() == Surface.ROTATION_270) {
+            view = inflater.inflate(R.layout.layout_featured_tab_0_land, container, false);
+        } else {
+            view = inflater.inflate(R.layout.layout_featured_tab_0, container, false);
+        }
         fragmentUi = new FragmentUi(this, view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
@@ -55,60 +68,19 @@ public class StoresTabFragment extends Fragment {
     }
 
     public class FragmentUi {
-        private boolean isGridLayout;
-        private StoresAdapter storesAdapter;
-        private NestedListView nestedListView;
-        private GridView gridView;
+        private StoresRecyclerAdapter storesAdapter;
+        @Bind(R.id.hot_deals_recycler_view)
+        RecyclerView hotDealsRecyclerView;
 
         public FragmentUi(StoresTabFragment fragment, View view) {
             ButterKnife.bind(this, view);
-            isGridLayout = ButterKnife.findById(view, R.id.checking_element) != null;
-            if (isGridLayout) {
-                gridView = ButterKnife.findById(view, R.id.common_list);
-            } else {
-                nestedListView = ButterKnife.findById(view, R.id.common_list);
-            }
-            initListAdapter(fragment.getContext());
+            initListAdapter();
         }
 
-        private void initListAdapter(final Context context) {
-            storesAdapter = new StoresAdapter(getActivity(), isGridLayout);
-            storesAdapter.setOnSaleClickListener(new StoresAdapter.OnSaleClickListener() {
-                @Override
-                public void onSaleClick(long id) {
-                    if (Utilities.isLoggedIn(context)) {
-                        Intent intent = new Intent(context, BrowserDealsActivity.class);
-                        intent.putExtra("vendor_id", id);
-                        context.startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        context.startActivity(intent);
-                    }
-                }
-            });
-            storesAdapter.setOnShareClickListener(new StoresAdapter.OnShareClickListener() {
-                @Override
-                public void onShareClick(long shareId) {
-                    Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(shareId));
-                    Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
-                    cursor.moveToFirst();
-                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), shareId);
-                }
-            });
-            storesAdapter.setOnCardClickListener(new StoresAdapter.OnCardClickListener() {
-                @Override
-                public void onCardClick(long cardId) {
-                    Intent intent = new Intent(context, StoreActivity.class);
-                    intent.putExtra("vendor_id", cardId);
-                    context.startActivity(intent);
-                }
-            });
-            if (isGridLayout) {
-                gridView.setAdapter(storesAdapter);
-            } else {
-                nestedListView.setAdapter(storesAdapter);
-            }
+        private void initListAdapter() {
+            storesAdapter = new StoresRecyclerAdapter(getActivity());
+            hotDealsRecyclerView.setHasFixedSize(true);
+            hotDealsRecyclerView.setAdapter(storesAdapter);
         }
 
         public void unbind() {
@@ -116,171 +88,112 @@ public class StoresTabFragment extends Fragment {
         }
     }
 
-    public static class StoresAdapter extends BaseAdapter {
-        private final boolean GRID_TYPE_FLAG;
-        private Context context;
+    public static class StoresRecyclerAdapter extends RecyclerView.Adapter<StoresRecyclerAdapter.StoresViewHolder> {
+        final private Context context;
         private ArrayList<Merchant> storesArray;
-        private OnSaleClickListener onSaleClickListener;
-        private OnShareClickListener onShareClickListener;
-        private OnCardClickListener onCardClickListener;
         private Picasso picasso;
 
-        public StoresAdapter(Context context, boolean gridType) {
-            GRID_TYPE_FLAG = gridType;
+        public class StoresViewHolder extends RecyclerView.ViewHolder {
+            public ImageView vhStoreLogo;
+            public TextView vhCashBack;
+            public TextView vhBtnShopNow;
+            public AppCompatImageView vhShareButton;
+            public ImageView vhFavorite;
+
+            public StoresViewHolder(View itemView) {
+                super(itemView);
+                vhStoreLogo = (ImageView) itemView.findViewById(R.id.storeLogo);
+                vhCashBack = (TextView) itemView.findViewById(R.id.cashBack);
+                vhBtnShopNow = (TextView) itemView.findViewById(R.id.btnShopNow);
+                vhShareButton = (AppCompatImageView) itemView.findViewById(R.id.shareButton);
+                vhFavorite = (ImageView) itemView.findViewById(R.id.favorite);
+                vhShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = getAdapterPosition();
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
+                                storesArray.get(position).getVendorId()));
+                        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
+                        LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(
+                                DataContract.Merchants.COLUMN_AFFILIATE_URL)), storesArray.get(position).getVendorId());
+                        cursor.close();
+                    }
+                });
+                vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
+                                    storesArray.get(position).getVendorId()));
+                            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+                            cursor.moveToFirst();
+                            Intent intent = new Intent(context, BrowserDealsActivity.class);
+                            intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                            context.startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(context, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            context.startActivity(intent);
+                        }
+                    }
+                });
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = getAdapterPosition();
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
+                                storesArray.get(position).getVendorId()));
+                        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
+                        Intent intent = new Intent(context, StoreActivity.class);
+                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                        intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL)));
+                        intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                        intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                        context.startActivity(intent);
+                    }
+                });
+            }
+        }
+
+        public StoresRecyclerAdapter(Context context) {
             this.context = context;
             storesArray = AllResultsActivity.storesArray;
             picasso = Picasso.with(context);
         }
 
         @Override
-        public int getCount() {
-            return storesArray.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return storesArray.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_common_favorite, parent, false);
-                if (GRID_TYPE_FLAG) {
-                    GridViewHolder holder = new GridViewHolder(convertView);
-                    convertView.setTag(holder);
-                } else {
-                    ViewHolder holder = new ViewHolder(convertView);
-                    convertView.setTag(holder);
-                }
+        public StoresViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            if (parent instanceof RecyclerView) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorite, parent, false);
+                view.setFocusable(true);
+                return new StoresViewHolder(view);
+            } else {
+                throw new RuntimeException("Not bound to RecyclerView");
             }
-            final long vendorId = storesArray.get(position).getVendorId();
+        }
+
+        @Override
+        public void onBindViewHolder(StoresViewHolder holder, int position) {
             String logoUrl = storesArray.get(position).getLogoUrl();
             String commission = String.valueOf(storesArray.get(position).getCommission());
             boolean isFavorite = storesArray.get(position).isFavorite();
-            if (GRID_TYPE_FLAG) {
-                final GridViewHolder holder = (GridViewHolder) convertView.getTag();
-                picasso.load(logoUrl).into(holder.vhStoreLogo);
-                holder.vhCashBack.setText(commission);
-                if (isFavorite) {
-                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favorite));
-                } else {
-                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
-                }
-                holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(vendorId);
-                    }
-                });
-                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onShareClickListener.onShareClick(vendorId);
-                    }
-                });
-                holder.cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onCardClickListener.onCardClick(vendorId);
-                    }
-                });
+            picasso.load(logoUrl).into(holder.vhStoreLogo);
+            holder.vhCashBack.setText(commission);
+            if (isFavorite) {
+                holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favorite));
             } else {
-                ViewHolder holder = (ViewHolder) convertView.getTag();
-                picasso.load(logoUrl).into(holder.vhStoreLogo);
-                holder.vhCashBack.setText(commission);
-                if (isFavorite) {
-                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoritegrey));
-                } else {
-                    holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
-                }
-                holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(vendorId);
-                    }
-                });
-                holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onShareClickListener.onShareClick(vendorId);
-                    }
-                });
-                holder.cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onCardClickListener.onCardClick(vendorId);
-                    }
-                });
-            }
-            return convertView;
-        }
-
-        public void setOnCardClickListener(OnCardClickListener listener) {
-            onCardClickListener = listener;
-        }
-
-        public interface OnCardClickListener {
-            void onCardClick(long cardId);
-        }
-
-        public void setOnSaleClickListener(OnSaleClickListener listener) {
-            onSaleClickListener = listener;
-        }
-
-        public interface OnSaleClickListener {
-            void onSaleClick(long saleId);
-        }
-
-        public void setOnShareClickListener(OnShareClickListener listener) {
-            onShareClickListener = listener;
-        }
-
-        public interface OnShareClickListener {
-            void onShareClick(long shareId);
-        }
-
-        public static class ViewHolder {
-            @Bind(R.id.card_view)
-            FrameLayout cardView;
-            @Bind(R.id.storeLogo)
-            ImageView vhStoreLogo;
-            @Bind(R.id.cashBack)
-            TextView vhCashBack;
-            @Bind(R.id.btnShopNow)
-            TextView vhBtnShopNow;
-            @Bind(R.id.shareButton)
-            AppCompatImageView vhShareButton;
-            @Bind(R.id.favorite)
-            ImageView vhFavorite;
-
-            public ViewHolder(View convertView) {
-                ButterKnife.bind(this, convertView);
+                holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
             }
         }
 
-        public static class GridViewHolder {
-            @Bind(R.id.card_view)
-            FrameLayout cardView;
-            @Bind(R.id.storeLogo)
-            ImageView vhStoreLogo;
-            @Bind(R.id.cashBack)
-            TextView vhCashBack;
-            @Bind(R.id.btnShopNow)
-            TextView vhBtnShopNow;
-            @Bind(R.id.shareButton)
-            AppCompatImageView vhShareButton;
-            @Bind(R.id.favorite)
-            ImageView vhFavorite;
-
-            public GridViewHolder(View convertView) {
-                ButterKnife.bind(this, convertView);
-            }
+        @Override
+        public int getItemCount() {
+            return storesArray.size();
         }
     }
 }

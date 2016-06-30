@@ -42,7 +42,8 @@
                 android:paddingStart="40dp"
                 android:text="@string/title_all_stores_fragment"
                 android:textAppearance="@style/AppTheme.TextAppearance"
-                android:paddingLeft="40dp" />
+                android:paddingLeft="40dp"
+                android:alpha="0.87" />
 
             <View
                 android:layout_width="match_parent"

@@ -45,7 +45,7 @@
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/input_help_text"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:textColor="@color/primaryNight" />
+                        android:alpha="0.54" />
                 </FrameLayout>
             </LinearLayout>
 
@@ -87,7 +87,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/how_it_works"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
             </LinearLayout>
@@ -130,7 +131,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/send_app_feedback"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
             </LinearLayout>
@@ -173,7 +175,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/payment_questions"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
 
@@ -191,7 +194,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/how_to_use"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
 
@@ -209,7 +213,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/where_is_mine"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
             </LinearLayout>
@@ -252,7 +257,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/privacy_security"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
 
@@ -270,7 +276,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/terms_conditions"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
 

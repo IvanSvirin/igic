@@ -407,7 +407,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_common_coupon, parent, false);
+                convertView = LayoutInflater.from(context).inflate(R.layout.item_coupons, parent, false);
                 if (GRID_TYPE_FLAG) {
                     GridViewHolder holder = new GridViewHolder(convertView);
                     convertView.setTag(holder);
@@ -519,8 +519,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             View v = inflater.inflate(R.layout.view_dialog, container, false);
             TextView tvDescription = (TextView) v.findViewById(R.id.description);
             TextView tvExceptions = (TextView) v.findViewById(R.id.exceptions);
+            TextView tvClose = (TextView) v.findViewById(R.id.closeButton);
             tvDescription.setText(description);
             tvExceptions.setText(exceptionInfo);
+            tvClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InfoDialog.super.dismiss();
+                }
+            });
             return v;
         }
     }

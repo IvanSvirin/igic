@@ -58,7 +58,9 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/next_check_amount"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/nextCheckAmountTitle" />
+                        android:id="@+id/nextCheckAmountTitle"
+                        android:allowUndo="false"
+                        android:alpha="0.87" />
 
                     <TextView
                         android:id="@+id/nextCheckAmountValue"
@@ -87,7 +89,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/pending_amount"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/pendingAmountTitle" />
+                        android:id="@+id/pendingAmountTitle"
+                        android:alpha="0.87" />
 
                     <TextView
                         android:id="@+id/pendingAmountValue"
@@ -117,7 +120,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/total_paid"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/totalPaidTitile" />
+                        android:id="@+id/totalPaidTitile"
+                        android:alpha="0.87" />
 
                     <TextView
                         android:id="@+id/totalPaidValue"
@@ -140,9 +144,9 @@
                         android:gravity="center_vertical|start"
                         android:text="2/11/2016"
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:textColor="@color/primaryDark"
                         android:layout_gravity="left|bottom"
-                        android:id="@+id/totalPaidDate" />
+                        android:id="@+id/totalPaidDate"
+                        android:alpha="0.54" />
 
                 </FrameLayout>
 
@@ -160,7 +164,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/total_raised"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/totalRaisedTitle" />
+                        android:id="@+id/totalRaisedTitle"
+                        android:alpha="0.87" />
 
                     <TextView
                         android:id="@+id/totalRaisedValue"
@@ -183,8 +188,8 @@
                         android:gravity="center_vertical|start"
                         android:text="@string/by_all_supporters"
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:textColor="@color/primaryDark"
-                        android:layout_gravity="left|bottom" />
+                        android:layout_gravity="left|bottom"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -201,7 +206,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/shopping_trips"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/shoppingTrips" />
+                        android:id="@+id/shoppingTrips"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
 
@@ -219,7 +225,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/your_order_history"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/yourOrderHistory" />
+                        android:id="@+id/yourOrderHistory"
+                        android:alpha="0.87" />
 
                 </FrameLayout>
 
@@ -237,7 +244,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/member_settings"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/memberSettingsTitle" />
+                        android:id="@+id/memberSettingsTitle"
+                        android:alpha="0.87" />
                 </FrameLayout>
             </LinearLayout>
 
@@ -278,7 +286,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/trending_deals_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/trending_deals_alerts_switcher"
@@ -297,8 +306,8 @@
                         android:gravity="center_vertical|start"
                         android:text="@string/notifications_trending_deals_alerts"
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:textColor="@color/primaryDark"
-                        android:layout_gravity="left|bottom" />
+                        android:layout_gravity="left|bottom"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
 
@@ -314,7 +323,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/donation_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/donation_alerts_switcher"
@@ -333,9 +343,9 @@
                         android:gravity="center_vertical|start"
                         android:text="@string/notifications_donation_alerts"
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:textColor="@color/primaryDark"
                         android:layout_gravity="left|bottom"
-                        android:id="@+id/textView" />
+                        android:id="@+id/textView"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
             </LinearLayout>
@@ -377,7 +387,8 @@
                     android:paddingLeft="@dimen/padding_small"
                     android:text="@string/help"
                     android:textAppearance="@style/AppTheme.TextAppearance"
-                    android:layout_gravity="top" />
+                    android:layout_gravity="top"
+                    android:alpha="0.87" />
             </FrameLayout>
             </LinearLayout>
         <LinearLayout

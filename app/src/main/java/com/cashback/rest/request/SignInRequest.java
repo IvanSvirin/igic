@@ -60,8 +60,7 @@ public class SignInRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iConsumer/api/v1/authorization/login/");
-//                url = new URL(context.getString(R.string.sign_in_path) + pathEnd);
+                url = new URL(context.getString(R.string.sign_in_path) + pathEnd);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("POST");
@@ -71,7 +70,7 @@ public class SignInRequest {
                 switch (authObject.getAuthType()) {
                     case "0":
                         // TODO: 6/27/2016
-                        postParameters = "email=tech.softomate@gmail.ru&password=redsleep72&auth_type=1";
+                        postParameters = "email=tech.softomate@gmail.ru&password=redsleep72&auth_type=0";
 //                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                         break;
                     case "1":

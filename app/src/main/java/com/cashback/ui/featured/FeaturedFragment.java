@@ -1,6 +1,5 @@
 package com.cashback.ui.featured;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashback.R;
-import com.cashback.Utilities;
 import com.cashback.rest.RestUtilities;
 import ui.MainActivity;
 import com.cashback.ui.allresults.SearchActivity;
@@ -115,9 +113,9 @@ public class FeaturedFragment extends Fragment {
 
         private void setupTabsView(FragmentManager mng) {
             TabsPagerAdapter tabsAdapter = new TabsPagerAdapter(mng);
-            tabsAdapter.addTab(HotDealsTabFragmentTest.newInstance(), getString(R.string.tab_hot_deals).toUpperCase());
-            tabsAdapter.addTab(FavoritesTabFragmentTest.newInstance(), getString(R.string.tab_favorites).toUpperCase());
-            tabsAdapter.addTab(ExtraTabFragmentTest.newInstance(), getString(R.string.tab_extra).toUpperCase());
+            tabsAdapter.addTab(HotDealsTabFragment.newInstance(), getString(R.string.tab_hot_deals).toUpperCase());
+            tabsAdapter.addTab(FavoritesTabFragment.newInstance(), getString(R.string.tab_favorites).toUpperCase());
+            tabsAdapter.addTab(ExtraTabFragment.newInstance(), getString(R.string.tab_extra).toUpperCase());
             tabViewPager.setAdapter(tabsAdapter);
             tabLayout.setupWithViewPager(tabViewPager);
         }

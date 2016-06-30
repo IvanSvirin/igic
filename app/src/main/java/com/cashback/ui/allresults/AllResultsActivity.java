@@ -136,9 +136,9 @@ public class AllResultsActivity extends AppCompatActivity {
 
         private void setupTabsView(FragmentManager mng) {
             TabsPagerAdapter tabsAdapter = new TabsPagerAdapter(mng);
-            tabsAdapter.addTab(StoresTabFragmentTest.newInstance(), getString(R.string.tab_stores).toUpperCase());
-            tabsAdapter.addTab(ProductsTabFragmentTest.newInstance(), getString(R.string.tab_products).toUpperCase());
-            tabsAdapter.addTab(CouponsTabFragmentTest.newInstance(), getString(R.string.tab_coupons).toUpperCase());
+            tabsAdapter.addTab(StoresTabFragment.newInstance(), getString(R.string.tab_stores).toUpperCase());
+            tabsAdapter.addTab(ProductsTabFragment.newInstance(), getString(R.string.tab_products).toUpperCase());
+            tabsAdapter.addTab(CouponsTabFragment.newInstance(), getString(R.string.tab_coupons).toUpperCase());
             tabViewPager.setAdapter(tabsAdapter);
             tabLayout.setupWithViewPager(tabViewPager);
         }

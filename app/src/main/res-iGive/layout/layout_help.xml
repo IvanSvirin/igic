@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
@@ -58,6 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/how_it_works"
@@ -101,6 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/send_app_feedback"
@@ -144,6 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/payment_questions"
@@ -162,6 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/how_to_use"
@@ -180,6 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/where_is_mine"
@@ -223,6 +227,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/privacy_security"
@@ -241,6 +246,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/terms_conditions"
@@ -259,16 +265,11 @@
         android:layout_weight="0"
         android:paddingTop="@dimen/appbar_padding_top">
 
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-
     </android.support.design.widget.AppBarLayout>
-
-
 </android.support.design.widget.CoordinatorLayout>

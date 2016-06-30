@@ -22,7 +22,10 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        android:alpha="0.87"
+        android:textAlignment="center"
+        android:gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,5 +35,8 @@
         android:id="@+id/textView15"
         android:textStyle="italic"
         android:layout_below="@+id/textView14"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:alpha="0.87"
+        android:textAlignment="center"
+        android:gravity="center" />
 </RelativeLayout>

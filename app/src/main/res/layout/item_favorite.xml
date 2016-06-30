@@ -52,7 +52,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignLeft="@+id/view"
                 android:layout_alignStart="@+id/view"
-                android:layout_marginBottom="11dp" />
+                android:layout_marginBottom="11dp"
+                android:alpha="0.87" />
 
             <TextView
                 android:id="@+id/btnShopNow"
@@ -76,9 +77,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_share_black_24dp"
-                android:layout_alignBottom="@+id/was"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/textView10"
+                android:alpha="0.54" />
 
             <ImageView
                 android:id="@+id/favorite"
@@ -98,16 +100,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:background="@android:color/darker_gray"
-                android:id="@+id/view" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/was"
-                android:textSize="12sp"
-                android:layout_alignTop="@+id/textView10"
-                android:layout_toLeftOf="@+id/btnShopNow"
-                android:layout_toStartOf="@+id/btnShopNow" />
+                android:id="@+id/view"
+                android:alpha="0.54" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +114,8 @@
                 android:layout_alignBaseline="@+id/cashBack"
                 android:layout_alignBottom="@+id/cashBack"
                 android:layout_toRightOf="@+id/cashBack"
-                android:layout_toEndOf="@+id/cashBack" />
+                android:layout_toEndOf="@+id/cashBack"
+                android:alpha="0.87" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

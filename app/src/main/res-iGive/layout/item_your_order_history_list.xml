@@ -12,7 +12,8 @@
         android:layout_marginLeft="46dp"
         android:layout_marginRight="@dimen/padding_standard"
         android:layout_marginStart="46dp"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:alpha="0.54" />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -33,7 +34,8 @@
             android:textAppearance="@style/AppTheme.TextAppearance"
             android:layout_below="@+id/monthYear"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:alpha="0.87" />
 
         <TextView
             android:id="@+id/amountDonated"
@@ -45,7 +47,8 @@
             android:textAppearance="@style/AppTheme.TextAppearance"
             android:layout_below="@+id/monthYear"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:alpha="0.87" />
 
         <TextView
             android:id="@+id/monthDay"
@@ -55,7 +58,8 @@
             android:text="@string/date"
             android:layout_below="@+id/storeName"
             android:layout_alignLeft="@+id/storeName"
-            android:layout_alignStart="@+id/storeName" />
+            android:layout_alignStart="@+id/storeName"
+            android:alpha="0.54" />
 
         <TextView
             android:id="@+id/orderNumberValue"
@@ -65,7 +69,8 @@
             android:layout_alignBottom="@+id/orderTitle"
             android:layout_gravity="left|center_vertical"
             android:layout_toEndOf="@+id/orderTitle"
-            android:layout_toRightOf="@+id/orderTitle" />
+            android:layout_toRightOf="@+id/orderTitle"
+            android:alpha="0.54" />
 
         <TextView
             android:id="@+id/purchaseAmountValue"
@@ -76,7 +81,8 @@
             android:text="@string/format_donation_amount"
             android:layout_below="@+id/orderNumberValue"
             android:layout_toRightOf="@+id/pendingStockTitle"
-            android:layout_toEndOf="@+id/pendingStockTitle" />
+            android:layout_toEndOf="@+id/pendingStockTitle"
+            android:alpha="0.54" />
 
         <TextView
             android:id="@+id/pendingStockTitle"
@@ -86,7 +92,8 @@
             android:layout_alignStart="@+id/orderTitle"
             android:layout_below="@+id/orderTitle"
             android:layout_gravity="left|center_vertical"
-            android:text="@string/purchase_amount" />
+            android:text="@string/purchase_amount"
+            android:alpha="0.54" />
 
         <TextView
             android:id="@+id/monthYear"
@@ -109,7 +116,8 @@
             android:text="@string/order_number"
             android:layout_below="@+id/monthDay"
             android:layout_alignLeft="@+id/monthDay"
-            android:layout_alignStart="@+id/monthDay" />
+            android:layout_alignStart="@+id/monthDay"
+            android:alpha="0.54" />
 
         <TextView
             android:id="@+id/dateValue"
@@ -119,7 +127,8 @@
             android:singleLine="true"
             android:layout_above="@+id/orderNumberValue"
             android:layout_toRightOf="@+id/monthDay"
-            android:layout_toEndOf="@+id/monthDay" />
+            android:layout_toEndOf="@+id/monthDay"
+            android:alpha="0.54" />
 
     </RelativeLayout>
 

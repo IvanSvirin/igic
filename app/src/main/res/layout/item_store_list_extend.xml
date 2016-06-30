@@ -12,7 +12,8 @@
         android:layout_marginRight="@dimen/padding_standard"
         android:layout_marginStart="46dp"
         android:layout_marginLeft="46dp"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:alpha="0.54" />
 
     <RelativeLayout
         style="@style/AppTheme.ListItem"
@@ -49,7 +50,8 @@
             android:paddingRight="@dimen/padding_standard"
             android:paddingStart="0dp"
             android:paddingLeft="0dp"
-            android:textAppearance="@style/AppTheme.TextAppearance" />
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:alpha="0.87" />
 
         <TextView
             android:id="@+id/shopCommission"
@@ -60,7 +62,8 @@
             android:layout_centerVertical="true"
             android:singleLine="true"
             android:textAppearance="@style/AppTheme.TextAppearance"
-            android:textColor="@color/red" />
+            android:textColor="@color/red"
+            android:alpha="0.87" />
 
 
     </RelativeLayout>

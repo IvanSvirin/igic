@@ -12,7 +12,8 @@
         android:layout_marginLeft="46dp"
         android:layout_marginRight="@dimen/padding_standard"
         android:layout_marginStart="46dp"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        android:alpha="0.87" />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -35,7 +36,8 @@
             android:layout_toEndOf="@+id/monthDay"
             android:layout_toRightOf="@+id/monthDay"
             android:maxLines="2"
-            android:textAppearance="@style/AppTheme.TextAppearance" />
+            android:textAppearance="@style/AppTheme.TextAppearance"
+            android:alpha="0.87" />
 
         <TextView
             android:id="@+id/payment"
@@ -48,7 +50,8 @@
             android:singleLine="true"
             android:text="@string/format_donation_amount"
             android:textAppearance="@style/AppTheme.TextAppearance"
-            android:textColor="@color/red" />
+            android:textColor="@color/red"
+            android:alpha="0.87" />
 
         <TextView
             android:id="@+id/monthDay"
@@ -58,7 +61,8 @@
             android:text="Exp."
             android:layout_below="@+id/year"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:alpha="0.54" />
 
         <TextView
             android:id="@+id/year"
