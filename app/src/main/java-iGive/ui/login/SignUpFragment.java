@@ -20,7 +20,9 @@ import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignUpEvent;
 import com.cashback.rest.request.SignInCharityRequest;
+
 import ui.MainActivity;
+
 import com.cashback.ui.login.LoginActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -124,12 +126,12 @@ public class SignUpFragment extends Fragment {
 
         @OnClick(R.id.googleSingUpButton)
         public void onGoogleSignUp() {
-            getContext().startActivity(new Intent(getContext(), MainActivity.class));
-
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestEmail()
+                    .requestIdToken(getString(R.string.google_client_id))
+//                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .build();
-            GoogleApiClient googleApiClient = new GoogleApiClient.Builder(getContext())
+            GoogleApiClient googleApiClient = new GoogleApiClient.Builder(getActivity())
                     .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
                         @Override
                         public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -210,6 +212,10 @@ public class SignUpFragment extends Fragment {
                 AuthObject authObject = new AuthObject();
                 authObject.setAuthType("1");
                 authObject.setToken(token);
+                String[] fullName = acct.getDisplayName().split(" ");
+                authObject.setFirstName(fullName[0]);
+                authObject.setLastName(fullName[1]);
+                authObject.setEmail(acct.getEmail());
                 authObject.setUserId(acct.getId());
                 new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
             }

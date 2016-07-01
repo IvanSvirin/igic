@@ -49,11 +49,11 @@ public class LaunchActivity extends AppCompatActivity {
             startService(intentRegistrationGCM);
         }
 
-        if (Utilities.isLoggedIn(this)) {
+//        if (Utilities.isLoggedIn(this)) {
             intentNextActivity = new Intent(this, MainActivity.class);
-        } else {
-            intentNextActivity = new Intent(this, LoginActivity.class);
-        }
+//        } else {
+//            intentNextActivity = new Intent(this, LoginActivity.class);
+//        }
         startActivity(intentNextActivity);
         finish();
     }

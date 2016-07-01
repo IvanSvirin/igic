@@ -27,7 +27,9 @@ import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.LaunchActivity;
+
 import ui.MainActivity;
+
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserDealsActivity;
@@ -164,10 +166,14 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                 vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        cursor.moveToPosition(position);
-                        LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
-                                cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            cursor.moveToPosition(position);
+                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
+                                    cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                        } else {
+                            Utilities.needLoginDialog(context);
+                        }
                     }
                 });
                 vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
@@ -182,9 +188,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Intent intent = new Intent(context, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            context.startActivity(intent);
+                            Utilities.needLoginDialog(context);
                         }
                     }
                 });

@@ -116,14 +116,18 @@ public class ProductsTabFragment extends Fragment {
                 vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
-                                productsArray.get(position).getVendorId()));
-                        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                        cursor.moveToFirst();
-                        LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(
-                                DataContract.Merchants.COLUMN_AFFILIATE_URL)), productsArray.get(position).getVendorId());
-                        cursor.close();
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
+                                    productsArray.get(position).getVendorId()));
+                            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+                            cursor.moveToFirst();
+                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(
+                                    DataContract.Merchants.COLUMN_AFFILIATE_URL)), productsArray.get(position).getVendorId());
+                            cursor.close();
+                        } else {
+                            Utilities.needLoginDialog(context);
+                        }
                     }
                 });
                 vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
@@ -141,9 +145,7 @@ public class ProductsTabFragment extends Fragment {
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Intent intent = new Intent(context, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            context.startActivity(intent);
+                            Utilities.needLoginDialog(context);
                         }
                     }
                 });

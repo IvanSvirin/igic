@@ -110,8 +110,9 @@ public class AccountFragment extends Fragment {
                 break;
             case R.id.action_logout:
                 Utilities.removeUserToken(getContext());
+                Utilities.saveUserEntry(getContext(), false);
                 getActivity().finish();
-                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
+                getContext().startActivity(new Intent(getContext(), MainActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

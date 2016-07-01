@@ -2,6 +2,7 @@ package ui;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,12 +34,14 @@ import com.cashback.ui.CategoriesFragment;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.TellAFriendFragment;
 import com.cashback.ui.featured.FeaturedFragment;
+import com.cashback.ui.login.LoginActivity;
 import com.facebook.appevents.AppEventsLogger;
 
 import bolts.AppLinks;
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import ui.account.AccountFragment;
 
@@ -88,7 +91,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         drawerUi = new DrawerUi(this);
         drawerUi.init(savedInstanceState);
 
-        getSupportLoaderManager().initLoader(ACCOUNT_LOADER, null, this);
+        if (Utilities.isLoggedIn(this)) {
+            getSupportLoaderManager().initLoader(ACCOUNT_LOADER, null, this);
+        } else {
+            Utilities.saveUserToken(this, "unauthorized");
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    drawerUi.initDrawerHeaderFree();
+                }
+            }, 500);
+        }
     }
 
     @Override
@@ -303,6 +316,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             viewCashBack.setText(String.format(stringFormat, cashBack));
             ((TextView) ButterKnife.findById(navigator, R.id.userName)).setText(name);
             ((TextView) ButterKnife.findById(navigator, R.id.userEmail)).setText(email);
+        }
+
+        private void initDrawerHeaderFree() {
+            TextView userName = ButterKnife.findById(navigator, R.id.userName);
+            userName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    MainActivity.this.finish();
+                }
+            });
         }
 
         private boolean isBackPressed() {

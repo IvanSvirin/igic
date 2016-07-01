@@ -12,7 +12,6 @@
         android:id="@+id/totalEarned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/format_donation_amount"
         android:textAppearance="@style/AppTheme.TextAppearance"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -26,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/userEmail"
         android:layout_marginBottom="@dimen/padding_min"
-        android:text="Sandy Clinton"
+        android:text="Log In or Join Free!"
         android:textAppearance="@style/AppTheme.TextAppearance"
         android:textColor="@color/white" />
 
@@ -35,7 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="clinton@whitehouse.com"
         android:textAppearance="@style/AppTheme.TextAppearance"
         android:textColor="@color/white" />
 

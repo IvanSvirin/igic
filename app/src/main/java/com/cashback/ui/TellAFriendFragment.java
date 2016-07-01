@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cashback.R;
+import com.cashback.Utilities;
+import com.cashback.ui.login.LoginActivity;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
@@ -69,74 +71,86 @@ public class TellAFriendFragment extends Fragment {
 
         @OnClick(R.id.fbButton)
         void fbShare() {
-            // TODO: 6/7/2016 only for iConsumer
+            if (Utilities.isLoggedIn(context)) {
+                // TODO: 6/7/2016 only for iConsumer
 //            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
 //            cursor.moveToFirst();
 //            String referrerId = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_REFERRER_ID));
 //            String referralLink = String.format(getString(R.string.referral_reg_exp), referrerId);
 
-            BranchUniversalObject branchUniversalObject = new BranchUniversalObject();
-            LinkProperties linkProperties = new LinkProperties();
-            branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
-                @Override
-                public void onLinkCreate(String url, BranchError error) {
-                    ShareDialog dialog = new ShareDialog(getActivity());
-                    ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                            .setContentTitle(getString(R.string.share_title) + "\n")
-                            .setContentDescription("")
-                            .setContentUrl(Uri.parse(url))
-                            .build();
-                    dialog.show(linkContent);
-                }
-            });
+                BranchUniversalObject branchUniversalObject = new BranchUniversalObject();
+                LinkProperties linkProperties = new LinkProperties();
+                branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
+                    @Override
+                    public void onLinkCreate(String url, BranchError error) {
+                        ShareDialog dialog = new ShareDialog(getActivity());
+                        ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                                .setContentTitle(getString(R.string.share_title) + "\n")
+                                .setContentDescription("")
+                                .setContentUrl(Uri.parse(url))
+                                .build();
+                        dialog.show(linkContent);
+                    }
+                });
+            } else {
+                Utilities.needLoginDialog(context);
+            }
         }
 
         @OnClick(R.id.twButton)
         void twShare() {
-            // TODO: 6/7/2016 only for iConsumer
+            if (Utilities.isLoggedIn(context)) {
+                // TODO: 6/7/2016 only for iConsumer
 //            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
 //            cursor.moveToFirst();
 //            String referrerId = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_REFERRER_ID));
 //            String referralLink = String.format(getString(R.string.referral_reg_exp), referrerId);
 
-            BranchUniversalObject branchUniversalObject = new BranchUniversalObject();
-            LinkProperties linkProperties = new LinkProperties();
-            branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
-                @Override
-                public void onLinkCreate(String url, BranchError error) {
-                    String tweetUrl = String.format("https://twitter.com/intent/tweet?text=%s&url=%s", urlEncode(getString(R.string.share_title) + "\n"), url);
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tweetUrl));
+                BranchUniversalObject branchUniversalObject = new BranchUniversalObject();
+                LinkProperties linkProperties = new LinkProperties();
+                branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
+                    @Override
+                    public void onLinkCreate(String url, BranchError error) {
+                        String tweetUrl = String.format("https://twitter.com/intent/tweet?text=%s&url=%s", urlEncode(getString(R.string.share_title) + "\n"), url);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tweetUrl));
 
-                    List<ResolveInfo> matches = getActivity().getPackageManager().queryIntentActivities(intent, 0);
-                    for (ResolveInfo info : matches) {
-                        if (info.activityInfo.packageName.toLowerCase().startsWith("com.twitter")) {
-                            intent.setPackage(info.activityInfo.packageName);
+                        List<ResolveInfo> matches = getActivity().getPackageManager().queryIntentActivities(intent, 0);
+                        for (ResolveInfo info : matches) {
+                            if (info.activityInfo.packageName.toLowerCase().startsWith("com.twitter")) {
+                                intent.setPackage(info.activityInfo.packageName);
+                            }
                         }
+                        startActivity(intent);
                     }
-                    startActivity(intent);
-                }
-            });
+                });
+            } else {
+                Utilities.needLoginDialog(context);
+            }
         }
 
         @OnClick(R.id.shButton)
         void share() {
-            // TODO: 6/7/2016 only for iConsumer
+            if (Utilities.isLoggedIn(context)) {
+                // TODO: 6/7/2016 only for iConsumer
 //            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
 //            cursor.moveToFirst();
 //            String referrerId = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_REFERRER_ID));
 //            String referralLink = String.format(getString(R.string.referral_reg_exp), referrerId);
 
-            BranchUniversalObject branchUniversalObject = new BranchUniversalObject();
-            LinkProperties linkProperties = new LinkProperties();
-            branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
-                @Override
-                public void onLinkCreate(String url, BranchError error) {
-                    Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("text/plain");
-                    share.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_title) + "\n" + url);
-                    context.startActivity(Intent.createChooser(share, "Share Text"));
-                }
-            });
+                BranchUniversalObject branchUniversalObject = new BranchUniversalObject();
+                LinkProperties linkProperties = new LinkProperties();
+                branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
+                    @Override
+                    public void onLinkCreate(String url, BranchError error) {
+                        Intent share = new Intent(Intent.ACTION_SEND);
+                        share.setType("text/plain");
+                        share.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_title) + "\n" + url);
+                        context.startActivity(Intent.createChooser(share, "Share Text"));
+                    }
+                });
+            } else {
+                Utilities.needLoginDialog(context);
+            }
         }
 
         public FragmentUi(TellAFriendFragment fragment, View view) {

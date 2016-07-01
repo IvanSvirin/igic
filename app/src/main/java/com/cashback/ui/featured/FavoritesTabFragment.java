@@ -163,19 +163,27 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                 vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        cursor.moveToPosition(position);
-                        LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_AFFILIATE_URL)),
-                                cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID)));
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            cursor.moveToPosition(position);
+                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_AFFILIATE_URL)),
+                                    cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID)));
+                        } else {
+                            Utilities.needLoginDialog(context);
+                        }
                     }
                 });
                 vhFavorite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        cursor.moveToPosition(position);
-                        new FavoritesRequest(context).deleteMerchant(cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID)));
-                        notifyDataSetChanged();
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            cursor.moveToPosition(position);
+                            new FavoritesRequest(context).deleteMerchant(cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID)));
+                            notifyDataSetChanged();
+                        } else {
+                            Utilities.needLoginDialog(context);
+                        }
                     }
                 });
                 vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
@@ -190,9 +198,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Intent intent = new Intent(context, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            context.startActivity(intent);
+                            Utilities.needLoginDialog(context);
                         }
                     }
                 });

@@ -88,7 +88,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         drawerUi = new DrawerUi(this);
         drawerUi.init(savedInstanceState);
 
-        getSupportLoaderManager().initLoader(ACCOUNT_LOADER, null, this);
+        if (Utilities.isLoggedIn(this)) {
+            getSupportLoaderManager().initLoader(ACCOUNT_LOADER, null, this);
+        } else {
+            Utilities.saveUserToken(this, "unauthorized");
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    drawerUi.initDrawerHeaderFree();
+                }
+            }, 500);
+        }
     }
 
     @Override
@@ -303,6 +313,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             viewCashBack.setText(String.format(stringFormat, cashBack));
             ((TextView) ButterKnife.findById(navigator, R.id.userName)).setText(name);
             ((TextView) ButterKnife.findById(navigator, R.id.userEmail)).setText(email);
+        }
+
+        private void initDrawerHeaderFree() {
+            TextView userName = ButterKnife.findById(navigator, R.id.userName);
+            userName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    MainActivity.this.finish();
+                }
+            });
         }
 
         private boolean isBackPressed() {

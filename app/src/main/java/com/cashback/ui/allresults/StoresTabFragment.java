@@ -23,6 +23,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.model.Merchant;
+import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.login.LoginActivity;
@@ -110,23 +111,47 @@ public class StoresTabFragment extends Fragment {
                 vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
-                                storesArray.get(position).getVendorId()));
-                        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                        cursor.moveToFirst();
-                        LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(
-                                DataContract.Merchants.COLUMN_AFFILIATE_URL)), storesArray.get(position).getVendorId());
-                        cursor.close();
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
+                                    storesArray.get(position).getVendorId()));
+                            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+                            cursor.moveToFirst();
+                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(
+                                    DataContract.Merchants.COLUMN_AFFILIATE_URL)), storesArray.get(position).getVendorId());
+                            cursor.close();
+                        } else {
+                            Utilities.needLoginDialog(context);
+                        }
                     }
                 });
+                vhFavorite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(storesArray.get(position).getVendorId()));
+                            Cursor c = context.getContentResolver().query(uri, null, null, null, null);
+                            int count = c.getCount();
+                            c.close();
+                            if (count == 0) {
+                                new FavoritesRequest(context).addMerchant(storesArray.get(position).getVendorId());
+                            } else {
+                                new FavoritesRequest(context).deleteMerchant(storesArray.get(position).getVendorId());
+                            }
+                            notifyDataSetChanged();
+                        } else {
+                            Utilities.needLoginDialog(context);
+                        }
+                    }
+                });
+
                 vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if (Utilities.isLoggedIn(context)) {
                             int position = getAdapterPosition();
-                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
-                                    storesArray.get(position).getVendorId()));
+                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(storesArray.get(position).getVendorId()));
                             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
                             cursor.moveToFirst();
                             Intent intent = new Intent(context, BrowserDealsActivity.class);
@@ -135,9 +160,7 @@ public class StoresTabFragment extends Fragment {
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Intent intent = new Intent(context, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            context.startActivity(intent);
+                            Utilities.needLoginDialog(context);
                         }
                     }
                 });
@@ -145,8 +168,7 @@ public class StoresTabFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         int position = getAdapterPosition();
-                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
-                                storesArray.get(position).getVendorId()));
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(storesArray.get(position).getVendorId()));
                         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
                         cursor.moveToFirst();
                         Intent intent = new Intent(context, StoreActivity.class);

@@ -1,14 +1,20 @@
 package com.cashback;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+
+import com.cashback.ui.login.LoginActivity;
+
+import ui.MainActivity;
 
 public class Utilities {
     private final static String PREF_TOKEN_KEY = "pref_token";
@@ -223,6 +229,27 @@ public class Utilities {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                    }
+                });
+        builder.create().show();
+    }
+
+    public static void needLoginDialog(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(R.string.please_log_in)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
                     }
                 });
         builder.create().show();

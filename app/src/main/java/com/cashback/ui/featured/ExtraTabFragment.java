@@ -167,28 +167,36 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                 vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        cursor.moveToPosition(position);
-                        LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)),
-                                cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            cursor.moveToPosition(position);
+                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)),
+                                    cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
+                        } else {
+                            Utilities.needLoginDialog(context);
+                        }
                     }
                 });
                 vhFavorite.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        cursor.moveToPosition(position);
-                        long id = cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID));
-                        Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(id));
-                        Cursor c = context.getContentResolver().query(uri, null, null, null, null);
-                        int count = c.getCount();
-                        c.close();
-                        if (count == 0) {
-                            new FavoritesRequest(context).addMerchant(id);
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            cursor.moveToPosition(position);
+                            long id = cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID));
+                            Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(id));
+                            Cursor c = context.getContentResolver().query(uri, null, null, null, null);
+                            int count = c.getCount();
+                            c.close();
+                            if (count == 0) {
+                                new FavoritesRequest(context).addMerchant(id);
+                            } else {
+                                new FavoritesRequest(context).deleteMerchant(id);
+                            }
+                            notifyDataSetChanged();
                         } else {
-                            new FavoritesRequest(context).deleteMerchant(id);
+                            Utilities.needLoginDialog(context);
                         }
-                        notifyDataSetChanged();
                     }
                 });
                 vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
@@ -203,9 +211,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Intent intent = new Intent(context, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            context.startActivity(intent);
+                            Utilities.needLoginDialog(context);
                         }
                     }
                 });

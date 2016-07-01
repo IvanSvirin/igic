@@ -235,29 +235,35 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         intent.putExtra("affiliate_url", affiliateUrl);
                         context.startActivity(intent);
                     } else {
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        context.startActivity(intent);
+                        Utilities.needLoginDialog(context);
                     }
                 }
             });
             adapter.setOnShareClickListener(new CursorCouponsAdapter.OnShareClickListener() {
                 @Override
                 public void onShareClick(long shareId) {
-                    Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(vendorId));
-                    Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-                    cursor.moveToFirst();
-                    LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), vendorId);
+                    if (Utilities.isLoggedIn(context)) {
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(vendorId));
+                        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+                        cursor.moveToFirst();
+                        LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), vendorId);
+                    } else {
+                        Utilities.needLoginDialog(context);
+                    }
                 }
             });
             AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(context, BrowserDealsActivity.class);
-                    intent.putExtra("vendor_id", vendorId);
-                    intent.putExtra("vendor_commission", commission);
-                    intent.putExtra("affiliate_url", affiliateUrl);
-                    context.startActivity(intent);
+                    if (Utilities.isLoggedIn(context)) {
+                        Intent intent = new Intent(context, BrowserDealsActivity.class);
+                        intent.putExtra("vendor_id", vendorId);
+                        intent.putExtra("vendor_commission", commission);
+                        intent.putExtra("affiliate_url", affiliateUrl);
+                        context.startActivity(intent);
+                    } else {
+                        Utilities.needLoginDialog(context);
+                    }
                 }
             };
             if (isGridLayout) {
@@ -292,9 +298,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         intent.putExtra("affiliate_url", affiliateUrl);
                         context.startActivity(intent);
                     } else {
-                        Intent intent = new Intent(context, LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        context.startActivity(intent);
+                        Utilities.needLoginDialog(context);
                     }
                 }
             };

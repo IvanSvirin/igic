@@ -85,7 +85,9 @@ public class SignInFragment extends Fragment {
     public void onEvent(SignInEvent event) {
         if (event.isSuccess) {
             Utilities.saveUserEntry(getActivity(), true);
-            startActivity(new Intent(getContext(), MainActivity.class));
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            getContext().startActivity(intent);
             getActivity().finish();
         } else {
             fragmentUi.showFailNotification(event.message);
@@ -121,7 +123,7 @@ public class SignInFragment extends Fragment {
         @OnClick(R.id.googleLoginButton)
         public void onGoogleLogin() {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                    .requestEmail()
+                    .requestEmail()
                     .requestIdToken(getString(R.string.google_client_id))
 //                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .build();
