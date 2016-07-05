@@ -26,6 +26,7 @@ import com.cashback.db.DataContract;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CharitySettingsRequest;
+
 import ui.MainActivity;
 
 import com.cashback.ui.account.HelpActivity;
@@ -42,6 +43,7 @@ import ui.account.YourOrderHistoryActivity;
 public class AccountFragment extends Fragment {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";
     private FragmentUi fragmentUi;
+    private boolean gotAnswer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class AccountFragment extends Fragment {
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_CHARITY_ORDERS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_SHOPPING_TRIPS);
         new CharitySettingsRequest(getContext()).fetchData();
+        gotAnswer = false;
         setHasOptionsMenu(true);
     }
 
@@ -129,6 +132,7 @@ public class AccountFragment extends Fragment {
 
     public void onEvent(SettingsEvent event) {
         if (event.isSuccess) {
+            gotAnswer = true;
             fragmentUi.dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
             fragmentUi.donationSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
         }
@@ -178,13 +182,19 @@ public class AccountFragment extends Fragment {
             dealsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    new CharitySettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), isChecked);
+                    if (gotAnswer) {
+                        new CharitySettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), isChecked);
+                        gotAnswer = false;
+                    }
                 }
             });
             donationSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    new CharitySettingsRequest(context).changeData(isChecked, Utilities.isDealsNotifyOn(getContext()));
+                    if (gotAnswer) {
+                        new CharitySettingsRequest(context).changeData(isChecked, Utilities.isDealsNotifyOn(getContext()));
+                        gotAnswer = false;
+                    }
                 }
             });
         }
