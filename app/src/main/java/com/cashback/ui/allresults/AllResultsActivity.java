@@ -77,8 +77,9 @@ public class AllResultsActivity extends AppCompatActivity {
 
     public void onEvent(SearchEvent event) {
         progressDialog.dismiss();
-        if (event.isSuccess) {
-            uiActivity = new UiActivity(this);
+        uiActivity = new UiActivity(this);
+        if (!event.isSuccess) {
+            Utilities.showFailNotification(event.message, this);
         }
     }
 

@@ -23,11 +23,11 @@
     <string name="extras_path">https://beta1.iconsumer.com/rest/icon/api/v1/merchants/extra/</string>
     <string name="favorites_path">https://beta1.iconsumer.com/rest/icon/api/v1/favorites/</string>
     <string name="send_app_feedback_path">http://support.iconsumer.com/Main/frmNewTicket.aspx</string>
-    <string name="payment_questions_path">http://support.iconsumer.com/kb/a3/when-will-my-cause-get-a-check.aspx</string>
-    <string name="how_to_use_path">http://support.iconsumer.com/kb/a115/how-igive-works.aspx</string>
-    <string name="where_is_my_donation_path">http://support.iconsumer.com/kb/a2/tracking-your-donation.aspx</string>
-    <string name="privacy_and_security_path">http://www.iconsumer.com/isearch/privacy.cfm</string>
-    <string name="terms_and_conditions_path">http://www.iconsumer.com/isearch/tos.cfm</string>
+    <string name="payment_questions_path">http://support.iconsumer.com/kb/a231/cash-back-payments.aspx?KBSearchID=18001</string>
+    <string name="how_to_use_path">	http://support.iconsumer.com/kb/a229/how-iconsumer-works.aspx</string>
+    <string name="where_is_my_donation_path">http://support.iconsumer.com/kb/a259/tracking-your-cash-back.aspx</string>
+    <string name="privacy_and_security_path">https://beta1.iconsumer.com/html/privacy.cfm</string>
+    <string name="terms_and_conditions_path">https://beta1.iconsumer.com/html/terms-and-conditions.cfm</string>
     <string name="sign_in_path">https://beta1.iconsumer.com/rest/icon/api/v1/authorization/</string>
     <string name="reset_path">https:/beta1.iconsumer.com/rest/icon/api/v1/authorization/reset</string>
     <string name="search_path">https://beta1.iconsumer.com/rest/icon/api/v1/search/</string>

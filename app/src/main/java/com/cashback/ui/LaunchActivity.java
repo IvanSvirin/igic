@@ -7,10 +7,13 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.gcm.RegistrationGcmServices;
-import com.cashback.ui.login.LoginActivity;
 import com.facebook.FacebookSdk;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -26,8 +29,19 @@ import ui.MainActivity;
 public class LaunchActivity extends AppCompatActivity {
     public static final String MAIN_TAG_LOG = "igic_log";
     public static final String DB_TAG_LOG = "igic_db_log";
+    public static final String GA_TRACKER = "ga_tracker";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     static final String TAG = "GCM Registration";
+    private Tracker tracker;
+
+    synchronized public Tracker getDefaultTracker() {
+        if (tracker == null) {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+            tracker = analytics.newTracker(GA_TRACKER);
+        }
+        return tracker;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +50,10 @@ public class LaunchActivity extends AppCompatActivity {
         Intent intentRegistrationGCM;
         Intent intentNextActivity;
         Utilities.saveIdfa(this, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-
+        //Google Analytics
+        tracker = getDefaultTracker();
+        tracker.setScreenName("");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 //         Automatic session tracking
         Branch.getAutoInstance(getApplicationContext());
         initBranchSession();
@@ -49,11 +66,7 @@ public class LaunchActivity extends AppCompatActivity {
             startService(intentRegistrationGCM);
         }
 
-//        if (Utilities.isLoggedIn(this)) {
-            intentNextActivity = new Intent(this, MainActivity.class);
-//        } else {
-//            intentNextActivity = new Intent(this, LoginActivity.class);
-//        }
+        intentNextActivity = new Intent(this, MainActivity.class);
         startActivity(intentNextActivity);
         finish();
     }

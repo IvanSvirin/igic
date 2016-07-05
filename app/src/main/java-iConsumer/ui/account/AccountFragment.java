@@ -39,6 +39,7 @@ import ui.MainActivity;
 public class AccountFragment extends Fragment {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";
     private FragmentUi fragmentUi;
+    private boolean gotAnswer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class AccountFragment extends Fragment {
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_SHOPPING_TRIPS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_PAYMENTS);
         new CashBackSettingsRequest(getContext()).fetchData();
+        gotAnswer = false;
         setHasOptionsMenu(true);
     }
 
@@ -128,6 +130,7 @@ public class AccountFragment extends Fragment {
 
     public void onEvent(SettingsEvent event) {
         if (event.isSuccess) {
+            gotAnswer = true;
             fragmentUi.dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
             fragmentUi.cashbackSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
             fragmentUi.paymentsSwitcher.setChecked(Utilities.isPaymentsNotifyOn(getContext()));
@@ -177,19 +180,28 @@ public class AccountFragment extends Fragment {
             dealsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    new CashBackSettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), isChecked, Utilities.isPaymentsNotifyOn(getContext()));
+                    if (gotAnswer) {
+                        new CashBackSettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), isChecked, Utilities.isPaymentsNotifyOn(getContext()));
+                        gotAnswer = false;
+                    }
                 }
             });
             cashbackSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    new CashBackSettingsRequest(context).changeData(isChecked, Utilities.isDealsNotifyOn(getContext()), Utilities.isPaymentsNotifyOn(getContext()));
+                    if (gotAnswer) {
+                        new CashBackSettingsRequest(context).changeData(isChecked, Utilities.isDealsNotifyOn(getContext()), Utilities.isPaymentsNotifyOn(getContext()));
+                        gotAnswer = false;
+                    }
                 }
             });
             paymentsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    new CashBackSettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), Utilities.isDealsNotifyOn(getContext()), isChecked);
+                    if (gotAnswer) {
+                        new CashBackSettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), Utilities.isDealsNotifyOn(getContext()), isChecked);
+                        gotAnswer = false;
+                    }
                 }
             });
         }

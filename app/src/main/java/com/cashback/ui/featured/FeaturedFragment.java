@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cashback.R;
+import com.cashback.Utilities;
 import com.cashback.rest.RestUtilities;
 import ui.MainActivity;
 import com.cashback.ui.allresults.SearchActivity;
@@ -117,6 +118,22 @@ public class FeaturedFragment extends Fragment {
             tabsAdapter.addTab(FavoritesTabFragment.newInstance(), getString(R.string.tab_favorites).toUpperCase());
             tabsAdapter.addTab(ExtraTabFragment.newInstance(), getString(R.string.tab_extra).toUpperCase());
             tabViewPager.setAdapter(tabsAdapter);
+            tabViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    if (position == 1 && !Utilities.isLoggedIn(getContext())) {
+                        Utilities.needLoginForFavoritesDialog(getContext());
+                    }
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                }
+            });
             tabLayout.setupWithViewPager(tabViewPager);
         }
 

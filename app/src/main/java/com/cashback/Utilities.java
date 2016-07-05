@@ -13,6 +13,8 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import com.cashback.ui.login.LoginActivity;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 
 import ui.MainActivity;
 
@@ -20,7 +22,6 @@ public class Utilities {
     private final static String PREF_TOKEN_KEY = "pref_token";
     private static final String PREF_ENTRY_KEY = "pref_entry";
     private static final String PREF_IDFA_KEY = "pref_idfa";
-
 
     public static boolean isLoggedIn(Context context) {
         return !TextUtils.isEmpty(retrieveUserToken(context)) && retrieveUserEntry(context);
@@ -237,6 +238,27 @@ public class Utilities {
     public static void needLoginDialog(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.please_log_in)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+        builder.create().show();
+    }
+
+    public static void needLoginForFavoritesDialog(final Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(R.string.please_log_in_favorites)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

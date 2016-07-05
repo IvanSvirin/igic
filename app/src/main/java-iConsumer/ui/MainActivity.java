@@ -2,6 +2,7 @@ package ui;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import com.cashback.ui.CategoriesFragment;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.TellAFriendFragment;
 import com.cashback.ui.featured.FeaturedFragment;
+import com.cashback.ui.login.LoginActivity;
 import com.facebook.appevents.AppEventsLogger;
 
 import bolts.AppLinks;

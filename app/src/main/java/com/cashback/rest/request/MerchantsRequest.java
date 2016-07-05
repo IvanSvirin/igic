@@ -9,19 +9,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
-import com.cashback.model.ErrorResponse;
-import com.cashback.model.Merchant;
-import com.cashback.model.WarningResponse;
-import com.cashback.rest.ErrorRestException;
-import com.cashback.rest.IMerchants;
-import com.cashback.rest.ServiceGenerator;
-import com.cashback.rest.WarningRestException;
-import com.cashback.rest.adapter.MerchantsDeserializer;
-import com.cashback.rest.event.CouponsEvent;
 import com.cashback.rest.event.MerchantsEvent;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,27 +20,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class MerchantsRequest extends ServiceGenerator<IMerchants> {
+public class MerchantsRequest {
     private Context context;
 
     public MerchantsRequest(Context ctx) {
-        super(IMerchants.class);
         this.context = ctx;
     }
 
-    @Override
     public void fetchData() {
         new MerchantsRequestTask().execute();
     }
