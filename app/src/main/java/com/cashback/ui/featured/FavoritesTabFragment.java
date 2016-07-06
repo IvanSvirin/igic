@@ -70,7 +70,9 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLoaderManager().initLoader(MainActivity.FAVORITES_LOADER, null, this);
+        if (Utilities.isLoggedIn(getContext())) {
+            getLoaderManager().initLoader(MainActivity.FAVORITES_LOADER, null, this);
+        }
     }
 
     @Override

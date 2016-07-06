@@ -14,6 +14,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -111,6 +112,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
     public void onEvent(MerchantCouponsEvent event) {
         if (event.isSuccess) {
             uiActivity.initListAdapter(this);
+        } else {
+            Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), R.string.no_coupons, Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -227,12 +230,12 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             adapter = new CursorCouponsAdapter(context, coupons, isGridLayout);
             adapter.setOnSaleClickListener(new CursorCouponsAdapter.OnSaleClickListener() {
                 @Override
-                public void onSaleClick(long id) {
+                public void onSaleClick(int position) {
                     if (Utilities.isLoggedIn(context)) {
                         Intent intent = new Intent(context, BrowserDealsActivity.class);
                         intent.putExtra("vendor_id", vendorId);
                         intent.putExtra("vendor_commission", commission);
-                        intent.putExtra("affiliate_url", affiliateUrl);
+                        intent.putExtra("affiliate_url", coupons.get(position).getAffiliateUrl());
                         context.startActivity(intent);
                     } else {
                         Utilities.needLoginDialog(context);
@@ -241,12 +244,9 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             });
             adapter.setOnShareClickListener(new CursorCouponsAdapter.OnShareClickListener() {
                 @Override
-                public void onShareClick(long shareId) {
+                public void onShareClick(int position) {
                     if (Utilities.isLoggedIn(context)) {
-                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(vendorId));
-                        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-                        cursor.moveToFirst();
-                        LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)), vendorId);
+                        LaunchActivity.shareLink(context, coupons.get(position).getAffiliateUrl(), vendorId);
                     } else {
                         Utilities.needLoginDialog(context);
                     }
@@ -408,7 +408,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.item_coupons, parent, false);
                 if (GRID_TYPE_FLAG) {
@@ -430,13 +430,13 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(couponId);
+                        onSaleClickListener.onSaleClick(position);
                     }
                 });
                 holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onShareClickListener.onShareClick(couponId);
+                        onShareClickListener.onShareClick(position);
                     }
                 });
             } else {
@@ -446,13 +446,13 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onSaleClickListener.onSaleClick(couponId);
+                        onSaleClickListener.onSaleClick(position);
                     }
                 });
                 holder.vhShareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onShareClickListener.onShareClick(couponId);
+                        onShareClickListener.onShareClick(position);
                     }
                 });
             }
@@ -464,7 +464,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         public interface OnSaleClickListener {
-            void onSaleClick(long saleId);
+            void onSaleClick(int position);
         }
 
         public void setOnShareClickListener(OnShareClickListener listener) {
@@ -472,7 +472,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         public interface OnShareClickListener {
-            void onShareClick(long shareId);
+            void onShareClick(int position);
         }
 
         public static class ViewHolder {

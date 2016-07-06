@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -62,6 +63,9 @@ public class BrowserDealsActivity extends AppCompatActivity {
 
         coupons = new ArrayList<>();
         intent = getIntent();
+        if (intent.getBooleanExtra(PageFragment.GOT_CODE, false)) {
+            Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), R.string.copy_to_clipboard, Snackbar.LENGTH_SHORT).show();
+        }
         new CouponsByMerchantIdRequest(this, intent.getLongExtra("vendor_id", 1), coupons).fetchData();
 
         ui = new ActivityUi(this);
@@ -110,7 +114,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
 
     public void onEvent(MerchantCouponsEvent event) {
         if (event.isSuccess) {
-            ui.cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(),coupons);
+            ui.cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(), coupons);
             ui.dealsButton.setText(String.valueOf(coupons.size()) + " DEALS");
             ui.dealsButton.setVisibility(View.VISIBLE);
         }
@@ -244,7 +248,8 @@ public class BrowserDealsActivity extends AppCompatActivity {
                 description = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_DESCRIPTION));
                 bar.setTitle(name);
                 bar.setSubtitle(String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION))) + " " + getResources().getString(R.string.cash_back_percent));
-                loadContent(cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)) + "&token=" + Utilities.retrieveUserToken(context));
+//                loadContent(cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)) + "&token=" + Utilities.retrieveUserToken(context));
+                loadContent(intent.getStringExtra(PageFragment.AFFILIATE_URL) + "&token=" + Utilities.retrieveUserToken(context));
             }
         }
 
@@ -335,6 +340,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
             args.putString(PageFragment.EXPIRATION_DATE, coupons.get(position).getExpirationDate());
             args.putString(PageFragment.RESTRICTIONS, coupons.get(position).getRestrictions());
             args.putLong(PageFragment.VENDOR_ID, coupons.get(position).getVendorId());
+            args.putString(PageFragment.AFFILIATE_URL, coupons.get(position).getAffiliateUrl());
             frag.setArguments(args);
             return frag;
         }

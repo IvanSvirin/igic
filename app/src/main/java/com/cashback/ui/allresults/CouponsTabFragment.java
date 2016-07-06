@@ -116,13 +116,7 @@ public class CouponsTabFragment extends Fragment {
                     public void onClick(View v) {
                         if (Utilities.isLoggedIn(context)) {
                             int position = getAdapterPosition();
-                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
-                                    couponsArray.get(position).getVendorId()));
-                            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                            cursor.moveToFirst();
-                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(
-                                    DataContract.Merchants.COLUMN_AFFILIATE_URL)), couponsArray.get(position).getVendorId());
-                            cursor.close();
+                            LaunchActivity.shareLink(context, couponsArray.get(position).getAffiliateUrl(), couponsArray.get(position).getVendorId());
                         } else {
                             Utilities.needLoginDialog(context);
                         }
@@ -139,7 +133,7 @@ public class CouponsTabFragment extends Fragment {
                             cursor.moveToFirst();
                             Intent intent = new Intent(context, BrowserDealsActivity.class);
                             intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
-                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                            intent.putExtra("affiliate_url", couponsArray.get(position).getAffiliateUrl());
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {

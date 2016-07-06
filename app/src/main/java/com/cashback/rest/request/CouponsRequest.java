@@ -8,8 +8,6 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
-import com.cashback.rest.IMerchants;
-import com.cashback.rest.ServiceGenerator;
 import com.cashback.rest.event.CouponsEvent;
 
 import org.json.JSONArray;
@@ -28,15 +26,13 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-public class CouponsRequest extends ServiceGenerator<IMerchants> {
+public class CouponsRequest {
     private Context context;
 
     public CouponsRequest(Context ctx) {
-        super(IMerchants.class);
         this.context = ctx;
     }
 
-    @Override
     public void fetchData() {
         new CouponsRequestTask().execute();
     }

@@ -85,5 +85,7 @@
     <string name="deals_notify">deals_notify</string>
     <string name="payments_notify">payments_notify</string>
     <string name="please_log_in_favorites">Please login to see your favorite stores list.</string>
+    <string name="copy_to_clipboard">Code is copied to clipboard.</string>
+    <string name="no_coupons">There\'s no coupons</string>
 
 </resources>

@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/userEmail"
         android:layout_marginBottom="@dimen/padding_min"
-        android:text="Log In or Join Free!"
         android:textAppearance="@style/AppTheme.TextAppearance"
         android:textColor="@color/white" />
 
@@ -45,5 +44,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/logo" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="log in"
+        android:id="@+id/loginButton"
+        android:layout_alignBottom="@+id/userName"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>

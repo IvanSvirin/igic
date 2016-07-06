@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
-import com.cashback.rest.IAuthorization;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

@@ -66,6 +66,7 @@ public class SearchRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
+                searchingWord = Utilities.replaceSpace(searchingWord);
                 url = new URL(context.getString(R.string.search_path) + searchingWord);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));

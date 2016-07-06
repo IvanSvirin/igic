@@ -3,7 +3,6 @@ package com.cashback.model;
 import com.google.gson.annotations.Expose;
 
 public class Coupon {
-//    enum CouponType {COUPON, SALE, CLEARANCE, FREE_GIFT, FREE_SHIPPING, SPECIAL_SHIPPING, SPECIAL_OFFER}
 
     @Expose
     private long couponId;
@@ -11,8 +10,6 @@ public class Coupon {
     private long vendorId;
     @Expose
     private String couponType;
-//    @Expose
-//    private CouponType couponType;
     @Expose
     private String restrictions;
     @Expose
@@ -44,19 +41,6 @@ public class Coupon {
 
     public Coupon() {
     }
-//    public Coupon(long couponId, long vendorId, CouponType couponType, String restrictions, String couponCode, String expirationDate, String affiliateUrl, String vendorLogoUrl,
-//                  float vendorCommission) {
-//        this.couponId = couponId;
-//        this.vendorId = vendorId;
-//        this.couponType = couponType;
-//        this.restrictions = restrictions;
-//        this.couponCode = couponCode;
-//        this.expirationDate = expirationDate;
-//        this.affiliateUrl = affiliateUrl;
-//        this.vendorLogoUrl = vendorLogoUrl;
-//        this.vendorCommission = vendorCommission;
-//    }
-
 
     public String getLabel() {
         return label;
@@ -89,13 +73,6 @@ public class Coupon {
     public void setCouponType(String couponType) {
         this.couponType = couponType;
     }
-//    public CouponType getCouponType() {
-//        return couponType;
-//    }
-//
-//    public void setCouponType(CouponType couponType) {
-//        this.couponType = couponType;
-//    }
 
     public String getRestrictions() {
         return restrictions;

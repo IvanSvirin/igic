@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.cashback.R;
@@ -256,7 +257,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         public void associateToolbarDrawer(Toolbar toolbar) {
             ((AppCompatActivity) activity).setSupportActionBar(toolbar);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
-            drawer.setDrawerListener(toggle);
+            drawer.addDrawerListener(toggle);
             toggle.syncState();
         }
 
@@ -319,8 +320,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
         private void initDrawerHeaderFree() {
-            TextView userName = ButterKnife.findById(navigator, R.id.userName);
-            userName.setOnClickListener(new View.OnClickListener() {
+            Button button = ButterKnife.findById(navigator, R.id.loginButton);
+            button.setVisibility(View.VISIBLE);
+            button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
