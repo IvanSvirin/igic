@@ -15,9 +15,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.cashback.R;
-import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
-import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignUpEvent;
 import com.cashback.rest.request.SignInCharityRequest;
 

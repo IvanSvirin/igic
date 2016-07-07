@@ -31,14 +31,12 @@ import ui.MainActivity;
 
 import com.cashback.ui.account.HelpActivity;
 import com.cashback.ui.account.ShoppingTripsActivity;
-import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
-import ui.account.YourOrderHistoryActivity;
 
 public class AccountFragment extends Fragment {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";

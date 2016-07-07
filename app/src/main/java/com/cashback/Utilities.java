@@ -1,6 +1,5 @@
 package com.cashback;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,11 +11,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
+import com.cashback.R;
 import com.cashback.ui.login.LoginActivity;
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Tracker;
-
-import ui.MainActivity;
 
 public class Utilities {
     private final static String PREF_TOKEN_KEY = "pref_token";

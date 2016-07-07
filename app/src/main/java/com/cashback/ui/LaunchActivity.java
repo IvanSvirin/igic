@@ -7,7 +7,6 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.gcm.RegistrationGcmServices;
 import com.facebook.FacebookSdk;

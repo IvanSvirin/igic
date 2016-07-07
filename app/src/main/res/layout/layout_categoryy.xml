@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.CategoryActivity">
+    tools:context="com.cashback.ui.CategoryActivity">
 
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/all_stores_list"

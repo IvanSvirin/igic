@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/AppTheme.Root"
-    tools:context=".ui.web.BrowserDealsActivity">
+    tools:context="com.cashback.ui.web.BrowserDealsActivity">
 
     <include
         android:id="@+id/toolbar"

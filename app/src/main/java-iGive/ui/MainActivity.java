@@ -42,7 +42,6 @@ import bolts.AppLinks;
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import ui.account.AccountFragment;
 

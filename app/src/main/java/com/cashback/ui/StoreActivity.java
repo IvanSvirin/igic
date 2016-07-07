@@ -44,7 +44,6 @@ import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.request.CouponsByMerchantIdRequest;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.components.NestedListView;
-import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -211,6 +210,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         TextView buttonShop;
         @Bind(R.id.info)
         ImageView info;
+        @Bind(R.id.noImage)
+        TextView noImage;
 
         public UiActivity(StoreActivity activity) {
             this.context = activity;
@@ -367,6 +368,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 //                        getWindow().setStatusBarColor(Utilities.hexToDec(sb.toString()));
                         getWindow().setStatusBarColor(color + 394758);
                     }
+                    noImage.setVisibility(View.VISIBLE);
                 }
             });
         }

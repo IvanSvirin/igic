@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.StoreActivity">
+    tools:context="com.cashback.ui.StoreActivity">
 
 
     <android.support.design.widget.AppBarLayout
@@ -50,8 +50,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
-                            android:background="@android:drawable/picture_frame"
-                            android:src="@drawable/logo_placeholder" />
+                            android:background="@android:drawable/picture_frame" />
 
                         <TextView
                             android:id="@+id/storeName"
@@ -66,6 +65,17 @@
                             android:text="Store"
                             android:textAppearance="@style/AppTheme.TextAppearance"
                             android:textColor="#ffffffff" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="NO IMAGE"
+                            android:id="@+id/noImage"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:textColor="#55000000"
+                            android:visibility="invisible" />
+
 
                     </RelativeLayout>
 

@@ -16,7 +16,6 @@ import android.widget.ImageView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.ui.login.LoginActivity;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 

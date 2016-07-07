@@ -9,7 +9,6 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
-import com.cashback.rest.event.ExtrasEvent;
 import com.cashback.rest.event.OrdersEvent;
 
 import org.json.JSONArray;

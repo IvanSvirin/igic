@@ -213,8 +213,9 @@ public class SignInFragment extends Fragment {
                 AuthObject authObject = new AuthObject();
                 authObject.setAuthType("1");
                 authObject.setToken(token);
-                authObject.setFirstName(acct.getGivenName());
-                authObject.setLastName(acct.getFamilyName());
+                String[] fullName = acct.getDisplayName().split(" ");
+                authObject.setFirstName(fullName[0]);
+                authObject.setLastName(fullName[1]);
                 authObject.setEmail(acct.getEmail());
                 authObject.setUserId(acct.getId());
                 new SignInRequest(getContext(), authObject, "login").fetchData();

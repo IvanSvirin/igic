@@ -31,7 +31,6 @@ import com.cashback.ui.LaunchActivity;
 import ui.MainActivity;
 
 import com.cashback.ui.StoreActivity;
-import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
 

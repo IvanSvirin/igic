@@ -10,7 +10,6 @@ import com.cashback.Utilities;
 import com.cashback.db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
-import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignInEvent;
 import com.cashback.rest.event.SignUpEvent;
 

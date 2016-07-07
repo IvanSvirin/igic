@@ -17,7 +17,6 @@ import android.widget.EditText;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
-import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignInEvent;
 import com.cashback.rest.request.SignInCharityRequest;
 
@@ -215,8 +214,9 @@ public class SignInFragment extends Fragment {
                 AuthObject authObject = new AuthObject();
                 authObject.setAuthType("1");
                 authObject.setToken(token);
-                authObject.setFirstName(acct.getGivenName());
-                authObject.setLastName(acct.getFamilyName());
+                String[] fullName = acct.getDisplayName().split(" ");
+                authObject.setFirstName(fullName[0]);
+                authObject.setLastName(fullName[1]);
                 authObject.setEmail(acct.getEmail());
                 authObject.setUserId(acct.getId());
                 new SignInCharityRequest(getContext(), authObject, "login").fetchData();

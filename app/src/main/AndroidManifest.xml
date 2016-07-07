@@ -1,10 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cashback"
-    >
+    package="com.cashback">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!--<uses-permission android:name="android.permission.ACCOUNT_MANAGER" />-->
 
 
@@ -27,7 +26,7 @@
 
         <provider
             android:name="com.cashback.db.DataProvider"
-            android:authorities="com.cashback.provider"
+            android:authorities="com.cashback.button.provider"
             android:exported="false" />
 
         <provider
@@ -49,9 +48,11 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <receiver android:name="io.branch.referral.InstallListener" android:exported="true">
+        <receiver
+            android:name="io.branch.referral.InstallListener"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
 
@@ -96,8 +97,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <data android:scheme="com.cashback"/>
-                <data android:scheme="https" android:host="bnc.lt" android:pathPrefix="/3WGh" />
+                <data android:scheme="com.cashback" />
+                <data
+                    android:host="bnc.lt"
+                    android:pathPrefix="/3WGh"
+                    android:scheme="https" />
 
                 <action android:name="android.intent.action.VIEW" />
 

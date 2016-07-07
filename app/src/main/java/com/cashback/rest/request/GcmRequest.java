@@ -2,26 +2,16 @@ package com.cashback.rest.request;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.rest.event.FavoritesEvent;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import de.greenrobot.event.EventBus;
 
 public class GcmRequest {
     private Context context;
