@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
+import db.DataContract;
 import com.cashback.model.Coupon;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
@@ -181,8 +181,8 @@ public class CouponsTabFragment extends Fragment {
             String logoUrl = couponsArray.get(position).getVendorLogoUrl();
             String label = couponsArray.get(position).getLabel();
             float commission = couponsArray.get(position).getVendorCommission();
-            // TODO: 5/31/2016 not forever
-            String expire = "Exp. 12/31/2050";
+            String date = couponsArray.get(position).getExpirationDate();
+            String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
             String code = couponsArray.get(position).getCouponCode();
             picasso.load(logoUrl).into(holder.vhStoreLogo);
             holder.vhRestrictions.setText(label);

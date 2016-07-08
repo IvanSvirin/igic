@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
+import db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.ui.LaunchActivity;
 

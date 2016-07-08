@@ -22,13 +22,12 @@ import android.widget.Toast;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
+import db.DataContract;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CashBackSettingsRequest;
 import com.cashback.ui.account.HelpActivity;
 import com.cashback.ui.account.ShoppingTripsActivity;
-import com.cashback.ui.login.LoginActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

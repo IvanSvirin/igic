@@ -95,7 +95,7 @@ public class CouponsByMerchantIdRequest {
                         coupon.setCouponId(jObj.getLong("coupon_id"));
                         coupon.setVendorId(jObj.getLong("vendor_id"));
                         coupon.setCouponType(jObj.getString("coupon_type"));
-                        coupon.setRestrictions(jObj.getString("restrictions"));
+                        coupon.setLabel(jObj.getString("label"));
                         coupon.setCouponCode(jObj.getString("coupon_code"));
                         coupon.setExpirationDate(jObj.getString("expiration_date"));
                         coupon.setAffiliateUrl(jObj.getString("affiliate_url"));

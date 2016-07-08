@@ -20,9 +20,10 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
 import com.cashback.rest.event.OrdersEvent;
 import com.cashback.rest.request.CharityOrdersRequest;
+
+import db.DataContract;
 import ui.MainActivity;
 import com.cashback.ui.components.NestedListView;
 

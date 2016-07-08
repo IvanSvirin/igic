@@ -15,6 +15,8 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import db.DataContract;
+
 public class DataProvider extends ContentProvider {
     private static final int MERCHANTS = 100;
     private static final int MERCHANT_BY_ID = 101;

@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
+import db.DataContract;
 import com.cashback.model.Merchant;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.LaunchActivity;

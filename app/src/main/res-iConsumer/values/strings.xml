@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">iConsumer</string>
     <string name="notification_title">iConsumer Notification</string>
-    <!--<string name="project_number">99922677703</string>-->
-    <!--<string name="google_client_id">1095490684025-cc2pvg2078nlkd5vtbaqtu4djbqskr91.apps.googleusercontent.com</string>-->
-    <!--<string name="google_client_id">1095490684025-n6c7egvq2pllg585v0nt3ovkss5irbu9.apps.googleusercontent.com</string>-->
+    <string name="facebook_app_id" translatable="false">1415521175439126</string>
+    <string name="facebook_provider">com.facebook.app.FacebookContentProvider1415521175439126</string>
+    <string name="project_number">99922677703</string>
+    <string name="google_client_id">1095490684025-n6c7egvq2pllg585v0nt3ovkss5irbu9.apps.googleusercontent.com</string>
+    <string name="provider_authorities">com.iconsumer.button.provider</string>
+    <string name="gcm_permission_name">com.iconsumer.button.permission.C2D_MESSAGE</string>
+    <string name="branch_key">key_live_hadM2Y0bGC362umeuRueAoidArnZPDfs</string>
     <string name="item_account">My iConsumer</string>
     <string name="title_cash_pending">Cash Pending</string>
     <string name="title_payments">Payments</string>

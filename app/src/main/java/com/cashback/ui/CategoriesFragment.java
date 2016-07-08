@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cashback.R;
-import com.cashback.db.DataContract;
+import db.DataContract;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.CategoriesEvent;
 

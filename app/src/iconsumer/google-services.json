@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1095490684025",
+    "project_id": "iconsumer-6c3eb"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095490684025:android:e60096e3148996a6",
+        "android_client_info": {
+          "package_name": "com.iconsumer.button"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095490684025-cc2pvg2078nlkd5vtbaqtu4djbqskr91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iconsumer.button",
+            "certificate_hash": "953A4EC37FD47F591EC65E4D7343824C20ADD627"
+          }
+        },
+        {
+          "client_id": "1095490684025-n6c7egvq2pllg585v0nt3ovkss5irbu9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3hePCXvUyjHC9vqfTNX6dAckfaPX3sso"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

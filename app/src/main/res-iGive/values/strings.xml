@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">iGive</string>
     <string name="notification_title">iGive Notification</string>
-    <!--<string name="project_number">99922677703</string>-->
-    <!--<string name="google_client_id">99922677703-u73l4cngocmb5jcu10tpbt7h2ai15u3c.apps.googleusercontent.com</string>-->
-    <!--<string name="google_client_id">99922677703-6mscckono9i8379ihb9c6gjoat2v217m.apps.googleusercontent.com</string>-->
+    <string name="facebook_app_id" translatable="false">136804739713072</string>
+    <string name="facebook_provider">com.facebook.app.FacebookContentProvider136804739713072</string>
+    <string name="project_number">99922677703</string>
+    <string name="google_client_id">99922677703-u73l4cngocmb5jcu10tpbt7h2ai15u3c.apps.googleusercontent.com</string>
+    <string name="provider_authorities">com.cashback.provider</string>
+    <string name="gcm_permission_name">com.cashback.permission.C2D_MESSAGE</string>
+    <string name="branch_key">key_live_lgiGXJgIIgYl1QSptZ91vijivyjM5yA9</string>
     <string name="item_account">My iGive</string>
     <string name="how_to_use">How to Use iGive</string>
     <string name="where_is_mine">Where\'s My Donation</string>

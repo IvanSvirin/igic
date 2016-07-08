@@ -28,7 +28,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.cashback.R;
-import com.cashback.db.DataContract;
+import db.DataContract;
 import com.cashback.rest.event.MerchantsEvent;
 import com.cashback.rest.request.MerchantsRequest;
 

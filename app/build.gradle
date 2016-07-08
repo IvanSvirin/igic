@@ -4,18 +4,27 @@ android {
     compileSdkVersion 24
     buildToolsVersion '24.0.0'
 
+    signingConfigs {
+        debug {
+            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
+            storePassword "gheCnG7T"
+            keyAlias "igive"
+            keyPassword "wZb4R2fE"
+        }
+    }
+
 //    signingConfigs {
 //        debug {
-//            storeFile file('D:/Projects/igive_iconsumer_android/app/debug.keystore')
-//            storePassword "android"
-//            keyAlias "androiddebugkey"
-//            keyPassword ""
+//            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
+//            storePassword "gheCnG7T"
+//            keyAlias "iconsumer"
+//            keyPassword "hUVypuAd"
 //        }
 //    }
 
     defaultConfig {
 //        applicationId "com.igive.button"
-        applicationId "com.cashback"
+//        applicationId "com.cashback"
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
@@ -37,12 +46,12 @@ android {
 
     productFlavors {
         iconsumer {
-//            applicationId "com.iconsumer.button"
-            applicationId "com.cashback"
+            applicationId "com.iconsumer.button"
+//            applicationId "com.cashback"
         }
         igive {
-//            applicationId "com.igive.button"
-            applicationId "com.cashback"
+            applicationId "com.igive.button"
+//            applicationId "com.cashback"
         }
     }
 

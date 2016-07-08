@@ -28,7 +28,6 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.ui.AllStoresFragment;
 import com.cashback.ui.CategoriesFragment;
@@ -42,6 +41,7 @@ import bolts.AppLinks;
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
+import db.DataContract;
 import de.greenrobot.event.EventBus;
 import ui.account.AccountFragment;
 

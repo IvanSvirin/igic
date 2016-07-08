@@ -22,11 +22,11 @@ import android.widget.Toast;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CharitySettingsRequest;
 
+import db.DataContract;
 import ui.MainActivity;
 
 import com.cashback.ui.account.HelpActivity;

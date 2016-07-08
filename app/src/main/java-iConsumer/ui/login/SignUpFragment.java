@@ -115,7 +115,7 @@ public class SignUpFragment extends Fragment {
         @OnClick(R.id.googleSingUpButton)
         public void onGoogleSignUp() {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                    .requestEmail()
+                    .requestEmail()
                     .requestIdToken(getString(R.string.google_client_id))
 //                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .build();

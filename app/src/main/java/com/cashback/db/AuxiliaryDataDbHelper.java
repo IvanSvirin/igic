@@ -1,5 +1,7 @@
 package com.cashback.db;
 
+import db.DataContract;
+
 public class AuxiliaryDataDbHelper {
     private static final String INT_TYPE = " INTEGER";
     private static final String BOOL_TYPE = " INTEGER";

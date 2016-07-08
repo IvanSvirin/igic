@@ -11,10 +11,15 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
+    <!--<permission-->
+        <!--android:name="com.iconsumer.button.permission.C2D_MESSAGE"-->
+        <!--android:protectionLevel="signature" />-->
+    <!--<uses-permission android:name="com.iconsumer.button.permission.C2D_MESSAGE" />-->
     <permission
         android:name="com.cashback.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="com.cashback.permission.C2D_MESSAGE" />
+
     <!-- [END gcm_permission] -->
 
     <application
@@ -26,18 +31,18 @@
 
         <provider
             android:name="com.cashback.db.DataProvider"
-            android:authorities="com.cashback.button.provider"
+            android:authorities="@string/provider_authorities"
             android:exported="false" />
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider136804739713072"
+            android:authorities="@string/facebook_provider"
             android:exported="true" />
 
         <!-- branch.io -->
         <meta-data
             android:name="io.branch.sdk.BranchKey"
-            android:value="key_live_lgiGXJgIIgYl1QSptZ91vijivyjM5yA9" />
+            android:value="@string/branch_key" />
 
         <!-- App Indexing -->
         <meta-data

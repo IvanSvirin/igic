@@ -38,7 +38,7 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataContract;
+import db.DataContract;
 import com.cashback.model.Coupon;
 import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.request.CouponsByMerchantIdRequest;
@@ -422,7 +422,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 }
             }
             final long couponId = coupons.get(position).getCouponId();
-            String restrictions = coupons.get(position).getRestrictions();
+            String restrictions = coupons.get(position).getLabel();
             String date = coupons.get(position).getExpirationDate();
             String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
             if (GRID_TYPE_FLAG) {
