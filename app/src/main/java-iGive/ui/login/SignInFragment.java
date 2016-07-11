@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
@@ -31,6 +32,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -62,6 +65,11 @@ public class SignInFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         callbackManager = CallbackManager.Factory.create();
+        //Google Analytics
+        App app = (App) getActivity().getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Sign In");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

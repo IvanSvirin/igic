@@ -169,4 +169,13 @@ public class AuxiliaryDataDbHelper {
                     DataContract.CashbackAccounts.COLUMN_REFERRER_ID + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_CASHBACK_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.CashbackAccounts.TABLE_NAME;
+
+    public final String SQL_CREATE_MISC_TABLE =
+            "CREATE TABLE " + DataContract.Misc.TABLE_NAME + "(" +
+                    DataContract.Misc._ID + PRIMARY_TYPE +
+                    DataContract.Misc.COLUMN_SHARE_DEAL_TEXT + TEXT_TYPE + DELIMITER +
+                    DataContract.Misc.COLUMN_TELL_A_FRIEND_TEXT + TEXT_TYPE + DELIMITER +
+                    DataContract.Misc.COLUMN_TELL_A_FRIEND_BANNER_URL + TEXT_TYPE +
+                    " )";
+    public final String SQL_DELETE_MISC_TABLE = "DROP TABLE IF EXISTS " + DataContract.Misc.TABLE_NAME;
 }

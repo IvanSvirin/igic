@@ -17,12 +17,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.rest.RestUtilities;
 import ui.MainActivity;
 import com.cashback.ui.allresults.SearchActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +46,12 @@ public class FeaturedFragment extends Fragment {
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_EXTRAS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_FAVORITES);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_COUPONS);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_MISC);
+        //Google Analytics
+        App app = (App) getActivity().getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Featured");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Nullable

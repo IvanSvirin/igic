@@ -14,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -49,6 +52,12 @@ public class TellAFriendFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar = fragmentUi.getToolbar();
         ((MainActivity) getActivity()).setAssociateToolbar(toolbar);
+        //Google Analytics
+        App app = (App) getActivity().getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Tell A Friend");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
     }
 
     @Override

@@ -7,7 +7,9 @@ import android.util.Log;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.SignInEvent;
@@ -70,8 +72,8 @@ public class SignInCharityRequest {
                     case "0":
                         if (pathEnd.equals("login")) {
                             // TODO: 6/27/2016
-                            postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
-//                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+//                            postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
+                            postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                         } else {
                             postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType() +
                                     "&first_name=" + authObject.getFirstName() + "&last_name=" + authObject.getLastName() + "&zip=" + authObject.getZip();
@@ -128,7 +130,9 @@ public class SignInCharityRequest {
                     values.put(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT, jObj.getDouble("next_check_amount"));
                     values.put(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL, jObj.getString("cause_dashboard_url"));
                     values.put(DataContract.CharityAccounts.COLUMN_LAST_NAME, jObj.getString("last_name"));
-                    values.put(DataContract.CharityAccounts.COLUMN_EMAIL, jObj.getString("email"));
+                    String email = jObj.getString("email");
+                    Utilities.saveEmail(context, email);
+                    values.put(DataContract.CashbackAccounts.COLUMN_EMAIL, email);
                     values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, jObj.getString("first_name"));
                     values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, jObj.getDouble("total_raised"));
 //                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED, jObj.getString("TOTALEARNED"));

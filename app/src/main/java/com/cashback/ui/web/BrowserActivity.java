@@ -17,7 +17,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 
+import com.cashback.App;
 import com.cashback.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,6 +44,11 @@ public class BrowserActivity extends AppCompatActivity {
         ui.webView.setWebChromeClient(new MyWebChromeClient());
         ui.webView.setWebViewClient(new MyWebViewClient());
         ui.setWebSettings(false);
+        //Google Analytics
+        App app = (App) getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Browser");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

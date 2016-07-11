@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.cashback.App;
 import com.cashback.Utilities;
 import com.cashback.gcm.RegistrationGcmServices;
 import com.facebook.FacebookSdk;
@@ -28,19 +29,8 @@ import ui.MainActivity;
 public class LaunchActivity extends AppCompatActivity {
     public static final String MAIN_TAG_LOG = "igic_log";
     public static final String DB_TAG_LOG = "igic_db_log";
-    public static final String GA_TRACKER = "ga_tracker";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     static final String TAG = "GCM Registration";
-    private Tracker tracker;
-
-    synchronized public Tracker getDefaultTracker() {
-        if (tracker == null) {
-            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-            tracker = analytics.newTracker(GA_TRACKER);
-        }
-        return tracker;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +39,6 @@ public class LaunchActivity extends AppCompatActivity {
         Intent intentRegistrationGCM;
         Intent intentNextActivity;
         Utilities.saveIdfa(this, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
-        //Google Analytics
-        tracker = getDefaultTracker();
-        tracker.setScreenName("");
-        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 //         Automatic session tracking
         Branch.getAutoInstance(getApplicationContext());
         initBranchSession();
@@ -77,10 +63,10 @@ public class LaunchActivity extends AppCompatActivity {
             public void onInitFinished(JSONObject referringParams, BranchError error) {
                 if (error == null) {
                     try {
-                        String vendorId = referringParams.getString("vendor_id");
+                        String vendorId = referringParams.getString("BRANCH_MERCHANT_ID");
                         if (vendorId != null) {
                             Intent intent = new Intent(getApplicationContext(), StoreActivity.class);
-                            intent.putExtra("vendor_id", Long.parseLong(vendorId));
+                            intent.putExtra("BRANCH_MERCHANT_ID", Long.parseLong(vendorId));
                             startActivity(intent);
                         }
                     } catch (JSONException e) {
@@ -91,24 +77,19 @@ public class LaunchActivity extends AppCompatActivity {
         }, this.getIntent().getData(), this);
     }
 
-    @Override
-    public void onNewIntent(Intent intent) {
-        this.setIntent(intent);
-    }
-
-    public static void shareLink(final Context context, String url, long vendorId) {
+    public static void shareMerchantLink(final Context context, String url, long vendorId, String imageUrl) {
         BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
-                .addContentMetadata("vendor_id", String.valueOf(vendorId));
-//                .setCanonicalIdentifier("share");
-//                .setTitle("Check out this article!")
-//                .setContentDescription("It’s really entertaining...")
-//                .setContentImageUrl("https://mysite.com/article_logo.png")
-//                .addContentMetadata("read_progress", "17%");
+                .addContentMetadata("BRANCH_MERCHANT_ID", String.valueOf(vendorId))
+                .addContentMetadata("BRANCH_IMAGEURL", imageUrl)
+                .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
+                .setTitle(Utilities.retrieveShareDealText(context))
+                .setContentDescription(Utilities.retrieveShareDealText(context))
+                .setContentImageUrl(imageUrl);
 
         LinkProperties linkProperties = new LinkProperties()
-//                .setChannel("facebook")
-//                .setFeature("sharing")
-                .addControlParameter("$fallback_url", url);
+                .setChannel("SHARE_VIA_SHARING_DIALOG")
+                .setFeature("iGive.EVENT_SHARE_STORE")
+                .addControlParameter("BRANCH_LINK", url);
 
         branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
             @Override
@@ -119,6 +100,37 @@ public class LaunchActivity extends AppCompatActivity {
                 context.startActivity(Intent.createChooser(share, "Share Text"));
             }
         });
+    }
+
+    public static void shareDealLink(final Context context, String url, long vendorId, long couponId, String imageUrl) {
+        BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+                .addContentMetadata("BRANCH_MERCHANT_ID", String.valueOf(vendorId))
+                .addContentMetadata("BRANCH_COUPON_ID", String.valueOf(couponId))
+                .addContentMetadata("BRANCH_IMAGEURL", imageUrl)
+                .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
+                .setTitle(Utilities.retrieveShareDealText(context))
+                .setContentDescription(Utilities.retrieveShareDealText(context))
+                .setContentImageUrl(imageUrl);
+
+        LinkProperties linkProperties = new LinkProperties()
+                .setChannel("SHARE_VIA_SHARING_DIALOG")
+                .setFeature("iGive.EVENT_SHARE_DEAL")
+                .addControlParameter("BRANCH_LINK", url);
+
+        branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
+            @Override
+            public void onLinkCreate(String url, BranchError error) {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, url);
+                context.startActivity(Intent.createChooser(share, "Share Text"));
+            }
+        });
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
     }
 
     private boolean checkPlayServices() {

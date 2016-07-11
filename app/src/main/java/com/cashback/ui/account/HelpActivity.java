@@ -7,8 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.ui.web.BrowserActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,6 +29,11 @@ public class HelpActivity extends AppCompatActivity {
 
         setTitle(R.string.help);
         ButterKnife.bind(this);
+        //Google Analytics
+        App app = (App) getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Help");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

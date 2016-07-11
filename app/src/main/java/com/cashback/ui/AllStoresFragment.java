@@ -27,10 +27,13 @@ import android.widget.FilterQueryProvider;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.cashback.App;
 import com.cashback.R;
 import db.DataContract;
 import com.cashback.rest.event.MerchantsEvent;
 import com.cashback.rest.request.MerchantsRequest;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,6 +54,11 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        //Google Analytics
+        App app = (App) getActivity().getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("All Stores");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Nullable

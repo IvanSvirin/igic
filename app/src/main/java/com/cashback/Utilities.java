@@ -10,14 +10,14 @@ import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-
-import com.cashback.R;
 import com.cashback.ui.login.LoginActivity;
 
 public class Utilities {
     private final static String PREF_TOKEN_KEY = "pref_token";
     private static final String PREF_ENTRY_KEY = "pref_entry";
     private static final String PREF_IDFA_KEY = "pref_idfa";
+    private static final String PREF_EMAIL_KEY = "pref_email";
+    private static final String PREF_SHARE_DEAL_TEXT_KEY = "pref_share_deal_text";
 
     public static boolean isLoggedIn(Context context) {
         return !TextUtils.isEmpty(retrieveUserToken(context)) && retrieveUserEntry(context);
@@ -33,6 +33,30 @@ public class Utilities {
     public static String retrieveIdfa(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getString(PREF_IDFA_KEY, null);
+    }
+
+    public static boolean saveEmail(Context context, String email) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(PREF_EMAIL_KEY, email);
+        return editor.commit();
+    }
+
+    public static String retrieveEmail(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(PREF_EMAIL_KEY, null);
+    }
+
+    public static boolean saveShareDealText(Context context, String s) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(PREF_SHARE_DEAL_TEXT_KEY, s);
+        return editor.commit();
+    }
+
+    public static String retrieveShareDealText(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(PREF_SHARE_DEAL_TEXT_KEY, null);
     }
 
     public static boolean saveUserEntry(Context context, boolean entry) {

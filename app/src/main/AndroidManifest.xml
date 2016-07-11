@@ -23,7 +23,7 @@
     <!-- [END gcm_permission] -->
 
     <application
-        android:name="android.support.multidex.MultiDexApplication"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"

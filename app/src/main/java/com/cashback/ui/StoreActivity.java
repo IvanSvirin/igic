@@ -36,6 +36,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import db.DataContract;
@@ -45,6 +46,8 @@ import com.cashback.rest.request.CouponsByMerchantIdRequest;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.components.NestedListView;
 import com.cashback.ui.web.BrowserDealsActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -94,6 +97,11 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         getSupportLoaderManager().initLoader(MainActivity.FAVORITES_LOADER, null, this);
 
         uiActivity = new UiActivity(this);
+        //Google Analytics
+        App app = (App) getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Store");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -247,7 +255,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 @Override
                 public void onShareClick(int position) {
                     if (Utilities.isLoggedIn(context)) {
-                        LaunchActivity.shareLink(context, coupons.get(position).getAffiliateUrl(), vendorId);
+                        LaunchActivity.shareDealLink(context, coupons.get(position).getAffiliateUrl(), vendorId, coupons.get(position).getCouponId(), coupons.get(position).getVendorLogoUrl());
                     } else {
                         Utilities.needLoginDialog(context);
                     }

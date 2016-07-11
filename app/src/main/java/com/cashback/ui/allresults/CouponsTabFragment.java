@@ -21,7 +21,9 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.model.Coupon;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
@@ -115,7 +117,8 @@ public class CouponsTabFragment extends Fragment {
                     public void onClick(View v) {
                         if (Utilities.isLoggedIn(context)) {
                             int position = getAdapterPosition();
-                            LaunchActivity.shareLink(context, couponsArray.get(position).getAffiliateUrl(), couponsArray.get(position).getVendorId());
+                            LaunchActivity.shareDealLink(context, couponsArray.get(position).getAffiliateUrl(), couponsArray.get(position).getVendorId(),
+                                    couponsArray.get(position).getCouponId(), couponsArray.get(position).getVendorLogoUrl());
                         } else {
                             Utilities.needLoginDialog(context);
                         }

@@ -33,6 +33,7 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(innerHelper.SQL_CREATE_CHARITY_ORDERS_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_CHARITY_ACCOUNTS_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_CASHBACK_ACCOUNTS_TABLE);
+        db.execSQL(innerHelper.SQL_CREATE_MISC_TABLE);
     }
 
     @Override
@@ -49,6 +50,7 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(innerHelper.SQL_DELETE_CHARITY_ORDERS_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_CHARITY_ACCOUNTS_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_CASHBACK_ACCOUNTS_TABLE);
+        db.execSQL(innerHelper.SQL_DELETE_MISC_TABLE);
         onCreate(db);
     }
 }

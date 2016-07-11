@@ -26,10 +26,10 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import db.DataContract;
 import com.cashback.rest.event.CouponsEvent;
-import com.cashback.ui.LaunchActivity;
 
 import ui.MainActivity;
 
+import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
@@ -168,8 +168,9 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                         if (Utilities.isLoggedIn(context)) {
                             int position = getAdapterPosition();
                             cursor.moveToPosition(position);
-                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
-                                    cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                            LaunchActivity.shareDealLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
+                                    cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)), cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID)),
+                                    cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
                         } else {
                             Utilities.needLoginDialog(context);
                         }

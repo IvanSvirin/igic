@@ -20,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import db.DataContract;
@@ -28,6 +29,8 @@ import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CashBackSettingsRequest;
 import com.cashback.ui.account.HelpActivity;
 import com.cashback.ui.account.ShoppingTripsActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,6 +52,11 @@ public class AccountFragment extends Fragment {
         new CashBackSettingsRequest(getContext()).fetchData();
         gotAnswer = false;
         setHasOptionsMenu(true);
+        //Google Analytics
+        App app = (App) getActivity().getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Account");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Nullable

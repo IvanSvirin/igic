@@ -36,6 +36,7 @@ public class DataProvider extends ContentProvider {
 
     private static final int CHARITY_ACCOUNTS = 901;
     private static final int CASHBACK_ACCOUNTS = 902;
+    private static final int MISC = 903;
 
 
     private String LOG_TAG = "sql_log";
@@ -61,6 +62,7 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "charity_orders", CHARITY_ORDERS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "charity_accounts", CHARITY_ACCOUNTS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "cashback_accounts", CASHBACK_ACCOUNTS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "misc", MISC);
     }
 
     @Override
@@ -174,6 +176,12 @@ public class DataProvider extends ContentProvider {
                 }
                 cursor = db.query(DataContract.CashbackAccounts.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 break;
+            case MISC:
+                if (TextUtils.isEmpty(sortOrder)) {
+                    sortOrder = DataContract.Misc.COLUMN_SHARE_DEAL_TEXT + " COLLATE NOCASE ASC";
+                }
+                cursor = db.query(DataContract.Misc.TABLE_NAME, projection, null, null, null, null, sortOrder);
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -273,6 +281,14 @@ public class DataProvider extends ContentProvider {
                 rowID = db.insertWithOnConflict(DataContract.CashbackAccounts.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
                     resultUri = ContentUris.withAppendedId(DataContract.URI_CASHBACK_ACCOUNTS, rowID);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            case MISC:
+                rowID = db.insertWithOnConflict(DataContract.Misc.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (rowID > 0) {
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_MISC, rowID);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
@@ -455,6 +471,21 @@ public class DataProvider extends ContentProvider {
                     db.endTransaction();
                 }
                 break;
+            case MISC:
+                db.beginTransaction();
+                try {
+                    delete(uri, null, null);
+                    for (ContentValues val : values) {
+                        insert(uri, val);
+                        countInsert++;
+                    }
+                    db.setTransactionSuccessful();
+                } catch (SQLException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
+                break;
         }
         context.getContentResolver().notifyChange(uri, null);
         return countInsert;
@@ -499,6 +530,9 @@ public class DataProvider extends ContentProvider {
                 break;
             case CASHBACK_ACCOUNTS:
                 affectedRowsCount = db.delete(DataContract.CashbackAccounts.TABLE_NAME, null, null);
+                break;
+            case MISC:
+                affectedRowsCount = db.delete(DataContract.Misc.TABLE_NAME, null, null);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -545,6 +579,8 @@ public class DataProvider extends ContentProvider {
                 return DataContract.CharityAccounts.CONTENT_TYPE;
             case CASHBACK_ACCOUNTS:
                 return DataContract.CashbackAccounts.CONTENT_TYPE;
+            case MISC:
+                return DataContract.Misc.CONTENT_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
 

@@ -7,9 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.request.ResetRequest;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +34,11 @@ public class RestoreActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setTitle(R.string.request_password_reset);
+        //Google Analytics
+        App app = (App) getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Password Reset");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @OnClick(R.id.restoreButton)

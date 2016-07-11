@@ -8,7 +8,10 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.cashback.App;
 import com.cashback.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,6 +50,11 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         searchView.onActionViewExpanded();
+        //Google Analytics
+        App app = (App) getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Search");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

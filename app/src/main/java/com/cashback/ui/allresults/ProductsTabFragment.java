@@ -121,8 +121,8 @@ public class ProductsTabFragment extends Fragment {
                                     productsArray.get(position).getVendorId()));
                             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
                             cursor.moveToFirst();
-                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(
-                                    DataContract.Merchants.COLUMN_AFFILIATE_URL)), productsArray.get(position).getVendorId());
+                            LaunchActivity.shareMerchantLink(context, cursor.getString(cursor.getColumnIndex(
+                                    DataContract.Merchants.COLUMN_AFFILIATE_URL)), productsArray.get(position).getVendorId(), productsArray.get(position).getVendorLogoUrl());
                             cursor.close();
                         } else {
                             Utilities.needLoginDialog(context);

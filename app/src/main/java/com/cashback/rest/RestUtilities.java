@@ -11,6 +11,7 @@ import com.cashback.rest.request.CouponsRequest;
 import com.cashback.rest.request.ExtrasRequest;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.rest.request.MerchantsRequest;
+import com.cashback.rest.request.MiscRequest;
 import com.cashback.rest.request.OrdersRequest;
 import com.cashback.rest.request.PaymentsRequest;
 import com.cashback.rest.request.ShoppingTripsRequest;
@@ -26,6 +27,7 @@ public class RestUtilities {
     public static final String TOKEN_SHOPPING_TRIPS = "token_shopping_trips";
     public static final String TOKEN_ORDERS = "token_orders";
     public static final String TOKEN_CHARITY_ORDERS = "token_charity_orders";
+    public static final String TOKEN_MISC = "token_misc";
 
     private final static long ACCOUNT_UPDATE_INTERVAL = 30000; // 30 sec * 1000
     private final static long EXTRAS_UPDATE_INTERVAL = 21600000; // 6 h
@@ -37,6 +39,7 @@ public class RestUtilities {
     private static final long SHOPPING_TRIPS_UPDATE_INTERVAL = 43200000; // 12h
     private static final long ORDERS_UPDATE_INTERVAL = 43200000; // 12h
     private static final long CHARITY_ORDERS_UPDATE_INTERVAL = 43200000; // 12h
+    private static final long MISC_UPDATE_INTERVAL = 43200000; // 12h
 
     public static void syncDistantData(Context context, String token) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
@@ -94,6 +97,11 @@ public class RestUtilities {
             case TOKEN_CHARITY_ORDERS:
                 if (differenceTime >= CHARITY_ORDERS_UPDATE_INTERVAL) {
                     new CharityOrdersRequest(context).fetchData();
+                }
+                break;
+            case TOKEN_MISC:
+                if (differenceTime >= MISC_UPDATE_INTERVAL) {
+                    new MiscRequest(context).fetchData();
                 }
                 break;
         }

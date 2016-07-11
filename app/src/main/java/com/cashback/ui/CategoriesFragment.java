@@ -17,10 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cashback.App;
 import com.cashback.R;
 import db.DataContract;
 import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.CategoriesEvent;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,6 +39,11 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_CATEGORIES);
+        //Google Analytics
+        App app = (App) getActivity().getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Categories");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
 

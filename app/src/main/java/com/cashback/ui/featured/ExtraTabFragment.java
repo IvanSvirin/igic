@@ -29,10 +29,10 @@ import com.cashback.Utilities;
 import db.DataContract;
 import com.cashback.rest.event.ExtrasEvent;
 import com.cashback.rest.request.FavoritesRequest;
-import com.cashback.ui.LaunchActivity;
 
 import ui.MainActivity;
 
+import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
@@ -169,8 +169,8 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                         if (Utilities.isLoggedIn(context)) {
                             int position = getAdapterPosition();
                             cursor.moveToPosition(position);
-                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)),
-                                    cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
+                            LaunchActivity.shareMerchantLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)),
+                                    cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)), cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_LOGO_URL)));
                         } else {
                             Utilities.needLoginDialog(context);
                         }

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import db.DataContract;
@@ -25,6 +26,8 @@ import db.DataContract;
 import com.cashback.rest.event.OrdersEvent;
 import com.cashback.rest.request.OrdersRequest;
 import com.cashback.ui.components.NestedListView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,6 +54,11 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
         setTitle(R.string.your_order_history);
 
         uiActivity = new UiActivity(this);
+        //Google Analytics
+        App app = (App) getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Order History");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

@@ -9,7 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.cashback.App;
 import com.cashback.R;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.ButterKnife;
@@ -38,6 +41,12 @@ public class TourActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(SCORE_RETAINED_FRAGMENT);
         indicator.setViewPager(viewPager);
+        //Google Analytics
+        App app = (App) getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Tour");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

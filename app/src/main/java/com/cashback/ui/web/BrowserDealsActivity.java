@@ -31,12 +31,15 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import db.DataContract;
 import com.cashback.model.Coupon;
 import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.request.CouponsByMerchantIdRequest;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 
@@ -73,6 +76,11 @@ public class BrowserDealsActivity extends AppCompatActivity {
         ui.webView.setWebChromeClient(new MyWebChromeClient());
         ui.webView.setWebViewClient(new MyWebViewClient());
         ui.setWebSettings(false);
+        //Google Analytics
+        App app = (App) getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("Deals In Browser");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

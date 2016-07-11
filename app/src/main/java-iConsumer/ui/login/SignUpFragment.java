@@ -14,12 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignUpEvent;
 import com.cashback.rest.request.SignInRequest;
+import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -28,6 +30,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -60,6 +64,11 @@ public class SignUpFragment extends Fragment {
         super.onCreate(savedInstanceState);
         callbackManager = CallbackManager.Factory.create();
         EventBus.getDefault().register(this);
+        //Google Analytics
+        App app = (App) getActivity().getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("SignUp");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

@@ -116,8 +116,8 @@ public class StoresTabFragment extends Fragment {
                                     storesArray.get(position).getVendorId()));
                             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
                             cursor.moveToFirst();
-                            LaunchActivity.shareLink(context, cursor.getString(cursor.getColumnIndex(
-                                    DataContract.Merchants.COLUMN_AFFILIATE_URL)), storesArray.get(position).getVendorId());
+                            LaunchActivity.shareMerchantLink(context, cursor.getString(cursor.getColumnIndex(
+                                    DataContract.Merchants.COLUMN_AFFILIATE_URL)), storesArray.get(position).getVendorId(), storesArray.get(position).getLogoUrl());
                             cursor.close();
                         } else {
                             Utilities.needLoginDialog(context);

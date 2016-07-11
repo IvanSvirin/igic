@@ -69,8 +69,8 @@ public class SignInRequest {
                 switch (authObject.getAuthType()) {
                     case "0":
                         // TODO: 6/27/2016
-                        postParameters = "email=tech.softomate@gmail.ru&password=redsleep72&auth_type=0";
-//                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+//                        postParameters = "email=tech.softomate@gmail.ru&password=redsleep72&auth_type=0";
+                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                         break;
                     case "1":
                     case "2":
@@ -122,7 +122,9 @@ public class SignInRequest {
                     values.put(DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT, jObj.getDouble("cash_pending_amount"));
                     values.put(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT, jObj.getDouble("payments_total_amount"));
                     values.put(DataContract.CashbackAccounts.COLUMN_LAST_NAME, jObj.getString("last_name"));
-                    values.put(DataContract.CashbackAccounts.COLUMN_EMAIL, jObj.getString("email"));
+                    String email = jObj.getString("email");
+                    Utilities.saveEmail(context, email);
+                    values.put(DataContract.CashbackAccounts.COLUMN_EMAIL, email);
                     values.put(DataContract.CashbackAccounts.COLUMN_FIRST_NAME, jObj.getString("first_name"));
                     String token = jObj.getString("token");
                     Utilities.saveUserToken(context, token);

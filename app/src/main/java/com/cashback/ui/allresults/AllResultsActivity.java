@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.Coupon;
@@ -27,6 +28,8 @@ import com.cashback.model.Product;
 import com.cashback.rest.event.SearchEvent;
 import com.cashback.rest.request.SearchRequest;
 import com.cashback.ui.components.FixedNestedScrollView;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +64,11 @@ public class AllResultsActivity extends AppCompatActivity {
         } else {
             uiActivity = new UiActivity(this);
         }
+        //Google Analytics
+        App app = (App) getApplication();
+        Tracker tracker = app.getDefaultTracker();
+        tracker.setScreenName("All Search Results");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

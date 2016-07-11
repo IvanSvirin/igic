@@ -20,7 +20,7 @@ public class DataContract {
     public static final Uri URI_CHARITY_ORDERS = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_orders");
     public static final Uri URI_CHARITY_ACCOUNTS = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_accounts");
     public static final Uri URI_CASHBACK_ACCOUNTS = Uri.withAppendedPath(BASE_CONTENT_URI, "cashback_accounts");
-
+    public static final Uri URI_MISC = Uri.withAppendedPath(BASE_CONTENT_URI, "misc");
 
     public static class Merchants implements BaseColumns {
         public static final String TABLE_NAME = "merchants";
@@ -209,5 +209,17 @@ public class DataContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "cashback_accounts";
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "cashback_accounts";
+    }
+
+    public static class Misc implements BaseColumns {
+        public static final String TABLE_NAME = "misc";
+        public static final String COLUMN_SHARE_DEAL_TEXT = "share_deal_text";
+        public static final String COLUMN_TELL_A_FRIEND_TEXT = "tell_a_friend_text";
+        public static final String COLUMN_TELL_A_FRIEND_BANNER_URL = "tell_a_friend_banner_url";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "misc";
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "misc";
     }
 }
