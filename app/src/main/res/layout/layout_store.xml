@@ -109,13 +109,13 @@
                             android:id="@+id/info"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/textView2"
-                            android:layout_marginLeft="40dp"
-                            android:layout_marginStart="40dp"
-                            android:layout_toEndOf="@+id/textView2"
-                            android:layout_toRightOf="@+id/textView2"
                             android:src="@drawable/ic_info_outline_black_24dp"
-                            android:alpha="0.87" />
+                            android:alpha="0.38"
+                            android:layout_marginLeft="11dp"
+                            android:layout_marginStart="11dp"
+                            android:layout_toRightOf="@+id/textView2"
+                            android:layout_toEndOf="@+id/textView2"
+                            android:layout_alignParentBottom="true" />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -124,7 +124,8 @@
                             android:layout_alignParentBottom="true"
                             android:text="@string/store_summary"
                             android:textAppearance="@style/AppTheme.TextAppearance"
-                            android:alpha="0.87" />
+                            android:alpha="0.87"
+                            android:paddingBottom="4dp" />
 
                         <TextView
                             android:id="@+id/textView13"
@@ -150,7 +151,7 @@
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/buttonShop"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginRight="20dp"
                     android:background="@color/primary"
                     android:elevation="10dp"

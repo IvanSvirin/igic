@@ -1,5 +1,6 @@
 package com.cashback.ui.allresults;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -21,8 +22,11 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.model.Merchant;
+import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
@@ -33,9 +37,11 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 public class StoresTabFragment extends Fragment {
     private FragmentUi fragmentUi;
+    private static ProgressDialog progressDialog;
 
     public static StoresTabFragment newInstance() {
         return new StoresTabFragment();
@@ -62,9 +68,30 @@ public class StoresTabFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         fragmentUi.unbind();
+    }
+
+    public void onEvent(FavoritesEvent event) {
+        progressDialog.dismiss();
+        if (event.isSuccess) {
+            fragmentUi.storesAdapter.notifyDataSetChanged();
+        } else {
+            Utilities.showFailNotification(event.message, getContext());
+        }
     }
 
     public class FragmentUi {
@@ -129,7 +156,7 @@ public class StoresTabFragment extends Fragment {
                     public void onClick(View v) {
                         if (Utilities.isLoggedIn(context)) {
                             int position = getAdapterPosition();
-                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(storesArray.get(position).getVendorId()));
+                            Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(storesArray.get(position).getVendorId()));
                             Cursor c = context.getContentResolver().query(uri, null, null, null, null);
                             int count = c.getCount();
                             c.close();
@@ -138,7 +165,8 @@ public class StoresTabFragment extends Fragment {
                             } else {
                                 new FavoritesRequest(context).deleteMerchant(storesArray.get(position).getVendorId());
                             }
-                            notifyDataSetChanged();
+                            progressDialog = Utilities.onCreateProgressDialog(context);
+                            progressDialog.show();
                         } else {
                             Utilities.needLoginDialog(context);
                         }
@@ -205,10 +233,14 @@ public class StoresTabFragment extends Fragment {
             boolean isFavorite = storesArray.get(position).isFavorite();
             picasso.load(logoUrl).into(holder.vhStoreLogo);
             holder.vhCashBack.setText(commission);
-            if (isFavorite) {
-                holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favorite));
-            } else {
+            Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(storesArray.get(position).getVendorId()));
+            Cursor c = context.getContentResolver().query(uri, null, null, null, null);
+            int count = c.getCount();
+
+            if (count == 0) {
                 holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
+            } else {
+                holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favorite));
             }
         }
 

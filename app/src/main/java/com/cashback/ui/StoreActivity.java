@@ -1,6 +1,7 @@
 package com.cashback.ui;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -41,6 +42,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import db.DataContract;
 import com.cashback.model.Coupon;
+import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.request.CouponsByMerchantIdRequest;
 import com.cashback.rest.request.FavoritesRequest;
@@ -71,6 +73,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
     private String description;
     private String logoUrl;
     private float commission;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         intent = getIntent();
         vendorId = intent.getLongExtra("vendor_id", 1);
         new CouponsByMerchantIdRequest(this, vendorId, coupons).fetchData();
+        progressDialog = Utilities.onCreateProgressDialog(this);
+        progressDialog.show();
         Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(vendorId));
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
         cursor.moveToFirst();
@@ -117,11 +122,16 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     public void onEvent(MerchantCouponsEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             uiActivity.initListAdapter(this);
         } else {
             Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), R.string.no_coupons, Snackbar.LENGTH_SHORT).show();
         }
+    }
+
+    public void onEvent(FavoritesEvent event) {
+        progressDialog.dismiss();
     }
 
     @Override
@@ -153,6 +163,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                 item.setIcon(R.drawable.ic_favorite_added_white);
                 new FavoritesRequest(this).addMerchant(vendorId);
             }
+            progressDialog = Utilities.onCreateProgressDialog(this);
+            progressDialog.show();
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -1,5 +1,6 @@
 package com.cashback.ui;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,12 +25,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FilterQueryProvider;
+import android.widget.Filterable;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.cashback.App;
 import com.cashback.R;
+
 import db.DataContract;
+
+import com.cashback.Utilities;
 import com.cashback.rest.event.MerchantsEvent;
 import com.cashback.rest.request.MerchantsRequest;
 import com.google.android.gms.analytics.HitBuilders;
@@ -49,6 +54,7 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
     public static final String TAG_ALL_STORES_FRAGMENT = "I_all_stores_fragment";
     private static final String SEARCH_KEY = "keyword_store";
     private FragmentUi fragmentUi;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,6 +136,8 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         fragmentUi.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
             new MerchantsRequest(getActivity()).fetchData();
+            progressDialog = Utilities.onCreateProgressDialog(getContext());
+            progressDialog.show();
         }
     }
 
@@ -140,6 +148,7 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     public void onEvent(MerchantsEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             getLoaderManager().restartLoader(MainActivity.MERCHANTS_LOADER, null, this);
         }
@@ -235,7 +244,7 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         }
     }
 
-    public static class AllStoresAdapter extends CursorAdapter implements SectionIndexer {
+    public static class AllStoresAdapter extends CursorAdapter implements SectionIndexer, Filterable {
         protected SortedMap<Integer, String> sections = new TreeMap<>();
         ArrayList<Integer> sectionList = new ArrayList<>();
         private LayoutInflater layoutInflater;

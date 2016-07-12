@@ -74,6 +74,7 @@
                     android:id="@+id/facebookSingUpButton"
                     android:background="@drawable/facebook_btn_default_normal_holo_light"
                     android:text="@string/login_first_page_name"
+                    android:textColor="#ffff"
                     android:layout_weight="1" />
 
                 <Button
@@ -82,6 +83,7 @@
                     android:id="@+id/googleSingUpButton"
                     android:background="@drawable/common_signin_btn_text_normal_dark"
                     android:text="@string/login_first_page_name"
+                    android:textColor="#ffff"
                     android:layout_weight="1" />
             </LinearLayout>
 

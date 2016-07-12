@@ -1,5 +1,6 @@
 package com.cashback.ui.featured;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,8 +27,11 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.rest.event.ExtrasEvent;
+import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.rest.request.FavoritesRequest;
 
 import ui.MainActivity;
@@ -43,6 +47,7 @@ import de.greenrobot.event.EventBus;
 
 public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private FragmentUi fragmentUi;
+    private static ProgressDialog progressDialog;
 
     public static ExtraTabFragment newInstance() {
         return new ExtraTabFragment();
@@ -120,6 +125,16 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
         }
     }
 
+    public void onEvent(FavoritesEvent event) {
+        progressDialog.dismiss();
+        if (event.isSuccess) {
+            fragmentUi.extraAdapter.notifyDataSetChanged();
+        } else {
+            Utilities.showFailNotification(event.message, getContext());
+        }
+    }
+
+
     public class FragmentUi {
         private ExtraRecyclerAdapter extraAdapter;
         @Bind(R.id.extra_recycler_view)
@@ -192,7 +207,8 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                             } else {
                                 new FavoritesRequest(context).deleteMerchant(id);
                             }
-                            notifyDataSetChanged();
+                            progressDialog = Utilities.onCreateProgressDialog(context);
+                            progressDialog.show();
                         } else {
                             Utilities.needLoginDialog(context);
                         }

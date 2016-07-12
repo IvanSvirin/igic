@@ -60,15 +60,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static final int COUPONS_LOADER = 1;
     public static final int FAVORITES_LOADER = 2;
     public static final int EXTRAS_LOADER = 3;
-    public static final int STORES_SEARCH_LOADER = 4;
-    public static final int PRODUCTS_SEARCH_LOADER = 5;
-    public static final int COUPONS_SEARCH_LOADER = 6;
-    public static final int MERCHANT_COUPONS_LOADER = 7;
-    public static final int CATEGORIES_LOADER = 8;
-    public static final int MERCHANTS_LOADER = 9;
-    public static final int PAYMENTS_LOADER = 10;
-    public static final int SHOPPING_TRIPS_LOADER = 11;
-    public static final int ORDERS_LOADER = 12;
+    public static final int CATEGORIES_LOADER = 4;
+    public static final int MERCHANTS_LOADER = 5;
+    public static final int PAYMENTS_LOADER = 6;
+    public static final int SHOPPING_TRIPS_LOADER = 7;
+    public static final int ORDERS_LOADER = 8;
 
     private DrawerUi drawerUi;
     private int currentItemId = 0;

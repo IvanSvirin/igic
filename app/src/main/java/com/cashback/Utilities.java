@@ -18,6 +18,7 @@ public class Utilities {
     private static final String PREF_IDFA_KEY = "pref_idfa";
     private static final String PREF_EMAIL_KEY = "pref_email";
     private static final String PREF_SHARE_DEAL_TEXT_KEY = "pref_share_deal_text";
+    private static final String PREF_TELL_A_FRIEND_TEXT_KEY = "pref_tell_a_friend_text";
 
     public static boolean isLoggedIn(Context context) {
         return !TextUtils.isEmpty(retrieveUserToken(context)) && retrieveUserEntry(context);
@@ -57,6 +58,18 @@ public class Utilities {
     public static String retrieveShareDealText(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getString(PREF_SHARE_DEAL_TEXT_KEY, null);
+    }
+
+    public static boolean saveTellFriendText(Context context, String s) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(PREF_TELL_A_FRIEND_TEXT_KEY, s);
+        return editor.commit();
+    }
+
+    public static String retrieveTellFriendText(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getString(PREF_TELL_A_FRIEND_TEXT_KEY, null);
     }
 
     public static boolean saveUserEntry(Context context, boolean entry) {
@@ -237,7 +250,7 @@ public class Utilities {
     public static ProgressDialog onCreateProgressDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("Downloading. Please, wait...");
+        progressDialog.setMessage("Please, wait...");
         return progressDialog;
     }
 

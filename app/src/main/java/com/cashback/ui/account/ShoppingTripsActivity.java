@@ -1,5 +1,6 @@
 package com.cashback.ui.account;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
@@ -39,6 +40,7 @@ import de.greenrobot.event.EventBus;
 
 public class ShoppingTripsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private UiActivity uiActivity;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +97,8 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
         uiActivity.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
             new ShoppingTripsRequest(this).fetchData();
+            progressDialog = Utilities.onCreateProgressDialog(this);
+            progressDialog.show();
         }
     }
 
@@ -104,6 +108,7 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
     }
 
     public void onEvent(ShoppingTripsEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             getSupportLoaderManager().restartLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
         }

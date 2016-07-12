@@ -95,7 +95,11 @@ public class MiscRequest {
                     String shareDealText = jObj.getString("share_deal_text");
                     Utilities.saveShareDealText(context, shareDealText);
                     values.put(DataContract.Misc.COLUMN_SHARE_DEAL_TEXT, shareDealText);
-                    values.put(DataContract.Misc.COLUMN_TELL_A_FRIEND_TEXT, jObj.getString("tell_a_frined_text"));
+
+                    String tellFriendText = jObj.getString("tell_a_frined_text");
+                    Utilities.saveTellFriendText(context, tellFriendText);
+                    values.put(DataContract.Misc.COLUMN_TELL_A_FRIEND_TEXT, tellFriendText);
+
                     values.put(DataContract.Misc.COLUMN_TELL_A_FRIEND_BANNER_URL, jObj.getString("tell_a_frined_banner_url"));
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startInsert(DataInsertHandler.MISC_TOKEN, null, DataContract.URI_MISC, values);

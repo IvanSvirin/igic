@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.cashback.App;
+import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.gcm.RegistrationGcmServices;
 import com.facebook.FacebookSdk;
@@ -80,7 +81,6 @@ public class LaunchActivity extends AppCompatActivity {
     public static void shareMerchantLink(final Context context, String url, long vendorId, String imageUrl) {
         BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
                 .addContentMetadata("BRANCH_MERCHANT_ID", String.valueOf(vendorId))
-                .addContentMetadata("BRANCH_IMAGEURL", imageUrl)
                 .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
                 .setTitle(Utilities.retrieveShareDealText(context))
                 .setContentDescription(Utilities.retrieveShareDealText(context))
@@ -88,7 +88,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         LinkProperties linkProperties = new LinkProperties()
                 .setChannel("SHARE_VIA_SHARING_DIALOG")
-                .setFeature("iGive.EVENT_SHARE_STORE")
+                .setFeature(context.getString(R.string.app_name) + ".EVENT_SHARE_STORE")
                 .addControlParameter("BRANCH_LINK", url);
 
         branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
@@ -96,8 +96,8 @@ public class LaunchActivity extends AppCompatActivity {
             public void onLinkCreate(String url, BranchError error) {
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("text/plain");
-                share.putExtra(Intent.EXTRA_TEXT, url);
-                context.startActivity(Intent.createChooser(share, "Share Text"));
+                share.putExtra(Intent.EXTRA_TEXT, Utilities.retrieveShareDealText(context) + "\n" + url);
+                context.startActivity(Intent.createChooser(share, Utilities.retrieveShareDealText(context)));
             }
         });
     }
@@ -106,7 +106,6 @@ public class LaunchActivity extends AppCompatActivity {
         BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
                 .addContentMetadata("BRANCH_MERCHANT_ID", String.valueOf(vendorId))
                 .addContentMetadata("BRANCH_COUPON_ID", String.valueOf(couponId))
-                .addContentMetadata("BRANCH_IMAGEURL", imageUrl)
                 .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
                 .setTitle(Utilities.retrieveShareDealText(context))
                 .setContentDescription(Utilities.retrieveShareDealText(context))
@@ -114,7 +113,7 @@ public class LaunchActivity extends AppCompatActivity {
 
         LinkProperties linkProperties = new LinkProperties()
                 .setChannel("SHARE_VIA_SHARING_DIALOG")
-                .setFeature("iGive.EVENT_SHARE_DEAL")
+                .setFeature(context.getString(R.string.app_name) + ".EVENT_SHARE_DEAL")
                 .addControlParameter("BRANCH_LINK", url);
 
         branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
@@ -122,8 +121,8 @@ public class LaunchActivity extends AppCompatActivity {
             public void onLinkCreate(String url, BranchError error) {
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType("text/plain");
-                share.putExtra(Intent.EXTRA_TEXT, url);
-                context.startActivity(Intent.createChooser(share, "Share Text"));
+                share.putExtra(Intent.EXTRA_TEXT, Utilities.retrieveShareDealText(context) + "\n" + url);
+                context.startActivity(Intent.createChooser(share, Utilities.retrieveShareDealText(context)));
             }
         });
     }

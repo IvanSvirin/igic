@@ -68,8 +68,6 @@ public class SignInRequest {
                 String postParameters;
                 switch (authObject.getAuthType()) {
                     case "0":
-                        // TODO: 6/27/2016
-//                        postParameters = "email=tech.softomate@gmail.ru&password=redsleep72&auth_type=0";
                 postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                         break;
                     case "1":

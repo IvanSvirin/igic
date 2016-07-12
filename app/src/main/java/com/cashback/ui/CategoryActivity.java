@@ -160,8 +160,6 @@ public class CategoryActivity extends AppCompatActivity {
             setTitle(getIntent().getStringExtra("category_name"));
 
             allStoresList.setTextFilterEnabled(true);
-//            initListAdapter();
-//            initListHandler();
         }
 
         private void initListAdapter() {

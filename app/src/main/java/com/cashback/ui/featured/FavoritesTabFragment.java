@@ -1,5 +1,6 @@
 package com.cashback.ui.featured;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -41,6 +42,7 @@ import de.greenrobot.event.EventBus;
 
 public class FavoritesTabFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
     private FragmentUi fragmentUi;
+    private static ProgressDialog progressDialog;
 
     public static FavoritesTabFragment newInstance() {
         return new FavoritesTabFragment();
@@ -78,6 +80,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        getLoaderManager().restartLoader(MainActivity.FAVORITES_LOADER, null, this);
     }
 
     @Override
@@ -113,7 +116,9 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
     }
 
     public void onEvent(FavoritesEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
+            fragmentUi.favoritesAdapter.notifyDataSetChanged();
             getLoaderManager().restartLoader(MainActivity.FAVORITES_LOADER, null, this);
         } else {
             Utilities.showFailNotification(event.message, getContext());
@@ -181,7 +186,8 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                             int position = getAdapterPosition();
                             cursor.moveToPosition(position);
                             new FavoritesRequest(context).deleteMerchant(cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID)));
-                            notifyDataSetChanged();
+                            progressDialog = Utilities.onCreateProgressDialog(context);
+                            progressDialog.show();
                         } else {
                             Utilities.needLoginDialog(context);
                         }

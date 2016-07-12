@@ -1,6 +1,7 @@
 package com.cashback.ui.web;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -56,7 +57,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
     private ArrayList<Coupon> coupons;
     private String exceptionInfo;
     private String description;
-
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,8 @@ public class BrowserDealsActivity extends AppCompatActivity {
             Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), R.string.copy_to_clipboard, Snackbar.LENGTH_SHORT).show();
         }
         new CouponsByMerchantIdRequest(this, intent.getLongExtra("vendor_id", 1), coupons).fetchData();
+        progressDialog = Utilities.onCreateProgressDialog(this);
+        progressDialog.show();
 
         ui = new ActivityUi(this);
         ui.setNavigationButtonState();
@@ -121,6 +124,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
     }
 
     public void onEvent(MerchantCouponsEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             ui.cursorPagerAdapter = new CursorPagerAdapter(getSupportFragmentManager(), coupons);
             ui.dealsButton.setText(String.valueOf(coupons.size()) + " DEALS");
@@ -346,7 +350,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
             Bundle args = new Bundle();
             args.putString(PageFragment.COUPON_CODE, coupons.get(position).getCouponCode());
             args.putString(PageFragment.EXPIRATION_DATE, coupons.get(position).getExpirationDate());
-            args.putString(PageFragment.RESTRICTIONS, coupons.get(position).getRestrictions());
+            args.putString(PageFragment.RESTRICTIONS, coupons.get(position).getLabel());
             args.putLong(PageFragment.VENDOR_ID, coupons.get(position).getVendorId());
             args.putString(PageFragment.AFFILIATE_URL, coupons.get(position).getAffiliateUrl());
             frag.setArguments(args);

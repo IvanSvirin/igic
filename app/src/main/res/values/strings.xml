@@ -10,7 +10,7 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="login_label">LOG IN</string>
     <string name="sing_up_label">SING IN</string>
-    <string name="referral_member_email_label">Referral Member Email (optional)</string>
+    <string name="referral_member_email_label">Referring Member Email (optional)</string>
     <string name="format_donation_amount"><xliff:g id="value">%1$s</xliff:g></string>
     <string name="item_features">Featured</string>
     <string name="item_all_stores">All Stores</string>

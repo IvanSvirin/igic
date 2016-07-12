@@ -80,21 +80,21 @@ public class TellAFriendFragment extends Fragment {
         @OnClick(R.id.fbButton)
         void fbShare() {
             if (Utilities.isLoggedIn(context)) {
-                // TODO: 6/7/2016 only for iConsumer
-//            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
-//            cursor.moveToFirst();
-//            String referrerId = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_REFERRER_ID));
-//            String referralLink = String.format(getString(R.string.referral_reg_exp), referrerId);
-
-                BranchUniversalObject branchUniversalObject = new BranchUniversalObject();
-                LinkProperties linkProperties = new LinkProperties();
+                BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+                        .setTitle(Utilities.retrieveTellFriendText(context))
+                        .setContentDescription(Utilities.retrieveTellFriendText(context))
+                        .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
+                        .setContentImageUrl(getString(R.string.logo_url));
+                LinkProperties linkProperties = new LinkProperties()
+                        .setFeature(getString(R.string.app_name) + ".EVENT_SHARE_APP")
+                        .setChannel("SHARE_VIA_FB");
                 branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
                     @Override
                     public void onLinkCreate(String url, BranchError error) {
                         ShareDialog dialog = new ShareDialog(getActivity());
                         ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                                .setContentTitle(getString(R.string.share_title) + "\n")
-                                .setContentDescription("")
+                                .setContentTitle(Utilities.retrieveTellFriendText(context) + "\n")
+                                .setContentDescription(Utilities.retrieveTellFriendText(context) + "\n")
                                 .setContentUrl(Uri.parse(url))
                                 .build();
                         dialog.show(linkContent);
@@ -108,18 +108,18 @@ public class TellAFriendFragment extends Fragment {
         @OnClick(R.id.twButton)
         void twShare() {
             if (Utilities.isLoggedIn(context)) {
-                // TODO: 6/7/2016 only for iConsumer
-//            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
-//            cursor.moveToFirst();
-//            String referrerId = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_REFERRER_ID));
-//            String referralLink = String.format(getString(R.string.referral_reg_exp), referrerId);
-
-                BranchUniversalObject branchUniversalObject = new BranchUniversalObject();
-                LinkProperties linkProperties = new LinkProperties();
+                BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+                        .setTitle(Utilities.retrieveTellFriendText(context))
+                        .setContentDescription(Utilities.retrieveTellFriendText(context))
+                        .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
+                        .setContentImageUrl(getString(R.string.logo_url));
+                LinkProperties linkProperties = new LinkProperties()
+                        .setFeature(getString(R.string.app_name) + ".EVENT_SHARE_APP")
+                        .setChannel("SHARE_VIA_TWITTER");
                 branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
                     @Override
                     public void onLinkCreate(String url, BranchError error) {
-                        String tweetUrl = String.format("https://twitter.com/intent/tweet?text=%s&url=%s", urlEncode(getString(R.string.share_title) + "\n"), url);
+                        String tweetUrl = String.format("https://twitter.com/intent/tweet?text=%s&url=%s", urlEncode(Utilities.retrieveTellFriendText(context)), url);
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tweetUrl));
 
                         List<ResolveInfo> matches = getActivity().getPackageManager().queryIntentActivities(intent, 0);
@@ -139,21 +139,21 @@ public class TellAFriendFragment extends Fragment {
         @OnClick(R.id.shButton)
         void share() {
             if (Utilities.isLoggedIn(context)) {
-                // TODO: 6/7/2016 only for iConsumer
-//            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
-//            cursor.moveToFirst();
-//            String referrerId = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_REFERRER_ID));
-//            String referralLink = String.format(getString(R.string.referral_reg_exp), referrerId);
-
-                BranchUniversalObject branchUniversalObject = new BranchUniversalObject();
-                LinkProperties linkProperties = new LinkProperties();
+                BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+                        .setTitle(Utilities.retrieveTellFriendText(context))
+                        .setContentDescription(Utilities.retrieveTellFriendText(context))
+                        .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
+                        .setContentImageUrl(getString(R.string.logo_url));
+                LinkProperties linkProperties = new LinkProperties()
+                        .setFeature(getString(R.string.app_name) + ".EVENT_SHARE_APP")
+                        .setChannel("SHARE_VIA_SHARING_DIALOG");
                 branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
                     @Override
                     public void onLinkCreate(String url, BranchError error) {
                         Intent share = new Intent(Intent.ACTION_SEND);
                         share.setType("text/plain");
-                        share.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_title) + "\n" + url);
-                        context.startActivity(Intent.createChooser(share, "Share Text"));
+                        share.putExtra(Intent.EXTRA_TEXT, Utilities.retrieveTellFriendText(context) + "\n" + url);
+                        context.startActivity(Intent.createChooser(share, Utilities.retrieveTellFriendText(context)));
                     }
                 });
             } else {

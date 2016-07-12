@@ -71,8 +71,6 @@ public class SignInCharityRequest {
                 switch (authObject.getAuthType()) {
                     case "0":
                         if (pathEnd.equals("login")) {
-                            // TODO: 6/27/2016
-//                            postParameters = "email=sandi_schleicher@hotmail.com&password=igive&auth_type=" + authObject.getAuthType();
                             postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                         } else {
                             postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType() +

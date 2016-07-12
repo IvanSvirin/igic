@@ -93,7 +93,8 @@
                 android:layout_below="@+id/storeLogo"
                 android:text="@string/sales_clearance"
                 android:textSize="12sp"
-                android:alpha="0.54" />
+                android:alpha="0.54"
+                android:paddingTop="6dp" />
 
             <TextView
                 android:id="@+id/expireDate"
