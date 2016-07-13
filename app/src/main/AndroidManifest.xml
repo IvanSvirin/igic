@@ -53,6 +53,11 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="4a6690e1d0be24c3ad03e5ab9870c188a49cabeb"
+            />
+
         <receiver
             android:name="io.branch.referral.InstallListener"
             android:exported="true">

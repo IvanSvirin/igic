@@ -177,9 +177,9 @@ public class AccountFragment extends Fragment {
             userCashPending.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT))));
             userPayments.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_NEXT_PAYMENT_DATE));
-            nextPaymentDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
+            nextPaymentDate.setText("Next Payment: " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             date = cursor.getString(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_MEMBER_DATE));
-            joinDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
+            joinDate.setText("You Joined: " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             cursor.close();
             dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
             cashbackSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));

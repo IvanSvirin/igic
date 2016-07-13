@@ -100,10 +100,12 @@ public class AllResultsActivity extends AppCompatActivity {
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                finish();
-                startActivity(new Intent(AllResultsActivity.this, AllResultsActivity.class));
                 if (TextUtils.isEmpty(query)) {
                 } else {
+                    finish();
+                    Intent intent = new Intent(AllResultsActivity.this, AllResultsActivity.class);
+                    intent.putExtra("searching_word", query);
+                    startActivity(intent);
                 }
                 return false;
             }

@@ -1,12 +1,15 @@
 package com.cashback.ui.allresults;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.cashback.App;
 import com.cashback.R;
@@ -21,7 +24,9 @@ public class SearchActivity extends AppCompatActivity {
     Toolbar toolbar;
     @Bind(R.id.search)
     SearchView searchView;
-
+    @Bind(R.id.main_content)
+    CoordinatorLayout coordinatorLayout;
+    private InputMethodManager imm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +60,14 @@ public class SearchActivity extends AppCompatActivity {
         Tracker tracker = app.getDefaultTracker();
         tracker.setScreenName("Search");
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             onBackPressed();
             return true;
         }

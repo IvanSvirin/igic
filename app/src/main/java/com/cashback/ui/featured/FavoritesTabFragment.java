@@ -250,7 +250,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
             final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_LOGO_URL));
             String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION));
             picasso.load(logoUrl).into(holder.vhStoreLogo);
-            holder.vhCashBack.setText(cashBack);
+            holder.vhCashBack.setText("+ " + cashBack);
         }
 
         @Override

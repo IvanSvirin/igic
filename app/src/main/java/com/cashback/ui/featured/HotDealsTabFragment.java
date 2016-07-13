@@ -238,7 +238,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
             picasso.load(logoUrl).into(holder.vhStoreLogo);
             holder.vhRestrictions.setText(label);
-            holder.vhCashBack.setText(cashBack);
+            holder.vhCashBack.setText("+ " + cashBack);
             holder.vhExpireDate.setText(expire);
             if (couponCode.length() < 4) {
                 holder.vhCouponCode.setVisibility(View.INVISIBLE);

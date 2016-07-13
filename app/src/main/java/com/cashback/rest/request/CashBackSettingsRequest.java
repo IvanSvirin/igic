@@ -91,7 +91,7 @@ public class CashBackSettingsRequest {
                     jObj = jsonArray.getJSONObject(0);
                     Utilities.setCashBackNotify(context, jObj.getBoolean(context.getString(R.string.cashback_notify)));
                     Utilities.setDealsNotify(context, jObj.getBoolean(context.getString(R.string.deals_notify)));
-                    Utilities.setPaymentsNotify(context, jObj.getBoolean(context.getString(R.string.payments_notify)));
+                    Utilities.setPaymentsNotify(context, jObj.getBoolean(context.getString(R.string.payment_notify)));
                     EventBus.getDefault().post(new SettingsEvent(true, null));
                 } else {
                     EventBus.getDefault().post(new SettingsEvent(false, "Check your internet connection or authorization data"));
@@ -173,7 +173,7 @@ public class CashBackSettingsRequest {
                     jObj = jsonArray.getJSONObject(0);
                     Utilities.setCashBackNotify(context, jObj.getBoolean(context.getString(R.string.cashback_notify)));
                     Utilities.setDealsNotify(context, jObj.getBoolean(context.getString(R.string.deals_notify)));
-                    Utilities.setPaymentsNotify(context, jObj.getBoolean(context.getString(R.string.payments_notify)));
+                    Utilities.setPaymentsNotify(context, jObj.getBoolean(context.getString(R.string.payment_notify)));
                     EventBus.getDefault().post(new SettingsEvent(true, null));
                 } else {
                     EventBus.getDefault().post(new SettingsEvent(false, "Check your internet connection or authorization data"));

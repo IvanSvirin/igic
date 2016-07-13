@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -76,6 +78,8 @@ public class TellAFriendFragment extends Fragment {
         ImageView twButton;
         @Bind(R.id.shButton)
         ImageView gButton;
+        @Bind(R.id.imageView)
+        ImageView imageView;
 
         @OnClick(R.id.fbButton)
         void fbShare() {
@@ -164,6 +168,9 @@ public class TellAFriendFragment extends Fragment {
         public FragmentUi(TellAFriendFragment fragment, View view) {
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
+            Picasso.with(context)
+                    .load(R.drawable.tellafriends)
+                    .into(imageView);
         }
 
         public void unbind() {

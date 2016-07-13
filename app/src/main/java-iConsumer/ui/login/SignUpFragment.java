@@ -86,7 +86,10 @@ public class SignUpFragment extends Fragment {
 
     public void onEvent(SignUpEvent event) {
         if (event.isSuccess) {
-            startActivity(new Intent(getContext(), MainActivity.class));
+            Utilities.saveUserEntry(getActivity(), true);
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            getContext().startActivity(intent);
             getActivity().finish();
         } else {
             fragmentUi.showFailNotification(event.message);

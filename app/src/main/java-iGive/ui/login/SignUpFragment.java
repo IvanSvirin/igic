@@ -16,6 +16,7 @@ import android.widget.EditText;
 
 import com.cashback.App;
 import com.cashback.R;
+import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.SignUpEvent;
 import com.cashback.rest.request.SignInCharityRequest;
@@ -85,7 +86,10 @@ public class SignUpFragment extends Fragment {
 
     public void onEvent(SignUpEvent event) {
         if (event.isSuccess) {
-            startActivity(new Intent(getContext(), MainActivity.class));
+            Utilities.saveUserEntry(getActivity(), true);
+            Intent intent = new Intent(getContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            getContext().startActivity(intent);
             getActivity().finish();
         } else {
             fragmentUi.showFailNotification(event.message);

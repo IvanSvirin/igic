@@ -11,6 +11,7 @@ import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.gcm.RegistrationGcmServices;
+import com.crashlytics.android.Crashlytics;
 import com.facebook.FacebookSdk;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -25,6 +26,7 @@ import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.Branch;
 import io.branch.referral.BranchError;
 import io.branch.referral.util.LinkProperties;
+import io.fabric.sdk.android.Fabric;
 import ui.MainActivity;
 
 public class LaunchActivity extends AppCompatActivity {
@@ -37,21 +39,23 @@ public class LaunchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intentRegistrationGCM;
-        Intent intentNextActivity;
         Utilities.saveIdfa(this, Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
 //         Automatic session tracking
         Branch.getAutoInstance(getApplicationContext());
         initBranchSession();
 
+        Fabric.with(this, new Crashlytics());
+
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         if (checkPlayServices()) {
             // Start intent to registration this app with GCM
+            Intent intentRegistrationGCM;
             intentRegistrationGCM = new Intent(this, RegistrationGcmServices.class);
             startService(intentRegistrationGCM);
         }
 
+        Intent intentNextActivity;
         intentNextActivity = new Intent(this, MainActivity.class);
         startActivity(intentNextActivity);
         finish();

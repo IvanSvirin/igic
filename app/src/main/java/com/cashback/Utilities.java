@@ -148,13 +148,13 @@ public class Utilities {
 
     public static boolean isPaymentsNotifyOn(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getBoolean(context.getString(R.string.payments_notify), false);
+        return prefs.getBoolean(context.getString(R.string.payment_notify), false);
     }
 
     public static void setPaymentsNotify(Context context, boolean set) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(context.getString(R.string.payments_notify), set);
+        editor.putBoolean(context.getString(R.string.payment_notify), set);
         editor.apply();
     }
 

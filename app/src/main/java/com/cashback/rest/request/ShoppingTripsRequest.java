@@ -10,6 +10,7 @@ import com.cashback.Utilities;
 import db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.OrdersEvent;
+import com.cashback.rest.event.ShoppingTripsEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -103,8 +104,10 @@ public class ShoppingTripsRequest {
                     handler.startBulkInsert(DataInsertHandler.SHOPPING_TRIPS_TOKEN, false, DataContract.URI_SHOPPING_TRIPS, listValues.toArray(new ContentValues[listValues.size()]));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    EventBus.getDefault().post(new OrdersEvent(false, "No trips data"));
+                    EventBus.getDefault().post(new ShoppingTripsEvent(false, "No trips data"));
                 }
+            } else {
+                EventBus.getDefault().post(new ShoppingTripsEvent(false, "No trips data"));
             }
         }
     }

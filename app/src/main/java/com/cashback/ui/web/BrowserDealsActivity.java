@@ -386,8 +386,15 @@ public class BrowserDealsActivity extends AppCompatActivity {
             View v = inflater.inflate(R.layout.view_dialog, container, false);
             TextView tvDescription = (TextView) v.findViewById(R.id.description);
             TextView tvExceptions = (TextView) v.findViewById(R.id.exceptions);
+            TextView tvClose = (TextView) v.findViewById(R.id.closeButton);
             tvDescription.setText(description);
             tvExceptions.setText(exceptionInfo);
+            tvClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    InfoDialog.super.dismiss();
+                }
+            });
             return v;
         }
     }

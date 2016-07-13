@@ -196,7 +196,7 @@ public class ProductsTabFragment extends Fragment {
             holder.vhProductName.setText(name);
             holder.vhPrice.setText("$" + String.valueOf(price) + " ($" + String.format("%.2f", (price * commission / 100)) + ")");
             holder.vhYourPriceValue.setText("$" + String.format("%.2f", (price * (100 - commission) / 100)));
-            holder.vhCashBack.setText(String.valueOf(commission));
+            holder.vhCashBack.setText("+ " + String.valueOf(commission));
         }
 
         @Override

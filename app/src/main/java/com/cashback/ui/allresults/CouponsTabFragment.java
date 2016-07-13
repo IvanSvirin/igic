@@ -189,7 +189,7 @@ public class CouponsTabFragment extends Fragment {
             String code = couponsArray.get(position).getCouponCode();
             picasso.load(logoUrl).into(holder.vhStoreLogo);
             holder.vhRestrictions.setText(label);
-            holder.vhCashBack.setText(String.valueOf(commission));
+            holder.vhCashBack.setText("+ " + String.valueOf(commission));
             holder.vhExpireDate.setText(expire);
             if (code.length() < 4) {
                 holder.vhCouponCode.setVisibility(View.INVISIBLE);

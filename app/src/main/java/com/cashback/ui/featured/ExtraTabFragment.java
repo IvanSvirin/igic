@@ -280,7 +280,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
             }
             holder.vhWas.setPaintFlags(holder.vhWas.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             picasso.load(logoUrl).into(holder.vhStoreLogo);
-            holder.vhCashBack.setText(cashBack);
+            holder.vhCashBack.setText("+ " + cashBack);
             if (count == 0) {
                 holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
             } else {

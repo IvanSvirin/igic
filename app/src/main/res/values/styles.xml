@@ -1,5 +1,4 @@
 <resources>
-
     <!--FONT-->
     <style name="AppTheme.TextAppearance" parent="@android:style/TextAppearance.Theme">
         <item name="android:fontFamily">sans-serif</item>

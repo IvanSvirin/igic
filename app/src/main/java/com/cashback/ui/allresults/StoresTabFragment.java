@@ -232,7 +232,7 @@ public class StoresTabFragment extends Fragment {
             String commission = String.valueOf(storesArray.get(position).getCommission());
             boolean isFavorite = storesArray.get(position).isFavorite();
             picasso.load(logoUrl).into(holder.vhStoreLogo);
-            holder.vhCashBack.setText(commission);
+            holder.vhCashBack.setText("+ " + commission);
             Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(storesArray.get(position).getVendorId()));
             Cursor c = context.getContentResolver().query(uri, null, null, null, null);
             int count = c.getCount();
