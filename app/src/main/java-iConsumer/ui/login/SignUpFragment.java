@@ -144,6 +144,7 @@ public class SignUpFragment extends Fragment {
             p.x = location[0];
             p.y = location[1];
             // Inflate the popup_layout.xml
+
             LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
             LayoutInflater layoutInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
