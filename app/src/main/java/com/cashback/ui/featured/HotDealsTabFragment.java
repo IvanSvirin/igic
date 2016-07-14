@@ -172,7 +172,9 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                                     cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)), cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID)),
                                     cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });
@@ -188,7 +190,9 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });

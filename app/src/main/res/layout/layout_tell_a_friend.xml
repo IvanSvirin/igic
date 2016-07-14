@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
@@ -88,6 +88,3 @@
             android:theme="@style/AppThemeOverlay.ToolbarPrimary" />
     </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>
-
-
-    <!--android:paddingBottom="@dimen/padding_small"--><!--android:paddingEnd="@dimen/padding_standard"--><!--android:paddingLeft="@dimen/padding_standard"--><!--android:paddingRight="@dimen/padding_standard"--><!--android:paddingStart="@dimen/padding_standard"--><!--android:paddingTop="@dimen/padding_small"-->

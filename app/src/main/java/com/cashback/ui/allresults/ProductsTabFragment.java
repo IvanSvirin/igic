@@ -125,7 +125,9 @@ public class ProductsTabFragment extends Fragment {
                                     DataContract.Merchants.COLUMN_AFFILIATE_URL)), productsArray.get(position).getVendorId(), productsArray.get(position).getVendorLogoUrl());
                             cursor.close();
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });
@@ -144,7 +146,9 @@ public class ProductsTabFragment extends Fragment {
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });

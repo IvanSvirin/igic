@@ -187,7 +187,9 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                             LaunchActivity.shareMerchantLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)),
                                     cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)), cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_LOGO_URL)));
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });
@@ -210,7 +212,9 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                             progressDialog = Utilities.onCreateProgressDialog(context);
                             progressDialog.show();
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });
@@ -226,7 +230,9 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });

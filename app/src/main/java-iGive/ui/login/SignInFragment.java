@@ -23,6 +23,8 @@ import com.cashback.rest.request.SignInCharityRequest;
 
 import ui.MainActivity;
 
+import com.cashback.ui.StoreActivity;
+import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.login.RestoreActivity;
 import com.facebook.CallbackManager;
@@ -91,10 +93,25 @@ public class SignInFragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEvent(SignInEvent event) {
+    public void onEvent(SignInEvent event) throws ClassNotFoundException {
         if (event.isSuccess) {
             Utilities.saveUserEntry(getActivity(), true);
-            Intent intent = new Intent(getContext(), MainActivity.class);
+            Bundle loginBundle = getActivity().getIntent().getBundleExtra(Utilities.LOGIN_BUNDLE);
+            Intent intent;
+            switch (loginBundle.getString(Utilities.CALLING_ACTIVITY)) {
+                case "MainActivity":
+                    intent = new Intent(getContext(), MainActivity.class);
+                    break;
+                case "AllResultsActivity":
+                    intent = new Intent(getContext(), AllResultsActivity.class);
+                    break;
+                case "StoreActivity":
+                    intent = new Intent(getContext(), StoreActivity.class);
+                    intent.putExtra(Utilities.VENDOR_ID, loginBundle.getLong(Utilities.VENDOR_ID));
+                    break;
+                default:
+                    intent = new Intent(getContext(), MainActivity.class);
+            }
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             getContext().startActivity(intent);
             getActivity().finish();

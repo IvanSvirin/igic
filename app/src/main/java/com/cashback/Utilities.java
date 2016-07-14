@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -19,6 +20,9 @@ public class Utilities {
     private static final String PREF_EMAIL_KEY = "pref_email";
     private static final String PREF_SHARE_DEAL_TEXT_KEY = "pref_share_deal_text";
     private static final String PREF_TELL_A_FRIEND_TEXT_KEY = "pref_tell_a_friend_text";
+    public static final String CALLING_ACTIVITY = "calling_activity";
+    public static final String VENDOR_ID = "vendor_id";
+    public static final String LOGIN_BUNDLE = "login_bundle";
 
     public static boolean isLoggedIn(Context context) {
         return !TextUtils.isEmpty(retrieveUserToken(context)) && retrieveUserEntry(context);
@@ -268,7 +272,7 @@ public class Utilities {
         builder.create().show();
     }
 
-    public static void needLoginDialog(final Context context) {
+    public static void needLoginDialog(final Context context, final Bundle loginBundle) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.please_log_in)
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -276,6 +280,7 @@ public class Utilities {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(context, LoginActivity.class);
+                        intent.putExtra(LOGIN_BUNDLE, loginBundle);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
                     }
@@ -296,7 +301,10 @@ public class Utilities {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Bundle loginBundle = new Bundle();
+                        loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
                         Intent intent = new Intent(context, LoginActivity.class);
+                        intent.putExtra(LOGIN_BUNDLE, loginBundle);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         context.startActivity(intent);
                     }

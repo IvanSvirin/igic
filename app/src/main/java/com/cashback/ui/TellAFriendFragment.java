@@ -3,13 +3,16 @@ package com.cashback.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +108,9 @@ public class TellAFriendFragment extends Fragment {
                     }
                 });
             } else {
-                Utilities.needLoginDialog(context);
+                Bundle loginBundle = new Bundle();
+                loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                Utilities.needLoginDialog(context, loginBundle);
             }
         }
 
@@ -136,7 +141,9 @@ public class TellAFriendFragment extends Fragment {
                     }
                 });
             } else {
-                Utilities.needLoginDialog(context);
+                Bundle loginBundle = new Bundle();
+                loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                Utilities.needLoginDialog(context, loginBundle);
             }
         }
 
@@ -161,16 +168,33 @@ public class TellAFriendFragment extends Fragment {
                     }
                 });
             } else {
-                Utilities.needLoginDialog(context);
+                Bundle loginBundle = new Bundle();
+                loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                Utilities.needLoginDialog(context, loginBundle);
             }
         }
 
         public FragmentUi(TellAFriendFragment fragment, View view) {
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
+
+            DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
+            int w = displaymetrics.widthPixels;
+            int h = displaymetrics.heightPixels;
+            Drawable drawable;
+            if (h > w) {
+                drawable = getContext().getResources().getDrawable(R.drawable.tellafriends);
+            } else {
+                drawable = getContext().getResources().getDrawable(R.drawable.tellafriends_tablet);
+            }
+            w = w - getContext().getResources().getDimensionPixelSize(R.dimen.padding_small) * 2;
+            int wd = drawable.getIntrinsicWidth();
+            int hd = drawable.getIntrinsicHeight();
             Picasso.with(context)
                     .load(R.drawable.tellafriends)
+                    .resize(w, w * hd / wd)
                     .into(imageView);
+
         }
 
         public void unbind() {

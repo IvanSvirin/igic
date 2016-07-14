@@ -54,7 +54,9 @@ public class AllResultsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String newWord = intent.getStringExtra("searching_word");
         if (!searchingWord.equals(newWord)) {
-            searchingWord = newWord;
+            if (newWord != null) {
+                searchingWord = newWord;
+            }
             storesArray = new ArrayList<>();
             productsArray = new ArrayList<>();
             dealsArray = new ArrayList<>();

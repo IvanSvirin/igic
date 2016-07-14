@@ -175,7 +175,9 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                             LaunchActivity.shareMerchantLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_AFFILIATE_URL)),
                                     cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID)), cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_LOGO_URL)));
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });
@@ -189,7 +191,9 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                             progressDialog = Utilities.onCreateProgressDialog(context);
                             progressDialog.show();
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });
@@ -205,7 +209,9 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });

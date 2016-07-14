@@ -259,7 +259,10 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         intent.putExtra("affiliate_url", coupons.get(position).getAffiliateUrl());
                         context.startActivity(intent);
                     } else {
-                        Utilities.needLoginDialog(context);
+                        Bundle loginBundle = new Bundle();
+                        loginBundle.putString(Utilities.CALLING_ACTIVITY, "StoreActivity");
+                        loginBundle.putLong(Utilities.VENDOR_ID, vendorId);
+                        Utilities.needLoginDialog(context, loginBundle);
                     }
                 }
             });
@@ -269,7 +272,10 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     if (Utilities.isLoggedIn(context)) {
                         LaunchActivity.shareDealLink(context, coupons.get(position).getAffiliateUrl(), vendorId, coupons.get(position).getCouponId(), coupons.get(position).getVendorLogoUrl());
                     } else {
-                        Utilities.needLoginDialog(context);
+                        Bundle loginBundle = new Bundle();
+                        loginBundle.putString(Utilities.CALLING_ACTIVITY, "StoreActivity");
+                        loginBundle.putLong(Utilities.VENDOR_ID, vendorId);
+                        Utilities.needLoginDialog(context, loginBundle);
                     }
                 }
             });
@@ -283,7 +289,10 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         intent.putExtra("affiliate_url", affiliateUrl);
                         context.startActivity(intent);
                     } else {
-                        Utilities.needLoginDialog(context);
+                        Bundle loginBundle = new Bundle();
+                        loginBundle.putString(Utilities.CALLING_ACTIVITY, "StoreActivity");
+                        loginBundle.putLong(Utilities.VENDOR_ID, vendorId);
+                        Utilities.needLoginDialog(context, loginBundle);
                     }
                 }
             };
@@ -319,7 +328,10 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         intent.putExtra("affiliate_url", affiliateUrl);
                         context.startActivity(intent);
                     } else {
-                        Utilities.needLoginDialog(context);
+                        Bundle loginBundle = new Bundle();
+                        loginBundle.putString(Utilities.CALLING_ACTIVITY, "StoreActivity");
+                        loginBundle.putLong(Utilities.VENDOR_ID, vendorId);
+                        Utilities.needLoginDialog(context, loginBundle);
                     }
                 }
             };

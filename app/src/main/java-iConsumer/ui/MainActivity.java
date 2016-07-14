@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onResume();
         EventBus.getDefault().register(this);
         AppEventsLogger.activateApp(this);
+        if (Utilities.isLoggedIn(this)) {
+            getSupportLoaderManager().initLoader(ACCOUNT_LOADER, null, this);
+            drawerUi.navigator.getMenu().findItem(R.id.item_account).setVisible(true);
+        }
     }
 
     @Override
@@ -201,7 +205,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 @Override
                 public void onDrawerOpened(View drawerView) {
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
                     imm.hideSoftInputFromWindow(drawerView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
 
@@ -308,6 +311,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
         private void initDrawerHeader(String cashBack, String name, String email) {
+            Button button = ButterKnife.findById(navigator, R.id.loginButton);
+            button.setVisibility(View.INVISIBLE);
             TextView viewCashBack = ButterKnife.findById(navigator, R.id.totalEarned);
             viewCashBack.setText(String.format(stringFormat, cashBack));
             ((TextView) ButterKnife.findById(navigator, R.id.userName)).setText(name);
@@ -320,7 +325,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Bundle loginBundle = new Bundle();
+                    loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    intent.putExtra(Utilities.LOGIN_BUNDLE, loginBundle);
                     startActivity(intent);
                     MainActivity.this.finish();
                 }

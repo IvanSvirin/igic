@@ -120,7 +120,9 @@ public class CouponsTabFragment extends Fragment {
                             LaunchActivity.shareDealLink(context, couponsArray.get(position).getAffiliateUrl(), couponsArray.get(position).getVendorId(),
                                     couponsArray.get(position).getCouponId(), couponsArray.get(position).getVendorLogoUrl());
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });
@@ -139,7 +141,9 @@ public class CouponsTabFragment extends Fragment {
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Utilities.needLoginDialog(context);
+                            Bundle loginBundle = new Bundle();
+                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
+                            Utilities.needLoginDialog(context, loginBundle);
                         }
                     }
                 });

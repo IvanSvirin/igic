@@ -21,6 +21,8 @@ import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignInEvent;
 import com.cashback.rest.request.SignInRequest;
+import com.cashback.ui.StoreActivity;
+import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.cashback.ui.login.RestoreActivity;
 import com.facebook.CallbackManager;
@@ -93,7 +95,22 @@ public class SignInFragment extends Fragment {
     public void onEvent(SignInEvent event) {
         if (event.isSuccess) {
             Utilities.saveUserEntry(getActivity(), true);
-            Intent intent = new Intent(getContext(), MainActivity.class);
+            Bundle loginBundle = getActivity().getIntent().getBundleExtra(Utilities.LOGIN_BUNDLE);
+            Intent intent;
+            switch (loginBundle.getString(Utilities.CALLING_ACTIVITY)) {
+                case "MainActivity":
+                    intent = new Intent(getContext(), MainActivity.class);
+                    break;
+                case "AllResultsActivity":
+                    intent = new Intent(getContext(), AllResultsActivity.class);
+                    break;
+                case "StoreActivity":
+                    intent = new Intent(getContext(), StoreActivity.class);
+                    intent.putExtra(Utilities.VENDOR_ID, loginBundle.getLong(Utilities.VENDOR_ID));
+                    break;
+                default:
+                    intent = new Intent(getContext(), MainActivity.class);
+            }
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             getContext().startActivity(intent);
             getActivity().finish();

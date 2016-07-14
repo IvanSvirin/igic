@@ -5,23 +5,23 @@ android {
     compileSdkVersion 24
     buildToolsVersion '24.0.0'
 
-    signingConfigs {
-        debug {
-            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
-            storePassword "gheCnG7T"
-            keyAlias "igive"
-            keyPassword "wZb4R2fE"
-        }
-    }
-
 //    signingConfigs {
 //        debug {
 //            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
 //            storePassword "gheCnG7T"
-//            keyAlias "iconsumer"
-//            keyPassword "hUVypuAd"
+//            keyAlias "igive"
+//            keyPassword "wZb4R2fE"
 //        }
 //    }
+
+    signingConfigs {
+        debug {
+            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
+            storePassword "gheCnG7T"
+            keyAlias "iconsumer"
+            keyPassword "hUVypuAd"
+        }
+    }
 
     defaultConfig {
 //        applicationId "com.igive.button"
@@ -76,6 +76,12 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.0@aar') {
         transitive = true;
     }
+    compile('io.branch.sdk.android:library:1.14.0@aar') {
+        transitive = true;
+    }
+    compile('io.fabric.sdk.android:fabric:1.3.12@aar') {
+        transitive = true;
+    }
     compile 'com.android.support:cardview-v7:24.0.0'
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.android.support:preference-v7:24.+'
@@ -99,7 +105,6 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.0.2'
     compile 'com.google.android.gms:play-services-auth:9.0.2'
     compile 'com.google.android.gms:play-services-gcm:9.0.2'
-    compile 'io.branch.sdk.android:library:1.+'
     compile 'com.google.android.gms:play-services-analytics:9.0.2'
 }
 apply plugin: 'com.google.gms.google-services'

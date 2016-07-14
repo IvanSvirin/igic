@@ -1,7 +1,11 @@
 package ui.login;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,10 +13,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.cashback.App;
 import com.cashback.R;
@@ -22,6 +30,8 @@ import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignUpEvent;
 import com.cashback.rest.request.SignInRequest;
 import com.cashback.ui.LaunchActivity;
+import com.cashback.ui.StoreActivity;
+import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.login.LoginActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -87,7 +97,22 @@ public class SignUpFragment extends Fragment {
     public void onEvent(SignUpEvent event) {
         if (event.isSuccess) {
             Utilities.saveUserEntry(getActivity(), true);
-            Intent intent = new Intent(getContext(), MainActivity.class);
+            Bundle loginBundle = getActivity().getIntent().getBundleExtra(Utilities.LOGIN_BUNDLE);
+            Intent intent;
+            switch (loginBundle.getString(Utilities.CALLING_ACTIVITY)) {
+                case "MainActivity":
+                    intent = new Intent(getContext(), MainActivity.class);
+                    break;
+                case "AllResultsActivity":
+                    intent = new Intent(getContext(), AllResultsActivity.class);
+                    break;
+                case "StoreActivity":
+                    intent = new Intent(getContext(), StoreActivity.class);
+                    intent.putExtra(Utilities.VENDOR_ID, loginBundle.getLong(Utilities.VENDOR_ID));
+                    break;
+                default:
+                    intent = new Intent(getContext(), MainActivity.class);
+            }
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             getContext().startActivity(intent);
             getActivity().finish();
@@ -103,6 +128,54 @@ public class SignUpFragment extends Fragment {
         EditText etPassword;
         @Bind(R.id.referringEmail)
         EditText etReferringEmail;
+        Point p;
+
+        @OnClick(R.id.password)
+        public void onPasswordClick() {
+            p = new Point();
+            showPopup(getActivity(), p);
+        }
+
+        private void showPopup(final Activity context, Point p) {
+            int popupWidth = 200;
+            int popupHeight = 150;
+            int[] location = new int[2];
+            etPassword.getLocationOnScreen(location);
+            p.x = location[0];
+            p.y = location[1];
+            // Inflate the popup_layout.xml
+            LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
+            LayoutInflater layoutInflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = layoutInflater.inflate(R.layout.popup_layout, viewGroup);
+
+            // Creating the PopupWindow
+            final PopupWindow popup = new PopupWindow(context);
+            popup.setContentView(layout);
+            popup.setWidth(popupWidth);
+            popup.setHeight(popupHeight);
+            popup.setFocusable(true);
+
+            // Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
+            int OFFSET_X = 30;
+            int OFFSET_Y = 30;
+
+            // Clear the default translucent background
+            popup.setBackgroundDrawable(new BitmapDrawable());
+
+            // Displaying the popup at the specified location, + offsets.
+            popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
+
+            // Getting a reference to Close button, and close the popup when clicked.
+            Button close = (Button) layout.findViewById(R.id.close);
+            close.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    popup.dismiss();
+                }
+            });
+        }
 
         @OnClick(R.id.facebookSingUpButton)
         public void onFBSignUp() {
