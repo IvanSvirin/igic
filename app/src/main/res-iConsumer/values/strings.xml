@@ -50,5 +50,7 @@
     <string name="your_donation_money_with_coupons">You save money \n with coupons and cash back.</string>
     <string name="please_log_in">Please log into your iConsumer member account to continue.</string>
     <string name="logo_url">https://pbs.twimg.com/profile_images/611565418734485504/kykoYqiK.jpg</string>
+    <string name="password_conditions">Password must be at least 8 characters in length and contain at least 3 of the following 4 types of characters:\n
+    - lower case letters (i.e. a-z)\n - upper case letters (i.e. A-Z)\n - numbers (i.e. 0-9)\n - special characters \n (e.g. !@#$%^*()_+~-=\{}[]:;?.)</string>
 
 </resources>

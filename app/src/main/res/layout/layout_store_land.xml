@@ -114,12 +114,12 @@
                             android:alpha="0.38"
                             android:layout_marginLeft="11dp"
                             android:layout_marginStart="11dp"
-                            android:layout_toRightOf="@+id/textView2"
-                            android:layout_toEndOf="@+id/textView2"
+                            android:layout_toRightOf="@+id/storeSummary"
+                            android:layout_toEndOf="@+id/storeSummary"
                             android:layout_alignParentBottom="true" />
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/storeSummary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"

@@ -53,6 +53,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -132,45 +133,32 @@ public class SignUpFragment extends Fragment {
 
         @OnClick(R.id.password)
         public void onPasswordClick() {
-            p = new Point();
-            showPopup(getActivity(), p);
+//            p = new Point();
+//            showPopup(getActivity(), p);
         }
 
         private void showPopup(final Activity context, Point p) {
-            int popupWidth = 200;
-            int popupHeight = 150;
+            int popupWidth = 500;
+            int popupHeight = 400;
             int[] location = new int[2];
             etPassword.getLocationOnScreen(location);
             p.x = location[0];
             p.y = location[1];
-            // Inflate the popup_layout.xml
-
             LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
             LayoutInflater layoutInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = layoutInflater.inflate(R.layout.popup_layout, viewGroup);
-
-            // Creating the PopupWindow
             final PopupWindow popup = new PopupWindow(context);
             popup.setContentView(layout);
             popup.setWidth(popupWidth);
             popup.setHeight(popupHeight);
             popup.setFocusable(true);
-
-            // Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
-            int OFFSET_X = 30;
-            int OFFSET_Y = 30;
-
-            // Clear the default translucent background
+            int OFFSET_X = 60;
+            int OFFSET_Y = 90;
             popup.setBackgroundDrawable(new BitmapDrawable());
-
-            // Displaying the popup at the specified location, + offsets.
             popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
-
-            // Getting a reference to Close button, and close the popup when clicked.
             Button close = (Button) layout.findViewById(R.id.close);
             close.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     popup.dismiss();
@@ -190,11 +178,17 @@ public class SignUpFragment extends Fragment {
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                 Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_empty_fields, Snackbar.LENGTH_SHORT).show();
             } else {
-                AuthObject authObject = new AuthObject();
-                authObject.setAuthType("0");
-                authObject.setEmail(email);
-                authObject.setPassword(password);
-                new SignInRequest(getContext(), authObject, "signup").fetchData();
+                if (isPasswordValid(password)) {
+                    AuthObject authObject = new AuthObject();
+                    authObject.setAuthType("0");
+                    authObject.setEmail(email);
+                    authObject.setPassword(password);
+                    new SignInRequest(getContext(), authObject, "signup").fetchData();
+                } else {
+//                    p = new Point();
+//                    showPopup(getActivity(), p);
+                    showFailNotification(getString(R.string.password_conditions));
+                }
             }
         }
 
@@ -273,6 +267,41 @@ public class SignUpFragment extends Fragment {
                     });
             builder.create().show();
         }
+    }
+
+    private boolean isPasswordValid(String password) {
+        int count = 0;
+        if (password.length() < 8) return false;
+        char[] symbols = password.toCharArray();
+        String validationLowCaseString = "abcdefghijklmnopqrstuvwxyz";
+        for (char c : symbols) {
+            if (validationLowCaseString.indexOf(c) != -1) {
+                count++;
+                break;
+            }
+        }
+        String validationDigitString = "0123456789";
+        for (char c : symbols) {
+            if (validationDigitString.indexOf(c) != -1) {
+                count++;
+                break;
+            }
+        }
+        String validationUpperCaseString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for (char c : symbols) {
+            if (validationUpperCaseString.indexOf(c) != -1) {
+                count++;
+                break;
+            }
+        }
+        String validationSpecialString = "!@#$%^&*()_+|~=\\{}[]:;<>?.";
+        for (char c : symbols) {
+            if (validationSpecialString.indexOf(c) != -1) {
+                count++;
+                break;
+            }
+        }
+        return count > 2;
     }
 
     @Override
