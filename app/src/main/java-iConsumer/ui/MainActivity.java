@@ -1,6 +1,5 @@
 package ui;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private int currentItemId = 0;
     private Handler handler;
     private FragmentManager fragmentManager;
-    private BroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -253,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
         public void associateToolbarDrawer(Toolbar toolbar) {
-            ((AppCompatActivity) activity).setSupportActionBar(toolbar);
+            activity.setSupportActionBar(toolbar);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(activity, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
             drawer.addDrawerListener(toggle);
             toggle.syncState();

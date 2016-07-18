@@ -1,28 +1,17 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
-public class CashbackOrder {
-    @Expose
+public class CashBackOrder {
     private long vendorId;
-    @Expose
     private float purchaseTotal;
-    @Expose
     private int confirmationNumber;
-    @Expose
     private String orderDate;
-    @Expose
     private String postedDate;
-    @Expose
     private String vendorName;
-    @Expose
     private String vendorLogoUrl;
-    @Expose
     private int sharedStockAmount;
-    @Expose
     private float amountCashback;
 
-    public CashbackOrder(long vendorId, float purchaseTotal, int confirmationNumber, String orderDate, String postedDate, String vendorName, String vendorLogoUrl, int sharedStockAmount,
+    public CashBackOrder(long vendorId, float purchaseTotal, int confirmationNumber, String orderDate, String postedDate, String vendorName, String vendorLogoUrl, int sharedStockAmount,
                          float amountCashback) {
         this.vendorId = vendorId;
         this.purchaseTotal = purchaseTotal;

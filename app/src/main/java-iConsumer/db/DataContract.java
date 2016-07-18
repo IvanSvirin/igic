@@ -133,7 +133,7 @@ public class DataContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "shopping_trips";
     }
 
-    public static class Orders implements BaseColumns {
+    public static class CashBackOrders implements BaseColumns {
         public static final String TABLE_NAME = "orders";
         public static final String COLUMN_VENDOR_ID = "vendor_id";
         public static final String COLUMN_PURCHASE_TOTAL = "purchase_total";

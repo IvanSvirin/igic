@@ -61,9 +61,9 @@ public class PaymentsRequest {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
                 }
                 inputStream.close();
                 urlConnection.disconnect();
@@ -95,7 +95,6 @@ public class PaymentsRequest {
                         values.put(DataContract.Payments.COLUMN_PAYMENT_AMOUNT, jObj.getDouble("payment_amount"));
                         values.put(DataContract.Payments.COLUMN_PAYMENT_DATE, jObj.getString("payment_date"));
                         values.put(DataContract.Payments.COLUMN_PAYMENT_ACCOUNT, jObj.getString("payment_account"));
-
                         listValues.add(values);
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());

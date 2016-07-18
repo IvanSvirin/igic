@@ -23,8 +23,7 @@ public class PageFragment extends Fragment {
     public static final String AFFILIATE_URL = "affiliate_url";
 
     public static PageFragment newInstance() {
-        PageFragment fragment = new PageFragment();
-        return fragment;
+        return new PageFragment();
     }
 
     @Override

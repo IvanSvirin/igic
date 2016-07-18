@@ -1,28 +1,15 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Coupon {
-
-    @Expose
     private long couponId;
-    @Expose
     private long vendorId;
-    @Expose
     private String couponType;
-    @Expose
     private String restrictions;
-    @Expose
     private String couponCode;
-    @Expose
     private String expirationDate;
-    @Expose
     private String affiliateUrl;
-    @Expose
     private String vendorLogoUrl;
-    @Expose
     private float vendorCommission;
-    @Expose
     private String label;
 
     public Coupon(long couponId, long vendorId, String couponType, String restrictions, String couponCode, String expirationDate, String affiliateUrl, String vendorLogoUrl,

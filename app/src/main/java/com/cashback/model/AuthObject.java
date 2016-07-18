@@ -1,27 +1,15 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class AuthObject {
-    @Expose
     private String authType;
-    @Expose
     private String firstName;   //only for iGive
-    @Expose
     private String lastName;    //only for iGive
-    @Expose
     private String email;
-    @Expose
     private String password;
-    @Expose
     private String zip; //only for iGive
-    @Expose
     private String token;
-    @Expose
     private String incomingReferrerId;
-    @Expose
     private String referrerEmail;   //only for iConsumer
-    @Expose
     private String userId;
 
     public AuthObject() {

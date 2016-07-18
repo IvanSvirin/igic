@@ -24,8 +24,6 @@ public class SearchActivity extends AppCompatActivity {
     Toolbar toolbar;
     @Bind(R.id.search)
     SearchView searchView;
-    @Bind(R.id.main_content)
-    CoordinatorLayout coordinatorLayout;
     private InputMethodManager imm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

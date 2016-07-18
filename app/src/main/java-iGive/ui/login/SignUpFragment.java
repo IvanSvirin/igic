@@ -76,7 +76,7 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_up_fragmentt, container, false);
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         return view;
     }
 
@@ -170,7 +170,7 @@ public class SignUpFragment extends Fragment {
             startActivityForResult(signInIntent, GOOGLE_AUTH);
         }
 
-        public FragmentUi(SignUpFragment fragment, View view) {
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             registerFbCallback();
         }

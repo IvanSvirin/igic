@@ -1,13 +1,8 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class CashbackSettings {
-    @Expose
     private boolean dealsNotify;
-    @Expose
     private boolean cashbackNotify;
-    @Expose
     private boolean paymentNotify;
 
     public CashbackSettings(boolean dealsNotify, boolean cashbackNotify, boolean paymentNotify) {

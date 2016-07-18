@@ -176,10 +176,6 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
             }
         }
 
-        protected LayoutInflater getLayoutInflater() {
-            return layoutInflater;
-        }
-
         private void buildSections() {
             if (isOpenCursor()) {
                 Cursor cursor = getCursor();

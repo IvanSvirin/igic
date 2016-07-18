@@ -58,7 +58,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         } else {
             view = inflater.inflate(R.layout.layout_featured_tab_0, container, false);
         }
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
         }
@@ -122,7 +122,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         @Bind(R.id.hot_deals_recycler_view)
         RecyclerView hotDealsRecyclerView;
 
-        public FragmentUi(HotDealsTabFragment fragment, View view) {
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             initListAdapter();
         }

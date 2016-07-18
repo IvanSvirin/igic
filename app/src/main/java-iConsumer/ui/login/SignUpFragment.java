@@ -26,10 +26,8 @@ import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
-import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignUpEvent;
-import com.cashback.rest.request.SignInRequest;
-import com.cashback.ui.LaunchActivity;
+import com.cashback.rest.request.SignInCashBackRequest;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.login.LoginActivity;
@@ -85,7 +83,7 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_up_fragmentt, container, false);
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         return view;
     }
 
@@ -145,8 +143,7 @@ public class SignUpFragment extends Fragment {
             p.x = location[0];
             p.y = location[1];
             LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
-            LayoutInflater layoutInflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = layoutInflater.inflate(R.layout.popup_layout, viewGroup);
             final PopupWindow popup = new PopupWindow(context);
             popup.setContentView(layout);
@@ -183,7 +180,7 @@ public class SignUpFragment extends Fragment {
                     authObject.setAuthType("0");
                     authObject.setEmail(email);
                     authObject.setPassword(password);
-                    new SignInRequest(getContext(), authObject, "signup").fetchData();
+                    new SignInCashBackRequest(getContext(), authObject, "signup").fetchData();
                 } else {
 //                    p = new Point();
 //                    showPopup(getActivity(), p);
@@ -211,7 +208,7 @@ public class SignUpFragment extends Fragment {
             startActivityForResult(signInIntent, GOOGLE_AUTH);
         }
 
-        public FragmentUi(SignUpFragment fragment, View view) {
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             registerFbCallback();
         }
@@ -232,7 +229,7 @@ public class SignUpFragment extends Fragment {
                                 authObject.setLastName(object.getString("last_name"));
                                 authObject.setEmail(object.getString("email"));
                                 authObject.setUserId(object.getString("id"));
-                                new SignInRequest(getContext(), authObject, "signup").fetchData();
+                                new SignInCashBackRequest(getContext(), authObject, "signup").fetchData();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -320,7 +317,7 @@ public class SignUpFragment extends Fragment {
                 authObject.setLastName(fullName[1]);
                 authObject.setEmail(acct.getEmail());
                 authObject.setUserId(acct.getId());
-                new SignInRequest(getContext(), authObject, "signup").fetchData();
+                new SignInCashBackRequest(getContext(), authObject, "signup").fetchData();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);

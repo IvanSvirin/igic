@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 public class TourActivity extends AppCompatActivity {
     private static final int TOTAL_PAGE_COUNT = 4;
     private static final int SCORE_RETAINED_FRAGMENT = 2;
-    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class TourActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        viewPager = (ViewPager) findViewById(R.id.tour_pager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.tour_pager);
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.tour_pager_indicator);
         FragmentPagerAdapter adapter = new TourFragmentPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);

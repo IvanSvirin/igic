@@ -1,25 +1,14 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class CashbackAccount {
-    @Expose
     private String token;
-    @Expose
     private String firstName;
-    @Expose
     private String lastName;
-    @Expose
     private String email;
-    @Expose
     private String memberDate;
-    @Expose
     private int referrerId;
-    @Expose
     private float cachePendingAmount;
-    @Expose
     private String nextPaymentDate;
-    @Expose
     private float paymentsTotalAmount;
 
     public CashbackAccount(String token, String firstName, String lastName, String email, String memberDate, int referrerId, float cachePendingAmount, String nextPaymentDate,

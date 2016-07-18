@@ -24,7 +24,7 @@ import com.cashback.Utilities;
 import db.DataContract;
 
 import com.cashback.rest.event.OrdersEvent;
-import com.cashback.rest.request.OrdersRequest;
+import com.cashback.rest.request.CashBackOrdersRequest;
 import com.cashback.ui.components.NestedListView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -93,13 +93,13 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
             loader = new CursorLoader(this);
             loader.setUri(DataContract.URI_ORDERS);
             String projection[] = new String[]{
-                    DataContract.Orders._ID,
-                    DataContract.Orders.COLUMN_PURCHASE_TOTAL,
-                    DataContract.Orders.COLUMN_CONFIRMATION_NUMBER,
-                    DataContract.Orders.COLUMN_ORDER_DATE,
-                    DataContract.Orders.COLUMN_VENDOR_NAME,
-                    DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT,
-                    DataContract.Orders.COLUMN_CASH_BACK,
+                    DataContract.CashBackOrders._ID,
+                    DataContract.CashBackOrders.COLUMN_PURCHASE_TOTAL,
+                    DataContract.CashBackOrders.COLUMN_CONFIRMATION_NUMBER,
+                    DataContract.CashBackOrders.COLUMN_ORDER_DATE,
+                    DataContract.CashBackOrders.COLUMN_VENDOR_NAME,
+                    DataContract.CashBackOrders.COLUMN_SHARED_STOCK_AMOUNT,
+                    DataContract.CashBackOrders.COLUMN_CASH_BACK,
             };
             loader.setProjection(projection);
         }
@@ -110,7 +110,7 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         uiActivity.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
-            new OrdersRequest(this).fetchData();
+            new CashBackOrdersRequest(this).fetchData();
         }
 
     }
@@ -179,10 +179,6 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
             }
         }
 
-        protected LayoutInflater getLayoutInflater() {
-            return layoutInflater;
-        }
-
         private void buildSections() {
             if (isOpenCursor()) {
                 Cursor cursor = getCursor();
@@ -195,7 +191,7 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
 
         protected SortedMap<Integer, String> buildSections(Cursor cursor) {
             TreeMap<Integer, String> sections = new TreeMap<>();
-            int columnIndex = cursor.getColumnIndex(DataContract.Orders.COLUMN_ORDER_DATE);
+            int columnIndex = cursor.getColumnIndex(DataContract.CashBackOrders.COLUMN_ORDER_DATE);
             cursor.moveToFirst();
             do {
                 String date = cursor.getString(columnIndex);
@@ -251,18 +247,18 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
                 holder.monthYear.setHeight(1);
                 holder.sortDivider.setBackgroundResource(android.R.color.transparent);
             }
-            String date = cursor.getString(cursor.getColumnIndex(DataContract.Orders.COLUMN_ORDER_DATE));
+            String date = cursor.getString(cursor.getColumnIndex(DataContract.CashBackOrders.COLUMN_ORDER_DATE));
             String monthDay = Utilities.getMonth(date.substring(5, 7)) + " " + date.substring(8, 10);
             holder.monthDay.setText(monthDay);
-            String name = cursor.getString(cursor.getColumnIndex(DataContract.Orders.COLUMN_VENDOR_NAME));
+            String name = cursor.getString(cursor.getColumnIndex(DataContract.CashBackOrders.COLUMN_VENDOR_NAME));
             holder.storeName.setText(name.trim());
-            String number = cursor.getString(cursor.getColumnIndex(DataContract.Orders.COLUMN_CONFIRMATION_NUMBER));
+            String number = cursor.getString(cursor.getColumnIndex(DataContract.CashBackOrders.COLUMN_CONFIRMATION_NUMBER));
             holder.orderNumber.setText(" " + number.trim());
-            String stock = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT)));
+            String stock = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CashBackOrders.COLUMN_SHARED_STOCK_AMOUNT)));
             holder.pendingStockValue.setText(" " + stock);
-            String cashBack = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.Orders.COLUMN_CASH_BACK)));
+            String cashBack = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CashBackOrders.COLUMN_CASH_BACK)));
             holder.storeCommission.setText("$" + cashBack);
-            String total = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.Orders.COLUMN_PURCHASE_TOTAL)));
+            String total = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CashBackOrders.COLUMN_PURCHASE_TOTAL)));
             holder.total.setText("$" + total);
         }
 

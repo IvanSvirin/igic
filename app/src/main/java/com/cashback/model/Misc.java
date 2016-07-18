@@ -1,13 +1,8 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Misc {
-    @Expose
     private String tellAFriendBannerUrl;
-    @Expose
     private String tellAFriendText;
-    @Expose
     private String shareDealText;
 
     public Misc(String tellAFriendBannerUrl, String tellAFriendText, String shareDealText) {

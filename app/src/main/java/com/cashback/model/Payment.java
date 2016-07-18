@@ -1,13 +1,8 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Payment {
-    @Expose
     private String paymentDate;
-    @Expose
     private float paymentAmount;
-    @Expose
     private String paymentAccount;
 
     public Payment(String paymentDate, float paymentAmount, String paymentAccount) {

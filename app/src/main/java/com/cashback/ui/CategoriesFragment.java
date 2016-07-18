@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.cashback.App;
 import com.cashback.R;
 import db.DataContract;
-import com.cashback.rest.RestUtilities;
+import rest.RestUtilities;
 import com.cashback.rest.event.CategoriesEvent;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -51,7 +51,7 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_categories, container, false);
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         return view;
     }
 
@@ -114,15 +114,13 @@ public class CategoriesFragment extends Fragment implements LoaderManager.Loader
     }
 
     public class FragmentUi {
-        private Context context;
         private CategoriesAdapter adapter;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
         @Bind(R.id.categories_list)
         ListViewCompat categoriesList;
 
-        public FragmentUi(CategoriesFragment fragment, View view) {
-            this.context = fragment.getContext();
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             initListAdapter();
         }

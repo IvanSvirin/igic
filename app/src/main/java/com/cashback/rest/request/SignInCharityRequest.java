@@ -97,9 +97,9 @@ public class SignInCharityRequest {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
                 }
                 inputStream.close();
                 urlConnection.disconnect();
@@ -133,7 +133,6 @@ public class SignInCharityRequest {
                     values.put(DataContract.CashbackAccounts.COLUMN_EMAIL, email);
                     values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, jObj.getString("first_name"));
                     values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, jObj.getDouble("total_raised"));
-//                    values.put(DataContract.CharityAccounts.COLUMN_TOTAL_EARNED, jObj.getString("TOTALEARNED"));
                     values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, jObj.getString("select_cause_url"));
                     values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, jObj.getDouble("pending_amount"));
                     String token = jObj.getString("token");

@@ -30,7 +30,6 @@ import io.fabric.sdk.android.Fabric;
 import ui.MainActivity;
 
 public class LaunchActivity extends AppCompatActivity {
-    public static final String MAIN_TAG_LOG = "igic_log";
     public static final String DB_TAG_LOG = "igic_db_log";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     static final String TAG = "GCM Registration";
@@ -141,7 +140,7 @@ public class LaunchActivity extends AppCompatActivity {
         int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog((android.app.Activity) this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
                         .show();
             } else {
                 Log.i(TAG, "This device is not supported.");

@@ -1,27 +1,15 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class CharityOrder {
-    @Expose
     private long vendorId;
-    @Expose
     private float purchaseTotal;
-    @Expose
     private int confirmationNumber;
-    @Expose
     private String orderDate;
-    @Expose
     private String postedDate;
-    @Expose
     private String vendorName;
-    @Expose
     private String vendorLogoUrl;
-    @Expose
     private String causeName;
-    @Expose
     private String causeLogoUrl;
-    @Expose
     private float amountDonated;
 
     public long getVendorId() {

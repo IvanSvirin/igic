@@ -71,7 +71,7 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_all_stores, container, false);
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         return view;
     }
 
@@ -185,15 +185,13 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     public class FragmentUi {
-        private Context context;
         private AllStoresAdapter adapter;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
         @Bind(R.id.all_stores_list)
         ListViewCompat allStoresList;
 
-        public FragmentUi(AllStoresFragment fragment, View view) {
-            this.context = fragment.getContext();
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             allStoresList.setTextFilterEnabled(false);
 
@@ -249,19 +247,9 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         ArrayList<Integer> sectionList = new ArrayList<>();
         private LayoutInflater layoutInflater;
 
-        public AllStoresAdapter(Context context, Cursor c, boolean autoRequiry) {
-            super(context, c, autoRequiry);
-            init(context, null);
-        }
-
         public AllStoresAdapter(Context context, Cursor c, int flags) {
             super(context, c, flags);
             init(context, null);
-        }
-
-        protected AllStoresAdapter(Context context, Cursor c, boolean autoRequiry, SortedMap<Integer, String> sections) {
-            super(context, c, autoRequiry);
-            init(context, sections);
         }
 
         private void init(Context context, SortedMap<Integer, String> sections) {
@@ -271,10 +259,6 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
             } else {
                 buildSections();
             }
-        }
-
-        protected LayoutInflater getLayoutInflater() {
-            return layoutInflater;
         }
 
         private void buildSections() {

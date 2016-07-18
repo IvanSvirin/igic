@@ -18,7 +18,6 @@ import ui.login.SignInFragment;
 import ui.login.SignUpFragment;
 
 public class LoginActivity extends AppCompatActivity {
-    private SectionsPagerAdapter sectionsPagerAdapter;
     @Bind(R.id.container)
     ViewPager viewPager;
     @Bind(R.id.toolbar)
@@ -35,8 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(sectionsPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

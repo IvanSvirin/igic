@@ -66,7 +66,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
         } else {
             view = inflater.inflate(R.layout.layout_featured_tab_2, container, false);
         }
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
         }
@@ -140,7 +140,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
         @Bind(R.id.extra_recycler_view)
         RecyclerView extraRecyclerView;
 
-        public FragmentUi(ExtraTabFragment fragment, View view) {
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             initListAdapter();
         }
@@ -202,8 +202,11 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                             long id = cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID));
                             Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(id));
                             Cursor c = context.getContentResolver().query(uri, null, null, null, null);
-                            int count = c.getCount();
-                            c.close();
+                            int count = 0;
+                            if (c != null) {
+                                count = c.getCount();
+                                c.close();
+                            }
                             if (count == 0) {
                                 new FavoritesRequest(context).addMerchant(id);
                             } else {
@@ -280,7 +283,11 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
             String wasCashBack = cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION_WAS));
             Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(vendorId));
             Cursor c = context.getContentResolver().query(uri, null, null, null, null);
-            int count = c.getCount();
+            int count = 0;
+            if (c != null) {
+                count = c.getCount();
+                c.close();
+            }
             if (!(wasCashBack.equals("") || wasCashBack.equals(" "))) {
                 holder.vhWas.setText("Was " + wasCashBack + "%");
             }

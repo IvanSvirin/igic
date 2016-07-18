@@ -60,7 +60,7 @@ public class StoresTabFragment extends Fragment {
         } else {
             view = inflater.inflate(R.layout.layout_featured_tab_0, container, false);
         }
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
         }
@@ -99,7 +99,7 @@ public class StoresTabFragment extends Fragment {
         @Bind(R.id.hot_deals_recycler_view)
         RecyclerView hotDealsRecyclerView;
 
-        public FragmentUi(StoresTabFragment fragment, View view) {
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             initListAdapter();
         }
@@ -142,10 +142,12 @@ public class StoresTabFragment extends Fragment {
                             Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
                                     storesArray.get(position).getVendorId()));
                             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                            cursor.moveToFirst();
-                            LaunchActivity.shareMerchantLink(context, cursor.getString(cursor.getColumnIndex(
-                                    DataContract.Merchants.COLUMN_AFFILIATE_URL)), storesArray.get(position).getVendorId(), storesArray.get(position).getLogoUrl());
-                            cursor.close();
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                LaunchActivity.shareMerchantLink(context, cursor.getString(cursor.getColumnIndex(
+                                        DataContract.Merchants.COLUMN_AFFILIATE_URL)), storesArray.get(position).getVendorId(), storesArray.get(position).getLogoUrl());
+                                cursor.close();
+                            }
                         } else {
                             Bundle loginBundle = new Bundle();
                             loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
@@ -160,8 +162,11 @@ public class StoresTabFragment extends Fragment {
                             int position = getAdapterPosition();
                             Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(storesArray.get(position).getVendorId()));
                             Cursor c = context.getContentResolver().query(uri, null, null, null, null);
-                            int count = c.getCount();
-                            c.close();
+                            int count = 0;
+                            if (c != null) {
+                                count = c.getCount();
+                                c.close();
+                            }
                             if (count == 0) {
                                 new FavoritesRequest(context).addMerchant(storesArray.get(position).getVendorId());
                             } else {
@@ -184,12 +189,15 @@ public class StoresTabFragment extends Fragment {
                             int position = getAdapterPosition();
                             Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(storesArray.get(position).getVendorId()));
                             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                            cursor.moveToFirst();
-                            Intent intent = new Intent(context, BrowserDealsActivity.class);
-                            intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
-                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
-                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
-                            context.startActivity(intent);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                Intent intent = new Intent(context, BrowserDealsActivity.class);
+                                intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                                intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                                intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                                context.startActivity(intent);
+                                cursor.close();
+                            }
                         } else {
                             Bundle loginBundle = new Bundle();
                             loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
@@ -203,13 +211,16 @@ public class StoresTabFragment extends Fragment {
                         int position = getAdapterPosition();
                         Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(storesArray.get(position).getVendorId()));
                         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                        cursor.moveToFirst();
-                        Intent intent = new Intent(context, StoreActivity.class);
-                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
-                        intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL)));
-                        intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
-                        intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
-                        context.startActivity(intent);
+                        if (cursor != null) {
+                            cursor.moveToFirst();
+                            Intent intent = new Intent(context, StoreActivity.class);
+                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                            intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL)));
+                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                            intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                            context.startActivity(intent);
+                            cursor.close();
+                        }
                     }
                 });
             }
@@ -236,13 +247,15 @@ public class StoresTabFragment extends Fragment {
         public void onBindViewHolder(StoresViewHolder holder, int position) {
             String logoUrl = storesArray.get(position).getLogoUrl();
             String commission = String.valueOf(storesArray.get(position).getCommission());
-            boolean isFavorite = storesArray.get(position).isFavorite();
             picasso.load(logoUrl).into(holder.vhStoreLogo);
             holder.vhCashBack.setText("+ " + commission);
             Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(storesArray.get(position).getVendorId()));
             Cursor c = context.getContentResolver().query(uri, null, null, null, null);
-            int count = c.getCount();
-
+            int count = 0;
+            if (c != null) {
+                count = c.getCount();
+                c.close();
+            }
             if (count == 0) {
                 holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
             } else {

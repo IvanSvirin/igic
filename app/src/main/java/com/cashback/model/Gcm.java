@@ -1,15 +1,10 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Gcm {
-    enum OsType {ANDROID, IOS, WINDOWS}
-    @Expose
     private String tokenGcm;
-    @Expose
-    private OsType osType;
+    private String osType;
 
-    public Gcm(String tokenGcm, OsType osType) {
+    public Gcm(String tokenGcm, String osType) {
         this.tokenGcm = tokenGcm;
         this.osType = osType;
     }
@@ -22,11 +17,11 @@ public class Gcm {
         this.tokenGcm = tokenGcm;
     }
 
-    public OsType getOsType() {
+    public String getOsType() {
         return osType;
     }
 
-    public void setOsType(OsType osType) {
+    public void setOsType(String osType) {
         this.osType = osType;
     }
 }

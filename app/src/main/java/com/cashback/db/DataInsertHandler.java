@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.cashback.rest.RestUtilities;
+import rest.RestUtilities;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.CategoriesEvent;
 import com.cashback.rest.event.CouponsEvent;
@@ -20,8 +20,6 @@ import com.cashback.rest.event.ShoppingTripsEvent;
 import de.greenrobot.event.EventBus;
 
 public class DataInsertHandler extends BulkAsyncQueryHandler {
-    public static boolean IS_FILLING_MERCHANT_TABLE = false;
-
     public final static int ACCOUNT_TOKEN = 100;
     public final static int MERCHANTS_TOKEN = 200;
     public final static int COUPONS_TOKEN = 300;

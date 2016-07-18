@@ -1,11 +1,7 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class CharitySettings {
-    @Expose
     private boolean dealsNotify;
-    @Expose
     private boolean donationNotify;
 
     public CharitySettings(boolean dealsNotify, boolean donationNotify) {

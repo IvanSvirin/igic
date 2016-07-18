@@ -62,9 +62,9 @@ public class CharitySettingsRequest {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
                 }
                 inputStream.close();
                 urlConnection.disconnect();
@@ -102,7 +102,6 @@ public class CharitySettingsRequest {
     }
 
     private class ChangeCharitySettingsRequestTask extends AsyncTask<Void, Void, Void> {
-        private AuthObject authObject;
         private String jsonString = "";
         private JSONArray jsonArray;
         private JSONObject jObj = null;
@@ -143,7 +142,7 @@ public class CharitySettingsRequest {
                 StringBuilder sb = new StringBuilder();
                 String line = null;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
                 }
                 inputStream.close();
                 urlConnection.disconnect();

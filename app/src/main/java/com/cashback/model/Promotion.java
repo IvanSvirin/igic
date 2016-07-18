@@ -1,29 +1,16 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Promotion {
-    @Expose
     private long vendorId;
-    @Expose
     private String name;
-    @Expose
     private float commission;
-    @Expose
     private String exceptionInfo;
-    @Expose
     private String description;
-    @Expose
     private boolean giftCard;
-    @Expose
     private String affiliateUrl;
-    @Expose
     private String logoUrl;
-    @Expose
     private String bannerUrl;
-    @Expose
     private String expirationDate;
-    @Expose
     private float commissionWas;
 
     public Promotion(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, String bannerUrl,

@@ -73,9 +73,9 @@ public class SearchRequest {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
                 }
                 inputStream.close();
                 urlConnection.disconnect();
@@ -88,7 +88,6 @@ public class SearchRequest {
             }
             try {
                 jsonArray = new JSONArray(jsonString);
-//                jObj = new JSONObject(jsonString);
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
@@ -131,9 +130,6 @@ public class SearchRequest {
                         product.setVendorLogoUrl(jObj.getString("vendor_logo_url"));
                         product.setVendorCommission((float) jObj.getDouble("vendor_commission"));
                         product.setVendorAffiliateUrl(jObj.getString("vendor_affiliate_url"));
-//                        product.setEstimatedPriceTotal((float) jObj.getDouble("estimated_price_total"));
-//                        product.setPriceMerchant((float) jObj.getDouble("price_merchant"));
-//                        product.setPriceRetail((float) jObj.getDouble("price_retail"));
                         productsArray.add(product);
                     }
                     Coupon coupon;

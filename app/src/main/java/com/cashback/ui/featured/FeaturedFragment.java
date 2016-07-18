@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.rest.RestUtilities;
+import rest.RestUtilities;
 import ui.MainActivity;
 import com.cashback.ui.allresults.SearchActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
@@ -41,7 +41,7 @@ public class FeaturedFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_ACCOUNT);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_ACCOUNT);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_MERCHANTS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_EXTRAS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_FAVORITES);
@@ -111,7 +111,6 @@ public class FeaturedFragment extends Fragment {
         FixedNestedScrollView nestedScrollView;
         @Bind(R.id.tab_content)
         ViewPager tabViewPager;
-//        WrapContentHeightViewPager tabViewPager;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
 

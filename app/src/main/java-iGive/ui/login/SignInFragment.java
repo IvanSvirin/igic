@@ -54,7 +54,6 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 public class SignInFragment extends Fragment {
-    private static final String ARG_SECTION_NUMBER = "section_number";
     public static final int GOOGLE_AUTH = 111;
     private final static String G_PLUS_SCOPE = "oauth2:https://www.googleapis.com/auth/plus.me";
     private final static String USER_INFO_SCOPE = "https://www.googleapis.com/auth/userinfo.profile";
@@ -77,7 +76,7 @@ public class SignInFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_in_fragment, container, false);
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         return view;
     }
 
@@ -170,7 +169,7 @@ public class SignInFragment extends Fragment {
             startActivity(new Intent(getActivity(), RestoreActivity.class));
         }
 
-        public FragmentUi(SignInFragment fragment, View view) {
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             registerFbCallback();
         }

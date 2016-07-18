@@ -1,12 +1,7 @@
 package com.cashback.model;
 
-
-import com.google.gson.annotations.Expose;
-
 public class Category {
-    @Expose
     private long categoryId;
-    @Expose
     private String name;
 
     public Category(long categoryId, String name) {

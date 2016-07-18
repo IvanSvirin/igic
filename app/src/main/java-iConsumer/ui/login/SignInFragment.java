@@ -20,7 +20,7 @@ import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignInEvent;
-import com.cashback.rest.request.SignInRequest;
+import com.cashback.rest.request.SignInCashBackRequest;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.login.LoginActivity;
@@ -53,7 +53,6 @@ import de.greenrobot.event.EventBus;
 import ui.MainActivity;
 
 public class SignInFragment extends Fragment {
-    private static final String ARG_SECTION_NUMBER = "section_number";
     public static final int GOOGLE_AUTH = 111;
     private final static String G_PLUS_SCOPE = "oauth2:https://www.googleapis.com/auth/plus.me";
     private final static String USER_INFO_SCOPE = "https://www.googleapis.com/auth/userinfo.profile";
@@ -76,7 +75,7 @@ public class SignInFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sign_in_fragment, container, false);
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         return view;
     }
 
@@ -136,7 +135,7 @@ public class SignInFragment extends Fragment {
                 authObject.setAuthType("0");
                 authObject.setEmail(email);
                 authObject.setPassword(password);
-                new SignInRequest(getContext(), authObject, "login").fetchData();
+                new SignInCashBackRequest(getContext(), authObject, "login").fetchData();
             }
         }
 
@@ -169,7 +168,7 @@ public class SignInFragment extends Fragment {
             startActivity(new Intent(getActivity(), RestoreActivity.class));
         }
 
-        public FragmentUi(SignInFragment fragment, View view) {
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             registerFbCallback();
         }
@@ -190,7 +189,7 @@ public class SignInFragment extends Fragment {
                                 authObject.setLastName(object.getString("last_name"));
                                 authObject.setEmail(object.getString("email"));
                                 authObject.setUserId(object.getString("id"));
-                                new SignInRequest(getContext(), authObject, "login").fetchData();
+                                new SignInCashBackRequest(getContext(), authObject, "login").fetchData();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -243,7 +242,7 @@ public class SignInFragment extends Fragment {
                 authObject.setLastName(fullName[1]);
                 authObject.setEmail(acct.getEmail());
                 authObject.setUserId(acct.getId());
-                new SignInRequest(getContext(), authObject, "login").fetchData();
+                new SignInCashBackRequest(getContext(), authObject, "login").fetchData();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);

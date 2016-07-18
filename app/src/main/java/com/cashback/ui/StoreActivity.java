@@ -40,7 +40,9 @@ import android.widget.TextView;
 import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.model.Coupon;
 import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.rest.event.MerchantCouponsEvent;
@@ -98,6 +100,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         commission = cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
         logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL));
         affiliateUrl = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL));
+        cursor.close();
 
         getSupportLoaderManager().initLoader(MainActivity.FAVORITES_LOADER, null, this);
 
@@ -242,7 +245,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             } else {
                 nestedListView = ButterKnife.findById(activity, R.id.common_list);
             }
-            initToolbar(activity, vendorName);
+            initToolbar(activity);
             initClicks();
             setData(logoUrl);
         }
@@ -305,7 +308,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         }
 
-        private void initToolbar(Activity activity, String categoryName) {
+        private void initToolbar(Activity activity) {
             ((AppCompatActivity) activity).setSupportActionBar(toolbar);
             actionBar = ((AppCompatActivity) activity).getSupportActionBar();
             if (actionBar != null) {
@@ -335,13 +338,12 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     }
                 }
             };
-//            storeLogo.setOnClickListener(listener);
             buttonShop.setOnClickListener(listener);
 
             info.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDescriptionDialog("");
+                    showDescriptionDialog();
                 }
             });
         }
@@ -405,7 +407,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             });
         }
 
-        private void showDescriptionDialog(String message) {
+        private void showDescriptionDialog() {
             InfoDialog dialog = InfoDialog.newInstance(description, exceptionInfo);
             dialog.setCancelable(true);
             dialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
@@ -453,7 +455,6 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     convertView.setTag(holder);
                 }
             }
-            final long couponId = coupons.get(position).getCouponId();
             String restrictions = coupons.get(position).getLabel();
             String date = coupons.get(position).getExpirationDate();
             String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);

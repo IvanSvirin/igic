@@ -44,7 +44,6 @@ import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 
 public class CategoryActivity extends AppCompatActivity {
-    private static final String SEARCH_KEY = "keyword_store";
     private UiActivity uiActivity;
     private ArrayList<Merchant> merchants = new ArrayList<>();
     private ProgressDialog progressDialog;
@@ -186,10 +185,6 @@ public class CategoryActivity extends AppCompatActivity {
         public void unbind() {
             ButterKnife.unbind(this);
         }
-
-        private Toolbar getToolbar() {
-            return toolbar;
-        }
     }
 
     public static class AllStoresAdapter extends BaseAdapter implements SectionIndexer, Filterable {
@@ -234,10 +229,6 @@ public class CategoryActivity extends AppCompatActivity {
         @Override
         public long getItemId(int position) {
             return position;
-        }
-
-        protected LayoutInflater getLayoutInflater() {
-            return layoutInflater;
         }
 
         private void buildSections() {

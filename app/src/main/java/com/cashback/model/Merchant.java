@@ -1,25 +1,14 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Merchant {
-    @Expose
     private long vendorId;
-    @Expose
     private String name;
-    @Expose
     private float commission;
-    @Expose
     private String exceptionInfo;
-    @Expose
     private String description;
-    @Expose
     private boolean giftCard;
-    @Expose
     private boolean isFavorite;
-    @Expose
     private String affiliateUrl;
-    @Expose
     private String logoUrl;
 
     public Merchant(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, boolean isFavorit) {
@@ -31,7 +20,6 @@ public class Merchant {
         this.giftCard = giftCard;
         this.affiliateUrl = affiliateUrl;
         this.logoUrl = logoUrl;
-        this.isFavorite = isFavorite;
     }
 
     public Merchant() {

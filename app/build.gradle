@@ -24,8 +24,6 @@ android {
     }
 
     defaultConfig {
-//        applicationId "com.igive.button"
-//        applicationId "com.cashback"
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
@@ -48,11 +46,9 @@ android {
     productFlavors {
         iconsumer {
             applicationId "com.iconsumer.button"
-//            applicationId "com.cashback"
         }
         igive {
             applicationId "com.igive.button"
-//            applicationId "com.cashback"
         }
     }
 
@@ -89,9 +85,6 @@ dependencies {
     compile 'com.android.support:support-annotations:24.0.0'
     compile 'com.android.support:recyclerview-v7:24.0.0'
     compile 'com.android.support:customtabs:24.+'
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
-    compile 'com.squareup.retrofit2:converter-jackson:2.0.2'
     compile 'com.facebook.android:facebook-android-sdk:4.1.0'
     compile 'com.twotoasters.SectionCursorAdapter:library:1.0.+'
     compile 'de.greenrobot:eventbus:2.4.0'

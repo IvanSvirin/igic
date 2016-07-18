@@ -98,8 +98,7 @@ public class Utilities {
 
     public static String retrieveUserToken(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        String token = pref.getString(PREF_TOKEN_KEY, null);
-        return token;
+        return pref.getString(PREF_TOKEN_KEY, null);
     }
 
     public static boolean removeUserToken(Context context) {
@@ -120,10 +119,7 @@ public class Utilities {
     public static boolean isActiveConnection(Context context) {
         ConnectivityManager mng = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo net = mng.getActiveNetworkInfo();
-        if (net != null && net.isConnectedOrConnecting()) {
-            return true;
-        }
-        return false;
+        return net != null && net.isConnectedOrConnecting();
     }
 
     public static boolean isCashBackNotifyOn(Context context) {
@@ -159,18 +155,6 @@ public class Utilities {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(context.getString(R.string.payment_notify), set);
-        editor.apply();
-    }
-
-    public static boolean isShowTour(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getBoolean(context.getString(R.string.pref_show_tour_key), true);
-    }
-
-    public static void setShowTour(Context context, final boolean toShow) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(context.getString(R.string.pref_show_tour_key), toShow);
         editor.apply();
     }
 
@@ -235,8 +219,7 @@ public class Utilities {
     }
 
     public static String decToHex(int decimal) {
-        String heximal = Integer.toHexString(decimal);
-        return heximal;
+        return Integer.toHexString(decimal);
     }
 
     public static int hexToDec(String inputHexNumber) {

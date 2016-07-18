@@ -1,35 +1,19 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class CharityAccount {
-    @Expose
     private String token;
-    @Expose
     private String firstName;
-    @Expose
     private String lastName;
-    @Expose
     private String email;
-    @Expose
     private String memberDate;
-    @Expose
     private float nextCheckAmount;
-    @Expose
     private float pendingAmount;
-    @Expose
     private float totalPaidAmount;
-    @Expose
     private String totalPaidDate;
-    @Expose
     private String totalEarned;
-    @Expose
     private float totalRaised;
-    @Expose
     private String causeDashboardUrl;
-    @Expose
     private String selectCauseUrl;
-    @Expose
     private String referrerId;
 
     public CharityAccount(String token, String firstName, String lastName, String email, String memberDate, float nextCheckAmount, float pendingAmount, float totalPaidAmount,

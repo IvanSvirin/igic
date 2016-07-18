@@ -38,7 +38,6 @@ public class DataProvider extends ContentProvider {
     private static final int CASHBACK_ACCOUNTS = 902;
     private static final int MISC = 903;
 
-
     private String LOG_TAG = "sql_log";
     private DbHelper dbHelper;
     private Context context;
@@ -74,11 +73,11 @@ public class DataProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
         final int match = uriMatcher.match(uri);
-        Cursor cursor = null;
-        String common_selection = "";
+        Cursor cursor;
+        String common_selection;
         switch (match) {
             case MERCHANTS:
                 if (TextUtils.isEmpty(sortOrder))
@@ -154,9 +153,9 @@ public class DataProvider extends ContentProvider {
                 break;
             case ORDERS:
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = DataContract.Orders.COLUMN_ORDER_DATE + " COLLATE NOCASE DESC";
+                    sortOrder = DataContract.CashBackOrders.COLUMN_ORDER_DATE + " COLLATE NOCASE DESC";
                 }
-                cursor = db.query(DataContract.Orders.TABLE_NAME, projection, null, null, null, null, sortOrder);
+                cursor = db.query(DataContract.CashBackOrders.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 break;
             case CHARITY_ORDERS:
                 if (TextUtils.isEmpty(sortOrder)) {
@@ -254,7 +253,7 @@ public class DataProvider extends ContentProvider {
                 }
                 break;
             case ORDERS:
-                rowID = db.insertWithOnConflict(DataContract.Orders.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                rowID = db.insertWithOnConflict(DataContract.CashBackOrders.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
                     resultUri = ContentUris.withAppendedId(DataContract.URI_ORDERS, rowID);
                 } else {
@@ -301,7 +300,7 @@ public class DataProvider extends ContentProvider {
     }
 
     @Override
-    public int bulkInsert(Uri uri, ContentValues[] values) {
+    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
         final int match = uriMatcher.match(uri);
         int countInsert = 0;
@@ -492,7 +491,7 @@ public class DataProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
         final int match = uriMatcher.match(uri);
         String id;
@@ -520,7 +519,7 @@ public class DataProvider extends ContentProvider {
                 affectedRowsCount = db.delete(DataContract.ShoppingTrips.TABLE_NAME, null, null);
                 break;
             case ORDERS:
-                affectedRowsCount = db.delete(DataContract.Orders.TABLE_NAME, null, null);
+                affectedRowsCount = db.delete(DataContract.CashBackOrders.TABLE_NAME, null, null);
                 break;
             case CHARITY_ORDERS:
                 affectedRowsCount = db.delete(DataContract.CharityOrders.TABLE_NAME, null, null);
@@ -542,13 +541,13 @@ public class DataProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         return 0;
     }
 
     @Nullable
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         final int match = uriMatcher.match(uri);
         switch (match) {
             case MERCHANTS:
@@ -572,7 +571,7 @@ public class DataProvider extends ContentProvider {
             case SHOPPING_TRIPS:
                 return DataContract.ShoppingTrips.CONTENT_TYPE;
             case ORDERS:
-                return DataContract.Orders.CONTENT_TYPE;
+                return DataContract.CashBackOrders.CONTENT_TYPE;
             case CHARITY_ORDERS:
                 return DataContract.CharityOrders.CONTENT_TYPE;
             case CHARITY_ACCOUNTS:

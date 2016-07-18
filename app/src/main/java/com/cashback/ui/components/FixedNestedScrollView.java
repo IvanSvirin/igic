@@ -8,8 +8,6 @@ import android.view.ViewConfiguration;
 
 public class FixedNestedScrollView extends NestedScrollView {
     private int slop;
-    private float mInitialMotionX;
-    private float mInitialMotionY;
     private float xDistance, yDistance, lastX, lastY;
 
     public FixedNestedScrollView(Context context) {

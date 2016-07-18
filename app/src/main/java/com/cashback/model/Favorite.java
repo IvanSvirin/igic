@@ -1,28 +1,17 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Favorite {
-    @Expose
     private long vendorId;
-    @Expose
     private String name;
-    @Expose
     private float commission;
-    @Expose
     private String exceptionInfo;
-    @Expose
     private String description;
-    @Expose
     private boolean giftCard;
-    @Expose
     private boolean isFavorite;
-    @Expose
     private String affiliateUrl;
-    @Expose
     private String logoUrl;
 
-    public Favorite(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, boolean isFavorit) {
+    public Favorite(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, boolean isFavorite) {
         this.vendorId = vendorId;
         this.name = name;
         this.commission = commission;

@@ -1,31 +1,17 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Product {
-    @Expose
     private long vendorId;
-    @Expose
     private String title;
-    @Expose
     private float price;
-    @Expose
     private String description;
-    @Expose
     private String imageUrl;
-    @Expose
     private String vendorLogoUrl;
-    @Expose
     private float vendorCommission;
-    @Expose
     private String vendorAffiliateUrl;
-    @Expose
     private float estimatedPriceTotal;
-    @Expose
     private float estimatedShipping;
-    @Expose
     private float priceMerchant;
-    @Expose
     private float priceRetail;
 
     public Product(long vendorId, String title, float price, String description, String imageUrl, String vendorLogoUrl, float vendorCommission, String vendorAffiliateUrl,

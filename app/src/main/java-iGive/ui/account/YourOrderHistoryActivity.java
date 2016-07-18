@@ -168,10 +168,6 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
             }
         }
 
-        protected LayoutInflater getLayoutInflater() {
-            return layoutInflater;
-        }
-
         private void buildSections() {
             if (isOpenCursor()) {
                 Cursor cursor = getCursor();

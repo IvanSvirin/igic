@@ -1,17 +1,10 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Trip {
-    @Expose
     private long vendorId;
-    @Expose
     private int confirmationNumber;
-    @Expose
     private String tripDate;
-    @Expose
     private String vendorName;
-    @Expose
     private String vendorLogoUrl;
 
     public Trip(long vendorId, int confirmationNumber, String tripDate, String vendorName, String vendorLogoUrl) {

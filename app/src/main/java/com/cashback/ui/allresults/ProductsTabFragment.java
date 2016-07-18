@@ -53,7 +53,7 @@ public class ProductsTabFragment extends Fragment {
         } else {
             view = inflater.inflate(R.layout.layout_featured_tab_1, container, false);
         }
-        fragmentUi = new FragmentUi(this, view);
+        fragmentUi = new FragmentUi(view);
         if (!Utilities.isActiveConnection(getActivity())) {
             Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_connection, Snackbar.LENGTH_SHORT).show();
         }
@@ -71,7 +71,7 @@ public class ProductsTabFragment extends Fragment {
         @Bind(R.id.favorites_recycler_view)
         RecyclerView favoritesRecyclerView;
 
-        public FragmentUi(ProductsTabFragment fragment, View view) {
+        public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             initListAdapter();
         }
@@ -120,10 +120,12 @@ public class ProductsTabFragment extends Fragment {
                             Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
                                     productsArray.get(position).getVendorId()));
                             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                            cursor.moveToFirst();
-                            LaunchActivity.shareMerchantLink(context, cursor.getString(cursor.getColumnIndex(
-                                    DataContract.Merchants.COLUMN_AFFILIATE_URL)), productsArray.get(position).getVendorId(), productsArray.get(position).getVendorLogoUrl());
-                            cursor.close();
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                LaunchActivity.shareMerchantLink(context, cursor.getString(cursor.getColumnIndex(
+                                        DataContract.Merchants.COLUMN_AFFILIATE_URL)), productsArray.get(position).getVendorId(), productsArray.get(position).getVendorLogoUrl());
+                                cursor.close();
+                            }
                         } else {
                             Bundle loginBundle = new Bundle();
                             loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
@@ -139,12 +141,15 @@ public class ProductsTabFragment extends Fragment {
                             Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
                                     productsArray.get(position).getVendorId()));
                             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                            cursor.moveToFirst();
-                            Intent intent = new Intent(context, BrowserDealsActivity.class);
-                            intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
-                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
-                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
-                            context.startActivity(intent);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                Intent intent = new Intent(context, BrowserDealsActivity.class);
+                                intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                                intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                                intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                                context.startActivity(intent);
+                                cursor.close();
+                            }
                         } else {
                             Bundle loginBundle = new Bundle();
                             loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
@@ -159,13 +164,16 @@ public class ProductsTabFragment extends Fragment {
                         Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
                                 productsArray.get(position).getVendorId()));
                         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                        cursor.moveToFirst();
-                        Intent intent = new Intent(context, StoreActivity.class);
-                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
-                        intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL)));
-                        intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
-                        intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
-                        context.startActivity(intent);
+                        if (cursor != null) {
+                            cursor.moveToFirst();
+                            Intent intent = new Intent(context, StoreActivity.class);
+                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                            intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL)));
+                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                            intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                            context.startActivity(intent);
+                            cursor.close();
+                        }
                     }
                 });
             }

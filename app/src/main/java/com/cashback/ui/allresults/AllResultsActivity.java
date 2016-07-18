@@ -102,8 +102,7 @@ public class AllResultsActivity extends AppCompatActivity {
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if (TextUtils.isEmpty(query)) {
-                } else {
+                if (!TextUtils.isEmpty(query)) {
                     finish();
                     Intent intent = new Intent(AllResultsActivity.this, AllResultsActivity.class);
                     intent.putExtra("searching_word", query);
@@ -114,9 +113,6 @@ public class AllResultsActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)) {
-                } else {
-                }
                 return false;
             }
         });
@@ -132,19 +128,14 @@ public class AllResultsActivity extends AppCompatActivity {
     }
 
     public class UiActivity {
-        private Context context;
-        private TabsPagerAdapter tabsPagerAdapter;
         @Bind(R.id.tab_header)
         TabLayout tabLayout;
-        @Bind(R.id.nested_scroll)
-        FixedNestedScrollView nestedScrollView;
         @Bind(R.id.tab_content)
         ViewPager tabViewPager;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
 
         public UiActivity(AllResultsActivity activity) {
-            this.context = activity;
             ButterKnife.bind(this, activity);
             setupTabsView(getSupportFragmentManager());
 

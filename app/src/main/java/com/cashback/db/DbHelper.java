@@ -15,11 +15,6 @@ public class DbHelper extends SQLiteOpenHelper{
         innerHelper = new AuxiliaryDataDbHelper();
     }
 
-    public DbHelper(Context context, DatabaseErrorHandler errorHandler) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION, errorHandler);
-        innerHelper = new AuxiliaryDataDbHelper();
-    }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(innerHelper.SQL_CREATE_MERCHANTS_TABLE);

@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.rest.RestUtilities;
+import rest.RestUtilities;
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CharitySettingsRequest;
 

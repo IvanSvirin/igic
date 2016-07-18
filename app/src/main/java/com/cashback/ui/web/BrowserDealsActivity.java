@@ -52,7 +52,6 @@ import de.greenrobot.event.EventBus;
 
 public class BrowserDealsActivity extends AppCompatActivity {
     private ActivityUi ui;
-    private MenuItem menuItem;
     private Intent intent;
     private ArrayList<Coupon> coupons;
     private String exceptionInfo;
@@ -101,7 +100,6 @@ public class BrowserDealsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.info_menu, menu);
-        menuItem = menu.findItem(R.id.action_info);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -112,7 +110,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (itemId == R.id.action_info) {
-            showDescriptionDialog("");
+            showDescriptionDialog();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -136,7 +134,6 @@ public class BrowserDealsActivity extends AppCompatActivity {
         private boolean FIT_SCALE;
         private Context context;
         private ActionBar bar;
-        private String logo;
         CursorPagerAdapter cursorPagerAdapter;
 
         @Bind(R.id.toolbar)
@@ -254,14 +251,17 @@ public class BrowserDealsActivity extends AppCompatActivity {
 
                 Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(intent.getLongExtra("vendor_id", 1)));
                 Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-                cursor.moveToFirst();
-                String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
-                exceptionInfo = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_EXCEPTION_INFO));
-                description = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_DESCRIPTION));
-                bar.setTitle(name);
-                bar.setSubtitle(String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION))) + " " + getResources().getString(R.string.cash_back_percent));
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
+                    exceptionInfo = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_EXCEPTION_INFO));
+                    description = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_DESCRIPTION));
+                    bar.setTitle(name);
+                    bar.setSubtitle(String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION))) + " " + getResources().getString(R.string.cash_back_percent));
 //                loadContent(cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)) + "&token=" + Utilities.retrieveUserToken(context));
-                loadContent(intent.getStringExtra(PageFragment.AFFILIATE_URL) + "&token=" + Utilities.retrieveUserToken(context));
+                    loadContent(intent.getStringExtra(PageFragment.AFFILIATE_URL) + "&token=" + Utilities.retrieveUserToken(context));
+                    cursor.close();
+                }
             }
         }
 
@@ -363,7 +363,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
         }
     }
 
-    private void showDescriptionDialog(String message) {
+    private void showDescriptionDialog() {
         InfoDialog dialog = InfoDialog.newInstance(description, exceptionInfo);
         dialog.setCancelable(true);
         dialog.setStyle(DialogFragment.STYLE_NO_TITLE, 0);

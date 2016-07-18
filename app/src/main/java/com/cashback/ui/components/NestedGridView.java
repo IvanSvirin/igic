@@ -30,7 +30,7 @@ public class NestedGridView extends GridView {
         if (heightMode != MeasureSpec.EXACTLY) {
             ListAdapter listAdapter = getAdapter();
             if (listAdapter != null && !listAdapter.isEmpty()) {
-                int listPosition = 0;
+                int listPosition;
                 int measuredLastItem = 0;
                 int countItems = listAdapter.getCount();
                 for (listPosition = 0; listPosition < countItems
@@ -38,8 +38,7 @@ public class NestedGridView extends GridView {
                     View listItem = listAdapter.getView(listPosition, null, this);
                     //now it will not throw a NPE if listItem is a ViewGroup instance
                     if (listItem instanceof ViewGroup) {
-                        listItem.setLayoutParams(new LayoutParams(
-                                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                        listItem.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                     }
                     listItem.measure(widthMeasureSpec, heightMeasureSpec);
                     newHeight += listItem.getMeasuredHeight();

@@ -105,19 +105,19 @@ public class AuxiliaryDataDbHelper {
     public final String SQL_DELETE_SHOPPING_TRIPS_TABLE = "DROP TABLE IF EXISTS " + DataContract.ShoppingTrips.TABLE_NAME;
 
     public final String SQL_CREATE_ORDERS_TABLE =
-            "CREATE TABLE " + DataContract.Orders.TABLE_NAME + "(" +
-                    DataContract.Orders._ID + PRIMARY_TYPE +
-                    DataContract.Orders.COLUMN_VENDOR_ID + INT_TYPE + DELIMITER +
-                    DataContract.Orders.COLUMN_PURCHASE_TOTAL + REAL_TYPE + DELIMITER +
-                    DataContract.Orders.COLUMN_CONFIRMATION_NUMBER + INT_TYPE + DELIMITER +
-                    DataContract.Orders.COLUMN_ORDER_DATE + TEXT_TYPE + DELIMITER +
-                    DataContract.Orders.COLUMN_POSTED_DATE + TEXT_TYPE + DELIMITER +
-                    DataContract.Orders.COLUMN_VENDOR_NAME + TEXT_TYPE + DELIMITER +
-                    DataContract.Orders.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +
-                    DataContract.Orders.COLUMN_SHARED_STOCK_AMOUNT + REAL_TYPE + DELIMITER +
-                    DataContract.Orders.COLUMN_CASH_BACK + REAL_TYPE +
+            "CREATE TABLE " + DataContract.CashBackOrders.TABLE_NAME + "(" +
+                    DataContract.CashBackOrders._ID + PRIMARY_TYPE +
+                    DataContract.CashBackOrders.COLUMN_VENDOR_ID + INT_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_PURCHASE_TOTAL + REAL_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_CONFIRMATION_NUMBER + INT_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_ORDER_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_POSTED_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_VENDOR_NAME + TEXT_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_SHARED_STOCK_AMOUNT + REAL_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_CASH_BACK + REAL_TYPE +
                     " )";
-    public final String SQL_DELETE_ORDERS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Orders.TABLE_NAME;
+    public final String SQL_DELETE_ORDERS_TABLE = "DROP TABLE IF EXISTS " + DataContract.CashBackOrders.TABLE_NAME;
 
     public final String SQL_CREATE_CHARITY_ORDERS_TABLE =
             "CREATE TABLE " + DataContract.CharityOrders.TABLE_NAME + "(" +

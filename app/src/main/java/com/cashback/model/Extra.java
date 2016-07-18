@@ -1,27 +1,15 @@
 package com.cashback.model;
 
-import com.google.gson.annotations.Expose;
-
 public class Extra {
-    @Expose
     private long vendorId;
-    @Expose
     private String name;
-    @Expose
     private float commission;
-    @Expose
     private String exceptionInfo;
-    @Expose
     private String description;
-    @Expose
     private boolean giftCard;
-    @Expose
     private boolean isFavorite;
-    @Expose
     private String affiliateUrl;
-    @Expose
     private String logoUrl;
-    @Expose
     private float commissionWas;
 
     public Extra(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, float commissionWas,

@@ -24,7 +24,6 @@ import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
 import db.DataContract;
-import com.cashback.rest.RestUtilities;
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CashBackSettingsRequest;
 import com.cashback.ui.account.HelpActivity;
@@ -36,6 +35,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import rest.RestUtilities;
 import ui.MainActivity;
 
 public class AccountFragment extends Fragment {
