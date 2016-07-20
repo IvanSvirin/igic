@@ -156,19 +156,26 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             onBackPressed();
             return true;
         } else if (item.getItemId() == R.id.action_favorite) {
-            boolean state = item.isChecked();
-            if (state) {
-                item.setChecked(false);
-                item.setIcon(R.drawable.ic_favorite_removed_white);
-                new FavoritesRequest(this).deleteMerchant(vendorId);
+            if (Utilities.isLoggedIn(this)) {
+                boolean state = item.isChecked();
+                if (state) {
+                    item.setChecked(false);
+                    item.setIcon(R.drawable.ic_favorite_removed_white);
+                    new FavoritesRequest(this).deleteMerchant(vendorId);
+                } else {
+                    item.setChecked(true);
+                    item.setIcon(R.drawable.ic_favorite_added_white);
+                    new FavoritesRequest(this).addMerchant(vendorId);
+                }
+                progressDialog = Utilities.onCreateProgressDialog(this);
+                progressDialog.show();
+                return true;
             } else {
-                item.setChecked(true);
-                item.setIcon(R.drawable.ic_favorite_added_white);
-                new FavoritesRequest(this).addMerchant(vendorId);
+                Bundle loginBundle = new Bundle();
+                loginBundle.putString(Utilities.CALLING_ACTIVITY, "StoreActivity");
+                loginBundle.putLong(Utilities.VENDOR_ID, vendorId);
+                Utilities.needLoginDialog(this, loginBundle);
             }
-            progressDialog = Utilities.onCreateProgressDialog(this);
-            progressDialog.show();
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }

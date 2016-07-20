@@ -119,6 +119,7 @@ public class AccountFragment extends Fragment {
                 break;
             case R.id.action_logout:
                 Utilities.removeUserToken(getContext());
+                Utilities.removeEmail(getContext());
                 Utilities.saveUserEntry(getContext(), false);
                 getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), MainActivity.class));
@@ -171,7 +172,7 @@ public class AccountFragment extends Fragment {
         }
 
         private void initData() {
-            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNTS, null, null, null, null);
+            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CHARITY_ACCOUNT, null, null, null, null);
             if (cursor != null) {
                 cursor.moveToFirst();
             }

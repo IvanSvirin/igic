@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+
 import com.cashback.ui.login.LoginActivity;
 
 public class Utilities {
@@ -51,6 +52,14 @@ public class Utilities {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getString(PREF_EMAIL_KEY, null);
     }
+
+    public static boolean removeEmail(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.remove(PREF_EMAIL_KEY);
+        return editor.commit();
+    }
+
 
     public static boolean saveShareDealText(Context context, String s) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);

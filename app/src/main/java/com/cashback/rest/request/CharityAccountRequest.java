@@ -97,7 +97,7 @@ public class CharityAccountRequest {
                     values.put(DataContract.CharityAccounts.COLUMN_REFERRER_ID, jObj.getString("referrer_id"));
 
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                    handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
+                    handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNT, values);
                     EventBus.getDefault().post(new AccountEvent(true, null));
                 }
             } catch (JSONException e) {

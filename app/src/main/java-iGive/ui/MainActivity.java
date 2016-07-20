@@ -1,6 +1,5 @@
 package ui;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         CursorLoader loader = null;
         if (id == MainActivity.ACCOUNT_LOADER) {
             loader = new CursorLoader(this);
-            loader.setUri(DataContract.URI_CHARITY_ACCOUNTS);
+            loader.setUri(DataContract.URI_CHARITY_ACCOUNT);
         }
         return loader;
     }

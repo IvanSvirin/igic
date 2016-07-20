@@ -83,6 +83,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        fragmentUi.extraAdapter.notifyDataSetChanged();
     }
 
     @Override

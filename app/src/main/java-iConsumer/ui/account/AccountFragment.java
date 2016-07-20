@@ -106,10 +106,10 @@ public class AccountFragment extends Fragment {
             case R.id.action_rate_the_app:
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 //Try Google play
-                intent.setData(Uri.parse("market://details?id=[Id]"));
+                intent.setData(Uri.parse("market://details?id=com.iconsumer.button"));
                 if (!StartRateAppActivity(intent)) {
                     //Market (Google play) app seems not installed, let's try to open a webbrowser
-                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?[Id]"));
+                    intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=com.iconsumer.button"));
                     if (!StartRateAppActivity(intent)) {
                         //Well if this also fails, we have run out of options, inform the user.
                         Toast.makeText(getActivity(), "Could not open Android market, please install the market app.", Toast.LENGTH_SHORT).show();
@@ -118,6 +118,7 @@ public class AccountFragment extends Fragment {
                 break;
             case R.id.action_logout:
                 Utilities.removeUserToken(getContext());
+                Utilities.removeEmail(getContext());
                 Utilities.saveUserEntry(getContext(), false);
                 getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), MainActivity.class));
@@ -170,7 +171,7 @@ public class AccountFragment extends Fragment {
         }
 
         private void initData() {
-            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CASHBACK_ACCOUNTS, null, null, null, null);
+            Cursor cursor = getContext().getContentResolver().query(DataContract.URI_CASH_BACK_ACCOUNT, null, null, null, null);
             if (cursor != null) {
                 cursor.moveToFirst();
             }

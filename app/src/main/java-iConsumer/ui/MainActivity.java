@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         CursorLoader loader = null;
         if (id == MainActivity.ACCOUNT_LOADER) {
             loader = new CursorLoader(this);
-            loader.setUri(DataContract.URI_CASHBACK_ACCOUNTS);
+            loader.setUri(DataContract.URI_CASH_BACK_ACCOUNT);
         }
         return loader;
     }

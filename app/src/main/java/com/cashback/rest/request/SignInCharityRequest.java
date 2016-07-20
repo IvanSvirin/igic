@@ -28,6 +28,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import de.greenrobot.event.EventBus;
+import rest.RestUtilities;
 
 public class SignInCharityRequest {
     private AuthObject authObject;
@@ -142,7 +143,7 @@ public class SignInCharityRequest {
                     values.put(DataContract.CharityAccounts.COLUMN_REFERRER_ID, jObj.getString("referrer_id"));
 
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                    handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNTS, values);
+                    handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CHARITY_ACCOUNT, values);
                     if (pathEnd.equals("login")) {
                         EventBus.getDefault().post(new SignInEvent(true, token));
                     } else {

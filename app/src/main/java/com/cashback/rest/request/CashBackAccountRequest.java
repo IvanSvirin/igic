@@ -8,8 +8,6 @@ import android.util.Log;
 import com.cashback.Utilities;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.AccountEvent;
-import com.cashback.rest.event.SignInEvent;
-import com.cashback.rest.event.SignUpEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -97,7 +95,7 @@ public class CashBackAccountRequest {
                     values.put(DataContract.CashbackAccounts.COLUMN_REFERRER_ID, jObj.getString("referrer_id"));
 
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                    handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CASHBACK_ACCOUNTS, values);
+                    handler.startInsert(DataInsertHandler.ACCOUNT_TOKEN, null, DataContract.URI_CASH_BACK_ACCOUNT, values);
                     EventBus.getDefault().post(new AccountEvent(true, null));
                 }
             } catch (JSONException e) {

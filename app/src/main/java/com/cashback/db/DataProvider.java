@@ -271,7 +271,7 @@ public class DataProvider extends ContentProvider {
             case CHARITY_ACCOUNTS:
                 rowID = db.insertWithOnConflict(DataContract.CharityAccounts.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
-                    resultUri = ContentUris.withAppendedId(DataContract.URI_CHARITY_ACCOUNTS, rowID);
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_CHARITY_ACCOUNT, rowID);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
@@ -279,7 +279,7 @@ public class DataProvider extends ContentProvider {
             case CASHBACK_ACCOUNTS:
                 rowID = db.insertWithOnConflict(DataContract.CashbackAccounts.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
-                    resultUri = ContentUris.withAppendedId(DataContract.URI_CASHBACK_ACCOUNTS, rowID);
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_CASH_BACK_ACCOUNT, rowID);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }

@@ -18,8 +18,8 @@ public class DataContract {
     public final static Uri URI_SHOPPING_TRIPS = Uri.withAppendedPath(BASE_CONTENT_URI, "shopping_trips");
     public static final Uri URI_ORDERS = Uri.withAppendedPath(BASE_CONTENT_URI, "orders");
     public static final Uri URI_CHARITY_ORDERS = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_orders");
-    public static final Uri URI_CHARITY_ACCOUNTS = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_accounts");
-    public static final Uri URI_CASHBACK_ACCOUNTS = Uri.withAppendedPath(BASE_CONTENT_URI, "cashback_accounts");
+    public static final Uri URI_CHARITY_ACCOUNT = Uri.withAppendedPath(BASE_CONTENT_URI, "charity_accounts");
+    public static final Uri URI_CASH_BACK_ACCOUNT = Uri.withAppendedPath(BASE_CONTENT_URI, "cashback_accounts");
     public static final Uri URI_MISC = Uri.withAppendedPath(BASE_CONTENT_URI, "misc");
 
     public static class Merchants implements BaseColumns {

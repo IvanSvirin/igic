@@ -73,6 +73,10 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
         super.onActivityCreated(savedInstanceState);
         if (Utilities.isLoggedIn(getContext())) {
             getLoaderManager().initLoader(MainActivity.FAVORITES_LOADER, null, this);
+        } else {
+            if (fragmentUi.favoritesRecyclerView != null) {
+                fragmentUi.favoritesRecyclerView.setAdapter(null);
+            }
         }
     }
 
