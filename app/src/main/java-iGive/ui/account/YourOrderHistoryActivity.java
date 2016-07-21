@@ -51,7 +51,7 @@ public class YourOrderHistoryActivity extends AppCompatActivity implements Loade
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle(R.string.your_order_history);
+        setTitle(R.string.shopping_report);
 
         uiActivity = new UiActivity(this);
         //Google Analytics

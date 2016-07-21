@@ -6,7 +6,9 @@ import android.os.AsyncTask;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.CouponsEvent;
 
@@ -102,6 +104,13 @@ public class CouponsRequest {
                         values.put(DataContract.Coupons.COLUMN_AFFILIATE_URL, jObj.getString("affiliate_url"));
                         values.put(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
                         values.put(DataContract.Coupons.COLUMN_VENDOR_COMMISSION, jObj.getDouble("vendor_commission"));
+                        if (jObj.has("owners_benefit")) {
+                            if (jObj.getBoolean("owners_benefit")) {
+                                values.put(DataContract.Coupons.COLUMN_OWNERS_BENEFIT, 1);
+                            }
+                        } else {
+                            values.put(DataContract.Coupons.COLUMN_OWNERS_BENEFIT, 0);
+                        }
                         listCouponsValues.add(values);
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());

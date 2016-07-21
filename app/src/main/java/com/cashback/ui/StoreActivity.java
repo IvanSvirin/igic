@@ -75,6 +75,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
     private String description;
     private String logoUrl;
     private float commission;
+    private int benefit;
     private ProgressDialog progressDialog;
 
     @Override
@@ -92,15 +93,17 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         progressDialog.show();
         Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(vendorId));
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        vendorName = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
-        exceptionInfo = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_EXCEPTION_INFO));
-        description = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_DESCRIPTION));
-
-        commission = cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
-        logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL));
-        affiliateUrl = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL));
-        cursor.close();
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            vendorName = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
+            exceptionInfo = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_EXCEPTION_INFO));
+            description = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_DESCRIPTION));
+            commission = cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
+            benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Merchants.COLUMN_OWNERS_BENEFIT));
+            logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL));
+            affiliateUrl = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL));
+            cursor.close();
+        }
 
         getSupportLoaderManager().initLoader(MainActivity.FAVORITES_LOADER, null, this);
 
@@ -267,11 +270,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         intent.putExtra("vendor_id", vendorId);
                         intent.putExtra("vendor_commission", commission);
                         intent.putExtra("affiliate_url", coupons.get(position).getAffiliateUrl());
+                        intent.putExtra("coupon_id", coupons.get(position).getCouponId());
                         context.startActivity(intent);
                     } else {
                         Bundle loginBundle = new Bundle();
-                        loginBundle.putString(Utilities.CALLING_ACTIVITY, "StoreActivity");
+                        loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
                         loginBundle.putLong(Utilities.VENDOR_ID, vendorId);
+                        loginBundle.putLong(Utilities.COUPON_ID, coupons.get(position).getCouponId());
+                        loginBundle.putString(Utilities.AFFILIATE_URL, coupons.get(position).getAffiliateUrl());
+                        loginBundle.putFloat(Utilities.VENDOR_COMMISSION, commission);
                         Utilities.needLoginDialog(context, loginBundle);
                     }
                 }
@@ -297,11 +304,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         intent.putExtra("vendor_id", vendorId);
                         intent.putExtra("vendor_commission", commission);
                         intent.putExtra("affiliate_url", affiliateUrl);
+                        intent.putExtra("coupon_id", coupons.get(position).getCouponId());
                         context.startActivity(intent);
                     } else {
                         Bundle loginBundle = new Bundle();
-                        loginBundle.putString(Utilities.CALLING_ACTIVITY, "StoreActivity");
+                        loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
                         loginBundle.putLong(Utilities.VENDOR_ID, vendorId);
+                        loginBundle.putLong(Utilities.COUPON_ID, coupons.get(position).getCouponId());
+                        loginBundle.putString(Utilities.AFFILIATE_URL, coupons.get(position).getAffiliateUrl());
+                        loginBundle.putFloat(Utilities.VENDOR_COMMISSION, commission);
                         Utilities.needLoginDialog(context, loginBundle);
                     }
                 }
@@ -356,7 +367,16 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         private void setData(final String url) {
-            cashBack.setText(String.valueOf(commission));
+            if (commission != 0) {
+                cashBack.setText("+ " + String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
+            } else {
+                if (benefit == 1) {
+                    cashBack.setText("OWNERS BENEFIT");
+                } else {
+                    cashBack.setText("SPECIAL RATE");
+                }
+            }
+
             storeName.setText(vendorName);
 
             Picasso.with(context).load(url).into(storeLogo, new Callback() {

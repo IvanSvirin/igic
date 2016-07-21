@@ -116,6 +116,11 @@ public class SearchRequest {
                         merchant.setExceptionInfo(jObj.getString("exception_info"));
                         merchant.setName(jObj.getString("name"));
                         merchant.setVendorId(jObj.getLong("vendor_id"));
+                        if (jObj.has("owners_benefit")) {
+                            merchant.setOwnersBenefit(jObj.getBoolean("owners_benefit"));
+                        } else {
+                            merchant.setOwnersBenefit(false);
+                        }
                         storesArray.add(merchant);
                     }
                     Product product;
@@ -146,6 +151,11 @@ public class SearchRequest {
                         coupon.setVendorLogoUrl(jObj.getString("vendor_logo_url"));
                         coupon.setLabel(jObj.getString("label"));
                         coupon.setVendorCommission((float) jObj.getDouble("vendor_commission"));
+                        if (jObj.has("owners_benefit")) {
+                            coupon.setOwnersBenefit(jObj.getBoolean("owners_benefit"));
+                        } else {
+                            coupon.setOwnersBenefit(false);
+                        }
                         dealsArray.add(coupon);
                     }
                     EventBus.getDefault().post(new SearchEvent(true, "OK"));

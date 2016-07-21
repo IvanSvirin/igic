@@ -25,6 +25,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Merchants.COLUMN_GIFT_CARD + BOOL_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_IS_FAVORITE + INT_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.Merchants.COLUMN_OWNERS_BENEFIT + BOOL_TYPE + DELIMITER +
                     DataContract.Merchants.COLUMN_LOGO_URL + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_MERCHANTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Merchants.TABLE_NAME;
@@ -40,6 +41,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Favorites.COLUMN_GIFT_CARD + BOOL_TYPE + DELIMITER +
                     DataContract.Favorites.COLUMN_IS_FAVORITE + INT_TYPE + DELIMITER +
                     DataContract.Favorites.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.Merchants.COLUMN_OWNERS_BENEFIT + BOOL_TYPE + DELIMITER +
                     DataContract.Favorites.COLUMN_LOGO_URL + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_FAVORITES_TABLE = "DROP TABLE IF EXISTS " + DataContract.Merchants.TABLE_NAME;
@@ -56,6 +58,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Extras.COLUMN_IS_FAVORITE + INT_TYPE + DELIMITER +
                     DataContract.Extras.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
                     DataContract.Extras.COLUMN_COMMISSION_WAS + TEXT_TYPE + DELIMITER +
+                    DataContract.Merchants.COLUMN_OWNERS_BENEFIT + BOOL_TYPE + DELIMITER +
                     DataContract.Extras.COLUMN_LOGO_URL + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_EXTRAS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Extras.TABLE_NAME;
@@ -72,6 +75,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Coupons.COLUMN_EXPIRATION_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.Merchants.COLUMN_OWNERS_BENEFIT + BOOL_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_VENDOR_COMMISSION + REAL_TYPE +
                     " )";
     public final String SQL_DELETE_COUPONS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Coupons.TABLE_NAME;
@@ -166,6 +170,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.CashbackAccounts.COLUMN_NEXT_PAYMENT_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT + REAL_TYPE + DELIMITER +
                     DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT + REAL_TYPE + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_NEXT_CHECK_AMOUNT + REAL_TYPE + DELIMITER +
                     DataContract.CashbackAccounts.COLUMN_REFERRER_ID + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_CASHBACK_ACCOUNTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.CashbackAccounts.TABLE_NAME;

@@ -56,12 +56,12 @@
                         android:layout_gravity="left|top"
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/title_cash_pending"
+                        android:text="@string/title_next_check"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:alpha="0.87" />
 
                     <TextView
-                        android:id="@+id/userCashPending"
+                        android:id="@+id/userNextCheck"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
@@ -84,6 +84,36 @@
                         android:layout_gravity="left|bottom"
                         android:id="@+id/nextPaymentDate"
                         android:alpha="0.54" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|top"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/title_cash_pending"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
+
+                    <TextView
+                        android:id="@+id/userCashPending"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|top"
+                        android:paddingEnd="@dimen/padding_small"
+                        android:paddingRight="@dimen/padding_small"
+                        android:paddingStart="0dp"
+                        android:paddingLeft="0dp"
+                        android:text="@string/format_donation_amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
 
                 </FrameLayout>
 
@@ -133,7 +163,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
                     android:layout_gravity="center_vertical"
-                    android:id="@+id/shoppingTripsFrame">
+                    android:id="@+id/shoppingReportFrame">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -141,9 +171,9 @@
                         android:layout_gravity="start|center_vertical"
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/shopping_trips"
+                        android:text="@string/shopping_report"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/shoppingTrips"
+                        android:id="@+id/shoppingReport"
                         android:alpha="0.87" />
 
                 </FrameLayout>
@@ -152,7 +182,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
                     android:layout_gravity="center_vertical"
-                    android:id="@+id/yourOrderHistoryFrame">
+                    android:id="@+id/storeVisitsFrame">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -160,9 +190,9 @@
                         android:layout_gravity="start|center_vertical"
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/your_order_history"
+                        android:text="@string/store_visits"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/yourOrderHistory"
+                        android:id="@+id/storeVisits"
                         android:alpha="0.87" />
 
                 </FrameLayout>
@@ -209,7 +239,7 @@
                         android:alpha="0.87" />
 
                     <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/trending_deals_alerts_switcher"
+                        android:id="@+id/news_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
@@ -231,45 +261,6 @@
                         android:alpha="0.54" />
                 </FrameLayout>
 
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left|top"
-                        android:paddingStart="@dimen/padding_small"
-                        android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/cash_back_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:alpha="0.87" />
-
-                    <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/cash_back_alerts_switcher"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right|top"
-                        android:checked="false"
-                        app:showText="false"
-                        android:theme="@style/AppTheme.SwitchCompat"
-                        app:theme="@style/AppTheme.SwitchCompat" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="@dimen/padding_small"
-                        android:layout_marginLeft="@dimen/padding_small"
-                        android:gravity="center_vertical|start"
-                        android:text="@string/notifications_cash_back_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:layout_gravity="left|bottom"
-                        android:id="@+id/textView"
-                        android:alpha="0.54" />
-                </FrameLayout>
-
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
@@ -286,7 +277,7 @@
                         android:alpha="0.87" />
 
                     <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/payments_alerts_switcher"
+                        android:id="@+id/purchase_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
@@ -305,6 +296,44 @@
                         android:textAppearance="@style/AppTheme.TextAppearance.Thin"
                         android:layout_gravity="left|bottom"
                         android:id="@+id/textView2"
+                        android:alpha="0.54" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|top"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/cash_back_alerts"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/special_switcher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|top"
+                        android:checked="false"
+                        app:showText="false"
+                        android:theme="@style/AppTheme.SwitchCompat"
+                        app:theme="@style/AppTheme.SwitchCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_marginLeft="@dimen/padding_small"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/notifications_cash_back_alerts"
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
+                        android:layout_gravity="left|bottom"
+                        android:id="@+id/textView"
                         android:alpha="0.54" />
                 </FrameLayout>
             </LinearLayout>

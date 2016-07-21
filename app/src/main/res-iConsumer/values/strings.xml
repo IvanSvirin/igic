@@ -12,12 +12,12 @@
     <string name="title_cash_pending">Cash Pending</string>
     <string name="title_payments">Payments</string>
     <string name="join_date">You Joined:</string>
-    <string name="cash_back_alerts">Cash Back Alerts</string>
+    <string name="cash_back_alerts">Send Me Special Alerts</string>
     <string name="title_cash_back_activity">CASH BACK ACTIVITY</string>
     <string name="next_payment_date">Next Payment</string>
-    <string name="payments_alerts">iConsumer Payments Alerts</string>
-    <string name="notifications_cash_back_alerts">Notification when you earn Cash Back</string>
-    <string name="notifications_payments_alerts">Notification when we sent your payment</string>
+    <string name="payments_alerts">Send Me Purchase Notifications</string>
+    <string name="notifications_cash_back_alerts">About membership status, checks and stocks</string>
+    <string name="notifications_payments_alerts">When you make a purchase</string>
     <string name="how_to_use">How to Use iConsumer</string>
     <string name="where_is_mine">Where\'s My Cash Back</string>
     <string name="cash_back_percent">% CASH BACK</string>
@@ -38,17 +38,18 @@
     <string name="gcm_path">https://beta1.iconsumer.com/rest/icon/api/v1/gcm/</string>
     <string name="orders_path">https://beta1.iconsumer.com/rest/icon/api/v1/account/history/order/</string>
     <string name="trip_path">https://beta1.iconsumer.com/rest/icon/api/v1/account/history/trip/</string>
+    <string name="misc_path">https://beta1.iconsumer.com/rest/icon/api/v1/misc/</string>
     <string name="cashback_notify">cashback_notify</string>
-    <string name="tell_a_friend">iConsumer membership is free and our members
-        are owners of iConsumer. Each person who joins
-        iConsumer earns 100 shares of stock just for
-        joining.
-    </string>
+    <string name="tell_a_friend">Invite your friends to join iConsumer. The first time each friend shops and earns cash back, you\'ll earn 100 shares of stock in iConsumer!</string>
     <string name="welcome_to_igive">Welcome to iConsumer!</string>
     <string name="make_donation_to_shop">Get paid to shop!\nEach up to 25% Cash Back over 1800+ stores.</string>
     <string name="buy_at_your_favorite_stores_to_do_donation">Buy at your favorite stores \n to do Cash Back!</string>
     <string name="your_donation_money_with_coupons">You save money \n with coupons and cash back.</string>
     <string name="please_log_in">Please log into your iConsumer member account to continue.</string>
     <string name="logo_url">https://pbs.twimg.com/profile_images/611565418734485504/kykoYqiK.jpg</string>
+    <string name="cash_back">CASH BACK</string>
+    <string name="cash_back_header">Cash Back</string>
+    <string name="notifications_trending_deals_alerts">Great deals and ways to earn with iConsumer</string>
+    <string name="trending_deals_alerts">Send Me Weekly Newsletters</string>
 
 </resources>

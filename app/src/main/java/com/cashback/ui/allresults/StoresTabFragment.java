@@ -185,10 +185,10 @@ public class StoresTabFragment extends Fragment {
                 vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        int position = getAdapterPosition();
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(storesArray.get(position).getVendorId()));
+                        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
                         if (Utilities.isLoggedIn(context)) {
-                            int position = getAdapterPosition();
-                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(storesArray.get(position).getVendorId()));
-                            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
                             if (cursor != null) {
                                 cursor.moveToFirst();
                                 Intent intent = new Intent(context, BrowserDealsActivity.class);
@@ -199,9 +199,15 @@ public class StoresTabFragment extends Fragment {
                                 cursor.close();
                             }
                         } else {
-                            Bundle loginBundle = new Bundle();
-                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
-                            Utilities.needLoginDialog(context, loginBundle);
+                            if (cursor != null) {
+                                Bundle loginBundle = new Bundle();
+                                loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
+                                loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                                loginBundle.putString(Utilities.AFFILIATE_URL, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                                loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                                Utilities.needLoginDialog(context, loginBundle);
+                                cursor.close();
+                            }
                         }
                     }
                 });
@@ -246,9 +252,19 @@ public class StoresTabFragment extends Fragment {
         @Override
         public void onBindViewHolder(StoresViewHolder holder, int position) {
             String logoUrl = storesArray.get(position).getLogoUrl();
-            String commission = String.valueOf(storesArray.get(position).getCommission());
+            float commission = storesArray.get(position).getCommission();
             picasso.load(logoUrl).into(holder.vhStoreLogo);
-            holder.vhCashBack.setText("+ " + commission);
+            boolean benefit = storesArray.get(position).isOwnersBenefit();
+            if (commission != 0) {
+                holder.vhCashBack.setText("+ " + String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
+            } else {
+                if (benefit) {
+                    holder.vhCashBack.setText("OWNERS BENEFIT");
+                } else {
+                    holder.vhCashBack.setText("SPECIAL RATE");
+                }
+            }
+
             Uri uri = Uri.withAppendedPath(DataContract.URI_FAVORITES, String.valueOf(storesArray.get(position).getVendorId()));
             Cursor c = context.getContentResolver().query(uri, null, null, null, null);
             int count = 0;

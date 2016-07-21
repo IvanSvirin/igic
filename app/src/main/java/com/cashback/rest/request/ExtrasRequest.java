@@ -102,6 +102,13 @@ public class ExtrasRequest {
                         values.put(DataContract.Extras.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
                         values.put(DataContract.Extras.COLUMN_NAME, jObj.getString("name"));
                         values.put(DataContract.Extras.COLUMN_COMMISSION_WAS, jObj.getString("commission_was"));
+                        if (jObj.has("owners_benefit")) {
+                            if (jObj.getBoolean("owners_benefit")) {
+                                values.put(DataContract.Extras.COLUMN_OWNERS_BENEFIT, 1);
+                            }
+                        } else {
+                            values.put(DataContract.Extras.COLUMN_OWNERS_BENEFIT, 0);
+                        }
                         listValues.add(values);
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());

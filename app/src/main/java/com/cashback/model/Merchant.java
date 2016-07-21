@@ -10,19 +10,31 @@ public class Merchant {
     private boolean isFavorite;
     private String affiliateUrl;
     private String logoUrl;
+    private boolean ownersBenefit;
 
-    public Merchant(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, boolean isFavorit) {
+    public Merchant(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, boolean isFavorite, String affiliateUrl, String logoUrl,
+                    boolean ownersBenefit) {
         this.vendorId = vendorId;
         this.name = name;
         this.commission = commission;
         this.exceptionInfo = exceptionInfo;
         this.description = description;
         this.giftCard = giftCard;
+        this.isFavorite = isFavorite;
         this.affiliateUrl = affiliateUrl;
         this.logoUrl = logoUrl;
+        this.ownersBenefit = ownersBenefit;
     }
 
     public Merchant() {
+    }
+
+    public boolean isOwnersBenefit() {
+        return ownersBenefit;
+    }
+
+    public void setOwnersBenefit(boolean ownersBenefit) {
+        this.ownersBenefit = ownersBenefit;
     }
 
     public boolean isFavorite() {

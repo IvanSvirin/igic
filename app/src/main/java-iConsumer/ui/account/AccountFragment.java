@@ -139,9 +139,9 @@ public class AccountFragment extends Fragment {
     public void onEvent(SettingsEvent event) {
         if (event.isSuccess) {
             gotAnswer = true;
-            fragmentUi.dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
-            fragmentUi.cashbackSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
-            fragmentUi.paymentsSwitcher.setChecked(Utilities.isPaymentsNotifyOn(getContext()));
+            fragmentUi.newsSwitcher.setChecked(Utilities.isWeeklyNewsNotifyOn(getContext()));
+            fragmentUi.specialSwitcher.setChecked(Utilities.isSpecialAlertNotifyOn(getContext()));
+            fragmentUi.purchaseSwitcher.setChecked(Utilities.isPurchaseNotifyOn(getContext()));
         }
     }
 
@@ -149,6 +149,8 @@ public class AccountFragment extends Fragment {
         private Context context;
         @Bind(R.id.toolbar)
         Toolbar toolbar;
+        @Bind(R.id.userNextCheck)
+        TextView userNextCheck;
         @Bind(R.id.userCashPending)
         TextView userCashPending;
         @Bind(R.id.userPayments)
@@ -157,12 +159,12 @@ public class AccountFragment extends Fragment {
         TextView nextPaymentDate;
         @Bind(R.id.joinDate)
         TextView joinDate;
-        @Bind(R.id.trending_deals_alerts_switcher)
-        SwitchCompat dealsSwitcher;
-        @Bind(R.id.cash_back_alerts_switcher)
-        SwitchCompat cashbackSwitcher;
-        @Bind(R.id.payments_alerts_switcher)
-        SwitchCompat paymentsSwitcher;
+        @Bind(R.id.news_switcher)
+        SwitchCompat newsSwitcher;
+        @Bind(R.id.purchase_switcher)
+        SwitchCompat purchaseSwitcher;
+        @Bind(R.id.special_switcher)
+        SwitchCompat specialSwitcher;
 
         public FragmentUi(AccountFragment fragment, View view) {
             this.context = fragment.getContext();
@@ -176,38 +178,39 @@ public class AccountFragment extends Fragment {
                 cursor.moveToFirst();
             }
             userCashPending.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT))));
+            userNextCheck.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_NEXT_CHECK_AMOUNT))));
             userPayments.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_NEXT_PAYMENT_DATE));
             nextPaymentDate.setText("Next Payment: " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             date = cursor.getString(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_MEMBER_DATE));
             joinDate.setText("You Joined: " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             cursor.close();
-            dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
-            cashbackSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
-            paymentsSwitcher.setChecked(Utilities.isPaymentsNotifyOn(getContext()));
-            dealsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            newsSwitcher.setChecked(Utilities.isWeeklyNewsNotifyOn(getContext()));
+            specialSwitcher.setChecked(Utilities.isSpecialAlertNotifyOn(getContext()));
+            purchaseSwitcher.setChecked(Utilities.isPurchaseNotifyOn(getContext()));
+            newsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (gotAnswer) {
-                        new CashBackSettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), isChecked, Utilities.isPaymentsNotifyOn(getContext()));
+                        new CashBackSettingsRequest(context).changeData(Utilities.isSpecialAlertNotifyOn(getContext()), isChecked, Utilities.isPurchaseNotifyOn(getContext()));
                         gotAnswer = false;
                     }
                 }
             });
-            cashbackSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            specialSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (gotAnswer) {
-                        new CashBackSettingsRequest(context).changeData(isChecked, Utilities.isDealsNotifyOn(getContext()), Utilities.isPaymentsNotifyOn(getContext()));
+                        new CashBackSettingsRequest(context).changeData(isChecked, Utilities.isWeeklyNewsNotifyOn(getContext()), Utilities.isPurchaseNotifyOn(getContext()));
                         gotAnswer = false;
                     }
                 }
             });
-            paymentsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            purchaseSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (gotAnswer) {
-                        new CashBackSettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), Utilities.isDealsNotifyOn(getContext()), isChecked);
+                        new CashBackSettingsRequest(context).changeData(Utilities.isSpecialAlertNotifyOn(getContext()), Utilities.isWeeklyNewsNotifyOn(getContext()), isChecked);
                         gotAnswer = false;
                     }
                 }
@@ -222,7 +225,7 @@ public class AccountFragment extends Fragment {
             return toolbar;
         }
 
-        @OnClick({R.id.paymentsFrame, R.id.shoppingTripsFrame, R.id.yourOrderHistoryFrame, R.id.helpFrame})
+        @OnClick({R.id.paymentsFrame, R.id.storeVisitsFrame, R.id.shoppingReportFrame, R.id.helpFrame})
         public void onClicks(View view) {
             Intent intent;
             switch (view.getId()) {
@@ -230,11 +233,11 @@ public class AccountFragment extends Fragment {
                     intent = new Intent(context, PaymentsActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.shoppingTripsFrame:
+                case R.id.storeVisitsFrame:
                     intent = new Intent(context, ShoppingTripsActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.yourOrderHistoryFrame:
+                case R.id.shoppingReportFrame:
                     intent = new Intent(context, YourOrderHistoryActivity.class);
                     startActivity(intent);
                     break;

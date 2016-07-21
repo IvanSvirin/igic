@@ -151,6 +151,8 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
         progressDialog.dismiss();
         if (event.isSuccess) {
             getLoaderManager().restartLoader(MainActivity.MERCHANTS_LOADER, null, this);
+        } else {
+            Utilities.showFailNotification(event.message, getContext());
         }
     }
 
@@ -333,7 +335,16 @@ public class AllStoresFragment extends Fragment implements LoaderManager.LoaderC
             String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
             holder.shopName.setText(name);
             String commission = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
-            holder.shopCommission.setText(commission + "%");
+            int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Merchants.COLUMN_OWNERS_BENEFIT));
+            if (!commission.equals("0")) {
+                holder.shopCommission.setText(commission + "%");
+            } else {
+                if (benefit == 1) {
+                    holder.shopCommission.setText("OWNERS BENEFIT");
+                } else {
+                    holder.shopCommission.setText("SPECIAL RATE");
+                }
+            }
         }
 
         protected boolean isOpenCursor() {

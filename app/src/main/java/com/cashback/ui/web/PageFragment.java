@@ -17,6 +17,7 @@ import com.cashback.R;
 public class PageFragment extends Fragment {
     public static final String COUPON_CODE = "coupon_code";
     public static final String VENDOR_ID = "vendor_id";
+    public static final String COUPON_ID = "coupon_id";
     public static final String EXPIRATION_DATE = "expiration_date";
     public static final String RESTRICTIONS = "restrictions";
     public static final String GOT_CODE = "got_code";
@@ -59,6 +60,7 @@ public class PageFragment extends Fragment {
                 getActivity().finish();
                 Intent intent = new Intent(getContext(), BrowserDealsActivity.class);
                 intent.putExtra(VENDOR_ID, getArguments().getLong(VENDOR_ID));
+                intent.putExtra(COUPON_ID, getArguments().getLong(COUPON_ID));
                 intent.putExtra(AFFILIATE_URL, getArguments().getString(AFFILIATE_URL));
                 if (getArguments().getString(COUPON_CODE).length() >= 4) {
                     intent.putExtra(GOT_CODE, true);

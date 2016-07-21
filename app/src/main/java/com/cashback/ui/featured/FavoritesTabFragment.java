@@ -25,7 +25,9 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.rest.event.FavoritesEvent;
 import com.cashback.rest.request.FavoritesRequest;
 
@@ -213,9 +215,15 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Bundle loginBundle = new Bundle();
-                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
-                            Utilities.needLoginDialog(context, loginBundle);
+                            if (cursor != null) {
+                                Bundle loginBundle = new Bundle();
+                                loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
+                                loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Favorites.COLUMN_VENDOR_ID)));
+                                loginBundle.putString(Utilities.AFFILIATE_URL, cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_AFFILIATE_URL)));
+                                loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION)));
+                                Utilities.needLoginDialog(context, loginBundle);
+                                cursor.close();
+                            }
                         }
                     }
                 });
@@ -260,7 +268,16 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
             final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_LOGO_URL));
             String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Favorites.COLUMN_COMMISSION));
             picasso.load(logoUrl).into(holder.vhStoreLogo);
-            holder.vhCashBack.setText("+ " + cashBack);
+            int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Favorites.COLUMN_OWNERS_BENEFIT));
+            if (!cashBack.equals("0")) {
+                holder.vhCashBack.setText("+ " + cashBack + "% " + context.getString(R.string.cash_back));
+            } else {
+                if (benefit == 1) {
+                    holder.vhCashBack.setText("OWNERS BENEFIT");
+                } else {
+                    holder.vhCashBack.setText("SPECIAL RATE");
+                }
+            }
         }
 
         @Override

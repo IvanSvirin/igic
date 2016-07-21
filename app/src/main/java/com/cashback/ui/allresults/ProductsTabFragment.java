@@ -21,7 +21,9 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.model.Product;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
@@ -136,11 +138,11 @@ public class ProductsTabFragment extends Fragment {
                 vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        int position = getAdapterPosition();
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
+                                productsArray.get(position).getVendorId()));
+                        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
                         if (Utilities.isLoggedIn(context)) {
-                            int position = getAdapterPosition();
-                            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
-                                    productsArray.get(position).getVendorId()));
-                            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
                             if (cursor != null) {
                                 cursor.moveToFirst();
                                 Intent intent = new Intent(context, BrowserDealsActivity.class);
@@ -151,9 +153,15 @@ public class ProductsTabFragment extends Fragment {
                                 cursor.close();
                             }
                         } else {
-                            Bundle loginBundle = new Bundle();
-                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "AllResultsActivity");
-                            Utilities.needLoginDialog(context, loginBundle);
+                            if (cursor != null) {
+                                Bundle loginBundle = new Bundle();
+                                loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
+                                loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                                loginBundle.putString(Utilities.AFFILIATE_URL, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                                loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                                Utilities.needLoginDialog(context, loginBundle);
+                                cursor.close();
+                            }
                         }
                     }
                 });
@@ -161,8 +169,7 @@ public class ProductsTabFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         int position = getAdapterPosition();
-                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(
-                                productsArray.get(position).getVendorId()));
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(productsArray.get(position).getVendorId()));
                         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
                         if (cursor != null) {
                             cursor.moveToFirst();
@@ -198,6 +205,11 @@ public class ProductsTabFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ProductsViewHolder holder, int position) {
+            Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(productsArray.get(position).getVendorId()));
+            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+            cursor.moveToFirst();
+            int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Merchants.COLUMN_OWNERS_BENEFIT));
+
             String logoUrl = productsArray.get(position).getVendorLogoUrl();
             String productImageUrl = productsArray.get(position).getImageUrl();
             String name = productsArray.get(position).getTitle();
@@ -208,7 +220,15 @@ public class ProductsTabFragment extends Fragment {
             holder.vhProductName.setText(name);
             holder.vhPrice.setText("$" + String.valueOf(price) + " ($" + String.format("%.2f", (price * commission / 100)) + ")");
             holder.vhYourPriceValue.setText("$" + String.format("%.2f", (price * (100 - commission) / 100)));
-            holder.vhCashBack.setText("+ " + String.valueOf(commission));
+            if (commission != 0) {
+                holder.vhCashBack.setText("+ " + String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
+            } else {
+                if (benefit == 1) {
+                    holder.vhCashBack.setText("OWNERS BENEFIT");
+                } else {
+                    holder.vhCashBack.setText("SPECIAL RATE");
+                }
+            }
         }
 
         @Override

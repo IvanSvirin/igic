@@ -53,7 +53,7 @@ public class ShoppingTripsActivity extends AppCompatActivity implements LoaderMa
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setTitle(R.string.shopping_trips);
+        setTitle(R.string.store_visits);
 
         uiActivity = new UiActivity(this);
         //Google Analytics

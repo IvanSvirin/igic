@@ -11,9 +11,10 @@ public class Coupon {
     private String vendorLogoUrl;
     private float vendorCommission;
     private String label;
+    private boolean ownersBenefit;
 
     public Coupon(long couponId, long vendorId, String couponType, String restrictions, String couponCode, String expirationDate, String affiliateUrl, String vendorLogoUrl,
-                  float vendorCommission, String label) {
+                  float vendorCommission, String label, boolean ownersBenefit) {
         this.couponId = couponId;
         this.vendorId = vendorId;
         this.couponType = couponType;
@@ -24,9 +25,18 @@ public class Coupon {
         this.vendorLogoUrl = vendorLogoUrl;
         this.vendorCommission = vendorCommission;
         this.label = label;
+        this.ownersBenefit = ownersBenefit;
     }
 
     public Coupon() {
+    }
+
+    public boolean isOwnersBenefit() {
+        return ownersBenefit;
+    }
+
+    public void setOwnersBenefit(boolean ownersBenefit) {
+        this.ownersBenefit = ownersBenefit;
     }
 
     public String getLabel() {

@@ -253,13 +253,28 @@ public class BrowserDealsActivity extends AppCompatActivity {
                 Cursor cursor = getContentResolver().query(uri, null, null, null, null);
                 if (cursor != null) {
                     cursor.moveToFirst();
+                    int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Merchants.COLUMN_OWNERS_BENEFIT));
                     String name = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_NAME));
                     exceptionInfo = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_EXCEPTION_INFO));
                     description = cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_DESCRIPTION));
                     bar.setTitle(name);
-                    bar.setSubtitle(String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION))) + " " + getResources().getString(R.string.cash_back_percent));
+                    float commission = cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
+                    if (commission != 0) {
+                        bar.setSubtitle("+ " + String.valueOf(commission) + " " + getResources().getString(R.string.cash_back_percent));
+                    } else {
+                        if (benefit == 1) {
+                            bar.setSubtitle("OWNERS BENEFIT");
+                        } else {
+                            bar.setSubtitle("SPECIAL RATE");
+                        }
+                    }
+                    long couponId = intent.getLongExtra(PageFragment.COUPON_ID, 0);
 //                loadContent(cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)) + "&token=" + Utilities.retrieveUserToken(context));
-                    loadContent(intent.getStringExtra(PageFragment.AFFILIATE_URL) + "&token=" + Utilities.retrieveUserToken(context));
+                    if (couponId == 0) {
+                        loadContent(intent.getStringExtra(PageFragment.AFFILIATE_URL) + "&token=" + Utilities.retrieveUserToken(context));
+                    } else {
+                        loadContent(intent.getStringExtra(PageFragment.AFFILIATE_URL) + "&token=" + Utilities.retrieveUserToken(context) + "&couponid=" + couponId);
+                    }
                     cursor.close();
                 }
             }
@@ -352,6 +367,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
             args.putString(PageFragment.EXPIRATION_DATE, coupons.get(position).getExpirationDate());
             args.putString(PageFragment.RESTRICTIONS, coupons.get(position).getLabel());
             args.putLong(PageFragment.VENDOR_ID, coupons.get(position).getVendorId());
+            args.putLong(PageFragment.COUPON_ID, coupons.get(position).getCouponId());
             args.putString(PageFragment.AFFILIATE_URL, coupons.get(position).getAffiliateUrl());
             frag.setArguments(args);
             return frag;

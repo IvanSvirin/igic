@@ -14,6 +14,8 @@ import android.text.TextUtils;
 
 import com.cashback.ui.login.LoginActivity;
 
+import db.DataContract;
+
 public class Utilities {
     private final static String PREF_TOKEN_KEY = "pref_token";
     private static final String PREF_ENTRY_KEY = "pref_entry";
@@ -24,6 +26,9 @@ public class Utilities {
     public static final String CALLING_ACTIVITY = "calling_activity";
     public static final String VENDOR_ID = "vendor_id";
     public static final String LOGIN_BUNDLE = "login_bundle";
+    public static final String COUPON_ID = "coupon_id";
+    public static final String AFFILIATE_URL = "affiliate_url";
+    public static final String VENDOR_COMMISSION = "vendor_commission";
 
     public static boolean isLoggedIn(Context context) {
         return !TextUtils.isEmpty(retrieveUserToken(context)) && retrieveUserEntry(context);
@@ -107,7 +112,7 @@ public class Utilities {
 
     public static String retrieveUserToken(Context context) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        return pref.getString(PREF_TOKEN_KEY, null);
+        return pref.getString(PREF_TOKEN_KEY, "");
     }
 
     public static boolean removeUserToken(Context context) {
@@ -131,39 +136,39 @@ public class Utilities {
         return net != null && net.isConnectedOrConnecting();
     }
 
-    public static boolean isCashBackNotifyOn(Context context) {
+    public static boolean isSpecialAlertNotifyOn(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getBoolean(context.getString(R.string.cashback_notify), false);
+        return prefs.getBoolean("special_alerts_notify", false);
     }
 
-    public static void setCashBackNotify(Context context, boolean set) {
+    public static void setSpecialAlertNotify(Context context, boolean set) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(context.getString(R.string.cashback_notify), set);
+        editor.putBoolean("special_alerts_notify", set);
         editor.apply();
     }
 
-    public static boolean isDealsNotifyOn(Context context) {
+    public static boolean isWeeklyNewsNotifyOn(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getBoolean(context.getString(R.string.deals_notify), false);
+        return prefs.getBoolean("weekly_news_notify", false);
     }
 
-    public static void setDealsNotify(Context context, boolean set) {
+    public static void setWeeklyNewsNotify(Context context, boolean set) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(context.getString(R.string.deals_notify), set);
+        editor.putBoolean("weekly_news_notify", set);
         editor.apply();
     }
 
-    public static boolean isPaymentsNotifyOn(Context context) {
+    public static boolean isPurchaseNotifyOn(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getBoolean(context.getString(R.string.payment_notify), false);
+        return prefs.getBoolean("purchase_notify", false);
     }
 
-    public static void setPaymentsNotify(Context context, boolean set) {
+    public static void setPurchaseNotify(Context context, boolean set) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(context.getString(R.string.payment_notify), set);
+        editor.putBoolean("purchase_notify", set);
         editor.apply();
     }
 

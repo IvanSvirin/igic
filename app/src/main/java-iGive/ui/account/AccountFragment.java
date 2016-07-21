@@ -140,8 +140,8 @@ public class AccountFragment extends Fragment {
     public void onEvent(SettingsEvent event) {
         if (event.isSuccess) {
             gotAnswer = true;
-            fragmentUi.dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
-            fragmentUi.donationSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
+            fragmentUi.newsSwitcher.setChecked(Utilities.isWeeklyNewsNotifyOn(getContext()));
+            fragmentUi.purchaseSwitcher.setChecked(Utilities.isPurchaseNotifyOn(getContext()));
         }
     }
 
@@ -159,10 +159,10 @@ public class AccountFragment extends Fragment {
         TextView totalRaisedValue;
         @Bind(R.id.totalPaidDate)
         TextView totalPaidDate;
-        @Bind(R.id.trending_deals_alerts_switcher)
-        SwitchCompat dealsSwitcher;
-        @Bind(R.id.donation_alerts_switcher)
-        SwitchCompat donationSwitcher;
+        @Bind(R.id.news_switcher)
+        SwitchCompat newsSwitcher;
+        @Bind(R.id.purchase_switcher)
+        SwitchCompat purchaseSwitcher;
         private String memberSettingsUrl;
 
         public FragmentUi(AccountFragment fragment, View view) {
@@ -184,22 +184,22 @@ public class AccountFragment extends Fragment {
             totalPaidDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             memberSettingsUrl = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL)) + "?token=" + Utilities.retrieveUserToken(context);
             cursor.close();
-            dealsSwitcher.setChecked(Utilities.isDealsNotifyOn(getContext()));
-            donationSwitcher.setChecked(Utilities.isCashBackNotifyOn(getContext()));
-            dealsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            newsSwitcher.setChecked(Utilities.isWeeklyNewsNotifyOn(getContext()));
+            purchaseSwitcher.setChecked(Utilities.isPurchaseNotifyOn(getContext()));
+            newsSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (gotAnswer) {
-                        new CharitySettingsRequest(context).changeData(Utilities.isCashBackNotifyOn(getContext()), isChecked);
+                        new CharitySettingsRequest(context).changeData(isChecked, Utilities.isPurchaseNotifyOn(getContext()));
                         gotAnswer = false;
                     }
                 }
             });
-            donationSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            purchaseSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (gotAnswer) {
-                        new CharitySettingsRequest(context).changeData(isChecked, Utilities.isDealsNotifyOn(getContext()));
+                        new CharitySettingsRequest(context).changeData(Utilities.isWeeklyNewsNotifyOn(getContext()), isChecked);
                         gotAnswer = false;
                     }
                 }
@@ -214,15 +214,15 @@ public class AccountFragment extends Fragment {
             return toolbar;
         }
 
-        @OnClick({R.id.shoppingTripsFrame, R.id.yourOrderHistoryFrame, R.id.helpFrame, R.id.memberSettingsFrame})
+        @OnClick({R.id.storeVisitsFrame, R.id.shoppingReportFrame, R.id.helpFrame, R.id.memberSettingsFrame})
         public void onClicks(View view) {
             Intent intent;
             switch (view.getId()) {
-                case R.id.shoppingTripsFrame:
+                case R.id.storeVisitsFrame:
                     intent = new Intent(context, ShoppingTripsActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.yourOrderHistoryFrame:
+                case R.id.shoppingReportFrame:
                     intent = new Intent(context, YourOrderHistoryActivity.class);
                     startActivity(intent);
                     break;

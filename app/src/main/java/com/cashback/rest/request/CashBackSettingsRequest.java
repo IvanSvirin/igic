@@ -4,9 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.model.AuthObject;
 import com.cashback.rest.event.SettingsEvent;
 
 import org.json.JSONArray;
@@ -35,8 +33,8 @@ public class CashBackSettingsRequest {
         new CashBackSettingsRequestTask().execute();
     }
 
-    public void changeData(boolean isCashBackNotifyOn, boolean isDealsNotifyOn, boolean isPaymentsNotifyOn) {
-        new ChangeCashBackSettingsRequestTask(isCashBackNotifyOn, isDealsNotifyOn, isPaymentsNotifyOn).execute();
+    public void changeData(boolean isSpecialNotifyOn, boolean isNewsNotifyOn, boolean isPurchaseNotifyOn) {
+        new ChangeCashBackSettingsRequestTask(isSpecialNotifyOn, isNewsNotifyOn, isPurchaseNotifyOn).execute();
     }
 
     private class CashBackSettingsRequestTask extends AsyncTask<Void, Void, Void> {
@@ -89,9 +87,9 @@ public class CashBackSettingsRequest {
             try {
                 if (jsonArray != null) {
                     jObj = jsonArray.getJSONObject(0);
-                    Utilities.setCashBackNotify(context, jObj.getBoolean(context.getString(R.string.cashback_notify)));
-                    Utilities.setDealsNotify(context, jObj.getBoolean(context.getString(R.string.deals_notify)));
-                    Utilities.setPaymentsNotify(context, jObj.getBoolean(context.getString(R.string.payment_notify)));
+                    Utilities.setSpecialAlertNotify(context, jObj.getBoolean("special_alerts_notify"));
+                    Utilities.setWeeklyNewsNotify(context, jObj.getBoolean("weekly_news_notify"));
+                    Utilities.setPurchaseNotify(context, jObj.getBoolean("purchase_notify"));
                     EventBus.getDefault().post(new SettingsEvent(true, null));
                 } else {
                     EventBus.getDefault().post(new SettingsEvent(false, "Check your internet connection or authorization data"));
@@ -109,14 +107,14 @@ public class CashBackSettingsRequest {
         private URL url;
         private InputStream inputStream = null;
         private HttpURLConnection urlConnection = null;
-        private boolean isCashBackNotifyOn;
-        private boolean isDealsNotifyOn;
-        private boolean isPaymentsNotifyOn;
+        private boolean isSpecialNotifyOn;
+        private boolean isNewsNotifyOn;
+        private boolean isPurchaseNotifyOn;
 
-        public ChangeCashBackSettingsRequestTask(boolean isCashBackNotifyOn, boolean isDealsNotifyOn, boolean isPaymentsNotifyOn) {
-            this.isDealsNotifyOn = isDealsNotifyOn;
-            this.isCashBackNotifyOn = isCashBackNotifyOn;
-            this.isPaymentsNotifyOn = isPaymentsNotifyOn;
+        public ChangeCashBackSettingsRequestTask(boolean isSpecialNotifyOn, boolean isNewsNotifyOn, boolean isPurchaseNotifyOn) {
+            this.isNewsNotifyOn = isNewsNotifyOn;
+            this.isSpecialNotifyOn = isSpecialNotifyOn;
+            this.isPurchaseNotifyOn = isPurchaseNotifyOn;
         }
 
         @Override
@@ -130,7 +128,7 @@ public class CashBackSettingsRequest {
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
 
-                String postParameters = "cashback_notify=" + isCashBackNotifyOn + "&deals_notify=" + isDealsNotifyOn + "&payment_notify=" + isPaymentsNotifyOn;
+                String postParameters = "special_alerts_notify=" + isSpecialNotifyOn + "&weekly_news_notify=" + isNewsNotifyOn + "&purchase_notify=" + isPurchaseNotifyOn;
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
                 out.print(postParameters);
@@ -170,9 +168,9 @@ public class CashBackSettingsRequest {
             try {
                 if (jsonArray != null) {
                     jObj = jsonArray.getJSONObject(0);
-                    Utilities.setCashBackNotify(context, jObj.getBoolean(context.getString(R.string.cashback_notify)));
-                    Utilities.setDealsNotify(context, jObj.getBoolean(context.getString(R.string.deals_notify)));
-                    Utilities.setPaymentsNotify(context, jObj.getBoolean(context.getString(R.string.payment_notify)));
+                    Utilities.setSpecialAlertNotify(context, jObj.getBoolean("special_alerts_notify"));
+                    Utilities.setWeeklyNewsNotify(context, jObj.getBoolean("weekly_news_notify"));
+                    Utilities.setPurchaseNotify(context, jObj.getBoolean("purchase_notify"));
                     EventBus.getDefault().post(new SettingsEvent(true, null));
                 } else {
                     EventBus.getDefault().post(new SettingsEvent(false, "Check your internet connection or authorization data"));

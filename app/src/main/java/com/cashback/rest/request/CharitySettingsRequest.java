@@ -4,9 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.model.AuthObject;
 import com.cashback.rest.event.SettingsEvent;
 
 import org.json.JSONArray;
@@ -35,8 +33,8 @@ public class CharitySettingsRequest {
         new CharitySettingsRequestTask().execute();
     }
 
-    public void changeData(boolean isDonationNotifyOn, boolean isDealsNotifyOn) {
-        new ChangeCharitySettingsRequestTask(isDonationNotifyOn, isDealsNotifyOn).execute();
+    public void changeData(boolean isNewNotifyOn, boolean isPurchaseNotifyOn) {
+        new ChangeCharitySettingsRequestTask(isNewNotifyOn, isPurchaseNotifyOn).execute();
     }
 
     private class CharitySettingsRequestTask extends AsyncTask<Void, Void, Void> {
@@ -89,8 +87,8 @@ public class CharitySettingsRequest {
             try {
                 if (jsonArray != null) {
                     jObj = jsonArray.getJSONObject(0);
-                    Utilities.setCashBackNotify(context, jObj.getBoolean(context.getString(R.string.cashback_notify)));
-                    Utilities.setDealsNotify(context, jObj.getBoolean(context.getString(R.string.deals_notify)));
+                    Utilities.setPurchaseNotify(context, jObj.getBoolean("purchase_notify"));
+                    Utilities.setWeeklyNewsNotify(context, jObj.getBoolean("weekly_news_notify"));
                     EventBus.getDefault().post(new SettingsEvent(true, null));
                 } else {
                     EventBus.getDefault().post(new SettingsEvent(false, "Check your internet connection or authorization data"));
@@ -108,12 +106,12 @@ public class CharitySettingsRequest {
         private URL url;
         private InputStream inputStream = null;
         private HttpURLConnection urlConnection = null;
-        private boolean isDonationNotifyOn;
-        private boolean isDealsNotifyOn;
+        private boolean isNewsNotifyOn;
+        private boolean isPurchaseNotifyOn;
 
-        public ChangeCharitySettingsRequestTask(boolean isDonationNotifyOn, boolean isDealsNotifyOn) {
-            this.isDealsNotifyOn = isDealsNotifyOn;
-            this.isDonationNotifyOn = isDonationNotifyOn;
+        public ChangeCharitySettingsRequestTask(boolean isNewsNotifyOn, boolean isPurchaseNotifyOn) {
+            this.isNewsNotifyOn = isNewsNotifyOn;
+            this.isPurchaseNotifyOn = isPurchaseNotifyOn;
         }
 
         @Override
@@ -127,7 +125,7 @@ public class CharitySettingsRequest {
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
 
-                String postParameters = "donation_notify=" + isDonationNotifyOn + "&deals_notify=" + isDealsNotifyOn;
+                String postParameters = "purchase_notify=" + isPurchaseNotifyOn + "&weekly_news_notify=" + isNewsNotifyOn;
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
                 out.print(postParameters);
@@ -140,7 +138,7 @@ public class CharitySettingsRequest {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
                 StringBuilder sb = new StringBuilder();
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
                     sb.append(line).append("\n");
                 }
@@ -167,8 +165,8 @@ public class CharitySettingsRequest {
             try {
                 if (jsonArray != null) {
                     jObj = jsonArray.getJSONObject(0);
-                    Utilities.setCashBackNotify(context, jObj.getBoolean(context.getString(R.string.cashback_notify)));
-                    Utilities.setDealsNotify(context, jObj.getBoolean(context.getString(R.string.deals_notify)));
+                    Utilities.setPurchaseNotify(context, jObj.getBoolean("purchase_notify"));
+                    Utilities.setWeeklyNewsNotify(context, jObj.getBoolean("weekly_news_notify"));
                     EventBus.getDefault().post(new SettingsEvent(true, null));
                 } else {
                     EventBus.getDefault().post(new SettingsEvent(false, "Check your internet connection or authorization data"));

@@ -196,7 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
                     android:layout_gravity="center_vertical"
-                    android:id="@+id/shoppingTripsFrame">
+                    android:id="@+id/shoppingReportFrame">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -204,9 +204,9 @@
                         android:layout_gravity="start|center_vertical"
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/shopping_trips"
+                        android:text="@string/shopping_report"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/shoppingTrips"
+                        android:id="@+id/shoppingReport"
                         android:alpha="0.87" />
 
                 </FrameLayout>
@@ -215,7 +215,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
                     android:layout_gravity="center_vertical"
-                    android:id="@+id/yourOrderHistoryFrame">
+                    android:id="@+id/storeVisitsFrame">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -223,9 +223,9 @@
                         android:layout_gravity="start|center_vertical"
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/your_order_history"
+                        android:text="@string/store_visits"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/yourOrderHistory"
+                        android:id="@+id/storeVisits"
                         android:alpha="0.87" />
 
                 </FrameLayout>
@@ -285,12 +285,12 @@
                         android:layout_gravity="left|top"
                         android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/trending_deals_alerts"
+                        android:text="@string/news_alerts"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:alpha="0.87" />
 
                     <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/trending_deals_alerts_switcher"
+                        android:id="@+id/news_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
@@ -327,7 +327,7 @@
                         android:alpha="0.87" />
 
                     <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/donation_alerts_switcher"
+                        android:id="@+id/purchase_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"

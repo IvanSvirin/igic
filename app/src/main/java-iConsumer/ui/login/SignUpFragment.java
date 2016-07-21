@@ -31,6 +31,7 @@ import com.cashback.rest.request.SignInCashBackRequest;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.allresults.AllResultsActivity;
 import com.cashback.ui.login.LoginActivity;
+import com.cashback.ui.web.BrowserDealsActivity;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -108,6 +109,13 @@ public class SignUpFragment extends Fragment {
                 case "StoreActivity":
                     intent = new Intent(getContext(), StoreActivity.class);
                     intent.putExtra(Utilities.VENDOR_ID, loginBundle.getLong(Utilities.VENDOR_ID));
+                    break;
+                case "BrowserDealsActivity":
+                    intent = new Intent(getContext(), BrowserDealsActivity.class);
+                    intent.putExtra(Utilities.VENDOR_ID, loginBundle.getLong(Utilities.VENDOR_ID));
+                    intent.putExtra(Utilities.COUPON_ID, loginBundle.getLong(Utilities.COUPON_ID));
+                    intent.putExtra(Utilities.AFFILIATE_URL, loginBundle.getLong(Utilities.AFFILIATE_URL));
+                    intent.putExtra(Utilities.VENDOR_COMMISSION, loginBundle.getLong(Utilities.VENDOR_COMMISSION));
                     break;
                 default:
                     intent = new Intent(getContext(), MainActivity.class);

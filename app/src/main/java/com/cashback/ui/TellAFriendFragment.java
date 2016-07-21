@@ -3,20 +3,20 @@ package com.cashback.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cashback.App;
 import com.cashback.R;
@@ -34,6 +34,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import db.DataContract;
 import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.Branch;
 import io.branch.referral.BranchError;
@@ -43,6 +44,8 @@ import ui.MainActivity;
 public class TellAFriendFragment extends Fragment {
     public static final String TAG_TELL_A_FRIEND_FRAGMENT = "I_tell_a_friend_fragment";
     private FragmentUi fragmentUi;
+    private String imageUrl;
+    private String tellFriendText;
 
     @Nullable
     @Override
@@ -79,10 +82,12 @@ public class TellAFriendFragment extends Fragment {
         ImageView fbButton;
         @Bind(R.id.twButton)
         ImageView twButton;
-        @Bind(R.id.shButton)
-        ImageView gButton;
+//        @Bind(R.id.shButton)
+//        ImageView gButton;
         @Bind(R.id.imageView)
         ImageView imageView;
+        @Bind(R.id.tellFriend)
+        TextView tellFriend;
 
         @OnClick(R.id.fbButton)
         void fbShare() {
@@ -147,54 +152,67 @@ public class TellAFriendFragment extends Fragment {
             }
         }
 
-        @OnClick(R.id.shButton)
-        void share() {
-            if (Utilities.isLoggedIn(context)) {
-                BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
-                        .setTitle(Utilities.retrieveTellFriendText(context))
-                        .setContentDescription(Utilities.retrieveTellFriendText(context))
-                        .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
-                        .setContentImageUrl(getString(R.string.logo_url));
-                LinkProperties linkProperties = new LinkProperties()
-                        .setFeature(getString(R.string.app_name) + ".EVENT_SHARE_APP")
-                        .setChannel("SHARE_VIA_SHARING_DIALOG");
-                branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
-                    @Override
-                    public void onLinkCreate(String url, BranchError error) {
-                        Intent share = new Intent(Intent.ACTION_SEND);
-                        share.setType("text/plain");
-                        share.putExtra(Intent.EXTRA_TEXT, Utilities.retrieveTellFriendText(context) + "\n" + url);
-                        context.startActivity(Intent.createChooser(share, Utilities.retrieveTellFriendText(context)));
-                    }
-                });
-            } else {
-                Bundle loginBundle = new Bundle();
-                loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
-                Utilities.needLoginDialog(context, loginBundle);
-            }
-        }
+//        @OnClick(R.id.shButton)
+//        void share() {
+//            if (Utilities.isLoggedIn(context)) {
+//                BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+//                        .setTitle(Utilities.retrieveTellFriendText(context))
+//                        .setContentDescription(Utilities.retrieveTellFriendText(context))
+//                        .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
+//                        .setContentImageUrl(getString(R.string.logo_url));
+//                LinkProperties linkProperties = new LinkProperties()
+//                        .setFeature(getString(R.string.app_name) + ".EVENT_SHARE_APP")
+//                        .setChannel("SHARE_VIA_SHARING_DIALOG");
+//                branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
+//                    @Override
+//                    public void onLinkCreate(String url, BranchError error) {
+//                        Intent share = new Intent(Intent.ACTION_SEND);
+//                        share.setType("text/plain");
+//                        share.putExtra(Intent.EXTRA_TEXT, Utilities.retrieveTellFriendText(context) + "\n" + url);
+//                        context.startActivity(Intent.createChooser(share, Utilities.retrieveTellFriendText(context)));
+//                    }
+//                });
+//            } else {
+//                Bundle loginBundle = new Bundle();
+//                loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
+//                Utilities.needLoginDialog(context, loginBundle);
+//            }
+//        }
 
         public FragmentUi(TellAFriendFragment fragment, View view) {
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
 
+            Cursor cursor = context.getContentResolver().query(DataContract.URI_MISC, null, null, null, null);
+            if (cursor != null && cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                imageUrl = cursor.getString(cursor.getColumnIndex(DataContract.Misc.COLUMN_TELL_A_FRIEND_BANNER_URL));
+                tellFriendText = cursor.getString(cursor.getColumnIndex(DataContract.Misc.COLUMN_TELL_A_FRIEND_TEXT));
+                tellFriend.setText(tellFriendText);
+            } else {
+                imageUrl = "http://beta1.iconsumer.com/res/images/tellafriend.png";
+            }
+
             DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
             int w = displaymetrics.widthPixels;
             int h = displaymetrics.heightPixels;
             Drawable drawable;
-            if (h > w) {
-                drawable = getContext().getResources().getDrawable(R.drawable.tellafriends);
-            } else {
-                drawable = getContext().getResources().getDrawable(R.drawable.tellafriends_tablet);
-            }
+//            if (h > w) {
+//                drawable = getContext().getResources().getDrawable(R.drawable.tellafriends);
+//            } else {
+//                drawable = getContext().getResources().getDrawable(R.drawable.tellafriends_tablet);
+//            }
             w = w - getContext().getResources().getDimensionPixelSize(R.dimen.padding_small) * 2;
-            int wd = drawable.getIntrinsicWidth();
-            int hd = drawable.getIntrinsicHeight();
+//            int wd = drawable.getIntrinsicWidth();
+//            int hd = drawable.getIntrinsicHeight();
+//            Picasso.with(context)
+//                    .load(R.drawable.tellafriends)
+//                    .resize(w, w * hd / wd)
+//                    .into(imageView);
             Picasso.with(context)
-                    .load(R.drawable.tellafriends)
-                    .resize(w, w * hd / wd)
+                    .load(imageUrl)
+                    .resize(w, w * 480 / 1600)
                     .into(imageView);
-
         }
 
         public void unbind() {

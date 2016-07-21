@@ -95,6 +95,11 @@ public class MerchantsByCategoryRequest {
                         merchant.setCommission((float) jObj.getDouble("commission"));
                         merchant.setVendorId(jObj.getLong("vendor_id"));
                         merchant.setName(jObj.getString("name"));
+                        if (jObj.has("owners_benefit")) {
+                            merchant.setOwnersBenefit(jObj.getBoolean("owners_benefit"));
+                        } else {
+                            merchant.setOwnersBenefit(false);
+                        }
                         merchants.add(merchant);
                     }
                     EventBus.getDefault().post(new CategoryMerchantsEvent(true, "OK"));

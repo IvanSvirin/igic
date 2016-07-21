@@ -18,10 +18,11 @@
     <string name="total_raised">Total Raised</string>
     <string name="by_all_supporters">by All supporters</string>
     <string name="member_settings">Member Settings</string>
-    <string name="donation_alerts">Donation Alerts</string>
+    <string name="donation_alerts">Send Me Purchase Notifications</string>
     <string name="order_number">Order Number:</string>
     <string name="purchase_amount">Purchase Amount:</string>
-    <string name="notifications_donation_alerts">Notification when you give Donation</string>
+    <string name="notifications_donation_alerts">When you make a purchase through iGive</string>
+    <string name="notifications_trending_deals_alerts">Stay in the loop</string>
     <string name="cash_back_percent">% DONATION</string>
     <string name="categories_path">https://beta1.igive.com/rest/iGive/api/v1/categories/</string>
     <string name="merchants_path">https://beta1.igive.com/rest/iGive/api/v1/merchants/</string>
@@ -40,6 +41,7 @@
     <string name="gcm_path">https://beta1.igive.com/rest/iGive/api/v1/gcm/</string>
     <string name="orders_path">https://beta1.igive.com/rest/iGive/api/v1/account/history/order/</string>
     <string name="trip_path">https://beta1.igive.com/rest/iGive/api/v1/account/history/trip/</string>
+    <string name="misc_path">https://beta1.igive.com/rest/iGive/api/v1/misc</string>
     <string name="cashback_notify">donation_notify</string>
     <string name="tell_a_friend">More supporters means more money, faster for you
 couse or charity!
@@ -52,5 +54,8 @@ they shop online.</string>
     <string name="your_donation_money_with_coupons">Your donation money \n with coupons</string>
     <string name="please_log_in">Please log into your iGive member account to continue.</string>
     <string name="logo_url">http://sokm.net/wp-content/uploads/2013/11/iGive_TM_Logo1.jpg</string>
+    <string name="cash_back">DONATION</string>
+    <string name="cash_back_header">Donation</string>
+    <string name="news_alerts">Send Me Weekly Newsletters</string>
 
 </resources>

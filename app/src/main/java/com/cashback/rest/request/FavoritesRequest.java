@@ -111,6 +111,13 @@ public class FavoritesRequest {
                         values.put(DataContract.Favorites.COLUMN_EXCEPTION_INFO, jObj.getString("exception_info"));
                         values.put(DataContract.Favorites.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
                         values.put(DataContract.Favorites.COLUMN_NAME, jObj.getString("name"));
+                        if (jObj.has("owners_benefit")) {
+                            if (jObj.getBoolean("owners_benefit")) {
+                                values.put(DataContract.Favorites.COLUMN_OWNERS_BENEFIT, 1);
+                            }
+                        } else {
+                            values.put(DataContract.Favorites.COLUMN_OWNERS_BENEFIT, 0);
+                        }
                         listValues.add(values);
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());

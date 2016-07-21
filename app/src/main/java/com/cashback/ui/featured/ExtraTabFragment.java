@@ -234,9 +234,15 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                             intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
                             context.startActivity(intent);
                         } else {
-                            Bundle loginBundle = new Bundle();
-                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
-                            Utilities.needLoginDialog(context, loginBundle);
+                            if (cursor != null) {
+                                Bundle loginBundle = new Bundle();
+                                loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
+                                loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
+                                loginBundle.putString(Utilities.AFFILIATE_URL, cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
+                                loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
+                                Utilities.needLoginDialog(context, loginBundle);
+                                cursor.close();
+                            }
                         }
                     }
                 });
@@ -294,7 +300,16 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
             }
             holder.vhWas.setPaintFlags(holder.vhWas.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             picasso.load(logoUrl).into(holder.vhStoreLogo);
-            holder.vhCashBack.setText("+ " + cashBack);
+            int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Extras.COLUMN_OWNERS_BENEFIT));
+            if (!cashBack.equals("0")) {
+                holder.vhCashBack.setText("+ " + cashBack + "% " + context.getString(R.string.cash_back));
+            } else {
+                if (benefit == 1) {
+                    holder.vhCashBack.setText("OWNERS BENEFIT");
+                } else {
+                    holder.vhCashBack.setText("SPECIAL RATE");
+                }
+            }
             if (count == 0) {
                 holder.vhFavorite.setImageDrawable(context.getResources().getDrawable(R.drawable.favoriteoff));
             } else {

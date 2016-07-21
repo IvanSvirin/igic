@@ -53,7 +53,7 @@ public class MiscRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.iconsumer.com/rest/icon/api/v1/misc/");
+                url = new URL(context.getString(R.string.misc_path));
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));

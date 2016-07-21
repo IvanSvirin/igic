@@ -101,6 +101,11 @@ public class CouponsByMerchantIdRequest {
                         coupon.setAffiliateUrl(jObj.getString("affiliate_url"));
                         coupon.setVendorLogoUrl(jObj.getString("vendor_logo_url"));
                         coupon.setVendorCommission((float) jObj.getDouble("vendor_commission"));
+                        if (jObj.has("owners_benefit")) {
+                            coupon.setOwnersBenefit(jObj.getBoolean("owners_benefit"));
+                        } else {
+                            coupon.setOwnersBenefit(jObj.getBoolean("owners_benefit"));
+                        }
                         coupons.add(coupon);
                     }
                     EventBus.getDefault().post(new MerchantCouponsEvent(true, "OK"));

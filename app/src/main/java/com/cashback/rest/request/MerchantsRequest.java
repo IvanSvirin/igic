@@ -56,7 +56,7 @@ public class MerchantsRequest {
 
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (IOException e) {
-                e.printStackTrace();
+                EventBus.getDefault().post(new MerchantsEvent(false, "No stores data"));
             }
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
@@ -72,12 +72,12 @@ public class MerchantsRequest {
                     jsonString = jsonString.substring(1);
                 }
             } catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
+                EventBus.getDefault().post(new MerchantsEvent(false, "No stores data"));
             }
             try {
                 jsonArray = new JSONArray(jsonString);
             } catch (JSONException e) {
-                Log.e("JSON Parser", "Error parsing data " + e.toString());
+                EventBus.getDefault().post(new MerchantsEvent(false, "No stores data"));
             }
             return null;
         }
@@ -101,13 +101,20 @@ public class MerchantsRequest {
                         values.put(DataContract.Merchants.COLUMN_EXCEPTION_INFO, jObj.getString("exception_info"));
                         values.put(DataContract.Merchants.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
                         values.put(DataContract.Merchants.COLUMN_NAME, jObj.getString("name"));
+                        if (jObj.has("owners_benefit")) {
+                            if (jObj.getBoolean("owners_benefit")) {
+                                values.put(DataContract.Merchants.COLUMN_OWNERS_BENEFIT, 1);
+                            }
+                        } else {
+                            values.put(DataContract.Merchants.COLUMN_OWNERS_BENEFIT, 0);
+                        }
                         listValues.add(values);
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startBulkInsert(DataInsertHandler.MERCHANTS_TOKEN, false, DataContract.URI_MERCHANTS, listValues.toArray(new ContentValues[listValues.size()]));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    EventBus.getDefault().post(new MerchantsEvent(false, "No merchants featured data"));
+                    EventBus.getDefault().post(new MerchantsEvent(false, "No stores data"));
                 }
             }
         }

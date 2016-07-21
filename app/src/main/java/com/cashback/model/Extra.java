@@ -11,19 +11,29 @@ public class Extra {
     private String affiliateUrl;
     private String logoUrl;
     private float commissionWas;
+    private boolean ownersBenefit;
 
-    public Extra(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, String affiliateUrl, String logoUrl, float commissionWas,
-                 boolean isFavorite) {
+    public Extra(long vendorId, String name, float commission, String exceptionInfo, String description, boolean giftCard, boolean isFavorite, String affiliateUrl, String logoUrl,
+                 float commissionWas, boolean ownersBenefit) {
         this.vendorId = vendorId;
         this.name = name;
         this.commission = commission;
         this.exceptionInfo = exceptionInfo;
         this.description = description;
         this.giftCard = giftCard;
+        this.isFavorite = isFavorite;
         this.affiliateUrl = affiliateUrl;
         this.logoUrl = logoUrl;
         this.commissionWas = commissionWas;
-        this.isFavorite = isFavorite;
+        this.ownersBenefit = ownersBenefit;
+    }
+
+    public boolean isOwnersBenefit() {
+        return ownersBenefit;
+    }
+
+    public void setOwnersBenefit(boolean ownersBenefit) {
+        this.ownersBenefit = ownersBenefit;
     }
 
     public boolean isFavorite() {

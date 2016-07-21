@@ -41,6 +41,7 @@ import java.util.TreeMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import db.DataContract;
 import de.greenrobot.event.EventBus;
 
 public class CategoryActivity extends AppCompatActivity {
@@ -290,7 +291,16 @@ public class CategoryActivity extends AppCompatActivity {
             String name = merchantsFiltered == null ? merchants.get(position).getName() : merchantsFiltered.get(position).getName();
             holder.shopName.setText(name);
             float commission = merchantsFiltered == null ? merchants.get(position).getCommission() : merchantsFiltered.get(position).getCommission();
-            holder.shopCommission.setText(String.valueOf(commission + "%"));
+            boolean benefit = merchants.get(position).isOwnersBenefit();
+            if (commission != 0) {
+                holder.shopCommission.setText(String.valueOf(commission + "%"));
+            } else {
+                if (benefit) {
+                    holder.shopCommission.setText("OWNERS BENEFIT");
+                } else {
+                    holder.shopCommission.setText("SPECIAL RATE");
+                }
+            }
             return convertView;
         }
 

@@ -33,6 +33,7 @@ public class DataContract {
         public static final String COLUMN_AFFILIATE_URL = "affiliate_url";
         public static final String COLUMN_LOGO_URL = "logo_url";
         public static final String COLUMN_IS_FAVORITE = "is_favorite";
+        public static final String COLUMN_OWNERS_BENEFIT = "owners_benefit";
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "merchants";
@@ -51,6 +52,7 @@ public class DataContract {
         public static final String COLUMN_AFFILIATE_URL = "affiliate_url";
         public static final String COLUMN_LOGO_URL = "logo_url";
         public static final String COLUMN_IS_FAVORITE = "is_favorite";
+        public static final String COLUMN_OWNERS_BENEFIT = "owners_benefit";
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "favorites";
@@ -70,6 +72,7 @@ public class DataContract {
         public static final String COLUMN_LOGO_URL = "logo_url";
         public static final String COLUMN_IS_FAVORITE = "is_favorite";
         public static final String COLUMN_COMMISSION_WAS = "commission_was";
+        public static final String COLUMN_OWNERS_BENEFIT = "owners_benefit";
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "extras";
@@ -89,6 +92,7 @@ public class DataContract {
         public static final String COLUMN_AFFILIATE_URL = "affiliate_url";
         public static final String COLUMN_VENDOR_LOGO_URL = "vendor_logo_url";
         public static final String COLUMN_VENDOR_COMMISSION = "vendor_commission";
+        public static final String COLUMN_OWNERS_BENEFIT = "owners_benefit";
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "coupons";
@@ -202,6 +206,7 @@ public class DataContract {
         public static final String COLUMN_NEXT_PAYMENT_DATE = "next_payment_date";
         public static final String COLUMN_MEMBER_DATE = "member_date";
         public static final String COLUMN_CASH_PENDING_AMOUNT = "cash_pending_amount";
+        public static final String COLUMN_NEXT_CHECK_AMOUNT = "next_check_amount";
         public static final String COLUMN_PAYMENTS_TOTAL_AMOUNT = "payments_total_amount";
         public static final String COLUMN_REFERRER_ID = "referrer_id";
 
