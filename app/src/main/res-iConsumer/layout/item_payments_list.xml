@@ -25,19 +25,18 @@
         android:paddingTop="8dp">
 
         <TextView
-            android:id="@+id/account"
+            android:id="@+id/send_to"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/monthDay"
-            android:layout_alignBottom="@+id/monthDay"
             android:layout_gravity="start|center_vertical"
-            android:layout_marginLeft="62dp"
-            android:layout_marginStart="62dp"
-            android:layout_toEndOf="@+id/monthDay"
-            android:layout_toRightOf="@+id/monthDay"
-            android:maxLines="2"
+            android:alpha="0.87"
             android:textAppearance="@style/AppTheme.TextAppearance"
-            android:alpha="0.87" />
+            android:singleLine="true"
+            android:layout_below="@+id/year"
+            android:layout_toRightOf="@+id/monthDay"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toLeftOf="@+id/payment" />
 
         <TextView
             android:id="@+id/payment"
@@ -50,7 +49,7 @@
             android:singleLine="true"
             android:text="@string/format_donation_amount"
             android:textAppearance="@style/AppTheme.TextAppearance"
-            android:textColor="@color/red"
+            android:textColor="@color/primary"
             android:alpha="0.87" />
 
         <TextView
@@ -88,6 +87,25 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/checkNumber"
+            android:layout_below="@+id/send_to"
+            android:layout_alignLeft="@+id/send_to"
+            android:layout_alignStart="@+id/send_to"
+            android:textAppearance="@style/AppTheme.TextAppearance" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/cleared"
+            android:layout_below="@+id/checkNumber"
+            android:layout_alignLeft="@+id/checkNumber"
+            android:layout_alignStart="@+id/checkNumber" />
 
     </RelativeLayout>
 </LinearLayout>

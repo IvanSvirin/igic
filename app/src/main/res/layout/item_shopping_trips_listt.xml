@@ -56,7 +56,7 @@
             android:layout_alignLeft="@+id/vendorName"
             android:layout_alignStart="@+id/vendorName"
             android:layout_below="@+id/vendorName"
-            android:text="@string/shopping_trips_small"
+            android:text="@string/visit_id"
             android:alpha="0.54" />
 
         <TextView

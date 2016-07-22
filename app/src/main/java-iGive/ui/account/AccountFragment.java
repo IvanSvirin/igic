@@ -31,7 +31,7 @@ import db.DataContract;
 import ui.MainActivity;
 
 import com.cashback.ui.account.HelpActivity;
-import com.cashback.ui.account.ShoppingTripsActivity;
+import com.cashback.ui.account.StoreVisitsActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -219,11 +219,11 @@ public class AccountFragment extends Fragment {
             Intent intent;
             switch (view.getId()) {
                 case R.id.storeVisitsFrame:
-                    intent = new Intent(context, ShoppingTripsActivity.class);
+                    intent = new Intent(context, StoreVisitsActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.shoppingReportFrame:
-                    intent = new Intent(context, YourOrderHistoryActivity.class);
+                    intent = new Intent(context, ShoppingReportActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.helpFrame:

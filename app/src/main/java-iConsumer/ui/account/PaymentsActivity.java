@@ -92,13 +92,6 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
         if (id == MainActivity.PAYMENTS_LOADER) {
             loader = new CursorLoader(this);
             loader.setUri(DataContract.URI_PAYMENTS);
-            String projection[] = new String[]{
-                    DataContract.Payments._ID,
-                    DataContract.Payments.COLUMN_PAYMENT_DATE,
-                    DataContract.Payments.COLUMN_PAYMENT_AMOUNT,
-                    DataContract.Payments.COLUMN_PAYMENT_ACCOUNT,
-            };
-            loader.setProjection(projection);
         }
         return loader;
     }
@@ -143,6 +136,8 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
         }
 
         private void initListAdapter() {
+            View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.payments_footer, null, false);
+            paymentsList.addFooterView(view);
             adapter = new PaymentsAdapter(context, null, 0);
             paymentsList.setAdapter(adapter);
         }
@@ -257,8 +252,9 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
             String date = cursor.getString(cursor.getColumnIndex(DataContract.Payments.COLUMN_PAYMENT_DATE));
             String monthDay = Utilities.getMonth(date.substring(5, 7)) + " " + date.substring(8, 10);
             holder.monthDay.setText(monthDay);
-            String account = cursor.getString(cursor.getColumnIndex(DataContract.Payments.COLUMN_PAYMENT_ACCOUNT));
-            holder.account.setText(account);
+            holder.sendTo.setText(cursor.getString(cursor.getColumnIndex(DataContract.Payments.COLUMN_SEND_TO)));
+            holder.checkNumber.setText("Check number: " + String.valueOf(cursor.getInt(cursor.getColumnIndex(DataContract.Payments.COLUMN_CHECK_NUMBER))));
+            holder.cleared.setText("Cleared: " + cursor.getString(cursor.getColumnIndex(DataContract.Payments.COLUMN_CLEARED)));
             String payment = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.Payments.COLUMN_PAYMENT_AMOUNT)));
             holder.payment.setText("$" + payment);
         }
@@ -323,10 +319,14 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
             TextView yearPaymentsSum;
             @Bind(R.id.monthDay)
             TextView monthDay;
-            @Bind(R.id.account)
-            TextView account;
+            @Bind(R.id.send_to)
+            TextView sendTo;
             @Bind(R.id.payment)
             TextView payment;
+            @Bind(R.id.checkNumber)
+            TextView checkNumber;
+            @Bind(R.id.cleared)
+            TextView cleared;
 
             public ViewHolder(View convertView) {
                 ButterKnife.bind(this, convertView);

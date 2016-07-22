@@ -104,7 +104,7 @@ public class CouponsByMerchantIdRequest {
                         if (jObj.has("owners_benefit")) {
                             coupon.setOwnersBenefit(jObj.getBoolean("owners_benefit"));
                         } else {
-                            coupon.setOwnersBenefit(jObj.getBoolean("owners_benefit"));
+                            coupon.setOwnersBenefit(false);
                         }
                         coupons.add(coupon);
                     }

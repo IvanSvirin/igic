@@ -49,8 +49,8 @@
     <string name="alert_about_connection">It is necessary an active connection for data update.</string>
     <string name="date_title">Date: </string>
     <string name="time_title">Time: </string>
-    <string name="order_title">Order:</string>
-    <string name="shopping_trips_small">Shopping trips: </string>
+    <string name="confirmation_title">Confirmation # :</string>
+    <string name="visit_id">Visit ID: </string>
     <string name="pending_stock_title">Payment stock:</string>
     <string name="pref_show_tour_key" translatable="false">showTourKey</string>
     <string name="all_results">All Results for</string>
@@ -86,5 +86,8 @@
     <string name="password_conditions">Password must be at least 8 characters in length and contain at least 3 of the following 4 types of characters:\n
     - lower case letters (i.e. a-z)\n - upper case letters (i.e. A-Z)\n - numbers (i.e. 0-9)\n - special characters \n (e.g. !@#$%^*()_+~-=\{}[]:;?.)</string>
     <string name="title_next_check">Next Check</string>
+    <string name="shopping_report_footer_text">Purchases are verified by the merchant and are subject to verification audit</string>
+    <string name="payments_footer_text">The "Cleared" information in the table below shows the date when each check cleared the bank or was voided.
+        If the column is blank, our bank has not yet reported to us that the check was cashed/deposited.</string>
 
 </resources>

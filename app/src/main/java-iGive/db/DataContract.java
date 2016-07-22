@@ -115,9 +115,12 @@ public class DataContract {
 
     public static class Payments implements BaseColumns {
         public static final String TABLE_NAME = "payments";
+        public static final String _ID = "_id";
         public static final String COLUMN_PAYMENT_DATE = "payment_date";
         public static final String COLUMN_PAYMENT_AMOUNT = "payment_amount";
-        public static final String COLUMN_PAYMENT_ACCOUNT = "payment_account";
+        public static final String COLUMN_CLEARED = "cleared";
+        public static final String COLUMN_CHECK_NUMBER = "check_number";
+        public static final String COLUMN_SEND_TO = "send_to";
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "payments";
@@ -140,7 +143,9 @@ public class DataContract {
     }
 
     public static class CashBackOrders implements BaseColumns {
+        public static final String _ID = "_id";
         public static final String TABLE_NAME = "orders";
+        public static final String COLUMN_ORDER_ID = "order_id";
         public static final String COLUMN_VENDOR_ID = "vendor_id";
         public static final String COLUMN_PURCHASE_TOTAL = "purchase_total";
         public static final String COLUMN_CONFIRMATION_NUMBER = "confirmation_number";
@@ -160,6 +165,8 @@ public class DataContract {
     public static class CharityOrders implements BaseColumns {
         public static final String TABLE_NAME = "charity_orders";
         public static final String COLUMN_VENDOR_ID = "vendor_id";
+        public static final String _ID = "_id";
+        public static final String COLUMN_ORDER_ID = "order_id";
         public static final String COLUMN_PURCHASE_TOTAL = "purchase_total";
         public static final String COLUMN_CONFIRMATION_NUMBER = "confirmation_number";
         public static final String COLUMN_ORDER_DATE = "order_date";

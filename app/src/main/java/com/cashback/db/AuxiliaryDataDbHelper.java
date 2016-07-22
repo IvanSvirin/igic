@@ -93,7 +93,9 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Payments._ID + PRIMARY_TYPE +
                     DataContract.Payments.COLUMN_PAYMENT_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.Payments.COLUMN_PAYMENT_AMOUNT + REAL_TYPE + DELIMITER +
-                    DataContract.Payments.COLUMN_PAYMENT_ACCOUNT + TEXT_TYPE +
+                    DataContract.Payments.COLUMN_CLEARED + TEXT_TYPE + DELIMITER +
+                    DataContract.Payments.COLUMN_CHECK_NUMBER + REAL_TYPE + DELIMITER +
+                    DataContract.Payments.COLUMN_SEND_TO + TEXT_TYPE +
                     " )";
     public final String SQL_DELETE_PAYMENTS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Payments.TABLE_NAME;
 
@@ -113,8 +115,9 @@ public class AuxiliaryDataDbHelper {
                     DataContract.CashBackOrders._ID + PRIMARY_TYPE +
                     DataContract.CashBackOrders.COLUMN_VENDOR_ID + INT_TYPE + DELIMITER +
                     DataContract.CashBackOrders.COLUMN_PURCHASE_TOTAL + REAL_TYPE + DELIMITER +
-                    DataContract.CashBackOrders.COLUMN_CONFIRMATION_NUMBER + INT_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_CONFIRMATION_NUMBER + TEXT_TYPE + DELIMITER +
                     DataContract.CashBackOrders.COLUMN_ORDER_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CashBackOrders.COLUMN_ORDER_ID + TEXT_TYPE + DELIMITER +
                     DataContract.CashBackOrders.COLUMN_POSTED_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.CashBackOrders.COLUMN_VENDOR_NAME + TEXT_TYPE + DELIMITER +
                     DataContract.CashBackOrders.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +
@@ -130,6 +133,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.CharityOrders.COLUMN_PURCHASE_TOTAL + REAL_TYPE + DELIMITER +
                     DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER + INT_TYPE + DELIMITER +
                     DataContract.CharityOrders.COLUMN_ORDER_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityOrders.COLUMN_ORDER_ID + TEXT_TYPE + DELIMITER +
                     DataContract.CharityOrders.COLUMN_POSTED_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.CharityOrders.COLUMN_VENDOR_NAME + TEXT_TYPE + DELIMITER +
                     DataContract.CharityOrders.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +

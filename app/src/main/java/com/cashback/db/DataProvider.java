@@ -141,7 +141,7 @@ public class DataProvider extends ContentProvider {
                 break;
             case PAYMENTS:
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = DataContract.Payments.COLUMN_PAYMENT_DATE + " COLLATE NOCASE ASC";
+                    sortOrder = DataContract.Payments._ID + " COLLATE NOCASE ASC";
                 }
                 cursor = db.query(DataContract.Payments.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 break;
@@ -153,13 +153,13 @@ public class DataProvider extends ContentProvider {
                 break;
             case ORDERS:
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = DataContract.CashBackOrders.COLUMN_ORDER_DATE + " COLLATE NOCASE DESC";
+                    sortOrder = DataContract.CashBackOrders._ID + " COLLATE NOCASE ASC";
                 }
                 cursor = db.query(DataContract.CashBackOrders.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 break;
             case CHARITY_ORDERS:
                 if (TextUtils.isEmpty(sortOrder)) {
-                    sortOrder = DataContract.CharityOrders.COLUMN_ORDER_DATE + " COLLATE NOCASE DESC";
+                    sortOrder = DataContract.CharityOrders._ID + " COLLATE NOCASE ASC";
                 }
                 cursor = db.query(DataContract.CharityOrders.TABLE_NAME, projection, null, null, null, null, sortOrder);
                 break;

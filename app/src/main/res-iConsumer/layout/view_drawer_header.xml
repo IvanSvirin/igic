@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/AppTheme.TextAppearance"
-        android:textColor="@color/white"
+        android:textColor="@color/primary"
         android:textSize="18sp"
         android:layout_alignTop="@+id/userName"
         android:layout_alignParentRight="true"
@@ -26,7 +26,7 @@
         android:layout_above="@+id/userEmail"
         android:layout_marginBottom="@dimen/padding_min"
         android:textAppearance="@style/AppTheme.TextAppearance"
-        android:textColor="@color/white" />
+        android:textColor="@color/primary" />
 
     <TextView
         android:id="@+id/userEmail"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:textAppearance="@style/AppTheme.TextAppearance"
-        android:textColor="@color/white" />
+        android:textColor="@color/primary" />
 
     <ImageView
         android:layout_width="wrap_content"

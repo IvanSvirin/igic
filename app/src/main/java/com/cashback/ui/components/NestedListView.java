@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 public class NestedListView extends ListView {
 
-    private static final int MAXIMUM_LIST_ITEMS_VIEWABLE = 99;
+    private static final int MAXIMUM_LIST_ITEMS_VIEWABLE = 999;
 
     public NestedListView(Context context, AttributeSet attrs) {
         super(context, attrs);

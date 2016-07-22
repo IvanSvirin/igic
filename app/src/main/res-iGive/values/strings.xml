@@ -19,7 +19,7 @@
     <string name="by_all_supporters">by All supporters</string>
     <string name="member_settings">Member Settings</string>
     <string name="donation_alerts">Send Me Purchase Notifications</string>
-    <string name="order_number">Order Number:</string>
+    <string name="order_number">Cause: </string>
     <string name="purchase_amount">Purchase Amount:</string>
     <string name="notifications_donation_alerts">When you make a purchase through iGive</string>
     <string name="notifications_trending_deals_alerts">Stay in the loop</string>

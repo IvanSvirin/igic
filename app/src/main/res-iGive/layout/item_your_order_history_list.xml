@@ -62,14 +62,14 @@
             android:alpha="0.54" />
 
         <TextView
-            android:id="@+id/orderNumberValue"
+            android:id="@+id/causeValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:layout_alignBottom="@+id/orderTitle"
+            android:layout_alignBottom="@+id/causeTitle"
             android:layout_gravity="left|center_vertical"
-            android:layout_toEndOf="@+id/orderTitle"
-            android:layout_toRightOf="@+id/orderTitle"
+            android:layout_toEndOf="@+id/causeTitle"
+            android:layout_toRightOf="@+id/causeTitle"
             android:alpha="0.54" />
 
         <TextView
@@ -79,7 +79,7 @@
             android:layout_gravity="end|center_vertical"
             android:singleLine="true"
             android:text="@string/format_donation_amount"
-            android:layout_below="@+id/orderNumberValue"
+            android:layout_below="@+id/causeValue"
             android:layout_toRightOf="@+id/pendingStockTitle"
             android:layout_toEndOf="@+id/pendingStockTitle"
             android:alpha="0.54" />
@@ -88,9 +88,9 @@
             android:id="@+id/pendingStockTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/orderTitle"
-            android:layout_alignStart="@+id/orderTitle"
-            android:layout_below="@+id/orderTitle"
+            android:layout_alignLeft="@+id/causeTitle"
+            android:layout_alignStart="@+id/causeTitle"
+            android:layout_below="@+id/causeTitle"
             android:layout_gravity="left|center_vertical"
             android:text="@string/purchase_amount"
             android:alpha="0.54" />
@@ -110,7 +110,7 @@
             android:textColor="@color/primary" />
 
         <TextView
-            android:id="@+id/orderTitle"
+            android:id="@+id/causeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/order_number"
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:singleLine="true"
-            android:layout_above="@+id/orderNumberValue"
+            android:layout_above="@+id/causeValue"
             android:layout_toRightOf="@+id/monthDay"
             android:layout_toEndOf="@+id/monthDay"
             android:alpha="0.54" />

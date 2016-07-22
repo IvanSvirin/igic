@@ -12,8 +12,8 @@
         android:layout_marginLeft="46dp"
         android:layout_marginRight="@dimen/padding_standard"
         android:layout_marginStart="46dp"
-        android:background="@android:color/transparent"
-        android:alpha="0.54" />
+        android:alpha="0.54"
+        android:background="@android:color/transparent" />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -28,17 +28,16 @@
             android:id="@+id/storeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/monthDay"
-            android:layout_alignBottom="@+id/monthDay"
             android:layout_gravity="start|center_vertical"
-            android:layout_marginLeft="62dp"
-            android:layout_marginStart="62dp"
-            android:layout_toEndOf="@+id/monthDay"
-            android:layout_toRightOf="@+id/monthDay"
+            android:alpha="0.87"
             android:maxLines="2"
             android:text="Name"
             android:textAppearance="@style/AppTheme.TextAppearance"
-            android:alpha="0.87" />
+            android:layout_below="@+id/monthYear"
+            android:layout_toRightOf="@+id/monthDay"
+            android:layout_toEndOf="@+id/monthDay"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" />
 
         <TextView
             android:id="@+id/storeCommission"
@@ -48,11 +47,11 @@
             android:layout_alignRight="@+id/total"
             android:layout_below="@+id/monthYear"
             android:layout_gravity="end|center_vertical"
+            android:alpha="0.87"
             android:singleLine="true"
             android:text="@string/format_donation_amount"
             android:textAppearance="@style/AppTheme.TextAppearance"
-            android:textColor="@color/red"
-            android:alpha="0.87" />
+            android:textColor="@color/primary" />
 
         <TextView
             android:id="@+id/monthDay"
@@ -62,30 +61,32 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="left|center_vertical"
-            android:text="Exp."
-            android:alpha="0.54" />
+            android:alpha="0.54"
+            android:text="Exp." />
 
         <TextView
             android:id="@+id/orderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/storeName"
-            android:layout_alignStart="@+id/storeName"
-            android:layout_below="@+id/storeName"
+            android:layout_alignLeft="@+id/pendingStockTitle"
+            android:layout_alignStart="@+id/pendingStockTitle"
+            android:layout_below="@+id/pendingStockTitle"
             android:layout_gravity="left|center_vertical"
-            android:text="@string/order_title"
-            android:alpha="0.54" />
+            android:alpha="0.54"
+            android:text="@string/confirmation_title" />
 
         <TextView
             android:id="@+id/orderNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/orderTitle"
+            android:layout_below="@+id/pendingStockTitle"
             android:layout_gravity="left|center_vertical"
-            android:layout_toEndOf="@+id/orderTitle"
             android:layout_toRightOf="@+id/orderTitle"
-            android:text="Exp."
-            android:alpha="0.54" />
+            android:alpha="0.54"
+            android:lines="2"
+            android:text="NNNNNN"
+            android:layout_alignRight="@+id/total"
+            android:layout_alignEnd="@+id/total" />
 
         <TextView
             android:id="@+id/total"
@@ -95,17 +96,17 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/monthDay"
             android:layout_gravity="end|center_vertical"
+            android:alpha="0.54"
             android:singleLine="true"
-            android:text="@string/format_donation_amount"
-            android:alpha="0.54" />
+            android:text="@string/format_donation_amount" />
 
         <TextView
             android:id="@+id/pendingStockTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/orderTitle"
-            android:layout_alignStart="@+id/orderTitle"
-            android:layout_below="@+id/orderTitle"
+            android:layout_alignLeft="@+id/storeName"
+            android:layout_alignStart="@+id/storeName"
+            android:layout_below="@+id/storeName"
             android:layout_gravity="left|center_vertical"
             android:text="@string/pending_stock_title"
             android:textColor="@color/primary" />

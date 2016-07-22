@@ -94,7 +94,9 @@ public class PaymentsRequest {
                         values = new ContentValues();
                         values.put(DataContract.Payments.COLUMN_PAYMENT_AMOUNT, jObj.getDouble("payment_amount"));
                         values.put(DataContract.Payments.COLUMN_PAYMENT_DATE, jObj.getString("payment_date"));
-                        values.put(DataContract.Payments.COLUMN_PAYMENT_ACCOUNT, jObj.getString("payment_account"));
+                        values.put(DataContract.Payments.COLUMN_CLEARED, jObj.getString("cleared"));
+                        values.put(DataContract.Payments.COLUMN_CHECK_NUMBER, jObj.getInt("check_number"));
+                        values.put(DataContract.Payments.COLUMN_SEND_TO, jObj.getString("send_to"));
                         listValues.add(values);
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());

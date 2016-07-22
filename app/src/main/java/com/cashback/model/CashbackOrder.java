@@ -3,7 +3,7 @@ package com.cashback.model;
 public class CashBackOrder {
     private long vendorId;
     private float purchaseTotal;
-    private int confirmationNumber;
+    private String confirmationNumber;
     private String orderDate;
     private String postedDate;
     private String vendorName;
@@ -11,7 +11,7 @@ public class CashBackOrder {
     private int sharedStockAmount;
     private float amountCashback;
 
-    public CashBackOrder(long vendorId, float purchaseTotal, int confirmationNumber, String orderDate, String postedDate, String vendorName, String vendorLogoUrl, int sharedStockAmount,
+    public CashBackOrder(long vendorId, float purchaseTotal, String confirmationNumber, String orderDate, String postedDate, String vendorName, String vendorLogoUrl, int sharedStockAmount,
                          float amountCashback) {
         this.vendorId = vendorId;
         this.purchaseTotal = purchaseTotal;
@@ -40,11 +40,11 @@ public class CashBackOrder {
         this.purchaseTotal = purchaseTotal;
     }
 
-    public int getConfirmationNumber() {
+    public String getConfirmationNumber() {
         return confirmationNumber;
     }
 
-    public void setConfirmationNumber(int confirmationNumber) {
+    public void setConfirmationNumber(String confirmationNumber) {
         this.confirmationNumber = confirmationNumber;
     }
 

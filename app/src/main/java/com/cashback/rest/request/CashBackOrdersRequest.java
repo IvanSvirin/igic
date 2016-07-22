@@ -93,14 +93,15 @@ public class CashBackOrdersRequest {
                         jObj = jsonArray.getJSONObject(i);
                         values = new ContentValues();
                         values.put(DataContract.CashBackOrders.COLUMN_VENDOR_ID, jObj.getLong("vendor_id"));
+                        values.put(DataContract.CashBackOrders.COLUMN_ORDER_ID, jObj.getInt("order_id"));
                         values.put(DataContract.CashBackOrders.COLUMN_PURCHASE_TOTAL, jObj.getDouble("purchase_total"));
-                        values.put(DataContract.CashBackOrders.COLUMN_CONFIRMATION_NUMBER, jObj.getInt("confirmation_number"));
+                        values.put(DataContract.CashBackOrders.COLUMN_CONFIRMATION_NUMBER, jObj.getString("confirmation_number"));
                         values.put(DataContract.CashBackOrders.COLUMN_ORDER_DATE, jObj.getString("order_date"));
                         values.put(DataContract.CashBackOrders.COLUMN_POSTED_DATE, jObj.getString("posted_date"));
                         values.put(DataContract.CashBackOrders.COLUMN_VENDOR_NAME, jObj.getString("vendor_name"));
                         values.put(DataContract.CashBackOrders.COLUMN_VENDOR_LOGO_URL, jObj.getString("vendor_logo_url"));
-                        values.put(DataContract.CashBackOrders.COLUMN_SHARED_STOCK_AMOUNT, jObj.getDouble("purchase_total"));
-                        values.put(DataContract.CashBackOrders.COLUMN_CASH_BACK, jObj.getDouble("purchase_total"));
+                        values.put(DataContract.CashBackOrders.COLUMN_SHARED_STOCK_AMOUNT, jObj.getDouble("shared_stock_amount"));
+                        values.put(DataContract.CashBackOrders.COLUMN_CASH_BACK, jObj.getDouble("amount_cashback"));
 
                         listValues.add(values);
                     }
