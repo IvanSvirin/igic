@@ -154,6 +154,7 @@ public class ProductsTabFragment extends Fragment {
                             }
                         } else {
                             if (cursor != null) {
+                                cursor.moveToFirst();
                                 Bundle loginBundle = new Bundle();
                                 loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
                                 loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));

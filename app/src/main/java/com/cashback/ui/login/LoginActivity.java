@@ -1,5 +1,6 @@
 package com.cashback.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -11,9 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.cashback.R;
+import com.cashback.Utilities;
+import com.cashback.ui.StoreActivity;
+import com.cashback.ui.allresults.AllResultsActivity;
+import com.cashback.ui.web.BrowserDealsActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ui.MainActivity;
 import ui.login.SignInFragment;
 import ui.login.SignUpFragment;
 
@@ -41,6 +47,28 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            Bundle loginBundle = getIntent().getBundleExtra(Utilities.LOGIN_BUNDLE);
+            Intent intent;
+            switch (loginBundle.getString(Utilities.CALLING_ACTIVITY)) {
+                case "MainActivity":
+                    intent = new Intent(this, MainActivity.class);
+                    break;
+                case "AllResultsActivity":
+                    intent = new Intent(this, AllResultsActivity.class);
+                    break;
+                case "StoreActivity":
+                    intent = new Intent(this, StoreActivity.class);
+                    intent.putExtra(Utilities.VENDOR_ID, loginBundle.getLong(Utilities.VENDOR_ID));
+                    break;
+                case "BrowserDealsActivity":
+                    intent = new Intent(this, MainActivity.class);
+                    break;
+                default:
+                    intent = new Intent(this, MainActivity.class);
+            }
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
             onBackPressed();
             return true;
         }

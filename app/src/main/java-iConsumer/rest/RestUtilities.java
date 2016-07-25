@@ -37,10 +37,10 @@ public class RestUtilities {
     private final static long FAVORITES_UPDATE_INTERVAL = 21600000; // 6 h
     private final static long COUPONS_UPDATE_INTERVAL = 3600000; // 1h
     private final static long CATEGORIES_UPDATE_INTERVAL = 43200000; // 12h
-    private final static long PAYMENTS_UPDATE_INTERVAL = 43200000; // 12h
-    private static final long SHOPPING_TRIPS_UPDATE_INTERVAL = 43200000; // 12h
-    private static final long ORDERS_UPDATE_INTERVAL = 43200000; // 12h
-    private static final long CHARITY_ORDERS_UPDATE_INTERVAL = 43200000; // 12h
+    private final static long PAYMENTS_UPDATE_INTERVAL = 3600000; // 1h
+    private static final long SHOPPING_TRIPS_UPDATE_INTERVAL = 3600000; // 1h
+    private static final long ORDERS_UPDATE_INTERVAL = 3600000; // 1h
+    private static final long CHARITY_ORDERS_UPDATE_INTERVAL = 3600000; // 1h
     private static final long MISC_UPDATE_INTERVAL = 43200000; // 12h
 
     public static void syncDistantData(Context context, String token) {

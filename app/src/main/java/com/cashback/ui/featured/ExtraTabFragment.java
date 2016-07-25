@@ -235,13 +235,14 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                             context.startActivity(intent);
                         } else {
                             if (cursor != null) {
+                                int position = getAdapterPosition();
+                                cursor.moveToPosition(position);
                                 Bundle loginBundle = new Bundle();
                                 loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
                                 loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
                                 loginBundle.putString(Utilities.AFFILIATE_URL, cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
                                 loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
                                 Utilities.needLoginDialog(context, loginBundle);
-                                cursor.close();
                             }
                         }
                     }
@@ -297,6 +298,8 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
             }
             if (!(wasCashBack.equals("") || wasCashBack.equals(" "))) {
                 holder.vhWas.setText("Was " + wasCashBack + "%");
+            } else {
+                holder.vhWas.setText("Was 0.0%");
             }
             holder.vhWas.setPaintFlags(holder.vhWas.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             picasso.load(logoUrl).into(holder.vhStoreLogo);

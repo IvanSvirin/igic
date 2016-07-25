@@ -19,7 +19,7 @@
     <string name="space">wait...</string>
     <string name="tab_hot_deals">hot deals</string>
     <string name="tab_favorites">favorites</string>
-    <string name="tab_extra">extra</string>
+    <string name="tab_extra">extra cash back</string>
     <string name="drawer_close">Navigation drawer close</string>
     <string name="drawer_open">Navigation drawer open</string>
     <string name="title_featured_fragment">Featured</string>
@@ -51,7 +51,7 @@
     <string name="time_title">Time: </string>
     <string name="confirmation_title">Confirmation # :</string>
     <string name="visit_id">Visit ID: </string>
-    <string name="pending_stock_title">Payment stock:</string>
+    <string name="pending_stock_title">Pending stock:</string>
     <string name="pref_show_tour_key" translatable="false">showTourKey</string>
     <string name="all_results">All Results for</string>
     <string name="tab_stores">stores</string>

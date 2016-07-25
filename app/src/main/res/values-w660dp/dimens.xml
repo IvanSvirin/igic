@@ -7,4 +7,8 @@
     <dimen name="content_padding_top">56dp</dimen>
     <dimen name="content_padding_min">32dp</dimen>
     <dimen name="content_padding_max">132dp</dimen>
+
+    <dimen name="header_padding_left">160dp</dimen>
+    <dimen name="header_padding_right">128dp</dimen>
+
 </resources>

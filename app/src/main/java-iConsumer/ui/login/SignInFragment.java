@@ -123,7 +123,7 @@ public class SignInFragment extends Fragment {
             getContext().startActivity(intent);
             getActivity().finish();
         } else {
-            fragmentUi.showFailNotification(event.message);
+            fragmentUi.showFailNotification("The combination of email address and password were not valid.");
         }
     }
 

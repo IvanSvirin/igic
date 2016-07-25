@@ -27,6 +27,9 @@
     <dimen name="content_padding_min">0dp</dimen>
     <dimen name="content_padding_max">0dp</dimen>
 
+    <dimen name="header_padding_left">48dp</dimen>
+    <dimen name="header_padding_right">16dp</dimen>
+
     <dimen name="padding_small">8dp</dimen>
 
     <dimen name="divider_padding">3dp</dimen>

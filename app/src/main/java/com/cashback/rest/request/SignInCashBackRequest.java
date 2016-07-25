@@ -120,6 +120,7 @@ public class SignInCashBackRequest {
                     ContentValues values = new ContentValues();
                     values.put(DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT, jObj.getDouble("cash_pending_amount"));
                     values.put(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT, jObj.getDouble("payments_total_amount"));
+                    values.put(DataContract.CashbackAccounts.COLUMN_NEXT_CHECK_AMOUNT, jObj.getDouble("next_check_amount"));
                     values.put(DataContract.CashbackAccounts.COLUMN_LAST_NAME, jObj.getString("last_name"));
                     String email = jObj.getString("email");
                     Utilities.saveEmail(context, email);

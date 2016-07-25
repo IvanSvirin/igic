@@ -177,9 +177,9 @@ public class AccountFragment extends Fragment {
             if (cursor != null) {
                 cursor.moveToFirst();
             }
-            userCashPending.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT))));
-            userNextCheck.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_NEXT_CHECK_AMOUNT))));
-            userPayments.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT))));
+            userCashPending.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT))));
+            userNextCheck.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_NEXT_CHECK_AMOUNT))));
+            userPayments.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_NEXT_PAYMENT_DATE));
             nextPaymentDate.setText("Next Payment: " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             date = cursor.getString(cursor.getColumnIndex(DataContract.CashbackAccounts.COLUMN_MEMBER_DATE));
