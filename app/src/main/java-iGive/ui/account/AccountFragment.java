@@ -121,6 +121,16 @@ public class AccountFragment extends Fragment {
                 Utilities.removeUserToken(getContext());
                 Utilities.removeEmail(getContext());
                 Utilities.saveUserEntry(getContext(), false);
+                getContext().getContentResolver().delete(DataContract.URI_CASH_BACK_ACCOUNT, null, null);
+                getContext().getContentResolver().delete(DataContract.URI_CHARITY_ACCOUNT, null, null);
+                getContext().getContentResolver().delete(DataContract.URI_FAVORITES, null, null);
+                getContext().getContentResolver().delete(DataContract.URI_PAYMENTS, null, null);
+                getContext().getContentResolver().delete(DataContract.URI_SHOPPING_TRIPS, null, null);
+                getContext().getContentResolver().delete(DataContract.URI_ORDERS, null, null);
+                getContext().getContentResolver().delete(DataContract.URI_CHARITY_ORDERS, null, null);
+                if (AccessToken.getCurrentAccessToken() != null) {
+                    LoginManager.getInstance().logOut();
+                }
                 getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), MainActivity.class));
                 break;

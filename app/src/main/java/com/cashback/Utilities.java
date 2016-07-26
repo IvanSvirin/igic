@@ -14,6 +14,8 @@ import android.text.TextUtils;
 
 import com.cashback.ui.login.LoginActivity;
 
+import java.util.regex.Pattern;
+
 import db.DataContract;
 
 public class Utilities {
@@ -322,5 +324,10 @@ public class Utilities {
             }
         }
         return s;
+    }
+
+    public static boolean isEmailValid(String email) {
+        return Pattern.compile("^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@([a-z0-9]([-a-z0-9]{0,61}[a-z0-9])?\\.)*" +
+                "(aero|arpa|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])$").matcher(email).matches();
     }
 }

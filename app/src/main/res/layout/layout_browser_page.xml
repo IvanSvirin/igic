@@ -34,8 +34,9 @@
         android:text="Restrictions/Expire"
         android:id="@+id/restrictions"
         android:layout_above="@+id/shopNowButton"
-        android:layout_centerHorizontal="true"
         android:padding="10dp"
         android:textColor="@color/textColorPrimaryInverse"
-        android:textAlignment="center" />
+        android:textAlignment="gravity"
+        android:layout_centerVertical="true"
+        android:gravity="center" />
 </RelativeLayout>

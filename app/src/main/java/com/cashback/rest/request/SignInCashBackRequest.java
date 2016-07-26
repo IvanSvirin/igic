@@ -7,7 +7,9 @@ import android.util.Log;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.SignInEvent;
@@ -69,7 +71,12 @@ public class SignInCashBackRequest {
                 String postParameters;
                 switch (authObject.getAuthType()) {
                     case "0":
-                postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                        if (pathEnd.equals("signup")) {
+                            postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType() +
+                                    "incoming_referrer_id" + authObject.getReferrerEmail();
+                        } else {
+                            postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                        }
                         break;
                     case "1":
                     case "2":
@@ -77,7 +84,12 @@ public class SignInCashBackRequest {
                                 "&email=" + authObject.getEmail() + "&auth_type=" + authObject.getAuthType() + "&user_id=" + authObject.getUserId();
                         break;
                     default:
-                        postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                        if (pathEnd.equals("signup")) {
+                            postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType() +
+                                    "incoming_referrer_id" + authObject.getReferrerEmail();
+                        } else {
+                            postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
+                        }
                 }
                 urlConnection.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());

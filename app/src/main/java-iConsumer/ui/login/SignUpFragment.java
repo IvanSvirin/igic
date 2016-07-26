@@ -173,22 +173,32 @@ public class SignUpFragment extends Fragment {
 
         @OnClick(R.id.facebookSingUpButton)
         public void onFBSignUp() {
-            LoginManager.getInstance().logInWithReadPermissions(getActivity(), Arrays.asList("email", "public_profile", "user_friends"));
+            LoginManager.getInstance().logInWithReadPermissions(getActivity(), Arrays.asList("email", "public_profile"));
         }
 
         @OnClick(R.id.nativeSingUpButton)
         public void onNativeSignUp() {
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
+            String referrerEmail = etReferringEmail.getText().toString();
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                 Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_empty_fields, Snackbar.LENGTH_SHORT).show();
             } else {
                 if (isPasswordValid(password)) {
-                    AuthObject authObject = new AuthObject();
-                    authObject.setAuthType("0");
-                    authObject.setEmail(email);
-                    authObject.setPassword(password);
-                    new SignInCashBackRequest(getContext(), authObject, "signup").fetchData();
+                    if (Utilities.isEmailValid(email)) {
+                        if (Utilities.isEmailValid(referrerEmail)) {
+                            AuthObject authObject = new AuthObject();
+                            authObject.setAuthType("0");
+                            authObject.setEmail(email);
+                            authObject.setPassword(password);
+                            authObject.setReferrerEmail(referrerEmail);
+                            new SignInCashBackRequest(getContext(), authObject, "signup").fetchData();
+                        } else {
+                            Utilities.showFailNotification("Please enter valid email address.", getContext());
+                        }
+                    } else {
+                        Utilities.showFailNotification("Please enter valid email address.", getContext());
+                    }
                 } else {
 //                    p = new Point();
 //                    showPopup(getActivity(), p);

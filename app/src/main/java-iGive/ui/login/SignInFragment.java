@@ -142,7 +142,7 @@ public class SignInFragment extends Fragment {
 
         @OnClick(R.id.facebookLoginButton)
         public void onFBSignIn() {
-            LoginManager.getInstance().logInWithReadPermissions(SignInFragment.this, Arrays.asList("email", "public_profile", "user_friends"));
+            LoginManager.getInstance().logInWithReadPermissions(SignInFragment.this, Arrays.asList("email", "public_profile"));
         }
 
         @OnClick(R.id.googleLoginButton)

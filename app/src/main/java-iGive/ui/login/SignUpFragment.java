@@ -127,7 +127,7 @@ public class SignUpFragment extends Fragment {
 
         @OnClick(R.id.facebookSingUpButton)
         public void onFBSignUp() {
-            LoginManager.getInstance().logInWithReadPermissions(SignUpFragment.this, Arrays.asList("email", "public_profile", "user_friends"));
+            LoginManager.getInstance().logInWithReadPermissions(SignUpFragment.this, Arrays.asList("email", "public_profile"));
         }
 
         @OnClick(R.id.nativeSingUpButton)
@@ -140,14 +140,18 @@ public class SignUpFragment extends Fragment {
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(zip)) {
                 Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_empty_fields, Snackbar.LENGTH_SHORT).show();
             } else {
-                AuthObject authObject = new AuthObject();
-                authObject.setAuthType("0");
-                authObject.setEmail(email);
-                authObject.setPassword(password);
-                authObject.setFirstName(firstName);
-                authObject.setLastName(lastName);
-                authObject.setZip(zip);
-                new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
+                if (Utilities.isEmailValid(email)) {
+                    AuthObject authObject = new AuthObject();
+                    authObject.setAuthType("0");
+                    authObject.setEmail(email);
+                    authObject.setPassword(password);
+                    authObject.setFirstName(firstName);
+                    authObject.setLastName(lastName);
+                    authObject.setZip(zip);
+                    new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
+                } else {
+                    Utilities.showFailNotification("Please enter valid email address.", getContext());
+                }
             }
         }
 

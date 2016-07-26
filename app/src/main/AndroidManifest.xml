@@ -108,7 +108,7 @@
             <intent-filter>
                 <data android:scheme="com.cashback" />
                 <data
-                    android:host="bnc.lt"
+                    android:host="app.link"
                     android:pathPrefix="/3WGh"
                     android:scheme="https" />
 
