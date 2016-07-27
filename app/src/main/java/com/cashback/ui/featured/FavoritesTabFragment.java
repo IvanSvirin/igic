@@ -29,6 +29,7 @@ import com.cashback.Utilities;
 import db.DataContract;
 
 import com.cashback.rest.event.FavoritesEvent;
+import com.cashback.rest.request.CharityOrdersRequest;
 import com.cashback.rest.request.FavoritesRequest;
 
 import ui.MainActivity;
@@ -114,6 +115,9 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         fragmentUi.favoritesAdapter.changeCursor(data);
+        if (data == null || data.getCount() == 0) {
+            new FavoritesRequest(getContext()).fetchData();
+        }
     }
 
     @Override

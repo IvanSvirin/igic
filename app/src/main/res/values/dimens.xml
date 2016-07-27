@@ -29,6 +29,7 @@
 
     <dimen name="header_padding_left">48dp</dimen>
     <dimen name="header_padding_right">16dp</dimen>
+    <dimen name="header_padding_payments">16dp</dimen>
 
     <dimen name="padding_small">8dp</dimen>
 

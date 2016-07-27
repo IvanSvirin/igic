@@ -20,8 +20,11 @@ import android.view.ViewGroup;
 import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import rest.RestUtilities;
 import ui.MainActivity;
+
+import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.allresults.SearchActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.google.android.gms.analytics.HitBuilders;

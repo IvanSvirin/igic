@@ -33,6 +33,8 @@ import ui.MainActivity;
 import com.cashback.ui.account.HelpActivity;
 import com.cashback.ui.account.StoreVisitsActivity;
 import com.cashback.ui.web.BrowserActivity;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 

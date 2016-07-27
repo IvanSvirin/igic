@@ -12,5 +12,6 @@
 
     <dimen name="header_padding_left">176dp</dimen>
     <dimen name="header_padding_right">144dp</dimen>
+    <dimen name="header_padding_payments">162dp</dimen>
 
 </resources>
