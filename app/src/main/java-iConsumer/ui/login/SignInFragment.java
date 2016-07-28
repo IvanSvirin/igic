@@ -20,6 +20,7 @@ import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.SignInEvent;
+import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.rest.request.SignInCashBackRequest;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.allresults.AllResultsActivity;
@@ -100,6 +101,7 @@ public class SignInFragment extends Fragment {
             Intent intent;
             switch (loginBundle.getString(Utilities.CALLING_ACTIVITY)) {
                 case "MainActivity":
+                    new FavoritesRequest(getContext()).fetchData();
                     intent = new Intent(getContext(), MainActivity.class);
                     break;
                 case "AllResultsActivity":

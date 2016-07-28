@@ -154,10 +154,9 @@ public class AuxiliaryDataDbHelper {
                     DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT + REAL_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT + REAL_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT + REAL_TYPE + DELIMITER +
-                    DataContract.CharityAccounts.COLUMN_TOTAL_PAID_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_TOTAL_RAISED + REAL_TYPE + DELIMITER +
-                    DataContract.CharityAccounts.COLUMN_TOTAL_EARNED + REAL_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_MEMBER_SETTINGS_URL + TEXT_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_REFERRER_ID + TEXT_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL + TEXT_TYPE +
                     " )";
@@ -171,6 +170,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.CashbackAccounts.COLUMN_LAST_NAME + TEXT_TYPE + DELIMITER +
                     DataContract.CashbackAccounts.COLUMN_EMAIL + TEXT_TYPE + DELIMITER +
                     DataContract.CashbackAccounts.COLUMN_MEMBER_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.CashbackAccounts.COLUMN_TOTAL_EARNED + REAL_TYPE + DELIMITER +
                     DataContract.CashbackAccounts.COLUMN_NEXT_PAYMENT_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.CashbackAccounts.COLUMN_CASH_PENDING_AMOUNT + REAL_TYPE + DELIMITER +
                     DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT + REAL_TYPE + DELIMITER +

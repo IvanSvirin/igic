@@ -67,7 +67,7 @@ public class RestoreActivity extends AppCompatActivity {
         if (event.isSuccess) {
             showNotification("Link to change your password sent to your email");
         } else {
-            Utilities.showFailNotification("Check your internet connection and try again", this);
+            Utilities.showFailNotification("Please enter valid email address or check your internet connection and try again", this);
         }
     }
 

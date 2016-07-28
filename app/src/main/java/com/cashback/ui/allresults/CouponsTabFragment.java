@@ -189,7 +189,7 @@ public class CouponsTabFragment extends Fragment {
         @Override
         public CouponsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             if (parent instanceof RecyclerView) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hot_deal, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hot_deal_common, parent, false);
                 view.setFocusable(true);
                 return new CouponsViewHolder(view);
             } else {

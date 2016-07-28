@@ -92,10 +92,8 @@
                 android:id="@+id/was"
                 android:textSize="12sp"
                 android:layout_alignTop="@+id/textView10"
-                android:layout_toLeftOf="@+id/shareButton"
-                android:layout_toStartOf="@+id/shareButton"
-                android:layout_marginRight="94dp"
-                android:layout_marginEnd="94dp" />
+                android:layout_toRightOf="@+id/textView10"
+                android:layout_marginLeft="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"

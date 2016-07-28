@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="layout_common_store" type="layout">@layout/layout_store_land</item>
+    <item name="item_hot_deal_common" type="layout">@layout/item_hot_deal_grid</item>
+
 </resources>

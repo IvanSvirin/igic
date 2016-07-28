@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/tabLayout_height"
             app:tabGravity="fill"
-            app:tabMode="scrollable" />
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed" />
 
     </android.support.design.widget.AppBarLayout>
     <com.cashback.ui.components.FixedNestedScrollView

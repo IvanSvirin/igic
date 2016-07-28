@@ -194,7 +194,7 @@ public class AccountFragment extends Fragment {
             totalRaisedValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_DATE));
             totalPaidDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
-            memberSettingsUrl = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL)) + "?token=" + Utilities.retrieveUserToken(context);
+            memberSettingsUrl = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_SETTINGS_URL)) + "?token=" + Utilities.retrieveUserToken(context);
             cursor.close();
             newsSwitcher.setChecked(Utilities.isWeeklyNewsNotifyOn(getContext()));
             purchaseSwitcher.setChecked(Utilities.isPurchaseNotifyOn(getContext()));
