@@ -30,6 +30,7 @@ import com.cashback.Utilities;
 import com.cashback.rest.event.AccountEvent;
 import com.cashback.ui.AllStoresFragment;
 import com.cashback.ui.CategoriesFragment;
+import com.cashback.ui.HelpFragment;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.TellAFriendFragment;
 import com.cashback.ui.featured.FeaturedFragment;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static final int FRAGMENT_CATEGORIES = 2;
     public static final int FRAGMENT_TELL_A_FRIEND = 3;
     public static final int FRAGMENT_ACCOUNT = 4;
+    public static final int FRAGMENT_HELP = 5;
 
     /* LOADERS */
     public static final int ACCOUNT_LOADER = 0;
@@ -299,6 +301,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                                 fragmentManager.beginTransaction()
                                         .replace(R.id.content_frame, new AccountFragment(), AccountFragment.TAG_ACCOUNT_FRAGMENT)
                                         .commit();
+                                break;
+                            case (R.id.item_help):
+                                currentItemId = FRAGMENT_HELP;
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.content_frame, new HelpFragment(), HelpFragment.TAG_HELP_FRAGMENT)
+                                        .commit();
+                                break;
+                            case (R.id.item_search):
+                                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                                startActivity(intent);
                                 break;
                         }
                     }

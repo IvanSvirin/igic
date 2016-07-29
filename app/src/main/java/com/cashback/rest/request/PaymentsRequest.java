@@ -10,6 +10,7 @@ import com.cashback.Utilities;
 import db.DataContract;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.OrdersEvent;
+import com.cashback.rest.event.PaymentsEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +58,7 @@ public class PaymentsRequest {
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
+                EventBus.getDefault().post(new PaymentsEvent(false, "No payments data"));
             }
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
@@ -73,11 +75,13 @@ public class PaymentsRequest {
                 }
             } catch (Exception e) {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
+                EventBus.getDefault().post(new PaymentsEvent(false, "No payments data"));
             }
             try {
                 jsonArray = new JSONArray(jsonString);
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
+                EventBus.getDefault().post(new PaymentsEvent(false, "No payments data"));
             }
             return null;
         }
@@ -101,9 +105,10 @@ public class PaymentsRequest {
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startBulkInsert(DataInsertHandler.PAYMENTS_TOKEN, false, DataContract.URI_PAYMENTS, listValues.toArray(new ContentValues[listValues.size()]));
+                    EventBus.getDefault().post(new PaymentsEvent(true, ""));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    EventBus.getDefault().post(new OrdersEvent(false, "No payments data"));
+                    EventBus.getDefault().post(new PaymentsEvent(false, "No payments data"));
                 }
             }
         }

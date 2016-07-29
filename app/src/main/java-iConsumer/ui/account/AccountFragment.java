@@ -28,7 +28,6 @@ import db.DataContract;
 
 import com.cashback.rest.event.SettingsEvent;
 import com.cashback.rest.request.CashBackSettingsRequest;
-import com.cashback.ui.account.HelpActivity;
 import com.cashback.ui.account.StoreVisitsActivity;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -239,7 +238,7 @@ public class AccountFragment extends Fragment {
             return toolbar;
         }
 
-        @OnClick({R.id.paymentsFrame, R.id.storeVisitsFrame, R.id.shoppingReportFrame, R.id.helpFrame})
+        @OnClick({R.id.paymentsFrame, R.id.storeVisitsFrame, R.id.shoppingReportFrame})
         public void onClicks(View view) {
             Intent intent;
             switch (view.getId()) {
@@ -255,11 +254,6 @@ public class AccountFragment extends Fragment {
                     intent = new Intent(context, ShoppingReportActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.helpFrame:
-                    intent = new Intent(context, HelpActivity.class);
-                    startActivity(intent);
-                    break;
-
             }
         }
     }

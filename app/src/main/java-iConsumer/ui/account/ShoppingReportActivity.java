@@ -1,5 +1,6 @@
 package ui.account;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
@@ -41,6 +42,7 @@ import ui.MainActivity;
 
 public class ShoppingReportActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private UiActivity uiActivity;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +103,8 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
         uiActivity.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
             new CashBackOrdersRequest(this).fetchData();
+            progressDialog = Utilities.onCreateProgressDialog(this);
+            progressDialog.show();
         }
 
     }
@@ -111,6 +115,7 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
     }
 
     public void onEvent(OrdersEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             getSupportLoaderManager().restartLoader(MainActivity.ORDERS_LOADER, null, this);
         }

@@ -120,8 +120,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/paymentsFrame">
+                    android:layout_gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -163,6 +162,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
                     android:layout_gravity="center_vertical"
+                    android:id="@+id/paymentsFrame">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:paddingStart="@dimen/padding_small"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:text="@string/title_payments"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:alpha="0.87" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView2"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height"
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/shoppingReportFrame">
 
                     <TextView
@@ -175,6 +200,14 @@
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:id="@+id/shoppingReport"
                         android:alpha="0.87" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView3"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
 
                 </FrameLayout>
 
@@ -194,6 +227,14 @@
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:id="@+id/storeVisits"
                         android:alpha="0.87" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView4"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
 
                 </FrameLayout>
             </LinearLayout>
@@ -337,39 +378,6 @@
                         android:alpha="0.54" />
                 </FrameLayout>
             </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/frame_height"
-                android:layout_gravity="center_vertical" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_vertical"
-                    android:paddingStart="@dimen/padding_small"
-                    android:paddingLeft="@dimen/padding_small"
-                    android:text="@string/title_about"
-                    android:textAppearance="@style/AppTheme.TextAppearance"
-                    android:textColor="@color/primary" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/frame_height"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/helpFrame">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/padding_small"
-                    android:paddingLeft="@dimen/padding_small"
-                    android:text="@string/help"
-                    android:textAppearance="@style/AppTheme.TextAppearance"
-                    android:layout_gravity="top"
-                    android:alpha="0.87" />
-            </FrameLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

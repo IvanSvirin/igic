@@ -240,8 +240,6 @@ public class StoreVisitsActivity extends AppCompatActivity implements LoaderMana
                 holder.sortDivider.setBackgroundResource(android.R.color.transparent);
             }
             String date = cursor.getString(cursor.getColumnIndex(DataContract.ShoppingTrips.COLUMN_TRIP_DATE));
-            String monthDay = Utilities.getMonth(date.substring(5, 7)) + " " + date.substring(8, 10);
-            holder.monthDay.setText(monthDay);
             String name = cursor.getString(cursor.getColumnIndex(DataContract.ShoppingTrips.COLUMN_VENDOR_NAME));
             holder.vendorName.setText(name.trim());
             String number = cursor.getString(cursor.getColumnIndex(DataContract.ShoppingTrips.COLUMN_CONFIRMATION_NUMBER));
@@ -313,8 +311,6 @@ public class StoreVisitsActivity extends AppCompatActivity implements LoaderMana
             TextView sortDivider;
             @Bind(R.id.monthYear)
             TextView monthYear;
-            @Bind(R.id.monthDay)
-            TextView monthDay;
             @Bind(R.id.vendorName)
             TextView vendorName;
             @Bind(R.id.shoppingTripsNumber)

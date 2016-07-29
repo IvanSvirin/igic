@@ -30,7 +30,6 @@ import com.cashback.rest.request.CharitySettingsRequest;
 import db.DataContract;
 import ui.MainActivity;
 
-import com.cashback.ui.account.HelpActivity;
 import com.cashback.ui.account.StoreVisitsActivity;
 import com.cashback.ui.web.BrowserActivity;
 import com.facebook.AccessToken;
@@ -226,7 +225,7 @@ public class AccountFragment extends Fragment {
             return toolbar;
         }
 
-        @OnClick({R.id.storeVisitsFrame, R.id.shoppingReportFrame, R.id.helpFrame, R.id.memberSettingsFrame})
+        @OnClick({R.id.storeVisitsFrame, R.id.shoppingReportFrame, R.id.memberSettingsFrame})
         public void onClicks(View view) {
             Intent intent;
             switch (view.getId()) {
@@ -236,10 +235,6 @@ public class AccountFragment extends Fragment {
                     break;
                 case R.id.shoppingReportFrame:
                     intent = new Intent(context, ShoppingReportActivity.class);
-                    startActivity(intent);
-                    break;
-                case R.id.helpFrame:
-                    intent = new Intent(context, HelpActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.memberSettingsFrame:

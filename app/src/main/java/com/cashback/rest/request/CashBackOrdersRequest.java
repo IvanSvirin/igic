@@ -57,6 +57,7 @@ public class CashBackOrdersRequest {
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
+                EventBus.getDefault().post(new OrdersEvent(false, "No orders data"));
             }
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
@@ -73,11 +74,13 @@ public class CashBackOrdersRequest {
                 }
             } catch (Exception e) {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
+                EventBus.getDefault().post(new OrdersEvent(false, "No orders data"));
             }
             try {
                 jsonArray = new JSONArray(jsonString);
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
+                EventBus.getDefault().post(new OrdersEvent(false, "No orders data"));
             }
             return null;
         }
@@ -107,6 +110,7 @@ public class CashBackOrdersRequest {
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startBulkInsert(DataInsertHandler.ORDERS_TOKEN, false, DataContract.URI_ORDERS, listValues.toArray(new ContentValues[listValues.size()]));
+                    EventBus.getDefault().post(new OrdersEvent(true, ""));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     EventBus.getDefault().post(new OrdersEvent(false, "No orders data"));

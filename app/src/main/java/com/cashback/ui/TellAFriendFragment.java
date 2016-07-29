@@ -65,7 +65,6 @@ public class TellAFriendFragment extends Fragment {
         Tracker tracker = app.getDefaultTracker();
         tracker.setScreenName("Tell A Friend");
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
-
     }
 
     @Override

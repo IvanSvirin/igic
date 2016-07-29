@@ -66,6 +66,7 @@ public class AutofitRecyclerView extends RecyclerView {
         if (layoutManager == 1) {
             if (columnWidth > 0) {
                 int spanCount = Math.max(1, getMeasuredWidth() / columnWidth);
+                if (spanCount > 3) spanCount = 3;
                 ((GridLayoutManager) manager).setSpanCount(spanCount);
             }
         }

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme.Root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@style/AppTheme.Root">
+    android:layout_height="match_parent">
 
     <android.support.v4.widget.NestedScrollView
+        style="@style/AppTheme.ScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        style="@style/AppTheme.ScrollView">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,8 +36,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
-                        android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
                         android:text="@string/title_donation_activity"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:textColor="@color/primary" />
@@ -46,21 +45,21 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/nextCheckAmountFrame"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/frame_height"
-                    android:id="@+id/nextCheckAmountFrame" >
+                    android:layout_height="@dimen/frame_height">
 
                     <TextView
+                        android:id="@+id/nextCheckAmountTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
-                        android:paddingStart="@dimen/padding_small"
-                        android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/next_check_amount"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/nextCheckAmountTitle"
                         android:allowUndo="false"
-                        android:alpha="0.87" />
+                        android:alpha="0.87"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/next_check_amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
 
                     <TextView
                         android:id="@+id/nextCheckAmountValue"
@@ -68,29 +67,29 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|center_vertical"
                         android:paddingEnd="@dimen/padding_small"
+                        android:paddingLeft="0dp"
                         android:paddingRight="@dimen/padding_small"
                         android:paddingStart="0dp"
-                        android:paddingLeft="0dp"
                         android:text="@string/format_donation_amount"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:textColor="@color/primary" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/pendingAmountFrame"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/frame_height"
-                    android:id="@+id/pendingAmountFrame" >
+                    android:layout_height="@dimen/frame_height">
 
                     <TextView
+                        android:id="@+id/pendingAmountTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
-                        android:paddingStart="@dimen/padding_small"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
                         android:text="@string/pending_amount"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/pendingAmountTitle"
-                        android:alpha="0.87" />
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
 
                     <TextView
                         android:id="@+id/pendingAmountValue"
@@ -98,30 +97,30 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|center_vertical"
                         android:paddingEnd="@dimen/padding_small"
+                        android:paddingLeft="0dp"
                         android:paddingRight="@dimen/padding_small"
                         android:paddingStart="0dp"
-                        android:paddingLeft="0dp"
                         android:text="@string/format_donation_amount"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:textColor="@color/primary" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/totalPaidFrame"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/totalPaidFrame">
+                    android:layout_gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/totalPaidTitile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|top"
-                        android:paddingStart="@dimen/padding_small"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
                         android:text="@string/total_paid"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/totalPaidTitile"
-                        android:alpha="0.87" />
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
 
                     <TextView
                         android:id="@+id/totalPaidValue"
@@ -129,43 +128,43 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
                         android:paddingEnd="@dimen/padding_small"
+                        android:paddingLeft="0dp"
                         android:paddingRight="@dimen/padding_small"
                         android:paddingStart="0dp"
-                        android:paddingLeft="0dp"
                         android:text="@string/format_donation_amount"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:textColor="@color/primary" />
 
                     <TextView
+                        android:id="@+id/totalPaidDate"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_gravity="left|bottom"
                         android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:alpha="0.54"
                         android:gravity="center_vertical|start"
                         android:text="2/11/2016"
-                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:layout_gravity="left|bottom"
-                        android:id="@+id/totalPaidDate"
-                        android:alpha="0.54" />
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin" />
 
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/totalRaisedFrame"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/totalRaisedFrame">
+                    android:layout_gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/totalRaisedTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|top"
-                        android:paddingStart="@dimen/padding_small"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
                         android:text="@string/total_raised"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/totalRaisedTitle"
-                        android:alpha="0.87" />
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
 
                     <TextView
                         android:id="@+id/totalRaisedValue"
@@ -173,9 +172,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
                         android:paddingEnd="@dimen/padding_small"
+                        android:paddingLeft="0dp"
                         android:paddingRight="@dimen/padding_small"
                         android:paddingStart="0dp"
-                        android:paddingLeft="0dp"
                         android:text="@string/format_donation_amount"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:textColor="@color/primary" />
@@ -183,69 +182,93 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_gravity="left|bottom"
                         android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:alpha="0.54"
                         android:gravity="center_vertical|start"
                         android:text="@string/by_all_supporters"
-                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:layout_gravity="left|bottom"
-                        android:alpha="0.54" />
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin" />
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/shoppingReportFrame"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/shoppingReportFrame">
+                    android:layout_gravity="center_vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:paddingStart="@dimen/padding_small"
-                        android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/shopping_report"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
                         android:id="@+id/shoppingReport"
-                        android:alpha="0.87" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:alpha="0.87"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/shopping_report"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
 
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/storeVisitsFrame"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/storeVisitsFrame">
+                    android:layout_gravity="center_vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:paddingStart="@dimen/padding_small"
-                        android:paddingLeft="@dimen/padding_small"
-                        android:text="@string/store_visits"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
                         android:id="@+id/storeVisits"
-                        android:alpha="0.87" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:alpha="0.87"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/store_visits"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
 
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/memberSettingsFrame"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/memberSettingsFrame" >
+                    android:layout_gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/memberSettingsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
-                        android:paddingStart="@dimen/padding_small"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
                         android:text="@string/member_settings"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:id="@+id/memberSettingsTitle"
-                        android:alpha="0.87" />
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
                 </FrameLayout>
             </LinearLayout>
 
@@ -266,8 +289,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"
-                        android:paddingStart="@dimen/padding_small"
                         android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
                         android:text="@string/title_notification_settings"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:textColor="@color/primary" />
@@ -283,31 +306,31 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|top"
-                        android:paddingStart="@dimen/padding_small"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
                         android:text="@string/news_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:alpha="0.87" />
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/news_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
-                        app:showText="false"
                         android:theme="@style/AppTheme.SwitchCompat"
+                        app:showText="false"
                         app:theme="@style/AppTheme.SwitchCompat" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_gravity="left|bottom"
                         android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:alpha="0.54"
                         android:gravity="center_vertical|start"
                         android:text="@string/notifications_trending_deals_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:layout_gravity="left|bottom"
-                        android:alpha="0.54" />
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin" />
                 </FrameLayout>
 
 
@@ -320,83 +343,39 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|top"
-                        android:paddingStart="@dimen/padding_small"
+                        android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
                         android:text="@string/donation_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:alpha="0.87" />
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/purchase_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|top"
-                        app:showText="false"
                         android:theme="@style/AppTheme.SwitchCompat"
+                        app:showText="false"
                         app:theme="@style/AppTheme.SwitchCompat" />
 
                     <TextView
+                        android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="@dimen/padding_small"
+                        android:layout_gravity="left|bottom"
                         android:layout_marginLeft="@dimen/padding_small"
+                        android:layout_marginStart="@dimen/padding_small"
+                        android:alpha="0.54"
                         android:gravity="center_vertical|start"
                         android:text="@string/notifications_donation_alerts"
-                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
-                        android:layout_gravity="left|bottom"
-                        android:id="@+id/textView"
-                        android:alpha="0.54" />
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin" />
                 </FrameLayout>
-
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@android:drawable/divider_horizontal_bright"
-            android:dividerPadding="@dimen/divider_padding"
-            android:orientation="vertical"
-            android:showDividers="end|beginning">
-
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/frame_height"
-                android:layout_gravity="center_vertical" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center_vertical"
-                    android:paddingStart="@dimen/padding_small"
-                    android:paddingLeft="@dimen/padding_small"
-                    android:text="@string/title_about"
-                    android:textAppearance="@style/AppTheme.TextAppearance"
-                    android:textColor="@color/primary" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/frame_height"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/helpFrame">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/padding_small"
-                    android:paddingLeft="@dimen/padding_small"
-                    android:text="@string/help"
-                    android:textAppearance="@style/AppTheme.TextAppearance"
-                    android:layout_gravity="top"
-                    android:alpha="0.87" />
-            </FrameLayout>
-            </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="vertical"
-            />
-
+                android:layout_height="100dp"
+                android:orientation="vertical" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
@@ -410,7 +389,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="enterAlways"
-            android:theme="@style/AppThemeOverlay.ToolbarPrimary" />
+            android:theme="@style/AppThemeOverlay.ToolbarPrimary"
+            app:layout_scrollFlags="enterAlways" />
     </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

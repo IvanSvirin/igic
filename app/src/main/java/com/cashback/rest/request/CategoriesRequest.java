@@ -102,7 +102,7 @@ public class CategoriesRequest {
                     EventBus.getDefault().post(new CategoriesEvent(true, null));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    EventBus.getDefault().post(new CategoriesEvent(false, "No trips data"));
+                    EventBus.getDefault().post(new CategoriesEvent(false, "No categories data"));
                 }
             }
         }

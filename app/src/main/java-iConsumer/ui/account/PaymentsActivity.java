@@ -1,5 +1,6 @@
 package ui.account;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Build;
@@ -41,6 +42,7 @@ import ui.MainActivity;
 
 public class PaymentsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private UiActivity uiActivity;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +103,8 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
         uiActivity.getAdapter().swapCursor(data);
         if (data == null || data.getCount() == 0) {
             new PaymentsRequest(this).fetchData();
+            progressDialog = Utilities.onCreateProgressDialog(this);
+            progressDialog.show();
         }
     }
 
@@ -110,6 +114,7 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
     }
 
     public void onEvent(PaymentsEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             getSupportLoaderManager().restartLoader(MainActivity.PAYMENTS_LOADER, null, this);
         }

@@ -58,6 +58,7 @@ public class ShoppingTripsRequest {
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
+                EventBus.getDefault().post(new ShoppingTripsEvent(false, "No visits data"));
             }
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
@@ -74,11 +75,13 @@ public class ShoppingTripsRequest {
                 }
             } catch (Exception e) {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
+                EventBus.getDefault().post(new ShoppingTripsEvent(false, "No visits data"));
             }
             try {
                 jsonArray = new JSONArray(jsonString);
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
+                EventBus.getDefault().post(new ShoppingTripsEvent(false, "No visits data"));
             }
             return null;
         }
@@ -104,10 +107,10 @@ public class ShoppingTripsRequest {
                     handler.startBulkInsert(DataInsertHandler.SHOPPING_TRIPS_TOKEN, false, DataContract.URI_SHOPPING_TRIPS, listValues.toArray(new ContentValues[listValues.size()]));
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    EventBus.getDefault().post(new ShoppingTripsEvent(false, "No trips data"));
+                    EventBus.getDefault().post(new ShoppingTripsEvent(false, "No visits data"));
                 }
             } else {
-                EventBus.getDefault().post(new ShoppingTripsEvent(false, "No trips data"));
+                EventBus.getDefault().post(new ShoppingTripsEvent(false, "No visits data"));
             }
         }
     }
