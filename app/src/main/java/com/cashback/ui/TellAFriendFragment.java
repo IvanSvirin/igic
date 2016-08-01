@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.cashback.App;
 import com.cashback.R;
 import com.cashback.Utilities;
+import com.cashback.ui.web.BrowserActivity;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.analytics.HitBuilders;
@@ -91,26 +92,31 @@ public class TellAFriendFragment extends Fragment {
         @OnClick(R.id.fbButton)
         void fbShare() {
             if (Utilities.isLoggedIn(context)) {
-                BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
-                        .setTitle(Utilities.retrieveTellFriendText(context))
-                        .setContentDescription(Utilities.retrieveTellFriendText(context))
-                        .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
-                        .setContentImageUrl(getString(R.string.logo_url));
-                LinkProperties linkProperties = new LinkProperties()
-                        .setFeature(getString(R.string.app_name) + ".EVENT_SHARE_APP")
-                        .setChannel("SHARE_VIA_FB");
-                branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
-                    @Override
-                    public void onLinkCreate(String url, BranchError error) {
-                        ShareDialog dialog = new ShareDialog(getActivity());
-                        ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                                .setContentTitle(Utilities.retrieveTellFriendText(context) + "\n")
-                                .setContentDescription(Utilities.retrieveTellFriendText(context) + "\n")
-                                .setContentUrl(Uri.parse(url))
-                                .build();
-                        dialog.show(linkContent);
-                    }
-                });
+                Intent intent = new Intent(context, BrowserActivity.class);
+                intent.putExtra("title", getResources().getString(R.string.tell_a_friend_via_fb));
+                intent.putExtra("url", context.getString(R.string.path_fb) + "&token=" + Utilities.retrieveUserToken(context));
+                startActivity(intent);
+
+//                BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+//                        .setTitle(Utilities.retrieveTellFriendText(context))
+//                        .setContentDescription(Utilities.retrieveTellFriendText(context))
+//                        .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
+//                        .setContentImageUrl(getString(R.string.logo_url));
+//                LinkProperties linkProperties = new LinkProperties()
+//                        .setFeature(getString(R.string.app_name) + ".EVENT_SHARE_APP")
+//                        .setChannel("SHARE_VIA_FB");
+//                branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
+//                    @Override
+//                    public void onLinkCreate(String url, BranchError error) {
+//                        ShareDialog dialog = new ShareDialog(getActivity());
+//                        ShareLinkContent linkContent = new ShareLinkContent.Builder()
+//                                .setContentTitle(Utilities.retrieveTellFriendText(context) + "\n")
+//                                .setContentDescription(Utilities.retrieveTellFriendText(context) + "\n")
+//                                .setContentUrl(Uri.parse(url))
+//                                .build();
+//                        dialog.show(linkContent);
+//                    }
+//                });
             } else {
                 Bundle loginBundle = new Bundle();
                 loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
@@ -121,29 +127,34 @@ public class TellAFriendFragment extends Fragment {
         @OnClick(R.id.twButton)
         void twShare() {
             if (Utilities.isLoggedIn(context)) {
-                BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
-                        .setTitle(Utilities.retrieveTellFriendText(context))
-                        .setContentDescription(Utilities.retrieveTellFriendText(context))
-                        .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
-                        .setContentImageUrl(getString(R.string.logo_url));
-                LinkProperties linkProperties = new LinkProperties()
-                        .setFeature(getString(R.string.app_name) + ".EVENT_SHARE_APP")
-                        .setChannel("SHARE_VIA_TWITTER");
-                branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
-                    @Override
-                    public void onLinkCreate(String url, BranchError error) {
-                        String tweetUrl = String.format("https://twitter.com/intent/tweet?text=%s&url=%s", urlEncode(Utilities.retrieveTellFriendText(context)), url);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tweetUrl));
+                Intent intent = new Intent(context, BrowserActivity.class);
+                intent.putExtra("title", getResources().getString(R.string.tell_a_friend_via_tw));
+                intent.putExtra("url", context.getString(R.string.path_tw) + "&token=" + Utilities.retrieveUserToken(context));
+                startActivity(intent);
 
-                        List<ResolveInfo> matches = getActivity().getPackageManager().queryIntentActivities(intent, 0);
-                        for (ResolveInfo info : matches) {
-                            if (info.activityInfo.packageName.toLowerCase().startsWith("com.twitter")) {
-                                intent.setPackage(info.activityInfo.packageName);
-                            }
-                        }
-                        startActivity(intent);
-                    }
-                });
+//                BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
+//                        .setTitle(Utilities.retrieveTellFriendText(context))
+//                        .setContentDescription(Utilities.retrieveTellFriendText(context))
+//                        .addContentMetadata("BRANCH_REFERBY", Utilities.retrieveEmail(context))
+//                        .setContentImageUrl(getString(R.string.logo_url));
+//                LinkProperties linkProperties = new LinkProperties()
+//                        .setFeature(getString(R.string.app_name) + ".EVENT_SHARE_APP")
+//                        .setChannel("SHARE_VIA_TWITTER");
+//                branchUniversalObject.generateShortUrl(context, linkProperties, new Branch.BranchLinkCreateListener() {
+//                    @Override
+//                    public void onLinkCreate(String url, BranchError error) {
+//                        String tweetUrl = String.format("https://twitter.com/intent/tweet?text=%s&url=%s", urlEncode(Utilities.retrieveTellFriendText(context)), url);
+//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(tweetUrl));
+//
+//                        List<ResolveInfo> matches = getActivity().getPackageManager().queryIntentActivities(intent, 0);
+//                        for (ResolveInfo info : matches) {
+//                            if (info.activityInfo.packageName.toLowerCase().startsWith("com.twitter")) {
+//                                intent.setPackage(info.activityInfo.packageName);
+//                            }
+//                        }
+//                        startActivity(intent);
+//                    }
+//                });
             } else {
                 Bundle loginBundle = new Bundle();
                 loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");

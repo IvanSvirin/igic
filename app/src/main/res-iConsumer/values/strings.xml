@@ -51,5 +51,7 @@
     <string name="cash_back_header">Cash Back</string>
     <string name="notifications_trending_deals_alerts">Great deals and ways to earn with iConsumer</string>
     <string name="trending_deals_alerts">Send Me Weekly Newsletters</string>
+    <string name="path_fb">https://beta1.iconsumer.com/facebook/posttofb.cfm?taf=y</string>
+    <string name="path_tw">https://beta1.iconsumer.com/twitter/tweet.cfm?taf=y</string>
 
 </resources>

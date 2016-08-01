@@ -243,7 +243,7 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
             if (sections.containsKey(position)) {
                 String sort = sections.get(position);
                 holder.year.setText(sort);
-                holder.yearPaymentsSum.setText("$" + String.format("%.2f", sums.get(sort)));
+//                holder.yearPaymentsSum.setText("$" + String.format("%.2f", sums.get(sort)));
                 holder.year.setPadding(0, 0, 0, 20);
                 if (position > 0)
                     holder.sortDivider.setBackgroundResource(R.color.primary);

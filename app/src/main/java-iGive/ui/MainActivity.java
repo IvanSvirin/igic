@@ -33,6 +33,7 @@ import com.cashback.ui.CategoriesFragment;
 import com.cashback.ui.HelpFragment;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.TellAFriendFragment;
+import com.cashback.ui.allresults.SearchActivity;
 import com.cashback.ui.featured.FeaturedFragment;
 import com.cashback.ui.login.LoginActivity;
 import com.facebook.appevents.AppEventsLogger;

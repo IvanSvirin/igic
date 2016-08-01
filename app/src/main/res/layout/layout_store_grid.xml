@@ -67,12 +67,12 @@
                             android:textColor="#ffffffff" />
 
                         <TextView
+                            android:id="@+id/noImage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="NO IMAGE"
-                            android:id="@+id/noImage"
-                            android:layout_centerVertical="true"
                             android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:text="NO IMAGE"
                             android:textColor="#55000000"
                             android:visibility="invisible" />
 
@@ -100,46 +100,46 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_gravity="start"
+                            android:alpha="0.87"
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:text="5"
                             android:textAppearance="@style/AppTheme.TextAppearance"
-                            android:textColor="@color/red"
-                            android:alpha="0.87" />
+                            android:textColor="@color/red" />
 
                         <ImageView
                             android:id="@+id/info"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_info_outline_black_24dp"
-                            android:alpha="0.38"
+                            android:layout_alignParentBottom="true"
                             android:layout_marginLeft="11dp"
                             android:layout_marginStart="11dp"
-                            android:layout_toRightOf="@+id/storeSummary"
                             android:layout_toEndOf="@+id/storeSummary"
-                            android:layout_alignParentBottom="true" />
+                            android:layout_toRightOf="@+id/storeSummary"
+                            android:alpha="0.38"
+                            android:src="@drawable/ic_info_outline_black_24dp" />
 
                         <TextView
                             android:id="@+id/storeSummary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
-                            android:text="@string/store_summary"
-                            android:textAppearance="@style/AppTheme.TextAppearance"
                             android:alpha="0.87"
-                            android:paddingBottom="4dp" />
+                            android:paddingBottom="4dp"
+                            android:text="@string/store_summary"
+                            android:textAppearance="@style/AppTheme.TextAppearance" />
 
                         <TextView
+                            android:id="@+id/textView13"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/textView13"
-                            android:textColor="@color/red"
-                            android:textAppearance="@style/AppTheme.TextAppearance"
                             android:layout_alignBaseline="@+id/cashBack"
                             android:layout_alignBottom="@+id/cashBack"
-                            android:layout_toRightOf="@+id/cashBack"
                             android:layout_toEndOf="@+id/cashBack"
-                            android:alpha="0.87" />
+                            android:layout_toRightOf="@+id/cashBack"
+                            android:alpha="0.87"
+                            android:textAppearance="@style/AppTheme.TextAppearance"
+                            android:textColor="@color/red" />
 
                     </RelativeLayout>
 

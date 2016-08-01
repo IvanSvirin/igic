@@ -482,6 +482,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                     convertView.setTag(holder);
                 }
             }
+            String couponCode = coupons.get(position).getCouponCode();
             String restrictions = coupons.get(position).getLabel();
             String date = coupons.get(position).getExpirationDate();
             String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
@@ -501,6 +502,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         onShareClickListener.onShareClick(position);
                     }
                 });
+                if (couponCode.length() < 4) {
+                    holder.vhCouponCode.setVisibility(View.INVISIBLE);
+                } else if (couponCode.length() > 12) {
+                    holder.vhCouponCode.setText(couponCode.substring(0, 12));
+                    holder.vhCouponCode.setVisibility(View.VISIBLE);
+                } else {
+                    holder.vhCouponCode.setText(couponCode);
+                    holder.vhCouponCode.setVisibility(View.VISIBLE);
+                }
             } else {
                 ViewHolder holder = (ViewHolder) convertView.getTag();
                 holder.vhRestrictions.setText(restrictions.trim());
@@ -517,6 +527,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         onShareClickListener.onShareClick(position);
                     }
                 });
+                if (couponCode.length() < 4) {
+                    holder.vhCouponCode.setVisibility(View.INVISIBLE);
+                } else if (couponCode.length() > 12) {
+                    holder.vhCouponCode.setText(couponCode.substring(0, 12));
+                    holder.vhCouponCode.setVisibility(View.VISIBLE);
+                } else {
+                    holder.vhCouponCode.setText(couponCode);
+                    holder.vhCouponCode.setVisibility(View.VISIBLE);
+                }
             }
             return convertView;
         }
@@ -540,6 +559,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         public static class ViewHolder {
             @Bind(R.id.restrictions)
             TextView vhRestrictions;
+            @Bind(R.id.couponCode)
+            TextView vhCouponCode;
             @Bind(R.id.btnShopNow)
             TextView vhBtnShopNow;
             @Bind(R.id.expireDate)
@@ -555,6 +576,8 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         public static class GridViewHolder {
             @Bind(R.id.restrictions)
             TextView vhRestrictions;
+            @Bind(R.id.couponCode)
+            TextView vhCouponCode;
             @Bind(R.id.btnShopNow)
             TextView vhBtnShopNow;
             @Bind(R.id.expireDate)

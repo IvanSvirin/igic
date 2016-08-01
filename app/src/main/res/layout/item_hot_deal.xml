@@ -97,7 +97,7 @@
                 android:layout_toLeftOf="@+id/shareButton"
                 android:layout_toStartOf="@+id/shareButton"
                 android:background="@drawable/coupon"
-                android:paddingTop="7dp"
+                android:paddingTop="10dp"
                 android:text="NEW TEXT"
                 android:textColor="@color/primary"
                 android:textSize="10sp" />
