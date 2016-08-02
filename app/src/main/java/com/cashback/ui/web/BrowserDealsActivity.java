@@ -39,6 +39,7 @@ import db.DataContract;
 import com.cashback.model.Coupon;
 import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.request.CouponsByMerchantIdRequest;
+import com.cashback.rest.request.ShoppingTripsRequest;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -117,6 +118,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
+        new ShoppingTripsRequest(this).fetchData();
         super.finish();
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
     }

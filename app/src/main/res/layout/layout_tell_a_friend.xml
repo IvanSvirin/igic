@@ -35,7 +35,8 @@
                 android:layout_below="@+id/imageView"
                 android:alpha="0.54"
                 android:padding="16dp"
-                android:text="@string/tell_a_friend" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <ImageView
                 android:id="@+id/fbButton"

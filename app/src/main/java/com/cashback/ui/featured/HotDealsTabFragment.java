@@ -13,6 +13,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.Time;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -24,7 +25,9 @@ import android.widget.TextView;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.rest.event.CouponsEvent;
 
 import ui.MainActivity;
@@ -34,6 +37,8 @@ import com.cashback.ui.StoreActivity;
 import com.cashback.ui.components.AutofitRecyclerView;
 import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
+
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -144,6 +149,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         private HotDealsCursorAdapter cursorAdapter;
         private Picasso picasso;
         private Cursor cursor;
+        private Calendar calendar;
 
         public class HotDealsViewHolder extends RecyclerView.ViewHolder {
             public ImageView vhStoreLogo;
@@ -227,6 +233,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             this.context = context;
             cursorAdapter = new HotDealsCursorAdapter(context, null);
             picasso = Picasso.with(context);
+            calendar = Calendar.getInstance();
         }
 
         @Override
@@ -262,7 +269,15 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                     holder.vhCashBack.setText("SPECIAL RATE");
                 }
             }
-            holder.vhExpireDate.setText(expire);
+            calendar.set(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)));
+            long timeDifference = calendar.getTimeInMillis();
+            long timeCurrent = System.currentTimeMillis();
+            timeDifference = timeDifference - timeCurrent;
+            if (timeDifference > 31536000000L) {
+                holder.vhExpireDate.setText("Ongoing");
+            } else {
+                holder.vhExpireDate.setText(expire);
+            }
             if (couponCode.length() < 4) {
                 holder.vhCouponCode.setVisibility(View.INVISIBLE);
             } else if (couponCode.length() > 12) {

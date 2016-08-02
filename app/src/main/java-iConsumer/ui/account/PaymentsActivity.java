@@ -259,7 +259,12 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
             holder.monthDay.setText(monthDay);
             holder.sendTo.setText(cursor.getString(cursor.getColumnIndex(DataContract.Payments.COLUMN_SEND_TO)));
             holder.checkNumber.setText("Check number: " + String.valueOf(cursor.getInt(cursor.getColumnIndex(DataContract.Payments.COLUMN_CHECK_NUMBER))));
-            holder.cleared.setText("Cleared: " + cursor.getString(cursor.getColumnIndex(DataContract.Payments.COLUMN_CLEARED)));
+            String clear = cursor.getString(cursor.getColumnIndex(DataContract.Payments.COLUMN_CLEARED));
+            if (clear.equals("Voided")) {
+                holder.cleared.setText("Voided");
+            } else {
+                holder.cleared.setText("Cleared: " + clear);
+            }
             String payment = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.Payments.COLUMN_PAYMENT_AMOUNT)));
             holder.payment.setText("$" + payment);
         }

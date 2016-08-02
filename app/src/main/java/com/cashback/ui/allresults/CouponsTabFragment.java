@@ -25,12 +25,14 @@ import com.cashback.Utilities;
 import db.DataContract;
 
 import com.cashback.model.Coupon;
+import com.cashback.rest.request.ShoppingTripsRequest;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -93,6 +95,7 @@ public class CouponsTabFragment extends Fragment {
         final private Context context;
         private ArrayList<Coupon> couponsArray;
         private Picasso picasso;
+        private Calendar calendar;
 
         public class CouponsViewHolder extends RecyclerView.ViewHolder {
             public ImageView vhStoreLogo;
@@ -184,6 +187,7 @@ public class CouponsTabFragment extends Fragment {
             this.context = context;
             couponsArray = AllResultsActivity.dealsArray;
             picasso = Picasso.with(context);
+            calendar = Calendar.getInstance();
         }
 
         @Override
@@ -217,7 +221,15 @@ public class CouponsTabFragment extends Fragment {
                     holder.vhCashBack.setText("SPECIAL RATE");
                 }
             }
-            holder.vhExpireDate.setText(expire);
+            calendar.set(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)));
+            long timeDifference = calendar.getTimeInMillis();
+            long timeCurrent = System.currentTimeMillis();
+            timeDifference = timeDifference - timeCurrent;
+            if (timeDifference > 31536000000L) {
+                holder.vhExpireDate.setText("Ongoing");
+            } else {
+                holder.vhExpireDate.setText(expire);
+            }
             if (code.length() < 4) {
                 holder.vhCouponCode.setVisibility(View.INVISIBLE);
             } else {

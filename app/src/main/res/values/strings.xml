@@ -87,7 +87,7 @@
     - lower case letters (i.e. a-z)\n - upper case letters (i.e. A-Z)\n - numbers (i.e. 0-9)\n - special characters \n (e.g. !@#$%^*()_+~-=\{}[]:;?.)</string>
     <string name="title_next_check">Next Check</string>
     <string name="shopping_report_footer_text">Purchases are verified by the merchant and are subject to verification audit</string>
-    <string name="payments_footer_text">The "Cleared" information in the table below shows the date when each check cleared the bank or was voided.
+    <string name="payments_footer_text">The "Cleared" information in the table above shows the date when each check cleared the bank or was voided.
         If the column is blank, our bank has not yet reported to us that the check was cashed/deposited.</string>
     <string name="tell_a_friend_via_fb">Tell a friend via facebook</string>
     <string name="tell_a_friend_via_tw">Tell a friend via twitter</string>

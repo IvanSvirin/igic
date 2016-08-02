@@ -81,7 +81,6 @@
             android:id="@+id/yearPaymentsSum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/format_donation_amount"
             android:layout_gravity="right|center_vertical"
             android:textColor="@color/primary"
             android:layout_alignParentTop="true"

@@ -56,6 +56,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -448,11 +449,13 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         private ArrayList<Coupon> coupons;
         private OnSaleClickListener onSaleClickListener;
         private OnShareClickListener onShareClickListener;
+        private Calendar calendar;
 
         public CursorCouponsAdapter(Context context, ArrayList<Coupon> coupons, boolean gridType) {
             GRID_TYPE_FLAG = gridType;
             this.context = context;
             this.coupons = coupons;
+            calendar = Calendar.getInstance();
         }
 
         @Override
@@ -489,7 +492,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             if (GRID_TYPE_FLAG) {
                 final GridViewHolder holder = (GridViewHolder) convertView.getTag();
                 holder.vhRestrictions.setText(restrictions.trim());
-                holder.vhExpireDate.setText(expire);
+                calendar.set(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)));
+                long timeDifference = calendar.getTimeInMillis();
+                long timeCurrent = System.currentTimeMillis();
+                timeDifference = timeDifference - timeCurrent;
+                if (timeDifference > 31536000000L) {
+                    holder.vhExpireDate.setText("Ongoing");
+                } else {
+                    holder.vhExpireDate.setText(expire);
+                }
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -514,7 +525,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             } else {
                 ViewHolder holder = (ViewHolder) convertView.getTag();
                 holder.vhRestrictions.setText(restrictions.trim());
-                holder.vhExpireDate.setText(expire);
+                calendar.set(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)));
+                long timeDifference = calendar.getTimeInMillis();
+                long timeCurrent = System.currentTimeMillis();
+                timeDifference = timeDifference - timeCurrent;
+                if (timeDifference > 31536000000L) {
+                    holder.vhExpireDate.setText("Ongoing");
+                } else {
+                    holder.vhExpireDate.setText(expire);
+                }
                 holder.vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

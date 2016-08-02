@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
@@ -82,12 +84,14 @@ public class TellAFriendFragment extends Fragment {
         ImageView fbButton;
         @Bind(R.id.twButton)
         ImageView twButton;
-//        @Bind(R.id.shButton)
+        //        @Bind(R.id.shButton)
 //        ImageView gButton;
         @Bind(R.id.imageView)
         ImageView imageView;
         @Bind(R.id.tellFriend)
         TextView tellFriend;
+        @Bind(R.id.cardView)
+        CardView cardView;
 
         @OnClick(R.id.fbButton)
         void fbShare() {
@@ -193,36 +197,45 @@ public class TellAFriendFragment extends Fragment {
             this.context = fragment.getContext();
             ButterKnife.bind(this, view);
 
+            final Drawable drawable = getContext().getResources().getDrawable(R.drawable.tellafriends_tablet);
+            DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
+            int width;
+            if (ButterKnife.findById(cardView, R.id.check) != null) {
+                width = 960;
+            } else {
+                width = displaymetrics.widthPixels - getContext().getResources().getDimensionPixelSize(R.dimen.padding_small) * 2;
+            }
+            final int w = width;
             Cursor cursor = context.getContentResolver().query(DataContract.URI_MISC, null, null, null, null);
             if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 imageUrl = cursor.getString(cursor.getColumnIndex(DataContract.Misc.COLUMN_TELL_A_FRIEND_BANNER_URL));
                 tellFriendText = cursor.getString(cursor.getColumnIndex(DataContract.Misc.COLUMN_TELL_A_FRIEND_TEXT));
                 tellFriend.setText(tellFriendText);
-            } else {
-                imageUrl = "http://beta1.iconsumer.com/res/images/tellafriend.png";
-            }
+                Picasso.with(context).load(imageUrl).resize(w, w * 480 / 1600).into(imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                    }
 
-            DisplayMetrics displaymetrics = getResources().getDisplayMetrics();
-            int w = displaymetrics.widthPixels;
-            int h = displaymetrics.heightPixels;
-            Drawable drawable;
-//            if (h > w) {
-//                drawable = getContext().getResources().getDrawable(R.drawable.tellafriends);
-//            } else {
-//                drawable = getContext().getResources().getDrawable(R.drawable.tellafriends_tablet);
-//            }
-            w = w - getContext().getResources().getDimensionPixelSize(R.dimen.padding_small) * 2;
-//            int wd = drawable.getIntrinsicWidth();
-//            int hd = drawable.getIntrinsicHeight();
-//            Picasso.with(context)
-//                    .load(R.drawable.tellafriends)
-//                    .resize(w, w * hd / wd)
-//                    .into(imageView);
-            Picasso.with(context)
-                    .load(imageUrl)
-                    .resize(w, w * 480 / 1600)
-                    .into(imageView);
+                    @Override
+                    public void onError() {
+                        int wd = drawable.getIntrinsicWidth();
+                        int hd = drawable.getIntrinsicHeight();
+                        Picasso.with(context)
+                                .load(R.drawable.tellafriends_tablet)
+                                .resize(w, w * hd / wd)
+                                .into(imageView);
+                    }
+                });
+
+            } else {
+                int wd = drawable.getIntrinsicWidth();
+                int hd = drawable.getIntrinsicHeight();
+                Picasso.with(context)
+                        .load(R.drawable.tellafriends_tablet)
+                        .resize(w, w * hd / wd)
+                        .into(imageView);
+            }
         }
 
         public void unbind() {

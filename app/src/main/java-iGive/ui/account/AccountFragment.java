@@ -187,10 +187,10 @@ public class AccountFragment extends Fragment {
             if (cursor != null) {
                 cursor.moveToFirst();
             }
-            nextCheckAmountValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT))));
-            pendingAmountValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT))));
-            totalPaidValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT))));
-            totalRaisedValue.setText("$" + String.valueOf(cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
+            nextCheckAmountValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT))));
+            pendingAmountValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT))));
+            totalPaidValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT))));
+            totalRaisedValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_DATE));
             totalPaidDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             memberSettingsUrl = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_SETTINGS_URL)) + "?token=" + Utilities.retrieveUserToken(context);

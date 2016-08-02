@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             name = data.getString(data.getColumnIndex(DataContract.CashbackAccounts.COLUMN_FIRST_NAME)) + " "
                     + data.getString(data.getColumnIndex(DataContract.CashbackAccounts.COLUMN_LAST_NAME));
             email = data.getString(data.getColumnIndex(DataContract.CashbackAccounts.COLUMN_EMAIL));
-            cashBack = "$ " + String.valueOf(data.getFloat(data.getColumnIndex(DataContract.CashbackAccounts.COLUMN_PAYMENTS_TOTAL_AMOUNT)));
+            cashBack = "$ " + String.format("%.2f", data.getFloat(data.getColumnIndex(DataContract.CashbackAccounts.COLUMN_TOTAL_EARNED)));
         } else {
             name = "";
             email = "";

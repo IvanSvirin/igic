@@ -79,7 +79,7 @@ public class MiscRequest {
                 Log.e("Buffer Error", "Error converting result " + e.toString());
             }
             try {
-                jObj = new JSONObject(jsonString);
+                jsonArray = new JSONArray(jsonString);
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
@@ -90,7 +90,8 @@ public class MiscRequest {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             try {
-                if (jObj != null) {
+                if (jsonArray != null) {
+                    jObj = jsonArray.getJSONObject(0);
                     ContentValues values = new ContentValues();
                     String shareDealText = jObj.getString("share_deal_text");
                     Utilities.saveShareDealText(context, shareDealText);

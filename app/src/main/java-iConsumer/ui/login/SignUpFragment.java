@@ -1,6 +1,7 @@
 package ui.login;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -68,6 +69,7 @@ public class SignUpFragment extends Fragment {
     private final static String SCOPES = G_PLUS_SCOPE + " " + USER_INFO_SCOPE + " " + EMAIL_SCOPE;
     private FragmentUi fragmentUi;
     private CallbackManager callbackManager;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,6 +97,7 @@ public class SignUpFragment extends Fragment {
     }
 
     public void onEvent(SignUpEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             Utilities.saveUserEntry(getActivity(), true);
             Bundle loginBundle = getActivity().getIntent().getBundleExtra(Utilities.LOGIN_BUNDLE);
@@ -193,6 +196,8 @@ public class SignUpFragment extends Fragment {
                             authObject.setPassword(password);
                             authObject.setReferrerEmail(referrerEmail);
                             new SignInCashBackRequest(getContext(), authObject, "signup").fetchData();
+                            progressDialog = Utilities.onCreateProgressDialog(getContext());
+                            progressDialog.show();
                         } else {
                             Utilities.showFailNotification("Please enter valid email address.", getContext());
                         }
@@ -248,6 +253,8 @@ public class SignUpFragment extends Fragment {
                                 authObject.setEmail(object.getString("email"));
                                 authObject.setUserId(object.getString("id"));
                                 new SignInCashBackRequest(getContext(), authObject, "signup").fetchData();
+                                progressDialog = Utilities.onCreateProgressDialog(getContext());
+                                progressDialog.show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -336,6 +343,8 @@ public class SignUpFragment extends Fragment {
                 authObject.setEmail(acct.getEmail());
                 authObject.setUserId(acct.getId());
                 new SignInCashBackRequest(getContext(), authObject, "signup").fetchData();
+                progressDialog = Utilities.onCreateProgressDialog(getContext());
+                progressDialog.show();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);

@@ -73,7 +73,7 @@ public class SignInCashBackRequest {
                     case "0":
                         if (pathEnd.equals("signup")) {
                             postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType() +
-                                    "incoming_referrer_id" + authObject.getReferrerEmail();
+                                    "&incoming_referrer_id=" + authObject.getReferrerEmail();
                         } else {
                             postParameters = "email=" + authObject.getEmail() + "&password=" + authObject.getPassword() + "&auth_type=" + authObject.getAuthType();
                         }

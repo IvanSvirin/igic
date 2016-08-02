@@ -11,6 +11,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
             style="@style/AppTheme.CardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,14 +35,13 @@
 
                 <TextView
                     android:id="@+id/tellFriend"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/imageView"
                     android:alpha="0.54"
-                    android:padding="16dp"
-                    android:text="@string/tell_a_friend" />
+                    android:padding="16dp" />
 
                 <ImageView
                     android:id="@+id/fbButton"

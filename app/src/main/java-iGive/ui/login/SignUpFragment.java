@@ -1,5 +1,6 @@
 package ui.login;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -60,6 +61,7 @@ public class SignUpFragment extends Fragment {
     private final static String SCOPES = G_PLUS_SCOPE + " " + USER_INFO_SCOPE + " " + EMAIL_SCOPE;
     private FragmentUi fragmentUi;
     private CallbackManager callbackManager;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class SignUpFragment extends Fragment {
     }
 
     public void onEvent(SignUpEvent event) {
+        progressDialog.dismiss();
         if (event.isSuccess) {
             Utilities.saveUserEntry(getActivity(), true);
             Bundle loginBundle = getActivity().getIntent().getBundleExtra(Utilities.LOGIN_BUNDLE);
@@ -149,6 +152,8 @@ public class SignUpFragment extends Fragment {
                     authObject.setLastName(lastName);
                     authObject.setZip(zip);
                     new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
+                    progressDialog = Utilities.onCreateProgressDialog(getContext());
+                    progressDialog.show();
                 } else {
                     Utilities.showFailNotification("Please enter valid email address.", getContext());
                 }
@@ -196,6 +201,8 @@ public class SignUpFragment extends Fragment {
                                 authObject.setEmail(object.getString("email"));
                                 authObject.setUserId(object.getString("id"));
                                 new SignInCharityRequest(getContext(), authObject, "login").fetchData();
+                                progressDialog = Utilities.onCreateProgressDialog(getContext());
+                                progressDialog.show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -249,6 +256,8 @@ public class SignUpFragment extends Fragment {
                 authObject.setEmail(acct.getEmail());
                 authObject.setUserId(acct.getId());
                 new SignInCharityRequest(getContext(), authObject, "signup").fetchData();
+                progressDialog = Utilities.onCreateProgressDialog(getContext());
+                progressDialog.show();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
