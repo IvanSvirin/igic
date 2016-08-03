@@ -1,7 +1,6 @@
 package com.cashback.db;
 
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -20,6 +19,7 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(innerHelper.SQL_CREATE_MERCHANTS_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_FAVORITES_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_EXTRAS_TABLE);
+        db.execSQL(innerHelper.SQL_CREATE_HOT_DEALS_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_COUPONS_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_CATEGORIES_TABLE);
         db.execSQL(innerHelper.SQL_CREATE_PAYMENTS_TABLE);
@@ -37,6 +37,7 @@ public class DbHelper extends SQLiteOpenHelper{
         db.execSQL(innerHelper.SQL_DELETE_MERCHANTS_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_FAVORITES_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_EXTRAS_TABLE);
+        db.execSQL(innerHelper.SQL_DELETE_HOT_DEALS_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_COUPONS_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_CATEGORIES_TABLE);
         db.execSQL(innerHelper.SQL_DELETE_PAYMENTS_TABLE);

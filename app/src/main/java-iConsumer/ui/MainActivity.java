@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     /* LOADERS */
     public static final int ACCOUNT_LOADER = 0;
-    public static final int COUPONS_LOADER = 1;
+    public static final int HOT_DEALS_LOADER = 1;
     public static final int FAVORITES_LOADER = 2;
     public static final int EXTRAS_LOADER = 3;
     public static final int CATEGORIES_LOADER = 4;
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public static final int PAYMENTS_LOADER = 6;
     public static final int SHOPPING_TRIPS_LOADER = 7;
     public static final int ORDERS_LOADER = 8;
+    public static final int COUPONS_LOADER = 9;
 
     private DrawerUi drawerUi;
     private int currentItemId = 0;

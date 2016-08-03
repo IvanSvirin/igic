@@ -118,8 +118,8 @@ public class SignInFragment extends Fragment {
                     intent = new Intent(getContext(), BrowserDealsActivity.class);
                     intent.putExtra(Utilities.VENDOR_ID, loginBundle.getLong(Utilities.VENDOR_ID));
                     intent.putExtra(Utilities.COUPON_ID, loginBundle.getLong(Utilities.COUPON_ID, 0));
-                    intent.putExtra(Utilities.AFFILIATE_URL, loginBundle.getLong(Utilities.AFFILIATE_URL));
-                    intent.putExtra(Utilities.VENDOR_COMMISSION, loginBundle.getLong(Utilities.VENDOR_COMMISSION));
+                    intent.putExtra(Utilities.AFFILIATE_URL, loginBundle.getString(Utilities.AFFILIATE_URL));
+                    intent.putExtra(Utilities.VENDOR_COMMISSION, loginBundle.getFloat(Utilities.VENDOR_COMMISSION));
                     break;
                 default:
                     intent = new Intent(getContext(), MainActivity.class);

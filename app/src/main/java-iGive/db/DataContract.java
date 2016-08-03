@@ -10,9 +10,10 @@ public class DataContract {
     public final static Uri BASE_CONTENT_URI = Uri.parse(BASE_CONTENT + CONTENT_AUTHORITY);
 
     public final static Uri URI_MERCHANTS = Uri.withAppendedPath(BASE_CONTENT_URI, "merchants");
-    public final static Uri URI_COUPONS = Uri.withAppendedPath(BASE_CONTENT_URI, "coupons");
+    public final static Uri URI_HOT_DEALS = Uri.withAppendedPath(BASE_CONTENT_URI, "hot_deals");
     public final static Uri URI_FAVORITES = Uri.withAppendedPath(BASE_CONTENT_URI, "favorites");
     public final static Uri URI_EXTRAS = Uri.withAppendedPath(BASE_CONTENT_URI, "extras");
+    public final static Uri URI_COUPONS = Uri.withAppendedPath(BASE_CONTENT_URI, "coupons");
 
     public final static Uri URI_CATEGORIES = Uri.withAppendedPath(BASE_CONTENT_URI, "categories");
     public final static Uri URI_PAYMENTS = Uri.withAppendedPath(BASE_CONTENT_URI, "payments");
@@ -80,6 +81,26 @@ public class DataContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "extras";
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "extras";
+    }
+
+    public static class HotDeals implements BaseColumns {
+        public static final String TABLE_NAME = "hot_deals";
+        public static final String COLUMN_COUPON_ID = "coupon_id";
+        public static final String COLUMN_VENDOR_ID = "vendor_id";
+        public static final String COLUMN_COUPON_TYPE = "coupon_type";
+        public static final String COLUMN_RESTRICTIONS = "restrictions";
+        public static final String COLUMN_LABEL = "label";
+        public static final String COLUMN_COUPON_CODE = "coupon_code";
+        public static final String COLUMN_EXPIRATION_DATE = "expiration_date";
+        public static final String COLUMN_AFFILIATE_URL = "affiliate_url";
+        public static final String COLUMN_VENDOR_LOGO_URL = "vendor_logo_url";
+        public static final String COLUMN_VENDOR_COMMISSION = "vendor_commission";
+        public static final String COLUMN_OWNERS_BENEFIT = "owners_benefit";
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "hot_deals";
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + "hot_deals";
     }
 
     public static class Coupons implements BaseColumns {

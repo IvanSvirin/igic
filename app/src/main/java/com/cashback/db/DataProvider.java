@@ -21,8 +21,10 @@ public class DataProvider extends ContentProvider {
     private static final int MERCHANTS = 100;
     private static final int MERCHANT_BY_ID = 101;
     private static final int MERCHANTS_BY_IDS = 102;
-    private static final int COUPONS = 200;
-    private static final int COUPON_BY_ID = 201;
+    private static final int HOT_DEALS = 200;
+    private static final int HOT_DEAL_BY_ID = 201;
+    private static final int COUPONS = 2000;
+    private static final int COUPON_BY_ID = 2001;
     private static final int FAVORITES = 300;
     private static final int FAVORITES_BY_ID = 301;
     private static final int EXTRAS = 400;
@@ -47,6 +49,8 @@ public class DataProvider extends ContentProvider {
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "merchants", MERCHANTS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "merchants/#", MERCHANT_BY_ID);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "merchants/*", MERCHANTS_BY_IDS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "hot_deals", HOT_DEALS);
+        uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "hot_deals/#", HOT_DEAL_BY_ID);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "coupons", COUPONS);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "coupons/#", COUPON_BY_ID);
         uriMatcher.addURI(DataContract.CONTENT_AUTHORITY, "extras", EXTRAS);
@@ -121,6 +125,17 @@ public class DataProvider extends ContentProvider {
                 if (!TextUtils.isEmpty(selection))
                     common_selection = selection + " AND " + common_selection;
                 cursor = db.query(DataContract.Extras.TABLE_NAME, projection, common_selection, null, null, null, null);
+                break;
+            case HOT_DEALS:
+                if (TextUtils.isEmpty(sortOrder))
+                    sortOrder = DataContract.HotDeals.COLUMN_VENDOR_ID + " COLLATE NOCASE ASC";
+                cursor = db.query(DataContract.HotDeals.TABLE_NAME, projection, selection, null, null, null, sortOrder);
+                return cursor;
+            case HOT_DEAL_BY_ID:
+                common_selection = DataContract.HotDeals.COLUMN_COUPON_ID + " = " + uri.getLastPathSegment();
+                if (!TextUtils.isEmpty(selection))
+                    common_selection = selection + " AND " + common_selection;
+                cursor = db.query(DataContract.HotDeals.TABLE_NAME, projection, common_selection, null, null, null, null);
                 break;
             case COUPONS:
                 if (TextUtils.isEmpty(sortOrder))
@@ -216,6 +231,14 @@ public class DataProvider extends ContentProvider {
                 rowID = db.insertWithOnConflict(DataContract.Extras.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
                 if (rowID > 0) {
                     resultUri = ContentUris.withAppendedId(DataContract.URI_EXTRAS, rowID);
+                } else {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+                break;
+            case HOT_DEALS:
+                rowID = db.insertWithOnConflict(DataContract.HotDeals.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                if (rowID > 0) {
+                    resultUri = ContentUris.withAppendedId(DataContract.URI_HOT_DEALS, rowID);
                 } else {
                     throw new SQLException("Failed to insert row into " + uri);
                 }
@@ -336,6 +359,21 @@ public class DataProvider extends ContentProvider {
                 }
                 break;
             case EXTRAS:
+                db.beginTransaction();
+                try {
+                    delete(uri, null, null);
+                    for (ContentValues val : values) {
+                        insert(uri, val);
+                        countInsert++;
+                    }
+                    db.setTransactionSuccessful();
+                } catch (SQLException e) {
+                    Log.e(LOG_TAG, e.getMessage());
+                } finally {
+                    db.endTransaction();
+                }
+                break;
+            case HOT_DEALS:
                 db.beginTransaction();
                 try {
                     delete(uri, null, null);
@@ -506,6 +544,9 @@ public class DataProvider extends ContentProvider {
             case EXTRAS:
                 affectedRowsCount = db.delete(DataContract.Extras.TABLE_NAME, null, null);
                 break;
+            case HOT_DEALS:
+                affectedRowsCount = db.delete(DataContract.HotDeals.TABLE_NAME, null, null);
+                break;
             case COUPONS:
                 affectedRowsCount = db.delete(DataContract.Coupons.TABLE_NAME, null, null);
                 break;
@@ -560,6 +601,10 @@ public class DataProvider extends ContentProvider {
                 return DataContract.Merchants.CONTENT_ITEM_TYPE;
             case MERCHANTS_BY_IDS:
                 return DataContract.Merchants.CONTENT_ITEM_TYPE;
+            case HOT_DEALS:
+                return DataContract.HotDeals.CONTENT_TYPE;
+            case HOT_DEAL_BY_ID:
+                return DataContract.HotDeals.CONTENT_ITEM_TYPE;
             case COUPONS:
                 return DataContract.Coupons.CONTENT_TYPE;
             case COUPON_BY_ID:

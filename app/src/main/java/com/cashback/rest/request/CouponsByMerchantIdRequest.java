@@ -22,6 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import db.DataContract;
 import de.greenrobot.event.EventBus;
 
 public class CouponsByMerchantIdRequest {
@@ -97,6 +98,7 @@ public class CouponsByMerchantIdRequest {
                         coupon.setCouponType(jObj.getString("coupon_type"));
                         coupon.setLabel(jObj.getString("label"));
                         coupon.setCouponCode(jObj.getString("coupon_code"));
+                        coupon.setRestrictions(jObj.getString("restrictions"));
                         coupon.setExpirationDate(jObj.getString("expiration_date"));
                         coupon.setAffiliateUrl(jObj.getString("affiliate_url"));
                         coupon.setVendorLogoUrl(jObj.getString("vendor_logo_url"));

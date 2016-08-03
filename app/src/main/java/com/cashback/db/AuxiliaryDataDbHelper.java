@@ -63,6 +63,23 @@ public class AuxiliaryDataDbHelper {
                     " )";
     public final String SQL_DELETE_EXTRAS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Extras.TABLE_NAME;
 
+    public final String SQL_CREATE_HOT_DEALS_TABLE =
+            "CREATE TABLE " + DataContract.HotDeals.TABLE_NAME + "(" +
+                    DataContract.HotDeals._ID + PRIMARY_TYPE +
+                    DataContract.HotDeals.COLUMN_COUPON_ID + INT_TYPE + " UNIQUE" + DELIMITER +
+                    DataContract.HotDeals.COLUMN_VENDOR_ID + INT_TYPE + DELIMITER +
+                    DataContract.HotDeals.COLUMN_COUPON_TYPE + TEXT_TYPE + DELIMITER +
+                    DataContract.HotDeals.COLUMN_RESTRICTIONS + TEXT_TYPE + DELIMITER +
+                    DataContract.HotDeals.COLUMN_COUPON_CODE + TEXT_TYPE + DELIMITER +
+                    DataContract.HotDeals.COLUMN_LABEL + TEXT_TYPE + DELIMITER +
+                    DataContract.HotDeals.COLUMN_EXPIRATION_DATE + TEXT_TYPE + DELIMITER +
+                    DataContract.HotDeals.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.HotDeals.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +
+                    DataContract.HotDeals.COLUMN_OWNERS_BENEFIT + BOOL_TYPE + DELIMITER +
+                    DataContract.HotDeals.COLUMN_VENDOR_COMMISSION + REAL_TYPE +
+                    " )";
+    public final String SQL_DELETE_HOT_DEALS_TABLE = "DROP TABLE IF EXISTS " + DataContract.HotDeals.TABLE_NAME;
+
     public final String SQL_CREATE_COUPONS_TABLE =
             "CREATE TABLE " + DataContract.Coupons.TABLE_NAME + "(" +
                     DataContract.Coupons._ID + PRIMARY_TYPE +
@@ -75,7 +92,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.Coupons.COLUMN_EXPIRATION_DATE + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_AFFILIATE_URL + TEXT_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_VENDOR_LOGO_URL + TEXT_TYPE + DELIMITER +
-                    DataContract.Merchants.COLUMN_OWNERS_BENEFIT + BOOL_TYPE + DELIMITER +
+                    DataContract.Coupons.COLUMN_OWNERS_BENEFIT + BOOL_TYPE + DELIMITER +
                     DataContract.Coupons.COLUMN_VENDOR_COMMISSION + REAL_TYPE +
                     " )";
     public final String SQL_DELETE_COUPONS_TABLE = "DROP TABLE IF EXISTS " + DataContract.Coupons.TABLE_NAME;

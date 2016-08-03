@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="layout_common_store" type="layout">@layout/layout_store_grid</item>
+    <item name="layout_store_land_common" type="layout">@layout/layout_store</item>
+    <item name="layout_featured_tab_0_land_common" type="layout">@layout/layout_featured_tab_0</item>
+    <item name="layout_featured_tab_1_land_common" type="layout">@layout/layout_featured_tab_1</item>
+    <item name="layout_featured_tab_2_land_common" type="layout">@layout/layout_featured_tab_2</item>
     <item name="layout_featured_common" type="layout">@layout/layout_featured_grid</item>
     <item name="layout_all_results_common" type="layout">@layout/layout_all_results_grid</item>
     <item name="item_hot_deal_common" type="layout">@layout/item_hot_deal_grid</item>

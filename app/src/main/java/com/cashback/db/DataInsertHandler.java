@@ -11,6 +11,7 @@ import com.cashback.rest.event.CategoriesEvent;
 import com.cashback.rest.event.CouponsEvent;
 import com.cashback.rest.event.ExtrasEvent;
 import com.cashback.rest.event.FavoritesEvent;
+import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.event.MerchantsEvent;
 import com.cashback.rest.event.MiscEvent;
 import com.cashback.rest.event.OrdersEvent;
@@ -22,7 +23,8 @@ import de.greenrobot.event.EventBus;
 public class DataInsertHandler extends BulkAsyncQueryHandler {
     public final static int ACCOUNT_TOKEN = 100;
     public final static int MERCHANTS_TOKEN = 200;
-    public final static int COUPONS_TOKEN = 300;
+    public final static int HOT_DEALS_TOKEN = 300;
+    public final static int COUPONS_TOKEN = 301;
     public static final int CATEGORIES_TOKEN = 400;
     public static final int PAYMENTS_TOKEN = 500;
     public static final int SHOPPING_TRIPS_TOKEN = 600;
@@ -69,9 +71,13 @@ public class DataInsertHandler extends BulkAsyncQueryHandler {
     protected void onBulkInsertComplete(int token, Object cookie, int result) {
         super.onBulkInsertComplete(token, cookie, result);
         switch (token) {
+            case HOT_DEALS_TOKEN:
+                RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_HOT_DEALS);
+                EventBus.getDefault().post(new CouponsEvent(true, null));
+                break;
             case COUPONS_TOKEN:
                 RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_COUPONS);
-                EventBus.getDefault().post(new CouponsEvent(true, null));
+                EventBus.getDefault().post(new MerchantCouponsEvent(true, null));
                 break;
             case MERCHANTS_TOKEN:
                 RestUtilities.updateTimeStamp(context, RestUtilities.TOKEN_MERCHANTS);

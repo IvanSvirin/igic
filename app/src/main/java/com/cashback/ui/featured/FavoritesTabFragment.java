@@ -60,7 +60,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
         View view;
         Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         if (display.getRotation() == Surface.ROTATION_90 || display.getRotation() == Surface.ROTATION_270) {
-            view = inflater.inflate(R.layout.layout_featured_tab_1_land, container, false);
+            view = inflater.inflate(R.layout.layout_featured_tab_1_land_common, container, false);
         } else {
             view = inflater.inflate(R.layout.layout_featured_tab_1, container, false);
         }

@@ -182,32 +182,17 @@
         android:background="@color/primaryLight"
         android:fillViewport="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:id="@+id/child_of_nested"
+        <com.cashback.ui.components.AutofitRecyclerView
+            android:id="@+id/store_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/primaryLight"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <com.cashback.ui.components.NestedGridView
-                android:id="@+id/common_list"
-                style="@style/AppTheme.GridView"
-                android:layout_height="wrap_content"
-                android:background="@color/primaryLight"
-                android:columnWidth="280dp"
-                android:verticalSpacing="10dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:listItem="@layout/item_coupons" />
-
-            <Space
-                android:id="@+id/checking_element"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-        </LinearLayout>
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/abc_dialog_list_padding_vertical_material"
+            android:paddingTop="@dimen/abc_dialog_list_padding_vertical_material"
+            app:layoutAutoManager="gridLayout" />
     </com.cashback.ui.components.FixedNestedScrollView>
+
 </android.support.design.widget.CoordinatorLayout>
 
 

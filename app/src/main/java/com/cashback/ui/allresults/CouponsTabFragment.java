@@ -53,7 +53,7 @@ public class CouponsTabFragment extends Fragment {
         View view;
         Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         if (display.getRotation() == Surface.ROTATION_90 || display.getRotation() == Surface.ROTATION_270) {
-            view = inflater.inflate(R.layout.layout_featured_tab_2_land, container, false);
+            view = inflater.inflate(R.layout.layout_featured_tab_2_land_common, container, false);
         } else {
             view = inflater.inflate(R.layout.layout_featured_tab_2, container, false);
         }

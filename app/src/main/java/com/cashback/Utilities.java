@@ -14,6 +14,7 @@ import android.text.TextUtils;
 
 import com.cashback.ui.login.LoginActivity;
 
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import db.DataContract;
@@ -25,6 +26,7 @@ public class Utilities {
     private static final String PREF_EMAIL_KEY = "pref_email";
     private static final String PREF_SHARE_DEAL_TEXT_KEY = "pref_share_deal_text";
     private static final String PREF_TELL_A_FRIEND_TEXT_KEY = "pref_tell_a_friend_text";
+    public static final String PREF_VENDOR_ID_SET = "pref_vendor_id_set";
     public static final String CALLING_ACTIVITY = "calling_activity";
     public static final String VENDOR_ID = "vendor_id";
     public static final String LOGIN_BUNDLE = "login_bundle";
@@ -34,6 +36,18 @@ public class Utilities {
 
     public static boolean isLoggedIn(Context context) {
         return !TextUtils.isEmpty(retrieveUserToken(context)) && retrieveUserEntry(context);
+    }
+
+    public static boolean saveVendorIdSet(Context context, Set<String> set) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putStringSet(PREF_VENDOR_ID_SET, set);
+        return editor.commit();
+    }
+
+    public static Set<String> retrieveVendorIdSet(Context context) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getStringSet(PREF_VENDOR_ID_SET, null);
     }
 
     public static boolean saveIdfa(Context context, String idfa) {

@@ -13,7 +13,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.Time;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -34,7 +33,6 @@ import ui.MainActivity;
 
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
-import com.cashback.ui.components.AutofitRecyclerView;
 import com.cashback.ui.web.BrowserDealsActivity;
 import com.squareup.picasso.Picasso;
 
@@ -60,7 +58,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         View view;
         Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         if (display.getRotation() == Surface.ROTATION_90 || display.getRotation() == Surface.ROTATION_270) {
-            view = inflater.inflate(R.layout.layout_featured_tab_0_land, container, false);
+            view = inflater.inflate(R.layout.layout_featured_tab_0_land_common, container, false);
         } else {
             view = inflater.inflate(R.layout.layout_featured_tab_0, container, false);
         }
@@ -74,7 +72,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
+        getLoaderManager().initLoader(MainActivity.HOT_DEALS_LOADER, null, this);
     }
 
     @Override
@@ -98,9 +96,9 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader loader = null;
-        if (id == MainActivity.COUPONS_LOADER) {
+        if (id == MainActivity.HOT_DEALS_LOADER) {
             loader = new CursorLoader(getActivity());
-            loader.setUri(DataContract.URI_COUPONS);
+            loader.setUri(DataContract.URI_HOT_DEALS);
         }
         return loader;
     }
@@ -117,7 +115,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
 
     public void onEvent(CouponsEvent event) {
         if (event.isSuccess) {
-            getLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
+            getLoaderManager().restartLoader(MainActivity.HOT_DEALS_LOADER, null, this);
         } else {
             Utilities.showFailNotification(event.message, getContext());
         }
@@ -175,9 +173,9 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                         if (Utilities.isLoggedIn(context)) {
                             int position = getAdapterPosition();
                             cursor.moveToPosition(position);
-                            LaunchActivity.shareDealLink(context, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)),
-                                    cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)), cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID)),
-                                    cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
+                            LaunchActivity.shareDealLink(context, cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_AFFILIATE_URL)),
+                                    cursor.getLong(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_ID)), cursor.getLong(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_COUPON_ID)),
+                                    cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_LOGO_URL)));
                         } else {
                             Bundle loginBundle = new Bundle();
                             loginBundle.putString(Utilities.CALLING_ACTIVITY, "MainActivity");
@@ -192,10 +190,10 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                             int position = getAdapterPosition();
                             cursor.moveToPosition(position);
                             Intent intent = new Intent(context, BrowserDealsActivity.class);
-                            intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
-                            intent.putExtra("coupon_id", cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID)));
-                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                            intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_ID)));
+                            intent.putExtra("coupon_id", cursor.getLong(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_COUPON_ID)));
+                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_AFFILIATE_URL)));
+                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_COMMISSION)));
                             context.startActivity(intent);
                         } else {
                             if (cursor != null) {
@@ -203,10 +201,10 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                                 cursor.moveToPosition(position);
                                 Bundle loginBundle = new Bundle();
                                 loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
-                                loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
-                                loginBundle.putLong(Utilities.COUPON_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_ID)));
-                                loginBundle.putString(Utilities.AFFILIATE_URL, cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-                                loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
+                                loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_ID)));
+                                loginBundle.putLong(Utilities.COUPON_ID, cursor.getLong(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_COUPON_ID)));
+                                loginBundle.putString(Utilities.AFFILIATE_URL, cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_AFFILIATE_URL)));
+                                loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_COMMISSION)));
                                 Utilities.needLoginDialog(context, loginBundle);
                             }
                         }
@@ -219,10 +217,10 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
                         Cursor cursor = getCursor();
                         cursor.moveToPosition(position);
                         Intent intent = new Intent(context, StoreActivity.class);
-                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_AFFILIATE_URL)));
-                        intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL)));
-                        intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION)));
-                        intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_ID)));
+                        intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_AFFILIATE_URL)));
+                        intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_LOGO_URL)));
+                        intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_COMMISSION)));
+                        intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_ID)));
                         context.startActivity(intent);
                     }
                 });
@@ -251,15 +249,15 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
         public void onBindViewHolder(HotDealsViewHolder holder, int position) {
             cursor = getCursor();
             cursor.moveToPosition(position);
-            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_LOGO_URL));
-            String label = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_LABEL));
-            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_VENDOR_COMMISSION));
-            String date = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_EXPIRATION_DATE));
+            final String logoUrl = cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_LOGO_URL));
+            String label = cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_LABEL));
+            String cashBack = cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_VENDOR_COMMISSION));
+            String date = cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_EXPIRATION_DATE));
             String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
-            String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_COUPON_CODE));
+            String couponCode = cursor.getString(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_COUPON_CODE));
             picasso.load(logoUrl).into(holder.vhStoreLogo);
             holder.vhRestrictions.setText(label);
-            int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Coupons.COLUMN_OWNERS_BENEFIT));
+            int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_OWNERS_BENEFIT));
             if (!cashBack.equals("0")) {
                 holder.vhCashBack.setText("+ " + cashBack + "% " + context.getString(R.string.cash_back));
             } else {
