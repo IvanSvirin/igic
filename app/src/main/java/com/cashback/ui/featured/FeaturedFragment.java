@@ -24,6 +24,7 @@ import com.cashback.Utilities;
 import rest.RestUtilities;
 import ui.MainActivity;
 
+import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.allresults.SearchActivity;
 import com.cashback.ui.components.FixedNestedScrollView;
 import com.google.android.gms.analytics.HitBuilders;
@@ -48,6 +49,7 @@ public class FeaturedFragment extends Fragment {
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_EXTRAS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_FAVORITES);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_HOT_DEALS);
+        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_COUPONS);
         RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_MISC);
         //Google Analytics
         App app = (App) getActivity().getApplication();

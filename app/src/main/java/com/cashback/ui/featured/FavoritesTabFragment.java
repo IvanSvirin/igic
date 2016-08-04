@@ -115,7 +115,7 @@ public class FavoritesTabFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         fragmentUi.favoritesAdapter.changeCursor(data);
-        if (data == null || data.getCount() == 0) {
+        if (data == null) {
             new FavoritesRequest(getContext()).fetchData();
         }
     }

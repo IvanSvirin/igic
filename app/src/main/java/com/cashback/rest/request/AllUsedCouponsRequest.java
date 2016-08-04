@@ -9,6 +9,7 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataInsertHandler;
 import com.cashback.model.Coupon;
+import com.cashback.rest.event.AccountEvent;
 import com.cashback.rest.event.MerchantCouponsEvent;
 
 import org.json.JSONArray;
@@ -31,6 +32,8 @@ import de.greenrobot.event.EventBus;
 
 public class AllUsedCouponsRequest {
     private Context context;
+    private int counter = 0;
+    private int size = 0;
 
     public AllUsedCouponsRequest(Context ctx) {
         this.context = ctx;
@@ -39,6 +42,7 @@ public class AllUsedCouponsRequest {
     public void fetchData() {
         Set<String> set = Utilities.retrieveVendorIdSet(context);
         if (set != null) {
+            size = set.size();
             for (String s : set) {
                 new CouponsByMerchantIdRequestTask(s).execute();
             }
@@ -123,10 +127,18 @@ public class AllUsedCouponsRequest {
                         DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                         handler.startInsert(DataInsertHandler.COUPONS_TOKEN, null, DataContract.URI_COUPONS, values);
                     }
+                    counter++;
+                    if (counter == size) {
+                        EventBus.getDefault().post(new MerchantCouponsEvent(true, "OK"));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
+                counter++;
+                if (counter == size) {
+                    EventBus.getDefault().post(new MerchantCouponsEvent(true, "OK"));
+                }
             }
         }
     }

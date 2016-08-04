@@ -64,11 +64,9 @@ import java.util.Set;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import rest.RestUtilities;
 import ui.MainActivity;
 
 public class StoreActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    private ArrayList<Coupon> coupons;
     private UiActivity uiActivity;
     private MenuItem menuItem;
     private Handler handler;
@@ -93,10 +91,10 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             setContentView(R.layout.layout_store);
         }
         handler = new Handler();
-        coupons = new ArrayList<>();
         Intent intent = getIntent();
         vendorId = intent.getLongExtra("vendor_id", 1);
 
+        EventBus.getDefault().register(this);
         Set<String> set = Utilities.retrieveVendorIdSet(this);
         boolean marker = true;
         if (set != null) {
@@ -109,16 +107,13 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         if (marker) {
             set.add(String.valueOf(vendorId));
             Utilities.saveVendorIdSet(this, set);
+            progressDialog = Utilities.onCreateProgressDialog(this);
+            progressDialog.show();
             new AllUsedCouponsRequest(this).fetchData();
+        } else {
+            getSupportLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
         }
-        RestUtilities.syncDistantData(this, RestUtilities.TOKEN_COUPONS);
-        getSupportLoaderManager().initLoader(MainActivity.COUPONS_LOADER, null, this);
 
-//        new CouponsByMerchantIdRequest(this, vendorId, coupons).fetchData();
-
-
-        progressDialog = Utilities.onCreateProgressDialog(this);
-        progressDialog.show();
         Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(vendorId));
         Cursor cursor = getContentResolver().query(uri, null, null, null, null);
         if (cursor != null && cursor.getCount() > 0) {
@@ -144,28 +139,26 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
     }
 
     public void onEvent(MerchantCouponsEvent event) {
-        progressDialog.dismiss();
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
         if (event.isSuccess) {
-            uiActivity.initListAdapter(this);
+            getSupportLoaderManager().restartLoader(MainActivity.COUPONS_LOADER, null, this);
         } else {
             Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), R.string.no_coupons, Snackbar.LENGTH_SHORT).show();
         }
     }
 
     public void onEvent(FavoritesEvent event) {
-        progressDialog.dismiss();
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 
     @Override
@@ -221,6 +214,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         if (id == MainActivity.COUPONS_LOADER) {
             loader = new CursorLoader(this);
             loader.setUri(DataContract.URI_COUPONS);
+            loader.setSelection(DataContract.Coupons.COLUMN_VENDOR_ID + "=" + String.valueOf(vendorId));
         }
         return loader;
     }
@@ -247,20 +241,23 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         }
         if (loader.getId() == MainActivity.COUPONS_LOADER) {
-            progressDialog.dismiss();
+            if (data.getCount() == 0) {
+                Snackbar.make(getWindow().getDecorView().findViewById(android.R.id.content), R.string.no_coupons, Snackbar.LENGTH_SHORT).show();
+            }
             uiActivity.initListAdapter(this);
+            uiActivity.adapter.changeCursor(data);
         }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        uiActivity.adapter.changeCursor(null);
     }
 
     class UiActivity {
         private Context context;
         private ActionBar actionBar;
-        private TestRecyclerAdapter adapter;
-//        private CouponsRecyclerAdapter adapter;
+        private CouponsRecyclerAdapter adapter;
         @Bind(R.id.appbar_layout)
         AppBarLayout appBarLayout;
         @Bind(R.id.bigRelativeLayout)
@@ -293,11 +290,9 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         private void initListAdapter(final Context context) {
-            adapter = new TestRecyclerAdapter(context);
-//            adapter = new CouponsRecyclerAdapter(context, coupons);
+            adapter = new CouponsRecyclerAdapter(context);
             storeRecyclerView.setHasFixedSize(true);
             storeRecyclerView.setAdapter(adapter);
-
         }
 
         private void initToolbar(Activity activity) {
@@ -417,20 +412,20 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     }
 
-    public static class TestRecyclerAdapter extends RecyclerView.Adapter<TestRecyclerAdapter.TestViewHolder> {
+    public static class CouponsRecyclerAdapter extends RecyclerView.Adapter<CouponsRecyclerAdapter.CouponsViewHolder> {
         final private Context context;
-        private TestCursorAdapter cursorAdapter;
+        private CouponsCursorAdapter cursorAdapter;
         private Cursor cursor;
         private Calendar calendar;
 
-        public class TestViewHolder extends RecyclerView.ViewHolder {
+        public class CouponsViewHolder extends RecyclerView.ViewHolder {
             public TextView vhRestrictions;
             public TextView vhBtnShopNow;
             public TextView vhExpireDate;
             public TextView vhCouponCode;
             public AppCompatImageView vhShareButton;
 
-            public TestViewHolder(View itemView) {
+            public CouponsViewHolder(View itemView) {
                 super(itemView);
                 vhRestrictions = (TextView) itemView.findViewById(R.id.restrictions);
                 vhBtnShopNow = (TextView) itemView.findViewById(R.id.btnShopNow);
@@ -510,25 +505,25 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         }
 
-        public TestRecyclerAdapter(Context context) {
+        public CouponsRecyclerAdapter(Context context) {
             this.context = context;
-            cursorAdapter = new TestCursorAdapter(context, null);
+            cursorAdapter = new CouponsCursorAdapter(context, null);
             calendar = Calendar.getInstance();
         }
 
         @Override
-        public TestViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public CouponsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             if (parent instanceof RecyclerView) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coupons, parent, false);
                 view.setFocusable(true);
-                return new TestViewHolder(view);
+                return new CouponsViewHolder(view);
             } else {
                 throw new RuntimeException("Not bound to RecyclerView");
             }
         }
 
         @Override
-        public void onBindViewHolder(TestViewHolder holder, int position) {
+        public void onBindViewHolder(CouponsViewHolder holder, int position) {
             cursor = getCursor();
             cursor.moveToPosition(position);
             String label = cursor.getString(cursor.getColumnIndex(DataContract.Coupons.COLUMN_LABEL));
@@ -570,9 +565,9 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             return cursorAdapter.getCursor();
         }
 
-        private class TestCursorAdapter extends CursorAdapter {
+        private class CouponsCursorAdapter extends CursorAdapter {
 
-            public TestCursorAdapter(Context context, Cursor cursor) {
+            public CouponsCursorAdapter(Context context, Cursor cursor) {
                 super(context, cursor);
             }
 
@@ -586,146 +581,6 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         }
 
-    }
-
-    public static class CouponsRecyclerAdapter extends RecyclerView.Adapter<CouponsRecyclerAdapter.CouponsViewHolder> {
-        final private Context context;
-        private ArrayList<Coupon> couponsArray;
-        private Calendar calendar;
-
-        public class CouponsViewHolder extends RecyclerView.ViewHolder {
-            public TextView vhRestrictions;
-            public TextView vhExpireDate;
-            public TextView vhCouponCode;
-            public TextView vhBtnShopNow;
-            public AppCompatImageView vhShareButton;
-
-            public CouponsViewHolder(View itemView) {
-                super(itemView);
-                vhRestrictions = (TextView) itemView.findViewById(R.id.restrictions);
-                vhExpireDate = (TextView) itemView.findViewById(R.id.expireDate);
-                vhCouponCode = (TextView) itemView.findViewById(R.id.couponCode);
-                vhBtnShopNow = (TextView) itemView.findViewById(R.id.btnShopNow);
-                vhShareButton = (AppCompatImageView) itemView.findViewById(R.id.shareButton);
-
-                vhShareButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        if (Utilities.isLoggedIn(context)) {
-                            LaunchActivity.shareDealLink(context, couponsArray.get(position).getAffiliateUrl(), couponsArray.get(position).getVendorId(),
-                                    couponsArray.get(position).getCouponId(), couponsArray.get(position).getVendorLogoUrl());
-                        } else {
-                            Bundle loginBundle = new Bundle();
-                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "StoreActivity");
-                            loginBundle.putLong(Utilities.VENDOR_ID, couponsArray.get(position).getVendorId());
-                            Utilities.needLoginDialog(context, loginBundle);
-                        }
-                    }
-                });
-                vhBtnShopNow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(couponsArray.get(position).getVendorId()));
-                        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                        if (cursor != null) {
-                            cursor.moveToFirst();
-                        }
-                        if (Utilities.isLoggedIn(context)) {
-                            Intent intent = new Intent(context, BrowserDealsActivity.class);
-                            intent.putExtra("vendor_id", couponsArray.get(position).getVendorId());
-                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
-                            intent.putExtra("affiliate_url", couponsArray.get(position).getAffiliateUrl());
-                            intent.putExtra("coupon_id", couponsArray.get(position).getCouponId());
-                            context.startActivity(intent);
-                        } else {
-                            Bundle loginBundle = new Bundle();
-                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
-                            loginBundle.putLong(Utilities.VENDOR_ID, couponsArray.get(position).getVendorId());
-                            loginBundle.putLong(Utilities.COUPON_ID, couponsArray.get(position).getCouponId());
-                            loginBundle.putString(Utilities.AFFILIATE_URL, couponsArray.get(position).getAffiliateUrl());
-                            loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
-                            Utilities.needLoginDialog(context, loginBundle);
-                        }
-                        cursor.close();
-                    }
-                });
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(couponsArray.get(position).getVendorId()));
-                        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-                        if (cursor != null) {
-                            cursor.moveToFirst();
-                        }
-                        if (Utilities.isLoggedIn(context)) {
-                            Intent intent = new Intent(context, BrowserDealsActivity.class);
-                            intent.putExtra("vendor_id", couponsArray.get(position).getVendorId());
-                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
-                            intent.putExtra("affiliate_url", couponsArray.get(position).getAffiliateUrl());
-                            intent.putExtra("coupon_id", couponsArray.get(position).getCouponId());
-                            context.startActivity(intent);
-                        } else {
-                            Bundle loginBundle = new Bundle();
-                            loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
-                            loginBundle.putLong(Utilities.VENDOR_ID, couponsArray.get(position).getVendorId());
-                            loginBundle.putLong(Utilities.COUPON_ID, couponsArray.get(position).getCouponId());
-                            loginBundle.putString(Utilities.AFFILIATE_URL, couponsArray.get(position).getAffiliateUrl());
-                            loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
-                            Utilities.needLoginDialog(context, loginBundle);
-                        }
-                        cursor.close();
-                    }
-                });
-            }
-        }
-
-        public CouponsRecyclerAdapter(Context context, ArrayList<Coupon> coupons) {
-            this.context = context;
-            this.couponsArray = coupons;
-            calendar = Calendar.getInstance();
-        }
-
-        @Override
-        public CouponsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if (parent instanceof RecyclerView) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coupons, parent, false);
-                view.setFocusable(true);
-                return new CouponsViewHolder(view);
-            } else {
-                throw new RuntimeException("Not bound to RecyclerView");
-            }
-        }
-
-        @Override
-        public void onBindViewHolder(CouponsViewHolder holder, int position) {
-            String label = couponsArray.get(position).getLabel();
-            String date = couponsArray.get(position).getExpirationDate();
-            String expire = context.getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
-            String code = couponsArray.get(position).getCouponCode();
-            holder.vhRestrictions.setText(label);
-            calendar.set(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)));
-            long timeDifference = calendar.getTimeInMillis();
-            long timeCurrent = System.currentTimeMillis();
-            timeDifference = timeDifference - timeCurrent;
-            if (timeDifference > 31536000000L) {
-                holder.vhExpireDate.setText("Ongoing");
-            } else {
-                holder.vhExpireDate.setText(expire);
-            }
-            if (code.length() < 4) {
-                holder.vhCouponCode.setVisibility(View.INVISIBLE);
-            } else {
-                holder.vhCouponCode.setText(code);
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return couponsArray.size();
-        }
     }
 
     public static class InfoDialog extends DialogFragment {

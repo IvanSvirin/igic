@@ -5,13 +5,14 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.cashback.Utilities;
+import com.cashback.rest.request.AllUsedCouponsRequest;
 import com.cashback.rest.request.CashBackAccountRequest;
 import com.cashback.rest.request.CharityAccountRequest;
 import com.cashback.rest.request.CategoriesRequest;
 import com.cashback.rest.request.CharityOrdersRequest;
-import com.cashback.rest.request.CouponsRequest;
 import com.cashback.rest.request.ExtrasRequest;
 import com.cashback.rest.request.FavoritesRequest;
+import com.cashback.rest.request.HotDealsRequest;
 import com.cashback.rest.request.MerchantsRequest;
 import com.cashback.rest.request.MiscRequest;
 import com.cashback.rest.request.CashBackOrdersRequest;
@@ -23,6 +24,7 @@ public class RestUtilities {
     public final static String TOKEN_MERCHANTS = "token_merchants";
     public final static String TOKEN_FAVORITES = "token_favorites";
     public final static String TOKEN_EXTRAS = "token_extras";
+    public final static String TOKEN_HOT_DEALS = "token_hot_deals";
     public final static String TOKEN_COUPONS = "token_coupons";
     public final static String TOKEN_CATEGORIES = "token_categories";
     public final static String TOKEN_PAYMENTS = "token_payments";
@@ -35,6 +37,7 @@ public class RestUtilities {
     private final static long EXTRAS_UPDATE_INTERVAL = 21600000; // 6 h
     private final static long MERCHANTS_UPDATE_INTERVAL = 21600000; // 6 h
     private final static long FAVORITES_UPDATE_INTERVAL = 21600000; // 6 h
+    private final static long HOT_DEALS_UPDATE_INTERVAL = 3600000; // 1h
     private final static long COUPONS_UPDATE_INTERVAL = 3600000; // 1h
     private final static long CATEGORIES_UPDATE_INTERVAL = 43200000; // 12h
     private final static long PAYMENTS_UPDATE_INTERVAL = 3600000; // 1h
@@ -71,9 +74,14 @@ public class RestUtilities {
                     new ExtrasRequest(context).fetchData();
                 }
                 break;
+            case TOKEN_HOT_DEALS:
+                if (differenceTime >= HOT_DEALS_UPDATE_INTERVAL) {
+                    new HotDealsRequest(context).fetchData();
+                }
+                break;
             case TOKEN_COUPONS:
                 if (differenceTime >= COUPONS_UPDATE_INTERVAL) {
-                    new CouponsRequest(context).fetchData();
+                    new AllUsedCouponsRequest(context).fetchData();
                 }
                 break;
             case TOKEN_CATEGORIES:

@@ -8,7 +8,9 @@ import android.util.Log;
 
 import com.cashback.R;
 import com.cashback.Utilities;
+
 import db.DataContract;
+
 import com.cashback.db.DataInsertHandler;
 import com.cashback.rest.event.FavoritesEvent;
 
@@ -122,10 +124,15 @@ public class FavoritesRequest {
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startBulkInsert(DataInsertHandler.FAVORITES_TOKEN, false, DataContract.URI_FAVORITES, listValues.toArray(new ContentValues[listValues.size()]));
+                    EventBus.getDefault().post(new FavoritesEvent(true, "OK"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     EventBus.getDefault().post(new FavoritesEvent(false, "No merchants featured data"));
                 }
+            } else {
+                DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                handler.startDelete(DataInsertHandler.FAVORITES_TOKEN, false, DataContract.URI_FAVORITES, null, null);
+                EventBus.getDefault().post(new FavoritesEvent(true, "OK"));
             }
         }
     }
