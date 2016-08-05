@@ -3,7 +3,6 @@ package com.cashback.rest.request;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.cashback.R;
 import com.cashback.Utilities;

@@ -29,7 +29,6 @@ import com.cashback.Utilities;
 import db.DataContract;
 
 import com.cashback.rest.event.FavoritesEvent;
-import com.cashback.rest.request.CharityOrdersRequest;
 import com.cashback.rest.request.FavoritesRequest;
 
 import ui.MainActivity;

@@ -8,9 +8,6 @@ import android.util.Log;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataInsertHandler;
-import com.cashback.model.Coupon;
-import com.cashback.rest.event.AccountEvent;
-import com.cashback.rest.event.MerchantCouponsEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,22 +21,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Deque;
+import java.util.List;
 import java.util.Set;
 
 import db.DataContract;
-import de.greenrobot.event.EventBus;
 
 public class AllUsedCouponsRequest {
     private Context context;
     private int counter = 0;
     private int size = 0;
+    private List<ContentValues> listCouponsValues;
 
     public AllUsedCouponsRequest(Context ctx) {
         this.context = ctx;
     }
 
     public void fetchData() {
+        listCouponsValues = new ArrayList<>();
         Set<String> set = Utilities.retrieveVendorIdSet(context);
         if (set != null) {
             size = set.size();
@@ -124,12 +122,12 @@ public class AllUsedCouponsRequest {
                         } else {
                             values.put(DataContract.Coupons.COLUMN_OWNERS_BENEFIT, 0);
                         }
-                        DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
-                        handler.startInsert(DataInsertHandler.COUPONS_TOKEN, null, DataContract.URI_COUPONS, values);
+                        listCouponsValues.add(values);
                     }
                     counter++;
                     if (counter == size) {
-                        EventBus.getDefault().post(new MerchantCouponsEvent(true, "OK"));
+                        DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                        handler.startBulkInsert(DataInsertHandler.COUPONS_TOKEN, false, DataContract.URI_COUPONS, listCouponsValues.toArray(new ContentValues[listCouponsValues.size()]));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -137,7 +135,8 @@ public class AllUsedCouponsRequest {
             } else {
                 counter++;
                 if (counter == size) {
-                    EventBus.getDefault().post(new MerchantCouponsEvent(true, "OK"));
+                    DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
+                    handler.startBulkInsert(DataInsertHandler.COUPONS_TOKEN, false, DataContract.URI_COUPONS, listCouponsValues.toArray(new ContentValues[listCouponsValues.size()]));
                 }
             }
         }

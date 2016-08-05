@@ -5,7 +5,7 @@ import db.DataContract;
 public class AuxiliaryDataDbHelper {
     private static final String INT_TYPE = " INTEGER";
     private static final String BOOL_TYPE = " INTEGER";
-    private static final String REAL_TYPE = " REAL"; // approximately how double
+    private static final String REAL_TYPE = " REAL"; // approximately as double
     private static final String DATE_TYPE = " TEXT";
     private static final String TEXT_TYPE = " TEXT";
     private static final String BLOB_TYPE = " BLOB";

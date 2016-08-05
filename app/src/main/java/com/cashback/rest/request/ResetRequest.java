@@ -1,20 +1,13 @@
 package com.cashback.rest.request;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.cashback.R;
 import com.cashback.Utilities;
-import com.cashback.db.DataInsertHandler;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.RestoreEvent;
-import com.cashback.rest.event.SignInEvent;
-import com.cashback.rest.event.SignUpEvent;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +20,6 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import db.DataContract;
 import de.greenrobot.event.EventBus;
 
 public class ResetRequest {

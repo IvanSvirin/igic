@@ -28,7 +28,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import de.greenrobot.event.EventBus;
-import rest.RestUtilities;
 
 public class SignInCharityRequest {
     private AuthObject authObject;

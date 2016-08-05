@@ -115,7 +115,6 @@ public class HotDealsRequest {
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startBulkInsert(DataInsertHandler.HOT_DEALS_TOKEN, false, DataContract.URI_HOT_DEALS, listCouponsValues.toArray(new ContentValues[listCouponsValues.size()]));
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     EventBus.getDefault().post(new CouponsEvent(false, "No coupons featured data"));

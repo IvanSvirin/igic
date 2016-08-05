@@ -22,7 +22,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import db.DataContract;
 import de.greenrobot.event.EventBus;
 
 public class CouponsByMerchantIdRequest {

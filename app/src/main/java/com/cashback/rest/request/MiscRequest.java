@@ -8,12 +8,7 @@ import android.util.Log;
 import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.db.DataInsertHandler;
-import com.cashback.model.Merchant;
-import com.cashback.model.Misc;
-import com.cashback.rest.event.CategoryMerchantsEvent;
 import com.cashback.rest.event.MiscEvent;
-import com.cashback.rest.event.SignInEvent;
-import com.cashback.rest.event.SignUpEvent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +21,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 import db.DataContract;
 import de.greenrobot.event.EventBus;

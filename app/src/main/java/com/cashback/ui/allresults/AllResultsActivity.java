@@ -1,7 +1,6 @@
 package com.cashback.ui.allresults;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -27,7 +26,6 @@ import com.cashback.model.Merchant;
 import com.cashback.model.Product;
 import com.cashback.rest.event.SearchEvent;
 import com.cashback.rest.request.SearchRequest;
-import com.cashback.ui.components.FixedNestedScrollView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 

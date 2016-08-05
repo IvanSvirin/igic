@@ -1,6 +1,5 @@
 package com.cashback.rest.request;
 
-import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;

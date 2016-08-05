@@ -25,7 +25,6 @@ import com.cashback.Utilities;
 import db.DataContract;
 
 import com.cashback.model.Coupon;
-import com.cashback.rest.request.ShoppingTripsRequest;
 import com.cashback.ui.LaunchActivity;
 import com.cashback.ui.StoreActivity;
 import com.cashback.ui.web.BrowserDealsActivity;

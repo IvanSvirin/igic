@@ -121,7 +121,5 @@ public class DataInsertHandler extends BulkAsyncQueryHandler {
     @Override
     protected void onDeleteComplete(int token, Object cookie, int result) {
         super.onDeleteComplete(token, cookie, result);
-        switch (token) {
-        }
     }
 }

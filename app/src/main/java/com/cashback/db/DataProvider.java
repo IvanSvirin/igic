@@ -40,7 +40,6 @@ public class DataProvider extends ContentProvider {
     private static final int CASHBACK_ACCOUNTS = 902;
     private static final int MISC = 903;
 
-    private String LOG_TAG = "sql_log";
     private DbHelper dbHelper;
     private Context context;
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -327,6 +326,7 @@ public class DataProvider extends ContentProvider {
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
         final int match = uriMatcher.match(uri);
         int countInsert = 0;
+        String LOG_TAG = "sql_log";
         switch (match) {
             case MERCHANTS:
                 db.beginTransaction();
