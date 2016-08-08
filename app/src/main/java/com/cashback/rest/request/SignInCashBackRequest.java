@@ -33,6 +33,7 @@ public class SignInCashBackRequest {
     private AuthObject authObject;
     private Context context;
     private String pathEnd;
+    private boolean isRegistered = false;
 
     public SignInCashBackRequest(Context context, AuthObject authObject, String pathEnd) {
         this.context = context;
@@ -98,6 +99,7 @@ public class SignInCashBackRequest {
                 inputStream = new BufferedInputStream(urlConnection.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
+                isRegistered = true;
             }
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
@@ -156,7 +158,11 @@ public class SignInCashBackRequest {
                     if (pathEnd.equals("login")) {
                         EventBus.getDefault().post(new SignInEvent(false, "Check your internet connection or authorization data"));
                     } else {
-                        EventBus.getDefault().post(new SignUpEvent(false, "Check your internet connection or authorization data"));
+                        if (isRegistered) {
+                            EventBus.getDefault().post(new SignUpEvent(false, "That email address is already registered.  Please use the Login screen instead."));
+                        } else {
+                            EventBus.getDefault().post(new SignUpEvent(false, "Check your internet connection or authorization data"));
+                        }
                     }
                 }
             } catch (JSONException e) {

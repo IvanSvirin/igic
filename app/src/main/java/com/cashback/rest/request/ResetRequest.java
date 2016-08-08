@@ -8,6 +8,8 @@ import com.cashback.R;
 import com.cashback.Utilities;
 import com.cashback.model.AuthObject;
 import com.cashback.rest.event.RestoreEvent;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +42,7 @@ public class ResetRequest {
         private URL url;
         private String jsonString = "";
         private JSONObject jObj = null;
+        private JSONArray jsonArray;
         private InputStream inputStream = null;
         private HttpURLConnection urlConnection = null;
 
@@ -86,7 +89,7 @@ public class ResetRequest {
                 EventBus.getDefault().post(new RestoreEvent(false, ""));
             }
             try {
-                jObj = new JSONObject(jsonString);
+                jsonArray = new JSONArray(jsonString);
             } catch (JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
                 EventBus.getDefault().post(new RestoreEvent(false, ""));
@@ -98,7 +101,8 @@ public class ResetRequest {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             try {
-                if (jObj != null) {
+                if (jsonArray != null) {
+                    jObj = jsonArray.getJSONObject(0);
                     int status = jObj.getInt("status");
                     if (status == 1) {
                         EventBus.getDefault().post(new RestoreEvent(true, ""));

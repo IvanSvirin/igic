@@ -189,7 +189,7 @@ public class SignUpFragment extends Fragment {
             } else {
                 if (isPasswordValid(password)) {
                     if (Utilities.isEmailValid(email)) {
-                        if (Utilities.isEmailValid(referrerEmail)) {
+                        if (Utilities.isEmailValid(referrerEmail) || referrerEmail.length() == 0) {
                             AuthObject authObject = new AuthObject();
                             authObject.setAuthType("0");
                             authObject.setEmail(email);

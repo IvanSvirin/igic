@@ -24,6 +24,8 @@ import com.cashback.Utilities;
 import db.DataContract;
 import com.cashback.rest.event.ShoppingTripsEvent;
 import com.cashback.rest.request.ShoppingTripsRequest;
+
+import rest.RestUtilities;
 import ui.MainActivity;
 import com.cashback.ui.components.NestedListView;
 import com.google.android.gms.analytics.HitBuilders;
@@ -47,7 +49,10 @@ public class StoreVisitsActivity extends AppCompatActivity implements LoaderMana
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_shopping_tripss);
 
-        getSupportLoaderManager().initLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
+        RestUtilities.syncDistantData(this, RestUtilities.TOKEN_SHOPPING_TRIPS);
+        progressDialog = Utilities.onCreateProgressDialog(this);
+        progressDialog.show();
+//        getSupportLoaderManager().initLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -110,7 +115,8 @@ public class StoreVisitsActivity extends AppCompatActivity implements LoaderMana
     public void onEvent(ShoppingTripsEvent event) {
         progressDialog.dismiss();
         if (event.isSuccess) {
-            getSupportLoaderManager().restartLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
+            getSupportLoaderManager().initLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
+//            getSupportLoaderManager().restartLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
         }
     }
 

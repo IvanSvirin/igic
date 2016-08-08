@@ -104,6 +104,7 @@ public class ShoppingTripsRequest {
                     }
                     DataInsertHandler handler = new DataInsertHandler(context, context.getContentResolver());
                     handler.startBulkInsert(DataInsertHandler.SHOPPING_TRIPS_TOKEN, false, DataContract.URI_SHOPPING_TRIPS, listValues.toArray(new ContentValues[listValues.size()]));
+                    EventBus.getDefault().post(new ShoppingTripsEvent(true, "OK"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                     EventBus.getDefault().post(new ShoppingTripsEvent(false, "No visits data"));

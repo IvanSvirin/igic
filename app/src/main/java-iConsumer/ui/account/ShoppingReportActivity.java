@@ -38,6 +38,7 @@ import java.util.TreeMap;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import rest.RestUtilities;
 import ui.MainActivity;
 
 public class ShoppingReportActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -66,7 +67,10 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        getSupportLoaderManager().initLoader(MainActivity.ORDERS_LOADER, null, this);
+        RestUtilities.syncDistantData(this, RestUtilities.TOKEN_ORDERS);
+        progressDialog = Utilities.onCreateProgressDialog(this);
+        progressDialog.show();
+//        getSupportLoaderManager().initLoader(MainActivity.ORDERS_LOADER, null, this);
     }
 
     @Override
@@ -117,7 +121,8 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
     public void onEvent(OrdersEvent event) {
         progressDialog.dismiss();
         if (event.isSuccess) {
-            getSupportLoaderManager().restartLoader(MainActivity.ORDERS_LOADER, null, this);
+            getSupportLoaderManager().initLoader(MainActivity.ORDERS_LOADER, null, this);
+//            getSupportLoaderManager().restartLoader(MainActivity.ORDERS_LOADER, null, this);
         }
     }
 

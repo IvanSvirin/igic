@@ -38,6 +38,7 @@ import java.util.TreeMap;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import rest.RestUtilities;
 import ui.MainActivity;
 
 public class PaymentsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -66,7 +67,11 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        getSupportLoaderManager().initLoader(MainActivity.PAYMENTS_LOADER, null, this);
+
+        RestUtilities.syncDistantData(this, RestUtilities.TOKEN_PAYMENTS);
+        progressDialog = Utilities.onCreateProgressDialog(this);
+        progressDialog.show();
+//        getSupportLoaderManager().initLoader(MainActivity.PAYMENTS_LOADER, null, this);
     }
 
     @Override
@@ -116,7 +121,8 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
     public void onEvent(PaymentsEvent event) {
         progressDialog.dismiss();
         if (event.isSuccess) {
-            getSupportLoaderManager().restartLoader(MainActivity.PAYMENTS_LOADER, null, this);
+            getSupportLoaderManager().initLoader(MainActivity.PAYMENTS_LOADER, null, this);
+//            getSupportLoaderManager().restartLoader(MainActivity.PAYMENTS_LOADER, null, this);
         }
     }
 

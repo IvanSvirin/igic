@@ -49,9 +49,9 @@ public class AccountFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_CHARITY_ORDERS);
-        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_SHOPPING_TRIPS);
-        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_PAYMENTS);
+//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_ORDERS);
+//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_SHOPPING_TRIPS);
+//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_PAYMENTS);
         new CashBackSettingsRequest(getContext()).fetchData();
         gotAnswer = false;
         setHasOptionsMenu(true);
@@ -130,9 +130,9 @@ public class AccountFragment extends Fragment {
                 getContext().getContentResolver().delete(DataContract.URI_SHOPPING_TRIPS, null, null);
                 getContext().getContentResolver().delete(DataContract.URI_ORDERS, null, null);
                 getContext().getContentResolver().delete(DataContract.URI_CHARITY_ORDERS, null, null);
-                if (AccessToken.getCurrentAccessToken() != null) {
-                    LoginManager.getInstance().logOut();
-                }
+//                if (AccessToken.getCurrentAccessToken() != null) {
+//                    LoginManager.getInstance().logOut();
+//                }
                 getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), MainActivity.class));
                 break;

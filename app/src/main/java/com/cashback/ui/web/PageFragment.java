@@ -47,9 +47,8 @@ public class PageFragment extends Fragment {
             shopNowButton.setText(getResources().getString(R.string.btn_copy_code));
         }
         TextView restrictions = (TextView) view.findViewById(R.id.restrictions);
-        String date = getArguments().getString(EXPIRATION_DATE);
-        String expire = date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
-        restrictions.setText(getArguments().getString(RESTRICTIONS) + " Exp. " + expire);
+        String expire = getArguments().getString(EXPIRATION_DATE);
+        restrictions.setText(getArguments().getString(RESTRICTIONS) + expire);
 
         shopNowButton.setOnClickListener(new View.OnClickListener() {
             @Override

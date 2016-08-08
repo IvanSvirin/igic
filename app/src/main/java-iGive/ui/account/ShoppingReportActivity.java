@@ -28,7 +28,9 @@ import com.cashback.rest.event.OrdersEvent;
 import com.cashback.rest.request.CharityOrdersRequest;
 
 import db.DataContract;
+import rest.RestUtilities;
 import ui.MainActivity;
+
 import com.cashback.ui.components.NestedListView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -68,7 +70,10 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        getSupportLoaderManager().initLoader(MainActivity.ORDERS_LOADER, null, this);
+        RestUtilities.syncDistantData(this, RestUtilities.TOKEN_CHARITY_ORDERS);
+        progressDialog = Utilities.onCreateProgressDialog(this);
+        progressDialog.show();
+//        getSupportLoaderManager().initLoader(MainActivity.ORDERS_LOADER, null, this);
     }
 
     @Override
@@ -143,7 +148,7 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
         }
 
         private void initListAdapter() {
-            View view = ((LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.shopping_report_footer, null, false);
+            View view = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.shopping_report_footer, null, false);
             ordersList.addFooterView(view);
             adapter = new OrderHistoryAdapter(context, null, 0);
             ordersList.setAdapter(adapter);

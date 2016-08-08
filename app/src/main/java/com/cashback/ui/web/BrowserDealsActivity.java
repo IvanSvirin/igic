@@ -44,6 +44,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -350,10 +351,12 @@ public class BrowserDealsActivity extends AppCompatActivity {
 
     public class CursorPagerAdapter extends FragmentStatePagerAdapter {
         private ArrayList<Coupon> coupons;
+        private Calendar calendar;
 
         public CursorPagerAdapter(FragmentManager fm, ArrayList<Coupon> coupons) {
             super(fm);
             this.coupons = coupons;
+            calendar = Calendar.getInstance();
         }
 
         @Override
@@ -365,8 +368,18 @@ public class BrowserDealsActivity extends AppCompatActivity {
                 throw new RuntimeException(ex);
             }
             Bundle args = new Bundle();
+            String date = coupons.get(position).getExpirationDate();
+            String expire = " " + getString(R.string.prefix_expire) + " " + date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4);
+            calendar.set(Integer.parseInt(date.substring(0, 4)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)));
+            long timeDifference = calendar.getTimeInMillis();
+            long timeCurrent = System.currentTimeMillis();
+            timeDifference = timeDifference - timeCurrent;
+            if (timeDifference > 31536000000L) {
+                args.putString(PageFragment.EXPIRATION_DATE, " Ongoing");
+            } else {
+                args.putString(PageFragment.EXPIRATION_DATE, expire);
+            }
             args.putString(PageFragment.COUPON_CODE, coupons.get(position).getCouponCode());
-            args.putString(PageFragment.EXPIRATION_DATE, coupons.get(position).getExpirationDate());
             args.putString(PageFragment.RESTRICTIONS, coupons.get(position).getLabel());
             args.putLong(PageFragment.VENDOR_ID, coupons.get(position).getVendorId());
             args.putLong(PageFragment.COUPON_ID, coupons.get(position).getCouponId());
