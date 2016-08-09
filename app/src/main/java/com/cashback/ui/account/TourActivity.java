@@ -33,7 +33,6 @@ public class TourActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out);
         ButterKnife.bind(this);
 
-
         ViewPager viewPager = (ViewPager) findViewById(R.id.tour_pager);
         CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.tour_pager_indicator);
         FragmentPagerAdapter adapter = new TourFragmentPagerAdapter(getSupportFragmentManager());

@@ -49,9 +49,9 @@ Invite your friends to join the iGive so they can
 automatically help their couse or charity whenever
 they shop online.</string>
     <string name="welcome_to_igive">Welcome to iGive!</string>
-    <string name="make_donation_to_shop">Make donation to shop!</string>
-    <string name="buy_at_your_favorite_stores_to_do_donation">Buy at your favorite stores \n to do Donation!</string>
-    <string name="your_donation_money_with_coupons">Your donation money \n with coupons</string>
+    <string name="make_donation_to_shop">Shop to make donations.</string>
+    <string name="buy_at_your_favorite_stores_to_do_donation">Shop at your favorite stores \n for free donations.</string>
+    <string name="your_donation_money_with_coupons">Save money while you make free \n donations by using iGive coupons.</string>
     <string name="please_log_in">Please log into your iGive member account to continue.</string>
     <string name="logo_url">http://sokm.net/wp-content/uploads/2013/11/iGive_TM_Logo1.jpg</string>
     <string name="cash_back">DONATION</string>

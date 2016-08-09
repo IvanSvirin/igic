@@ -73,7 +73,6 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
         RestUtilities.syncDistantData(this, RestUtilities.TOKEN_CHARITY_ORDERS);
         progressDialog = Utilities.onCreateProgressDialog(this);
         progressDialog.show();
-//        getSupportLoaderManager().initLoader(MainActivity.ORDERS_LOADER, null, this);
     }
 
     @Override

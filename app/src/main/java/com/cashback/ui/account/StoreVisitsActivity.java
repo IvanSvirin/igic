@@ -52,7 +52,6 @@ public class StoreVisitsActivity extends AppCompatActivity implements LoaderMana
         RestUtilities.syncDistantData(this, RestUtilities.TOKEN_SHOPPING_TRIPS);
         progressDialog = Utilities.onCreateProgressDialog(this);
         progressDialog.show();
-//        getSupportLoaderManager().initLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -116,7 +115,6 @@ public class StoreVisitsActivity extends AppCompatActivity implements LoaderMana
         progressDialog.dismiss();
         if (event.isSuccess) {
             getSupportLoaderManager().initLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
-//            getSupportLoaderManager().restartLoader(MainActivity.SHOPPING_TRIPS_LOADER, null, this);
         }
     }
 

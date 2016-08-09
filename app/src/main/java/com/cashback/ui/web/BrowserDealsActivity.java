@@ -272,7 +272,6 @@ public class BrowserDealsActivity extends AppCompatActivity {
                         }
                     }
                     long couponId = intent.getLongExtra(PageFragment.COUPON_ID, 0);
-//                loadContent(cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)) + "&token=" + Utilities.retrieveUserToken(context));
                     if (couponId == 0) {
                         loadContent(intent.getStringExtra(PageFragment.AFFILIATE_URL) + "&token=" + Utilities.retrieveUserToken(context));
                     } else {

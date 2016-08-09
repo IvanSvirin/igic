@@ -71,7 +71,6 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
         RestUtilities.syncDistantData(this, RestUtilities.TOKEN_PAYMENTS);
         progressDialog = Utilities.onCreateProgressDialog(this);
         progressDialog.show();
-//        getSupportLoaderManager().initLoader(MainActivity.PAYMENTS_LOADER, null, this);
     }
 
     @Override
@@ -122,7 +121,6 @@ public class PaymentsActivity extends AppCompatActivity implements LoaderManager
         progressDialog.dismiss();
         if (event.isSuccess) {
             getSupportLoaderManager().initLoader(MainActivity.PAYMENTS_LOADER, null, this);
-//            getSupportLoaderManager().restartLoader(MainActivity.PAYMENTS_LOADER, null, this);
         }
     }
 

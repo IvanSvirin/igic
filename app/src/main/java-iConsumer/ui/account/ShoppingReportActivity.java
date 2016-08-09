@@ -70,7 +70,6 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
         RestUtilities.syncDistantData(this, RestUtilities.TOKEN_ORDERS);
         progressDialog = Utilities.onCreateProgressDialog(this);
         progressDialog.show();
-//        getSupportLoaderManager().initLoader(MainActivity.ORDERS_LOADER, null, this);
     }
 
     @Override
@@ -122,7 +121,6 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
         progressDialog.dismiss();
         if (event.isSuccess) {
             getSupportLoaderManager().initLoader(MainActivity.ORDERS_LOADER, null, this);
-//            getSupportLoaderManager().restartLoader(MainActivity.ORDERS_LOADER, null, this);
         }
     }
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
@@ -33,6 +34,9 @@ import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,13 +49,11 @@ public class AccountFragment extends Fragment {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";
     private FragmentUi fragmentUi;
     private boolean gotAnswer;
+    private GoogleApiClient googleApiClient;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_ORDERS);
-//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_SHOPPING_TRIPS);
-//        RestUtilities.syncDistantData(this.getContext(), RestUtilities.TOKEN_PAYMENTS);
         new CashBackSettingsRequest(getContext()).fetchData();
         gotAnswer = false;
         setHasOptionsMenu(true);
@@ -60,6 +62,15 @@ public class AccountFragment extends Fragment {
         Tracker tracker = app.getDefaultTracker();
         tracker.setScreenName("Account");
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        googleApiClient = new GoogleApiClient.Builder(getActivity())
+                .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API)
+                .build();
     }
 
     @Nullable
@@ -82,6 +93,7 @@ public class AccountFragment extends Fragment {
         super.onStart();
         getActivity().setTitle(R.string.item_account);
         EventBus.getDefault().register(this);
+        googleApiClient.connect();
     }
 
     @Override
@@ -130,9 +142,10 @@ public class AccountFragment extends Fragment {
                 getContext().getContentResolver().delete(DataContract.URI_SHOPPING_TRIPS, null, null);
                 getContext().getContentResolver().delete(DataContract.URI_ORDERS, null, null);
                 getContext().getContentResolver().delete(DataContract.URI_CHARITY_ORDERS, null, null);
-//                if (AccessToken.getCurrentAccessToken() != null) {
-//                    LoginManager.getInstance().logOut();
-//                }
+                if (AccessToken.getCurrentAccessToken() != null) {
+                    LoginManager.getInstance().logOut();
+                }
+                Auth.GoogleSignInApi.signOut(googleApiClient);
                 getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), MainActivity.class));
                 break;
