@@ -1,9 +1,11 @@
 package ui.login;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -13,7 +15,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ScrollView;
 
 import com.cashback.App;
 import com.cashback.R;
@@ -137,6 +141,8 @@ public class SignInFragment extends Fragment {
         EditText etEmail;
         @Bind(R.id.password)
         EditText etPassword;
+        @Bind(R.id.scrollView)
+        ScrollView scrollView;
 
         @OnClick(R.id.nativeLoginButton)
         public void onNativeLogin() {
@@ -187,6 +193,9 @@ public class SignInFragment extends Fragment {
         public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             registerFbCallback();
+            // TODO: 8/10/2016  
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(scrollView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
 
         private void registerFbCallback() {
