@@ -142,9 +142,9 @@ public class AccountFragment extends Fragment {
                 getContext().getContentResolver().delete(DataContract.URI_SHOPPING_TRIPS, null, null);
                 getContext().getContentResolver().delete(DataContract.URI_ORDERS, null, null);
                 getContext().getContentResolver().delete(DataContract.URI_CHARITY_ORDERS, null, null);
-//                if (AccessToken.getCurrentAccessToken() != null) {
-//                    LoginManager.getInstance().logOut();
-//                }
+                if (AccessToken.getCurrentAccessToken() != null) {
+                    LoginManager.getInstance().logOut();
+                }
                 Auth.GoogleSignInApi.signOut(googleApiClient);
                 getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), MainActivity.class));

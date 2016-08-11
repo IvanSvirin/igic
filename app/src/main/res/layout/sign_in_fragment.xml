@@ -30,6 +30,7 @@
                 android:drawableLeft="@drawable/mail"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
+                android:focusable="false"
                 android:nextFocusDown="@id/password" />
 
             <EditText
@@ -38,9 +39,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/password"
-                android:nextFocusUp="@id/email"
                 android:hint="@string/password_hint"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:focusable="false"
+                android:nextFocusUp="@id/email" />
 
             <TextView
                 android:id="@+id/forgotPasswordButton"

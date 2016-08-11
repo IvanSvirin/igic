@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -187,6 +188,14 @@ public class SignInFragment extends Fragment {
         public FragmentUi(View view) {
             ButterKnife.bind(this, view);
             registerFbCallback();
+            etEmail.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    etEmail.setFocusableInTouchMode(true);
+                    etPassword.setFocusableInTouchMode(true);
+                    return false;
+                }
+            });
         }
 
         private void registerFbCallback() {
