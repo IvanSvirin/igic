@@ -68,14 +68,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/igive/jni" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/igive/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/igive/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/jni" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIgive/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIgive/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIgive/assets" type="java-test-resource" />
@@ -84,6 +76,14 @@
       <sourceFolder url="file://$MODULE_DIR$/src/testIgive/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIgive/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/testIgive/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/jni" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTestIgive/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/debug/assets" type="java-resource" />
@@ -124,24 +124,28 @@
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/builds" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/bundles" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.1.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/cardview-v7/24.0.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/customtabs/24.1.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/customtabs/24.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/design/24.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/gridlayout-v7/24.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/multidex-instrumentation/1.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/palette-v7/24.0.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/preference-v7/24.1.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.1.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/24.1.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.1.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/preference-v7/24.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/24.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-compat/24.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-core-ui/24.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-core-utils/24.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-fragment/24.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-media-compat/24.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/24.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.2.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers-shim/0.0.3/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/answers/1.3.8/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.crashlytics.sdk.android/beta/1.2.0/jars" />
@@ -199,18 +203,13 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/io.branch.sdk.android/library/1.14.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/io.fabric.sdk.android/fabric/1.3.12/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/restart-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/shaders" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
@@ -221,6 +220,7 @@
     <orderEntry type="jdk" jdkName="Android API 24 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="play-services-vision-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="support-core-utils-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-ads-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-appindexing-9.0.2" level="project" />
@@ -233,25 +233,24 @@
     <orderEntry type="library" exported="" name="play-services-ads-lite-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-wallet-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-auth-base-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-location-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-2.6.0" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-24.1.1" level="project" />
     <orderEntry type="library" exported="" name="library-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-wearable-9.0.2" level="project" />
-    <orderEntry type="library" exported="" name="animated-vector-drawable-24.1.1" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-common-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="firebase-auth-module-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="animated-vector-drawable-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="eventbus-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-analytics-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="bolts-android-1.2.0" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-24.1.1" level="project" />
     <orderEntry type="library" exported="" name="firebase-core-9.0.2" level="project" />
-    <orderEntry type="library" exported="" name="customtabs-24.1.1" level="project" />
     <orderEntry type="library" exported="" name="firebase-auth-common-9.0.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
+    <orderEntry type="library" exported="" name="support-core-ui-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-safetynet-9.0.2" level="project" />
-    <orderEntry type="library" exported="" name="preference-v7-24.1.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-games-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-analytics-impl-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="library-1.1.5" level="project" />
@@ -264,35 +263,40 @@
     <orderEntry type="library" exported="" name="play-services-appinvite-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="firebase-messaging-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="firebase-auth-9.0.2" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-24.1.1" level="project" />
+    <orderEntry type="library" exported="" name="preference-v7-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-tagmanager-api-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="customtabs-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-iid-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-nearby-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-auth-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-analytics-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="firebase-storage-common-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="recyclerview-v7-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="library-2.4.1.1" level="project" />
     <orderEntry type="library" exported="" name="library-1.14.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-gcm-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="firebase-database-connection-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="crashlytics-core-2.3.10" level="project" />
-    <orderEntry type="library" exported="" name="recyclerview-v7-24.1.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-basement-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="butterknife-7.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-tagmanager-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-tasks-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="support-fragment-24.2.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="hamcrest-core-1.3" level="project" />
     <orderEntry type="library" exported="" name="play-services-plus-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="play-services-cast-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="firebase-database-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-24.0.0" level="project" />
+    <orderEntry type="library" exported="" name="support-compat-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="mediarouter-v7-23.0.0" level="project" />
-    <orderEntry type="library" exported="" name="support-vector-drawable-24.1.1" level="project" />
     <orderEntry type="library" exported="" name="facebook-android-sdk-4.1.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-iid-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="support-vector-drawable-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-analytics-impl-9.0.2" level="project" />
+    <orderEntry type="library" exported="" name="support-media-compat-24.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-9.0.2" level="project" />
     <orderEntry type="library" exported="" name="answers-shim-0.0.3" level="project" />
     <orderEntry type="library" exported="" name="play-services-identity-9.0.2" level="project" />

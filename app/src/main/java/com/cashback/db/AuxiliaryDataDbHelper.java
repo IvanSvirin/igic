@@ -172,6 +172,7 @@ public class AuxiliaryDataDbHelper {
                     DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT + REAL_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT + REAL_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_TOTAL_RAISED + REAL_TYPE + DELIMITER +
+                    DataContract.CharityAccounts.COLUMN_EARNED_TOTAL + REAL_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_CAUSE_DASHBOARD_URL + TEXT_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_MEMBER_SETTINGS_URL + TEXT_TYPE + DELIMITER +
                     DataContract.CharityAccounts.COLUMN_REFERRER_ID + TEXT_TYPE + DELIMITER +

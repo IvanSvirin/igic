@@ -45,12 +45,43 @@
                 </FrameLayout>
 
                 <FrameLayout
-                    android:id="@+id/nextCheckAmountFrame"
+                    android:id="@+id/myDonationFrame"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/frame_height">
 
                     <TextView
-                        android:id="@+id/nextCheckAmountTitle"
+                        android:id="@+id/myDonationsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|center_vertical"
+                        android:allowUndo="false"
+                        android:alpha="0.87"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/my_donations"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                    <TextView
+                        android:id="@+id/myDonationsValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:paddingEnd="@dimen/padding_small"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="@dimen/padding_small"
+                        android:paddingStart="0dp"
+                        android:text="@string/format_donation_amount"
+                        android:textAppearance="@style/AppTheme.TextAppearance"
+                        android:textColor="@color/primary" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/nextCheckAmountFrame"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/frame_height" >
+
+                    <TextView
+                        android:id="@+id/nextCheckAmounTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start|center_vertical"

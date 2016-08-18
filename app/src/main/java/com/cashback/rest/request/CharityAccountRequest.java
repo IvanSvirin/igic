@@ -91,6 +91,7 @@ public class CharityAccountRequest {
                     values.put(DataContract.CashbackAccounts.COLUMN_EMAIL, email);
                     values.put(DataContract.CharityAccounts.COLUMN_FIRST_NAME, jObj.getString("first_name"));
                     values.put(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED, jObj.getDouble("total_raised"));
+                    values.put(DataContract.CharityAccounts.COLUMN_EARNED_TOTAL, jObj.getDouble("earned_total"));
                     values.put(DataContract.CharityAccounts.COLUMN_SELECT_CAUSE_URL, jObj.getString("select_cause_url"));
                     values.put(DataContract.CharityAccounts.COLUMN_MEMBER_SETTINGS_URL, jObj.getString("member_settings_url"));
                     values.put(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT, jObj.getDouble("pending_amount"));

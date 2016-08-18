@@ -91,5 +91,6 @@
         If the column is blank, our bank has not yet reported to us that the check was cashed/deposited.</string>
     <string name="tell_a_friend_via_fb">Tell a friend via facebook</string>
     <string name="tell_a_friend_via_tw">Tell a friend via twitter</string>
+    <string name="my_donations">My Donations</string>
 
 </resources>

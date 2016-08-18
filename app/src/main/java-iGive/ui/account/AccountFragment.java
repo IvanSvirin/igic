@@ -182,6 +182,8 @@ public class AccountFragment extends Fragment {
         Toolbar toolbar;
         @Bind(R.id.nextCheckAmountValue)
         TextView nextCheckAmountValue;
+        @Bind(R.id.myDonationsValue)
+        TextView myDonationsValue;
         @Bind(R.id.pendingAmountValue)
         TextView pendingAmountValue;
         @Bind(R.id.totalPaidValue)
@@ -210,6 +212,7 @@ public class AccountFragment extends Fragment {
             nextCheckAmountValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_NEXT_CHECK_AMOUNT))));
             pendingAmountValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_PENDING_AMOUNT))));
             totalPaidValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_PAID_AMOUNT))));
+            myDonationsValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_EARNED_TOTAL))));
             totalRaisedValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_DATE));
             totalPaidDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));

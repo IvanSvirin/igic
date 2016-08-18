@@ -213,6 +213,7 @@ public class DataContract {
         public static final String COLUMN_PENDING_AMOUNT = "pending_amount";
         public static final String COLUMN_TOTAL_PAID_AMOUNT = "total_paid_amount";
         public static final String COLUMN_TOTAL_RAISED = "total_raised";
+        public static final String COLUMN_EARNED_TOTAL = "earned_total";
         public static final String COLUMN_CAUSE_DASHBOARD_URL = "cause_dashboard_url";
         public static final String COLUMN_MEMBER_SETTINGS_URL = "member_settings_url";
         public static final String COLUMN_SELECT_CAUSE_URL = "select_cause_url";
