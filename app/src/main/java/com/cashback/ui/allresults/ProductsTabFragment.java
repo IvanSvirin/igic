@@ -147,7 +147,7 @@ public class ProductsTabFragment extends Fragment {
                                 cursor.moveToFirst();
                                 Intent intent = new Intent(context, BrowserDealsActivity.class);
                                 intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
-                                intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                                intent.putExtra("affiliate_url", productsArray.get(position).getVendorAffiliateUrl());
                                 intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
                                 context.startActivity(intent);
                                 cursor.close();
@@ -158,7 +158,7 @@ public class ProductsTabFragment extends Fragment {
                                 Bundle loginBundle = new Bundle();
                                 loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
                                 loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
-                                loginBundle.putString(Utilities.AFFILIATE_URL, cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                                loginBundle.putString(Utilities.AFFILIATE_URL, productsArray.get(position).getVendorAffiliateUrl());
                                 loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
                                 Utilities.needLoginDialog(context, loginBundle);
                                 cursor.close();

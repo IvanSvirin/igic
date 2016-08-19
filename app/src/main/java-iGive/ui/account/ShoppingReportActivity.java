@@ -259,6 +259,8 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
             holder.amountDonated.setText(" $" + donated);
             String purchase = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_PURCHASE_TOTAL)));
             holder.purchaseAmountValue.setText(" $" + purchase);
+            String number = cursor.getString(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_CONFIRMATION_NUMBER));
+            holder.orderNumber.setText(" " + number.trim());
         }
 
         protected boolean isOpenCursor() {
@@ -327,6 +329,8 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
             TextView purchaseAmountValue;
             @Bind(R.id.dateValue)
             TextView dateValue;
+            @Bind(R.id.orderNumber)
+            TextView orderNumber;
 
             public ViewHolder(View convertView) {
                 ButterKnife.bind(this, convertView);

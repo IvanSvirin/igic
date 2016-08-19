@@ -55,7 +55,6 @@ public class AccountFragment extends Fragment {
     public static final String TAG_ACCOUNT_FRAGMENT = "I_account_fragment";
     private FragmentUi fragmentUi;
     private boolean gotAnswer;
-    private GoogleApiClient googleApiClient;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,14 +69,16 @@ public class AccountFragment extends Fragment {
         tracker.setScreenName("Account");
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
-        googleApiClient = new GoogleApiClient.Builder(getActivity())
-                .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API)
-                .build();
+        if (App.googleApiClient == null) {
+            App.googleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+                        @Override
+                        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        }
+                    })
+                    .addApi(Auth.GOOGLE_SIGN_IN_API)
+                    .build();
+        }
     }
 
     @Nullable
@@ -100,7 +101,7 @@ public class AccountFragment extends Fragment {
         super.onStart();
         EventBus.getDefault().register(this);
         getActivity().setTitle(R.string.item_account);
-        googleApiClient.connect();
+        App.googleApiClient.connect();
     }
 
     @Override
@@ -151,7 +152,7 @@ public class AccountFragment extends Fragment {
                 if (AccessToken.getCurrentAccessToken() != null) {
                     LoginManager.getInstance().logOut();
                 }
-                Auth.GoogleSignInApi.signOut(googleApiClient);
+                Auth.GoogleSignInApi.signOut(App.googleApiClient);
                 getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), MainActivity.class));
                 break;
@@ -190,8 +191,6 @@ public class AccountFragment extends Fragment {
         TextView totalPaidValue;
         @Bind(R.id.totalRaisedValue)
         TextView totalRaisedValue;
-        @Bind(R.id.totalPaidDate)
-        TextView totalPaidDate;
         @Bind(R.id.news_switcher)
         SwitchCompat newsSwitcher;
         @Bind(R.id.purchase_switcher)
@@ -215,7 +214,6 @@ public class AccountFragment extends Fragment {
             myDonationsValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_EARNED_TOTAL))));
             totalRaisedValue.setText("$" + String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_TOTAL_RAISED))));
             String date = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_DATE));
-            totalPaidDate.setText(date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4));
             memberSettingsUrl = cursor.getString(cursor.getColumnIndex(DataContract.CharityAccounts.COLUMN_MEMBER_SETTINGS_URL)) + "?token=" + Utilities.retrieveUserToken(context);
             cursor.close();
             newsSwitcher.setChecked(Utilities.isWeeklyNewsNotifyOn(getContext()));

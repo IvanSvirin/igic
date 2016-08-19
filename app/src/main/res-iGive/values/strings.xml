@@ -59,5 +59,6 @@ they shop online.</string>
     <string name="news_alerts">Send Me Weekly Newsletters</string>
     <string name="path_fb">https://beta1.igive.com/facebook/posttofb.cfm?taf=y</string>
     <string name="path_tw">https://beta1.igive.com/twitter/tweet.cfm?taf=y</string>
+    <string name="tab_extra">extra donation</string>
 
 </resources>

@@ -146,7 +146,7 @@
                         android:id="@+id/totalPaidTitile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left|top"
+                        android:layout_gravity="left|center_vertical"
                         android:alpha="0.87"
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
@@ -157,7 +157,7 @@
                         android:id="@+id/totalPaidValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right|top"
+                        android:layout_gravity="right|center_vertical"
                         android:paddingEnd="@dimen/padding_small"
                         android:paddingLeft="0dp"
                         android:paddingRight="@dimen/padding_small"
@@ -165,18 +165,6 @@
                         android:text="@string/format_donation_amount"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:textColor="@color/primary" />
-
-                    <TextView
-                        android:id="@+id/totalPaidDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_gravity="left|bottom"
-                        android:layout_marginLeft="@dimen/padding_small"
-                        android:layout_marginStart="@dimen/padding_small"
-                        android:alpha="0.54"
-                        android:gravity="center_vertical|start"
-                        android:text="2/11/2016"
-                        android:textAppearance="@style/AppTheme.TextAppearance.Thin" />
 
                 </FrameLayout>
 
@@ -187,21 +175,10 @@
                     android:layout_gravity="center_vertical">
 
                     <TextView
-                        android:id="@+id/totalRaisedTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left|top"
-                        android:alpha="0.87"
-                        android:paddingLeft="@dimen/padding_small"
-                        android:paddingStart="@dimen/padding_small"
-                        android:text="@string/total_raised"
-                        android:textAppearance="@style/AppTheme.TextAppearance" />
-
-                    <TextView
                         android:id="@+id/totalRaisedValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right|top"
+                        android:layout_gravity="right|center_vertical"
                         android:paddingEnd="@dimen/padding_small"
                         android:paddingLeft="0dp"
                         android:paddingRight="@dimen/padding_small"
@@ -211,15 +188,26 @@
                         android:textColor="@color/primary" />
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_gravity="left|bottom"
-                        android:layout_marginLeft="@dimen/padding_small"
-                        android:layout_marginStart="@dimen/padding_small"
+                        android:id="@+id/totalRaisedTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:alpha="0.87"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
+                        android:text="@string/total_raised"
+                        android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:alpha="0.54"
-                        android:gravity="center_vertical|start"
+                        android:paddingLeft="@dimen/padding_small"
+                        android:paddingStart="@dimen/padding_small"
                         android:text="@string/by_all_supporters"
-                        android:textAppearance="@style/AppTheme.TextAppearance.Thin" />
+                        android:textAppearance="@style/AppTheme.TextAppearance.Thin"
+                        android:layout_gravity="left|bottom" />
+
                 </FrameLayout>
 
                 <FrameLayout

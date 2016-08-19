@@ -63,14 +63,16 @@ public class AccountFragment extends Fragment {
         tracker.setScreenName("Account");
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
-        googleApiClient = new GoogleApiClient.Builder(getActivity())
-                .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API)
-                .build();
+        if (App.googleApiClient == null) {
+            App.googleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+                        @Override
+                        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        }
+                    })
+                    .addApi(Auth.GOOGLE_SIGN_IN_API)
+                    .build();
+        }
     }
 
     @Nullable
@@ -93,7 +95,7 @@ public class AccountFragment extends Fragment {
         super.onStart();
         getActivity().setTitle(R.string.item_account);
         EventBus.getDefault().register(this);
-        googleApiClient.connect();
+        App.googleApiClient.connect();
     }
 
     @Override
@@ -145,7 +147,7 @@ public class AccountFragment extends Fragment {
                 if (AccessToken.getCurrentAccessToken() != null) {
                     LoginManager.getInstance().logOut();
                 }
-                Auth.GoogleSignInApi.signOut(googleApiClient);
+                Auth.GoogleSignInApi.signOut(App.googleApiClient);
                 getActivity().finish();
                 getContext().startActivity(new Intent(getContext(), MainActivity.class));
                 break;

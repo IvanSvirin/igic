@@ -185,7 +185,7 @@ public class SignUpFragment extends Fragment {
             String password = etPassword.getText().toString();
             String referrerEmail = etReferringEmail.getText().toString();
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-                Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_empty_fields, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), "Please fill both fields: Email and Password", Snackbar.LENGTH_SHORT).show();
             } else {
                 if (isPasswordValid(password)) {
                     if (Utilities.isEmailValid(email)) {
@@ -219,15 +219,17 @@ public class SignUpFragment extends Fragment {
                     .requestIdToken(getString(R.string.google_client_id))
 //                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .build();
-            GoogleApiClient googleApiClient = new GoogleApiClient.Builder(getActivity())
-                    .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
-                        @Override
-                        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        }
-                    })
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
-            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+            if (App.googleApiClient == null) {
+                App.googleApiClient = new GoogleApiClient.Builder(getActivity())
+                        .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+                            @Override
+                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                            }
+                        })
+                        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                        .build();
+            }
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(App.googleApiClient);
             startActivityForResult(signInIntent, GOOGLE_AUTH);
         }
 

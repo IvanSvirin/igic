@@ -175,15 +175,17 @@ public class SignUpFragment extends Fragment {
                     .requestIdToken(getString(R.string.google_client_id))
 //                    .requestScopes(Plus.SCOPE_PLUS_LOGIN)
                     .build();
-            GoogleApiClient googleApiClient = new GoogleApiClient.Builder(getActivity())
-                    .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
-                        @Override
-                        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        }
-                    })
-                    .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .build();
-            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+            if (App.googleApiClient == null) {
+                App.googleApiClient = new GoogleApiClient.Builder(getActivity())
+                        .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+                            @Override
+                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                            }
+                        })
+                        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                        .build();
+            }
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(App.googleApiClient);
             startActivityForResult(signInIntent, GOOGLE_AUTH);
         }
 

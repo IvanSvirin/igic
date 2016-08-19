@@ -255,6 +255,7 @@ public class StoreVisitsActivity extends AppCompatActivity implements LoaderMana
             String half = null;
             half = hourInt > 11 ? " PM" : " AM";
             String min = date.substring(14, 16);
+            if (hourInt == 0) hourInt = 12;
             String timeValue = hourInt > 12 ? String.valueOf(hourInt - 12) + ":" + min + half : String.valueOf(hourInt) + ":" + min + half;
             holder.timeValue.setText(" " + timeValue);
         }
