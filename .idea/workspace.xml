@@ -142,27 +142,8 @@
     <list default="true" id="04747c39-b70e-4dfd-8791-7952f49c8b49" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java-iConsumer/ui/account/AccountFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java-iConsumer/ui/account/AccountFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java-iConsumer/ui/login/SignInFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java-iConsumer/ui/login/SignInFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java-iConsumer/ui/login/SignUpFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java-iConsumer/ui/login/SignUpFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java-iGive/ui/account/AccountFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java-iGive/ui/account/AccountFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java-iGive/ui/account/ShoppingReportActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java-iGive/ui/account/ShoppingReportActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java-iGive/ui/login/SignInFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java-iGive/ui/login/SignInFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java-iGive/ui/login/SignUpFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java-iGive/ui/login/SignUpFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/App.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/App.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/account/StoreVisitsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/account/StoreVisitsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/ProductsTabFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/ProductsTabFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res-iConsumer/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res-iConsumer/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res-iGive/layout/item_your_order_history_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res-iGive/layout/item_your_order_history_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res-iGive/layout/layout_account.xml" afterPath="$PROJECT_DIR$/app/src/main/res-iGive/layout/layout_account.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res-iGive/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res-iGive/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_coupons.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_coupons.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_extra.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_extra.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_favorite.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_favorite.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_hot_deal.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_hot_deal.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_hot_deal_grid.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_hot_deal_grid.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_product.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_product.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="igive_iconsumer_android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -190,10 +171,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27045456">
+            <state vertical-scroll-proportion="0.0">
               <caret line="14" column="5" selection-start-line="7" selection-start-column="10" selection-end-line="14" selection-end-column="5" />
               <folding />
             </state>
@@ -205,6 +186,35 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-9.807693">
               <caret line="15" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+              <folding>
+                <element signature="e#1814#1853#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="item_your_order_history_list.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res-iGive/layout/item_your_order_history_list.xml">
+          <provider editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-73.88461">
+              <caret line="117" column="32" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
+              <folding>
+                <element signature="e#3324#3349#0" expanded="false" />
+                <element signature="e#4855#4877#0" expanded="false" />
+                <element signature="e#4911#4933#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShoppingReportActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java-iGive/ui/account/ShoppingReportActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="321" column="33" selection-start-line="321" selection-start-column="33" selection-end-line="321" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -3864,8 +3874,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res-iConsumer/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res-iGive/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res-iGive/layout/layout_account.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res-iGive/layout/item_your_order_history_list.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java-iGive/ui/account/ShoppingReportActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cashback/ui/allresults/ProductsTabFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cashback/App.java" />
         <option value="$PROJECT_DIR$/app/src/main/java-iGive/ui/account/AccountFragment.java" />
@@ -3877,6 +3885,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java-iConsumer/ui/login/SignInFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java-iGive/ui/account/ShoppingReportActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res-iGive/layout/item_your_order_history_list.xml" />
       </list>
     </option>
   </component>
@@ -3911,9 +3921,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -4382,6 +4389,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -4403,6 +4412,28 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="igive_iconsumer_android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -4416,46 +4447,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="igive_iconsumer_android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cashback" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="igive_iconsumer_android" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cashback" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -4472,12 +4467,8 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cashback" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="ui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="account" />
@@ -4494,12 +4485,23 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="manifests" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="igive_iconsumer_android" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -4995,7 +4997,13 @@
       <option name="project" value="LOCAL" />
       <updated>1471517610229</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="feedback 8/19">
+      <created>1471600921451</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1471600921451</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TodoView">
@@ -5047,11 +5055,11 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37444934" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23027718" sideWeight="0.623348" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32929516" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23027718" sideWeight="0.37665197" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32929516" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -5102,7 +5110,8 @@
     <MESSAGE value="account requests changing" />
     <MESSAGE value="auth changing" />
     <MESSAGE value="added MyDonations" />
-    <option name="LAST_COMMIT_MESSAGE" value="added MyDonations" />
+    <MESSAGE value="feedback 8/19" />
+    <option name="LAST_COMMIT_MESSAGE" value="feedback 8/19" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -5207,7 +5216,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.49772727">
           <caret line="174" column="68" selection-start-line="174" selection-start-column="68" selection-end-line="174" selection-end-column="68" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5224,7 +5232,6 @@
           <caret line="180" column="99" selection-start-line="180" selection-start-column="99" selection-end-line="180" selection-end-column="99" />
           <caret line="181" column="67" selection-start-line="181" selection-start-column="67" selection-end-line="181" selection-end-column="67" />
           <caret line="182" column="64" selection-start-line="182" selection-start-column="64" selection-end-line="182" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5232,7 +5239,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.1056818">
           <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5240,7 +5246,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.8352273">
           <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5248,7 +5253,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.07727273">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5256,7 +5260,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36704546">
           <caret line="132" column="82" selection-start-line="132" selection-start-column="82" selection-end-line="132" selection-end-column="82" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5264,7 +5267,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.57954544">
           <caret line="93" column="113" selection-start-line="93" selection-start-column="113" selection-end-line="93" selection-end-column="113" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5406,7 +5408,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8561064">
           <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5414,7 +5415,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="131" column="49" selection-start-line="131" selection-start-column="49" selection-end-line="131" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5511,7 +5511,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="215" column="72" selection-start-line="215" selection-start-column="72" selection-end-line="215" selection-end-column="72" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5535,38 +5534,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-26.961538">
           <caret line="96" column="48" selection-start-line="96" selection-start-column="48" selection-end-line="96" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res-iGive/layout/item_your_order_history_list.xml">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.846154">
-          <caret line="96" column="0" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
-          <folding>
-            <element signature="e#395#420#0" expanded="true" />
-            <element signature="e#497#522#0" expanded="true" />
-            <element signature="e#1816#1848#0" expanded="true" />
-            <element signature="e#2341#2355#0" expanded="true" />
-            <element signature="e#3286#3318#0" expanded="true" />
-            <element signature="e#3937#3962#0" expanded="true" />
-            <element signature="e#5312#5334#0" expanded="true" />
-            <element signature="e#5368#5390#0" expanded="true" />
-            <element signature="e#5724#5746#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java-iGive/ui/account/ShoppingReportActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51704544">
-          <caret line="262" column="60" selection-start-line="262" selection-start-column="60" selection-end-line="262" selection-end-column="60" />
-          <folding>
-            <element signature="e#2004#2028#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -5574,7 +5541,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.092045456">
           <caret line="240" column="79" selection-start-line="240" selection-start-column="79" selection-end-line="240" selection-end-column="79" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5582,7 +5548,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11590909">
           <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5590,7 +5555,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5598,7 +5562,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5606,7 +5569,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.4340909">
           <caret line="141" column="56" selection-start-line="141" selection-start-column="56" selection-end-line="141" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5614,7 +5576,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.4920454">
           <caret line="184" column="43" selection-start-line="184" selection-start-column="43" selection-end-line="184" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5622,7 +5583,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38181818">
           <caret line="168" column="9" selection-start-line="168" selection-start-column="9" selection-end-line="168" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5630,7 +5590,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.48295453">
           <caret line="257" column="43" selection-start-line="257" selection-start-column="43" selection-end-line="257" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5646,7 +5605,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25113636">
           <caret line="182" column="38" selection-start-line="182" selection-start-column="38" selection-end-line="182" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5654,6 +5612,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34772727">
           <caret line="152" column="152" selection-start-line="152" selection-start-column="152" selection-end-line="152" selection-end-column="152" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="5" selection-start-line="7" selection-start-column="10" selection-end-line="14" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -5662,16 +5627,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.807693">
           <caret line="15" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+          <folding>
+            <element signature="e#1814#1853#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java-iGive/ui/account/ShoppingReportActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="321" column="33" selection-start-line="321" selection-start-column="33" selection-end-line="321" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27045456">
-          <caret line="14" column="5" selection-start-line="7" selection-start-column="10" selection-end-line="14" selection-end-column="5" />
-          <folding />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res-iGive/layout/item_your_order_history_list.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-73.88461">
+          <caret line="117" column="32" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
+          <folding>
+            <element signature="e#3324#3349#0" expanded="false" />
+            <element signature="e#4855#4877#0" expanded="false" />
+            <element signature="e#4911#4933#0" expanded="false" />
+          </folding>
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>

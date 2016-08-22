@@ -254,7 +254,7 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
             holder.dateValue.setText(monthDay);
             String name = cursor.getString(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_VENDOR_NAME));
             holder.storeName.setText(name);
-            holder.causeValue.setText(" " + cursor.getString(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_CAUSE_NAME)));
+//            holder.causeValue.setText(" " + cursor.getString(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_CAUSE_NAME)));
             String donated = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_AMOUNT_DONATED)));
             holder.amountDonated.setText(" $" + donated);
             String purchase = String.format("%.2f", cursor.getFloat(cursor.getColumnIndex(DataContract.CharityOrders.COLUMN_PURCHASE_TOTAL)));
@@ -323,8 +323,8 @@ public class ShoppingReportActivity extends AppCompatActivity implements LoaderM
             TextView storeName;
             @Bind(R.id.amountDonated)
             TextView amountDonated;
-            @Bind(R.id.causeValue)
-            TextView causeValue;
+//            @Bind(R.id.causeValue)
+//            TextView causeValue;
             @Bind(R.id.purchaseAmountValue)
             TextView purchaseAmountValue;
             @Bind(R.id.dateValue)
