@@ -149,6 +149,7 @@ public class SignUpFragment extends Fragment {
             String lastName = etLastName.getText().toString();
             String zip = etZip.getText().toString();
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(firstName) || TextUtils.isEmpty(lastName) || TextUtils.isEmpty(zip)) {
+                showFailNotification("Please fill all required fields");
                 Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), R.string.alert_about_empty_fields, Snackbar.LENGTH_SHORT).show();
             } else {
                 if (Utilities.isEmailValid(email)) {

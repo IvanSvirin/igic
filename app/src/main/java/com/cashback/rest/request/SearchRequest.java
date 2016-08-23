@@ -71,7 +71,7 @@ public class SearchRequest {
                 e.printStackTrace();
             }
             try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"), 8);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"), 8);
                 StringBuilder sb = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {

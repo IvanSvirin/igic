@@ -150,6 +150,7 @@ public class SignInFragment extends Fragment {
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                showFailNotification("Please fill both fields: Email and Password");
                 Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), "Please fill both fields: Email and Password", Snackbar.LENGTH_SHORT).show();
             } else {
                 AuthObject authObject = new AuthObject();

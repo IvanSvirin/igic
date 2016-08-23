@@ -185,10 +185,11 @@ public class SignUpFragment extends Fragment {
             String password = etPassword.getText().toString();
             String referrerEmail = etReferringEmail.getText().toString();
             if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                showFailNotification("Please fill both fields: Email and Password");
                 Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), "Please fill both fields: Email and Password", Snackbar.LENGTH_SHORT).show();
             } else {
-                if (isPasswordValid(password)) {
-                    if (Utilities.isEmailValid(email)) {
+                if (Utilities.isEmailValid(email)) {
+                    if (isPasswordValid(password)) {
                         if (Utilities.isEmailValid(referrerEmail) || referrerEmail.length() == 0) {
                             AuthObject authObject = new AuthObject();
                             authObject.setAuthType("0");
@@ -202,13 +203,35 @@ public class SignUpFragment extends Fragment {
                             Utilities.showFailNotification("Please enter valid email address.", getContext());
                         }
                     } else {
-                        Utilities.showFailNotification("Please enter valid email address.", getContext());
+                        showFailNotification(getString(R.string.password_conditions));
                     }
                 } else {
 //                    p = new Point();
 //                    showPopup(getActivity(), p);
-                    showFailNotification(getString(R.string.password_conditions));
+                    Utilities.showFailNotification("Please enter valid email address.", getContext());
                 }
+//                if (isPasswordValid(password)) {
+//                    if (Utilities.isEmailValid(email)) {
+//                        if (Utilities.isEmailValid(referrerEmail) || referrerEmail.length() == 0) {
+//                            AuthObject authObject = new AuthObject();
+//                            authObject.setAuthType("0");
+//                            authObject.setEmail(email);
+//                            authObject.setPassword(password);
+//                            authObject.setReferrerEmail(referrerEmail);
+//                            new SignInCashBackRequest(getContext(), authObject, "signup").fetchData();
+//                            progressDialog = Utilities.onCreateProgressDialog(getContext());
+//                            progressDialog.show();
+//                        } else {
+//                            Utilities.showFailNotification("Please enter valid email address.", getContext());
+//                        }
+//                    } else {
+//                        Utilities.showFailNotification("Please enter valid email address.", getContext());
+//                    }
+//                } else {
+////                    p = new Point();
+////                    showPopup(getActivity(), p);
+//                    showFailNotification(getString(R.string.password_conditions));
+//                }
             }
         }
 
