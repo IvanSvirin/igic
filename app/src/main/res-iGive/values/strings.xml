@@ -24,24 +24,24 @@
     <string name="notifications_donation_alerts">When you make a purchase through iGive</string>
     <string name="notifications_trending_deals_alerts">Stay in the loop</string>
     <string name="cash_back_percent">% DONATION</string>
-    <string name="categories_path">https://beta1.igive.com/rest/iGive/api/v1/categories/</string>
-    <string name="merchants_path">https://beta1.igive.com/rest/iGive/api/v1/merchants/</string>
-    <string name="coupons_path">https://beta1.igive.com/rest/iGive/api/v1/merchants/coupons/featured/</string>
-    <string name="extras_path">https://beta1.igive.com/rest/iGive/api/v1/merchants/extra/</string>
-    <string name="favorites_path">https://beta1.igive.com/rest/iGive/api/v1/favorites/</string>
+    <string name="categories_path">https://app.igive.com/rest/iGive/api/v1/categories/</string>
+    <string name="merchants_path">https://app.igive.com/rest/iGive/api/v1/merchants/</string>
+    <string name="coupons_path">https://app.igive.com/rest/iGive/api/v1/merchants/coupons/featured/</string>
+    <string name="extras_path">https://app.igive.com/rest/iGive/api/v1/merchants/extra/</string>
+    <string name="favorites_path">https://app.igive.com/rest/iGive/api/v1/favorites/</string>
     <string name="send_app_feedback_path">http://support.igive.com/Main/frmNewTicket.aspx</string>
     <string name="payment_questions_path">http://support.igive.com/kb/a3/when-will-my-cause-get-a-check.aspx</string>
     <string name="how_to_use_path">http://support.igive.com/kb/a115/how-igive-works.aspx</string>
     <string name="where_is_my_donation_path">http://support.igive.com/kb/a2/tracking-your-donation.aspx</string>
     <string name="privacy_and_security_path">http://www.igive.com/isearch/privacy.cfm</string>
     <string name="terms_and_conditions_path">http://www.igive.com/isearch/tos.cfm</string>
-    <string name="sign_in_path">https://beta1.igive.com/rest/iGive/api/v1/authorization/</string>
-    <string name="reset_path">https://beta1.igive.com/rest/iGive/api/v1/authorization/reset</string>
-    <string name="search_path">https://beta1.igive.com/rest/iGive/api/v1/search/</string>
-    <string name="gcm_path">https://beta1.igive.com/rest/iGive/api/v1/gcm/</string>
-    <string name="orders_path">https://beta1.igive.com/rest/iGive/api/v1/account/history/order/</string>
-    <string name="trip_path">https://beta1.igive.com/rest/iGive/api/v1/account/history/trip/</string>
-    <string name="misc_path">https://beta1.igive.com/rest/iGive/api/v1/misc</string>
+    <string name="sign_in_path">https://app.igive.com/rest/iGive/api/v1/authorization/</string>
+    <string name="reset_path">https://app.igive.com/rest/iGive/api/v1/authorization/reset</string>
+    <string name="search_path">https://app.igive.com/rest/iGive/api/v1/search/</string>
+    <string name="gcm_path">https://app.igive.com/rest/iGive/api/v1/gcm/</string>
+    <string name="orders_path">https://app.igive.com/rest/iGive/api/v1/account/history/order/</string>
+    <string name="trip_path">https://app.igive.com/rest/iGive/api/v1/account/history/trip/</string>
+    <string name="misc_path">https://app.igive.com/rest/iGive/api/v1/misc</string>
     <string name="cashback_notify">donation_notify</string>
     <string name="tell_a_friend">More supporters means more money, faster for you
 couse or charity!
@@ -57,8 +57,8 @@ they shop online.</string>
     <string name="cash_back">DONATION</string>
     <string name="cash_back_header">Donation</string>
     <string name="news_alerts">Send Me Weekly Newsletters</string>
-    <string name="path_fb">https://beta1.igive.com/facebook/posttofb.cfm?taf=y</string>
-    <string name="path_tw">https://beta1.igive.com/twitter/tweet.cfm?taf=y</string>
+    <string name="path_fb">https://app.igive.com/facebook/posttofb.cfm?taf=y</string>
+    <string name="path_tw">https://app.igive.com/twitter/tweet.cfm?taf=y</string>
     <string name="tab_extra">extra donation</string>
 
 </resources>

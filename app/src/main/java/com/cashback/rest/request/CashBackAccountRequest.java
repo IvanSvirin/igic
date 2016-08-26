@@ -44,7 +44,7 @@ public class CashBackAccountRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.iconsumer.com/rest/icon/api/v1/account");
+                url = new URL("https://app.iconsumer.com/rest/icon/api/v1/account");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));

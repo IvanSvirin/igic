@@ -5,23 +5,23 @@ android {
     compileSdkVersion 24
     buildToolsVersion '24.0.0'
 
-//    signingConfigs {
-//        debug {
-//            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
-//            storePassword "gheCnG7T"
-//            keyAlias "igive"
-//            keyPassword "wZb4R2fE"
-//        }
-//    }
-
     signingConfigs {
         debug {
             storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
             storePassword "gheCnG7T"
-            keyAlias "iconsumer"
-            keyPassword "hUVypuAd"
+            keyAlias "igive"
+            keyPassword "wZb4R2fE"
         }
     }
+
+//    signingConfigs {
+//        debug {
+//            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
+//            storePassword "gheCnG7T"
+//            keyAlias "iconsumer"
+//            keyPassword "hUVypuAd"
+//        }
+//    }
 
     defaultConfig {
         minSdkVersion 16

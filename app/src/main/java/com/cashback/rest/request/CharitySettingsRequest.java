@@ -48,7 +48,7 @@ public class CharitySettingsRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/account/settings/");
+                url = new URL("https://app.igive.com/rest/iGive/api/v1/account/settings/");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("IDFA", Utilities.retrieveIdfa(context));
                 urlConnection.setRequestProperty("token", Utilities.retrieveUserToken(context));
@@ -117,7 +117,7 @@ public class CharitySettingsRequest {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                url = new URL("https://beta1.igive.com/rest/iGive/api/v1/account/settings/");
+                url = new URL("https://app.igive.com/rest/iGive/api/v1/account/settings/");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoOutput(true);
                 urlConnection.setRequestMethod("PUT");
