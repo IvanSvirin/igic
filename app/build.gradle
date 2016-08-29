@@ -5,29 +5,29 @@ android {
     compileSdkVersion 24
     buildToolsVersion '24.0.0'
 
-    signingConfigs {
-        debug {
-            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
-            storePassword "gheCnG7T"
-            keyAlias "igive"
-            keyPassword "wZb4R2fE"
-        }
-    }
-
 //    signingConfigs {
-//        debug {
+//        release {
 //            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
 //            storePassword "gheCnG7T"
-//            keyAlias "iconsumer"
-//            keyPassword "hUVypuAd"
+//            keyAlias "igive"
+//            keyPassword "wZb4R2fE"
 //        }
 //    }
+
+    signingConfigs {
+        release {
+            storeFile file('D:/Projects/igive_iconsumer_android/app/icharity_gheCnG7T_hUVypuAd_wZb4R2fE.jks')
+            storePassword "gheCnG7T"
+            keyAlias "iconsumer"
+            keyPassword "hUVypuAd"
+        }
+    }
 
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 15
+        versionName "2.0.0"
         multiDexEnabled true
     }
 
@@ -40,6 +40,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
