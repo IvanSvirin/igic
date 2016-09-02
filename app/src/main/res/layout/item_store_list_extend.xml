@@ -63,7 +63,8 @@
             android:singleLine="true"
             android:textAppearance="@style/AppTheme.TextAppearance"
             android:textColor="@color/red"
-            android:alpha="0.87" />
+            android:alpha="0.87"
+            android:layout_marginRight="32dp" />
 
 
     </RelativeLayout>

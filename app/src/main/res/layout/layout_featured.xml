@@ -25,6 +25,7 @@
             style="@style/AppTabLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tabLayout_height"
+            app:tabTextColor="@color/white"
             app:tabGravity="fill"
             app:tabMode="fixed" />
     </android.support.design.widget.AppBarLayout>

@@ -62,8 +62,9 @@
                             android:paddingLeft="14dp"
                             android:paddingTop="4dp"
                             android:text="Store"
-                            android:textAppearance="@style/AppTheme.TextAppearance"
-                            android:textColor="#ffffffff" />
+                            android:textColor="#ffffffff"
+                            android:textSize="20sp"
+                            android:textAppearance="@style/AppTheme.TextAppearance" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -150,12 +151,13 @@
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/buttonShop"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_height="38dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="49dp"
                     android:background="@color/primary"
                     android:elevation="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp"
                     android:text="SHOP NOW"
                     android:textAppearance="@style/AppTheme.TextAppearance"
                     android:textColor="#ffffff"

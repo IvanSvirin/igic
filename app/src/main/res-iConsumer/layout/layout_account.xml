@@ -41,7 +41,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/title_cash_back_activity"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:textColor="@color/primary" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </FrameLayout>
 
@@ -172,7 +173,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/title_payments"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:alpha="0.87" />
+                        android:alpha="0.87"
+                        android:textColor="@color/primary" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -199,7 +201,8 @@
                         android:text="@string/shopping_report"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:id="@+id/shoppingReport"
-                        android:alpha="0.87" />
+                        android:alpha="0.87"
+                        android:textColor="@color/primary" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -226,7 +229,8 @@
                         android:text="@string/store_visits"
                         android:textAppearance="@style/AppTheme.TextAppearance"
                         android:id="@+id/storeVisits"
-                        android:alpha="0.87" />
+                        android:alpha="0.87"
+                        android:textColor="@color/primary" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -260,7 +264,8 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:text="@string/title_notification_settings"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:textColor="@color/primary" />
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
 
                 </FrameLayout>
 

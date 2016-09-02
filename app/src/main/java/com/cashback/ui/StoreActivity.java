@@ -338,7 +338,7 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
 
         private void setData(final String url) {
             if (commission != 0) {
-                cashBack.setText("+ " + String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
+                cashBack.setText(String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
             } else {
                 if (benefit == 1) {
                     cashBack.setText("OWNERS BENEFIT");

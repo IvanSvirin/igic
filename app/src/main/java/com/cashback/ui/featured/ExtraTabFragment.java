@@ -250,6 +250,31 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (Utilities.isLoggedIn(context)) {
+                            int position = getAdapterPosition();
+                            cursor.moveToPosition(position);
+                            Intent intent = new Intent(context, BrowserDealsActivity.class);
+                            intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
+                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
+                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
+                            context.startActivity(intent);
+                        } else {
+                            if (cursor != null) {
+                                int position = getAdapterPosition();
+                                cursor.moveToPosition(position);
+                                Bundle loginBundle = new Bundle();
+                                loginBundle.putString(Utilities.CALLING_ACTIVITY, "BrowserDealsActivity");
+                                loginBundle.putLong(Utilities.VENDOR_ID, cursor.getLong(cursor.getColumnIndex(DataContract.Extras.COLUMN_VENDOR_ID)));
+                                loginBundle.putString(Utilities.AFFILIATE_URL, cursor.getString(cursor.getColumnIndex(DataContract.Extras.COLUMN_AFFILIATE_URL)));
+                                loginBundle.putFloat(Utilities.VENDOR_COMMISSION, cursor.getFloat(cursor.getColumnIndex(DataContract.Extras.COLUMN_COMMISSION)));
+                                Utilities.needLoginDialog(context, loginBundle);
+                            }
+                        }
+                    }
+                });
+                vhStoreLogo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         int position = getAdapterPosition();
                         Cursor cursor = getCursor();
                         cursor.moveToPosition(position);

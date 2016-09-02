@@ -39,7 +39,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/title_getting_started"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:textColor="@color/primary" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -57,8 +58,16 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/how_it_works"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView1"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
                 </FrameLayout>
             </LinearLayout>
 
@@ -83,7 +92,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/title_contact_us"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:textColor="@color/primary" />
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
                 </FrameLayout>
 
                 <FrameLayout
@@ -101,7 +111,16 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/send_app_feedback"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView2"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
 
                 </FrameLayout>
             </LinearLayout>
@@ -127,7 +146,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/title_faq"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:textColor="@color/primary" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -145,8 +165,16 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/payment_questions"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView3"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -164,8 +192,16 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/how_to_use"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView4"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -183,8 +219,16 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/where_is_mine"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView5"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
                 </FrameLayout>
             </LinearLayout>
 
@@ -209,7 +253,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/title_legal"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:textColor="@color/primary" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -227,8 +272,16 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/privacy_security"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView6"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -246,8 +299,16 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/terms_conditions"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageView7"
+                        android:layout_gravity="right|center_vertical"
+                        android:src="@drawable/ic_navigate_next_black_24dp"
+                        android:alpha="0.54" />
                 </FrameLayout>
 
             </LinearLayout>

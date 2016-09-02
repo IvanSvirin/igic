@@ -195,6 +195,24 @@ public class ProductsTabFragment extends Fragment {
                         }
                     }
                 });
+                vhStoreLogo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = getAdapterPosition();
+                        Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(productsArray.get(position).getVendorId()));
+                        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+                        if (cursor != null) {
+                            cursor.moveToFirst();
+                            Intent intent = new Intent(context, StoreActivity.class);
+                            intent.putExtra("affiliate_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_AFFILIATE_URL)));
+                            intent.putExtra("vendor_logo_url", cursor.getString(cursor.getColumnIndex(DataContract.Merchants.COLUMN_LOGO_URL)));
+                            intent.putExtra("vendor_commission", cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION)));
+                            intent.putExtra("vendor_id", cursor.getLong(cursor.getColumnIndex(DataContract.Merchants.COLUMN_VENDOR_ID)));
+                            context.startActivity(intent);
+                            cursor.close();
+                        }
+                    }
+                });
             }
         }
 

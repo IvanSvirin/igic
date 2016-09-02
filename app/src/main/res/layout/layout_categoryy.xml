@@ -40,7 +40,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginLeft="48dp"
+                android:layout_marginLeft="@dimen/header_padding_left"
                 android:textColor="@color/white" />
 
             <TextView
@@ -50,7 +50,7 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="@dimen/header_padding_right"
                 android:text="@string/cash_back_header"
                 android:textColor="@color/white" />
         </RelativeLayout>

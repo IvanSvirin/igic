@@ -40,7 +40,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/title_donation_activity"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:textColor="@color/primary" />
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
                 </FrameLayout>
 
@@ -225,6 +226,7 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/shopping_report"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
 
                     <ImageView
@@ -252,6 +254,7 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/store_visits"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
 
                     <ImageView
@@ -279,6 +282,7 @@
                         android:paddingLeft="@dimen/padding_small"
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/member_settings"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/AppTheme.TextAppearance" />
 
                     <ImageView
@@ -312,7 +316,8 @@
                         android:paddingStart="@dimen/padding_small"
                         android:text="@string/title_notification_settings"
                         android:textAppearance="@style/AppTheme.TextAppearance"
-                        android:textColor="@color/primary" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                 </FrameLayout>
 
