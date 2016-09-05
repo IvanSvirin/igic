@@ -18,7 +18,7 @@
     <string name="item_tell_a_friend">Tell a Friend</string>
     <string name="space">wait...</string>
     <string name="tab_hot_deals">hot deals</string>
-    <string name="tab_favorites">favorites</string>
+    <string name="tab_favorites">my stores</string>
     <string name="drawer_close">Navigation drawer close</string>
     <string name="drawer_open">Navigation drawer open</string>
     <string name="title_featured_fragment">Featured</string>
@@ -71,7 +71,7 @@
     <string name="zip_post">Zip/Postal Code</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
-    <string name="create_your_own_list_of_favorite_stores">Create your own list \n of favorite stores!</string>
+    <string name="create_your_own_list_of_favorite_stores">Create your list \n of favorite stores!</string>
     <string name="not_available_fb_share">Sorry. But you don\\\'t ability send the invite to your friends.</string>
     <string name="referral_reg_exp">http://www.igive.com/welcome/lp16/cr63b.cfm/%s</string>
     <string name="share_title">Charity Shop | Online Donation Sites | Fundraising Ideas - iGive </string>

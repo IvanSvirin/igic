@@ -55,12 +55,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/ab_ic_buynow_coupon"
                 android:contentDescription="@null"
                 android:text="22 DEALS"
                 android:textColor="@color/textColorPrimaryInverse"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </RelativeLayout>
 
 

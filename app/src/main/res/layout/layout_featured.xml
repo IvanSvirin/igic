@@ -24,12 +24,12 @@
             android:id="@+id/tab_header"
             style="@style/AppTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/tabLayout_height"
-            app:tabTextColor="@color/white"
+            android:layout_height="40dp"
             app:tabGravity="fill"
-            app:tabMode="fixed" />
-    </android.support.design.widget.AppBarLayout>
+            app:tabMode="fixed"
+            app:tabTextColor="@color/white" />
 
+    </android.support.design.widget.AppBarLayout>
     <com.cashback.ui.components.FixedNestedScrollView
         android:id="@+id/nested_scroll"
         android:layout_width="match_parent"

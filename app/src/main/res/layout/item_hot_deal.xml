@@ -30,7 +30,6 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
                 android:gravity="start"
-                android:paddingTop="5dp"
                 android:scaleType="fitCenter" />
 
             <TextView
@@ -131,7 +130,7 @@
         android:text="@string/btn_shop_now"
         android:textAppearance="@style/AppTheme.TextAppearance"
         android:textColor="@color/primary"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:elevation="3dp"
         android:paddingRight="24dp"

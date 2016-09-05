@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
@@ -248,6 +250,9 @@ public class BrowserDealsActivity extends AppCompatActivity {
         private void initToolbar(Activity activity) {
             ((AppCompatActivity) activity).setSupportActionBar(toolbar);
             bar = ((AppCompatActivity) activity).getSupportActionBar();
+            @ColorInt
+            int color =  -1;
+            toolbar.setSubtitleTextColor(color);
             if (bar != null) {
                 bar.setDisplayHomeAsUpEnabled(true);
                 bar.setDefaultDisplayHomeAsUpEnabled(true);
@@ -263,7 +268,7 @@ public class BrowserDealsActivity extends AppCompatActivity {
                     bar.setTitle(name);
                     float commission = cursor.getFloat(cursor.getColumnIndex(DataContract.Merchants.COLUMN_COMMISSION));
                     if (commission != 0) {
-                        bar.setSubtitle("+ " + String.valueOf(commission) + " " + getResources().getString(R.string.cash_back_percent));
+                        bar.setSubtitle(String.valueOf(commission) + " " + getResources().getString(R.string.cash_back_percent));
                     } else {
                         if (benefit == 1) {
                             bar.setSubtitle("OWNERS BENEFIT");

@@ -76,7 +76,7 @@ public class FeaturedFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        getActivity().setTitle(R.string.title_featured_fragment);
+        getActivity().setTitle("");
     }
 
     @Override
