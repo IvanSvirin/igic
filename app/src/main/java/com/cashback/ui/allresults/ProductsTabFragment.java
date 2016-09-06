@@ -238,7 +238,12 @@ public class ProductsTabFragment extends Fragment {
             Uri uri = Uri.withAppendedPath(DataContract.URI_MERCHANTS, String.valueOf(productsArray.get(position).getVendorId()));
             Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
             cursor.moveToFirst();
-            int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Merchants.COLUMN_OWNERS_BENEFIT));
+            int benefit;
+            if (cursor.getCount() != 0) {
+                benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Merchants.COLUMN_OWNERS_BENEFIT));
+            } else {
+                benefit = 0;
+            }
 
             String logoUrl = productsArray.get(position).getVendorLogoUrl();
             String productImageUrl = productsArray.get(position).getImageUrl();

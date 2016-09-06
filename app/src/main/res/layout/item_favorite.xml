@@ -120,7 +120,7 @@
         android:elevation="3dp"
         android:paddingRight="24dp"
         android:paddingLeft="@dimen/padding_standard"
-        android:paddingTop="@dimen/padding_standard"
+        android:paddingTop="@dimen/padding_small"
         android:paddingBottom="@dimen/padding_standard" />
 
 </FrameLayout>
