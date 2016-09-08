@@ -287,7 +287,7 @@ public class StoresTabFragment extends Fragment {
             picasso.load(logoUrl).into(holder.vhStoreLogo);
             boolean benefit = storesArray.get(position).isOwnersBenefit();
             if (commission != 0) {
-                holder.vhCashBack.setText("+ " + String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
+                holder.vhCashBack.setText(String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
             } else {
                 if (benefit) {
                     holder.vhCashBack.setText("OWNERS BENEFIT");

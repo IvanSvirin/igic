@@ -243,7 +243,7 @@ public class CouponsTabFragment extends Fragment {
             holder.vhRestrictions.setText(label);
             boolean benefit = couponsArray.get(position).isOwnersBenefit();
             if (commission != 0) {
-                holder.vhCashBack.setText("+ " + String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
+                holder.vhCashBack.setText(String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
             } else {
                 if (benefit) {
                     holder.vhCashBack.setText("OWNERS BENEFIT");

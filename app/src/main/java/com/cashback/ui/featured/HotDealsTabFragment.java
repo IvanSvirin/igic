@@ -286,7 +286,7 @@ public class HotDealsTabFragment extends Fragment implements LoaderManager.Loade
             holder.vhRestrictions.setText(label);
             int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.HotDeals.COLUMN_OWNERS_BENEFIT));
             if (!cashBack.equals("0")) {
-                holder.vhCashBack.setText("+ " + cashBack + "% " + context.getString(R.string.cash_back));
+                holder.vhCashBack.setText(cashBack + "% " + context.getString(R.string.cash_back));
             } else {
                 if (benefit == 1) {
                     holder.vhCashBack.setText("OWNERS BENEFIT");

@@ -255,12 +255,11 @@ public class Utilities {
     public static int hexToDec(String inputHexNumber) {
         String hexDigits = "0123456789ABCDEF";
         inputHexNumber = inputHexNumber.toUpperCase();
-        int result = 0;
-        for (int i = 0; i < inputHexNumber.length(); i++) {
-            char c = inputHexNumber.charAt(i);
-            int hexDigit = hexDigits.indexOf(c);
-            result += 16 * result + hexDigit;
-        }
+        char c = inputHexNumber.charAt(0);
+        int hexDigit = hexDigits.indexOf(c);
+        int result = 16 * hexDigit;
+        c = inputHexNumber.charAt(1);
+        result += hexDigits.indexOf(c);
         return result;
     }
 

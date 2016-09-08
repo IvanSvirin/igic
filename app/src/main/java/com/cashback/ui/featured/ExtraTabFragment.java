@@ -330,7 +330,7 @@ public class ExtraTabFragment extends Fragment implements LoaderManager.LoaderCa
             picasso.load(logoUrl).into(holder.vhStoreLogo);
             int benefit = cursor.getInt(cursor.getColumnIndex(DataContract.Extras.COLUMN_OWNERS_BENEFIT));
             if (!cashBack.equals("0")) {
-                holder.vhCashBack.setText("+ " + cashBack + "% " + context.getString(R.string.cash_back));
+                holder.vhCashBack.setText(cashBack + "% " + context.getString(R.string.cash_back));
             } else {
                 if (benefit == 1) {
                     holder.vhCashBack.setText("OWNERS BENEFIT");

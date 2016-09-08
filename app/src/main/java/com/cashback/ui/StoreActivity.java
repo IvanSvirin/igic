@@ -51,6 +51,7 @@ import com.cashback.rest.event.MerchantCouponsEvent;
 import com.cashback.rest.request.AllUsedCouponsRequest;
 import com.cashback.rest.request.FavoritesRequest;
 import com.cashback.ui.web.BrowserDealsActivity;
+import com.facebook.internal.Utility;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.squareup.picasso.Callback;
@@ -359,6 +360,16 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
                         Palette.Swatch swatch = palette.getVibrantSwatch();
                         @ColorInt
                         int color = swatch != null ? swatch.getRgb() : -7292864;
+                        String hexColor = Utilities.decToHex(color);
+                        StringBuilder redS = new StringBuilder();
+                        int blue = Utilities.hexToDec((redS.append(hexColor.charAt(6)).append(hexColor.charAt(7)).toString()));
+                        StringBuilder greenS = new StringBuilder();
+                        int green = Utilities.hexToDec((greenS.append(hexColor.charAt(4)).append(hexColor.charAt(5)).toString()));
+                        StringBuilder blueS = new StringBuilder();
+                        int red = Utilities.hexToDec((blueS.append(hexColor.charAt(2)).append(hexColor.charAt(3)).toString()));
+                        if (red > 210 && green > 210 && blue < 100) {
+                            color = 0 - 7292864;
+                        }
                         toolbar.setBackgroundColor(color);
                         bigRelativeLayout.setBackgroundColor(color);
                         storeName.setBackgroundColor(1157627903);

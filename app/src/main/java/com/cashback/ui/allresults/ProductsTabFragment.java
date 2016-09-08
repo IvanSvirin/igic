@@ -256,7 +256,7 @@ public class ProductsTabFragment extends Fragment {
             holder.vhPrice.setText("$" + String.valueOf(price) + " ($" + String.format("%.2f", (price * commission / 100)) + ")");
             holder.vhYourPriceValue.setText("$" + String.format("%.2f", (price * (100 - commission) / 100)));
             if (commission != 0) {
-                holder.vhCashBack.setText("+ " + String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
+                holder.vhCashBack.setText(String.valueOf(commission) + "% " + context.getString(R.string.cash_back));
             } else {
                 if (benefit == 1) {
                     holder.vhCashBack.setText("OWNERS BENEFIT");
